@@ -1,0 +1,19 @@
+matrix:
+  include:
+    - language: go 
+      go: 1.14.x 
+      before_script:
+        - cd backend/tests
+      script:
+        - python -m unittest discover
+
+    - language: javascript 
+      before_script:
+        - cd android/AppName
+      script:
+        - ./gradlew build connectedCheck
+
+
+notifications:
+  email:
+    - dev@athome.com.ar
