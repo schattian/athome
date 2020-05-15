@@ -1,1 +1,7 @@
-# This compose file will declare the deployment of all microservices + the frontend
+version: "3.7"
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+    - "3000:3000"
