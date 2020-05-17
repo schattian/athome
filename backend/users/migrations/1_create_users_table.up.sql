@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS users(
   surname varchar(30) not null,
   password_hash    char(60) not null
 );
+
+ALTER TABLE ONLY users ADD CONSTRAINT uq_users UNIQUE(email, role);
