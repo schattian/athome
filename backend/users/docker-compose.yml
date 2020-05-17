@@ -9,7 +9,10 @@ services:
       POSTGRES_PASSWORD: secret
 
   user:
-    build: .
+    build: 
+        args:
+          env: development
+        context: .
     command: go run main.go 
     ports:
       - "9991:9991"

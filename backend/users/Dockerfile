@@ -16,14 +16,3 @@ COPY . .
 RUN go build -o user .
 
 EXPOSE 9991
-
-# CMD if [ ${ENV} = development ]; \
-# 	then \
-#     go get github.com/pilu/fresh && \
-# 	fresh; \
-# 	else \
-# 	./user; \
-# 	fi
-
-
-# CMD ./user
