@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/athomecomar/athome/users/userconf"
+	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql/name"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jmoiron/sqlx"

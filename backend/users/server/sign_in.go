@@ -3,11 +3,11 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/users/ent"
+	"github.com/athomecomar/athome/backend/users/ent"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/athomecomar/athome/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/pkg/errors"
 )
 
@@ -48,5 +48,12 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 }
 
 func userToSignInUser(user *ent.User) *pbuser.SignInUser {
-	return &pbuser.SignInUser{Token: user.PasswordHash, Role: string(user.Role)}
+	return &pbuser.SignInUser{
+		Id:      user.Id,
+		Token:   user.PasswordHash,
+		Email:   string(user.Email),
+		Role:    string(user.Role),
+		Name:    string(user.Name),
+		Surname: string(user.Surname),
+	}
 }

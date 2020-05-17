@@ -4,9 +4,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/users/pb/pbuser"
-	"github.com/athomecomar/athome/users/server"
-	"github.com/athomecomar/athome/users/userconf"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/server"
+	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )

@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/athomecomar/athome/users/ent/field"
-	"github.com/athomecomar/athome/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"google.golang.org/grpc"
 )
 
@@ -25,6 +25,7 @@ func main() {
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+
 	signUp(ctx, c)
 	signIn(ctx, c)
 	defer cancel()
