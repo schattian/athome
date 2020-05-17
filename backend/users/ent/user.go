@@ -1,7 +1,9 @@
 package ent
 
 import (
-	"github.com/athomecomar/athome/users/ent/field"
+	"encoding/json"
+
+	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/xerrors"
 )
 
@@ -15,6 +17,11 @@ type User struct {
 	Surname field.Surname `json:"surname,omitempty"`
 
 	Role field.Role `json:"role,omitempty"`
+}
+
+func (u *User) String() string {
+	s, _ := json.Marshal(u)
+	return string(s)
 }
 
 func (u *User) GetId() int64 {
