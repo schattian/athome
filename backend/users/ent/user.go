@@ -23,30 +23,6 @@ func (u *User) String() string {
 	s, _ := json.Marshal(u)
 	return string(s)
 }
-
-func (u *User) GetId() int64 {
-	return u.Id
-}
-
-func (u *User) SetId(id int64) {
-	u.Id = id
-}
-
-func (u *User) SQLTable() string {
-	return "users"
-}
-
-func (u *User) SQLColumns() []string {
-	return []string{
-		"id",
-		"email",
-		"password_hash",
-		"role",
-		"name",
-		"surname",
-	}
-}
-
 func (u *User) Validate() *xerrors.Errors {
 	errs := xerrors.NewErrors()
 	for _, field := range []Validable{u.Email, u.Role, u.Name, u.Surname, u.Role} {
