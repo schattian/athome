@@ -1,3 +1,0 @@
-#!/bin/bash
-cd pb
-protoc -I . ./user.proto --go_out=plugins=grpc:. --js_out=library=pb_user,binary:pbjs
