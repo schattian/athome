@@ -4,12 +4,13 @@ go 1.14
 
 require (
 	github.com/athomecomar/envconf v1.0.0
-	github.com/athomecomar/storeql v1.0.2
-	github.com/athomecomar/xerrors v1.0.1
+	github.com/athomecomar/storeql v1.1.0
+	github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58
 	github.com/golang-migrate/migrate/v4 v4.11.0
 	github.com/golang/protobuf v1.4.2
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.5.2
+	github.com/omeid/pgerror v0.0.0-20200121005125-8254ae5f5ba0
 	github.com/pkg/errors v0.9.1
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	golang.org/x/net v0.0.0-20200513185701-a91f0712d120 // indirect

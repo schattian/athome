@@ -9,6 +9,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/storeql"
 	_ "github.com/lib/pq"
+	"github.com/omeid/pgerror"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -26,13 +27,15 @@ func (s *Server) SignUp(ctx context.Context, in *pbuser.SignUpRequest) (*pbuser.
 	if err != nil {
 		return nil, errors.Wrap(err, "signUpUserToUser")
 	}
-	err = storeql.InsertIntoDB(ctx, db, user)
+	pqErr := storeql.InsertIntoDB(ctx, db, user)
+	if pqErr.Is(pgerror.UniqueViolation) {
+		return nil, errors.New("Ya existe un usuario con esa combinación de rol y email")
+	}
 	if err != nil {
 		return nil, errors.Wrap(err, "storeql.InsertIntoDB")
 	}
 	return &pbuser.SignUpResponse{User: userToSignInUser(user)}, nil
 }
-
 func passwordHash(pwd string) (string, error) {
 	ph, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	if err != nil {
