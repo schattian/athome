@@ -1,9 +1,0 @@
-#!/bin/sh
-# $1 is the complete database url, with scheme 
-# $2 is the action to take (up|down|drop|goto|force) 
-# $3 is the version optional params in case of giving goto or force
-
-DIR=$(dirname "$0")
-cd $DIR/..
-
-migrate -database $1 -path migrations $2 $3
