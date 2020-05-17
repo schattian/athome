@@ -35,6 +35,8 @@ github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRF
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/athomecomar/envconf v1.0.0 h1:gTzOXgh3rz1ylVpHwZCSFaPm2FlXS02sGoQVjJSf1t0=
 github.com/athomecomar/envconf v1.0.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
+github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
+github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.1.0 h1:B+gZLQnYgO5HV4uksDHcMHXwIc6HkVsV2L/5z+bsoiY=
 github.com/athomecomar/storeql v1.1.0/go.mod h1:m50GeTulV5UVxvm4i0NM+tb7MiSKHeA0El8feuCbvpA=
 github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58 h1:3XlyyCdmgZhJb/9b/0agT8WrNzFPVTgh/OWRW8ocgtI=

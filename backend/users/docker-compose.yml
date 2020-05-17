@@ -1,14 +1,13 @@
 version: "3"
 services:
   db:
+    env_file: ./build/db/dev.env 
     image: postgres:12
     volumes:
       - postgres:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secret
 
-  user:
+  svc:
+    env_file: ./build/svc/dev.env 
     build: 
         args:
           env: development

@@ -2,6 +2,7 @@ package userconf
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/athomecomar/envconf"
 )
@@ -25,13 +26,11 @@ func GetDATABASE_NAME() (db string) {
 }
 
 func GetDATABASE_USER() (user string) {
-	switch envconf.GetENV() {
-	case envconf.Development:
-		user = "postgres"
-	case envconf.Staging, envconf.Production:
-		user = "postgres"
+	user = os.Getenv("POSTGRES_USER")
+	if user == "postgres" && envconf.NotInDevelopment() {
+		panic("default db user given on non-local env")
 	}
-	return
+	return ""
 }
 
 func GetDATABASE_HOST() (host string) {
@@ -39,7 +38,13 @@ func GetDATABASE_HOST() (host string) {
 }
 
 func GetDATABASE_PASSWORD() (pwd string) {
-	return "secret"
+	pwd = os.Getenv("POSTGRES_PASSWORD")
+	if pwd == "" && envconf.NotInDevelopment() {
+		if pwd == "" {
+			panic("nil db pwd given")
+		}
+	}
+	return
 }
 
 func GetDATABASE_SRC() string {

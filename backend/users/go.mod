@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/users
 go 1.14
 
 require (
-	github.com/athomecomar/envconf v1.0.0
+	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.1.0
 	github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58
 	github.com/golang-migrate/migrate/v4 v4.11.0
