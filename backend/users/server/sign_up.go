@@ -4,9 +4,9 @@ import (
 	"context"
 	"strings"
 
-	"github.com/athomecomar/athome/users/ent"
-	"github.com/athomecomar/athome/users/ent/field"
-	"github.com/athomecomar/athome/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/storeql"
 	_ "github.com/lib/pq"
 	"github.com/pkg/errors"
@@ -26,13 +26,11 @@ func (s *Server) SignUp(ctx context.Context, in *pbuser.SignUpRequest) (*pbuser.
 	if err != nil {
 		return nil, errors.Wrap(err, "signUpUserToUser")
 	}
-
 	err = storeql.InsertIntoDB(ctx, db, user)
 	if err != nil {
 		return nil, errors.Wrap(err, "storeql.InsertIntoDB")
 	}
-
-	return &pbuser.SignUpResponse{}, nil
+	return &pbuser.SignUpResponse{User: userToSignInUser(user)}, nil
 }
 
 func passwordHash(pwd string) (string, error) {
