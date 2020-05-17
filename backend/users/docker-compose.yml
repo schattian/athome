@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+
+  user:
+    build: .
+    command: go run main.go 
+    ports:
+      - "9991:9991"
+    volumes:
+      - .:/user
+    environment:
+      GRPC_GO_LOG_VERBOSITY_LEVEL: 99
+      GRPC_GO_LOG_SEVERITY_LEVEL: info
+    depends_on:
+      - db   
+
+volumes:
+  postgres:
