@@ -19,11 +19,12 @@ message SignInResponse {
 }
 
 message SignInUser {
-  string token = 1;
-  string role = 2;
-  string name = 3;
-  string surname = 4;
-  string email = 5;
+  int64 id = 1;
+  string token = 2;
+  string role = 3; 
+  string name = 4;
+  string surname = 5;
+  string email = 6;
 }
 
 message SignUpRequest {

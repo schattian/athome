@@ -476,11 +476,12 @@ proto.user.SignInUser.prototype.toObject = function(opt_includeInstance) {
  */
 proto.user.SignInUser.toObject = function(includeInstance, msg) {
   var f, obj = {
-    token: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    role: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    surname: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    email: jspb.Message.getFieldWithDefault(msg, 5, "")
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    token: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    role: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    name: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    surname: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    email: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -518,22 +519,26 @@ proto.user.SignInUser.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setToken(value);
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setRole(value);
+      msg.setToken(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setRole(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setSurname(value);
+      msg.setName(value);
       break;
     case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSurname(value);
+      break;
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setEmail(value);
       break;
@@ -566,38 +571,45 @@ proto.user.SignInUser.prototype.serializeBinary = function() {
  */
 proto.user.SignInUser.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getToken();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeInt64(
       1,
       f
     );
   }
-  f = message.getRole();
+  f = message.getToken();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getName();
+  f = message.getRole();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getSurname();
+  f = message.getName();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = message.getEmail();
+  f = message.getSurname();
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
       f
     );
   }
@@ -605,28 +617,28 @@ proto.user.SignInUser.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string token = 1;
+ * optional int64 id = 1;
+ * @return {number}
+ */
+proto.user.SignInUser.prototype.getId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.user.SignInUser} returns this
+ */
+proto.user.SignInUser.prototype.setId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional string token = 2;
  * @return {string}
  */
 proto.user.SignInUser.prototype.getToken = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.user.SignInUser} returns this
- */
-proto.user.SignInUser.prototype.setToken = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string role = 2;
- * @return {string}
- */
-proto.user.SignInUser.prototype.getRole = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -635,16 +647,16 @@ proto.user.SignInUser.prototype.getRole = function() {
  * @param {string} value
  * @return {!proto.user.SignInUser} returns this
  */
-proto.user.SignInUser.prototype.setRole = function(value) {
+proto.user.SignInUser.prototype.setToken = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
+ * optional string role = 3;
  * @return {string}
  */
-proto.user.SignInUser.prototype.getName = function() {
+proto.user.SignInUser.prototype.getRole = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -653,16 +665,16 @@ proto.user.SignInUser.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.user.SignInUser} returns this
  */
-proto.user.SignInUser.prototype.setName = function(value) {
+proto.user.SignInUser.prototype.setRole = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string surname = 4;
+ * optional string name = 4;
  * @return {string}
  */
-proto.user.SignInUser.prototype.getSurname = function() {
+proto.user.SignInUser.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -671,16 +683,16 @@ proto.user.SignInUser.prototype.getSurname = function() {
  * @param {string} value
  * @return {!proto.user.SignInUser} returns this
  */
-proto.user.SignInUser.prototype.setSurname = function(value) {
+proto.user.SignInUser.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional string email = 5;
+ * optional string surname = 5;
  * @return {string}
  */
-proto.user.SignInUser.prototype.getEmail = function() {
+proto.user.SignInUser.prototype.getSurname = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
@@ -689,8 +701,26 @@ proto.user.SignInUser.prototype.getEmail = function() {
  * @param {string} value
  * @return {!proto.user.SignInUser} returns this
  */
-proto.user.SignInUser.prototype.setEmail = function(value) {
+proto.user.SignInUser.prototype.setSurname = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional string email = 6;
+ * @return {string}
+ */
+proto.user.SignInUser.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.user.SignInUser} returns this
+ */
+proto.user.SignInUser.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
