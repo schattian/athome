@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/athomecomar/athome/users/ent/field"
 	"github.com/athomecomar/athome/users/pb/pbuser"
 	"google.golang.org/grpc"
 )
@@ -24,18 +25,25 @@ func main() {
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	signUp(ctx, c)
+	signIn(ctx, c)
 	defer cancel()
-	// signUp, err := c.SignUp(ctx, &pbuser.SignUpRequest{
-	// 	Email: "foo@bar.com", Password: "foobarbaz", Name: "quux", Surname: "baz", Role: string(field.ServiceProvider),
-	// })
-	// if err != nil {
-	// 	log.Fatalf("SignUp: %v", err)
-	// }
-	// log.Println(signUp)
+}
 
+func signIn(ctx context.Context, c pbuser.UserClient) {
 	signIn, err := c.SignIn(ctx, &pbuser.SignInRequest{Email: "foo@bar.com", Password: "foobarbaz"})
 	if err != nil {
 		log.Fatalf("SignIn: %v", err)
 	}
 	log.Println(signIn)
+}
+
+func signUp(ctx context.Context, c pbuser.UserClient) {
+	signUp, err := c.SignUp(ctx, &pbuser.SignUpRequest{
+		Email: "foo@bar.com", Password: "foobarbaz", Name: "quux", Surname: "baz", Role: string(field.ServiceProvider),
+	})
+	if err != nil {
+		log.Fatalf("SignUp: %v", err)
+	}
+	log.Println(signUp)
 }
