@@ -36,7 +36,12 @@ func (s *Server) SignUp(ctx context.Context, in *pbuser.SignUpRequest) (*pbuser.
 	}
 	return &pbuser.SignUpResponse{User: userToSignInUser(user)}, nil
 }
+
 func passwordHash(pwd string) (string, error) {
+	err := field.Password(pwd).Validate()
+	if err != nil {
+		return "", errors.Wrap(err, "password.Validate")
+	}
 	ph, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	if err != nil {
 		return "", errors.Wrap(err, "bcrypt.GenerateFromPassword")
