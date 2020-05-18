@@ -35,10 +35,14 @@ func (s *Server) AlreadyExists(ctx context.Context, in *pbuser.AlreadyExistsRequ
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
+	defer rows.Close()
+
 	var count int64
-	err = rows.Scan(&count)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "rows.Scan: %v", err)
+	for rows.Next() {
+		err = rows.Scan(&count)
+		if err != nil {
+			return nil, status.Errorf(xerrors.Internal, "rows.Scan: %v", err)
+		}
 	}
 	return &pbuser.AlreadyExistsResponse{Exists: count > 0}, nil
 }
