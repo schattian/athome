@@ -1,5 +1,0 @@
-#!/bin/sh
-DIR=$(dirname "$0")
-cd $DIR/../pb
-
-protoc -I . ./user.proto --go_out=plugins=grpc:. --js_out=library=pb_user,binary:pbjs

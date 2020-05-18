@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/pkg/errors"
 )
 

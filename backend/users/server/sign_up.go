@@ -6,7 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
 	"github.com/athomecomar/storeql"
 	_ "github.com/lib/pq"
 	"github.com/omeid/pgerror"
