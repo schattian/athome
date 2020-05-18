@@ -30,7 +30,7 @@ func GetDATABASE_USER() (user string) {
 	if user == "postgres" && envconf.NotInDevelopment() {
 		panic("default db user given on non-local env")
 	}
-	return ""
+	return
 }
 
 func GetDATABASE_HOST() (host string) {
