@@ -344,6 +344,108 @@ func (x *SignUpResponse) GetUser() *SignInUser {
 	return nil
 }
 
+type AlreadyExistsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Role  string `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
+}
+
+func (x *AlreadyExistsRequest) Reset() {
+	*x = AlreadyExistsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AlreadyExistsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlreadyExistsRequest) ProtoMessage() {}
+
+func (x *AlreadyExistsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlreadyExistsRequest.ProtoReflect.Descriptor instead.
+func (*AlreadyExistsRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AlreadyExistsRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *AlreadyExistsRequest) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type AlreadyExistsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Exists bool `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
+}
+
+func (x *AlreadyExistsResponse) Reset() {
+	*x = AlreadyExistsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AlreadyExistsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlreadyExistsResponse) ProtoMessage() {}
+
+func (x *AlreadyExistsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlreadyExistsResponse.ProtoReflect.Descriptor instead.
+func (*AlreadyExistsResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AlreadyExistsResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 var file_user_proto_rawDesc = []byte{
@@ -376,14 +478,26 @@ var file_user_proto_rawDesc = []byte{
 	0x6d, 0x65, 0x22, 0x36, 0x0a, 0x0e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x24, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x10, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e,
-	0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x32, 0x74, 0x0a, 0x04, 0x55, 0x73,
-	0x65, 0x72, 0x12, 0x35, 0x0a, 0x06, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x12, 0x13, 0x2e, 0x75,
-	0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x14, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x35, 0x0a, 0x06, 0x53, 0x69, 0x67,
-	0x6e, 0x55, 0x70, 0x12, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55,
-	0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e,
-	0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
+	0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x40, 0x0a, 0x14, 0x41, 0x6c,
+	0x72, 0x65, 0x61, 0x64, 0x79, 0x45, 0x78, 0x69, 0x73, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x6f, 0x6c, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x22, 0x2f, 0x0a, 0x15,
+	0x41, 0x6c, 0x72, 0x65, 0x61, 0x64, 0x79, 0x45, 0x78, 0x69, 0x73, 0x74, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x32, 0xc0, 0x01,
+	0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x35, 0x0a, 0x06, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e,
+	0x12, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67,
+	0x6e, 0x49, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x35, 0x0a,
+	0x06, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x53,
+	0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x75,
+	0x73, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x00, 0x12, 0x4a, 0x0a, 0x0d, 0x41, 0x6c, 0x72, 0x65, 0x61, 0x64, 0x79, 0x45,
+	0x78, 0x69, 0x73, 0x74, 0x73, 0x12, 0x1a, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x41, 0x6c, 0x72,
+	0x65, 0x61, 0x64, 0x79, 0x45, 0x78, 0x69, 0x73, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x1b, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x41, 0x6c, 0x72, 0x65, 0x61, 0x64, 0x79,
+	0x45, 0x78, 0x69, 0x73, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
 	0x42, 0x0d, 0x5a, 0x0b, 0x2e, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x62, 0x75, 0x73, 0x65, 0x72, 0x62,
 	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
@@ -400,23 +514,27 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_user_proto_goTypes = []interface{}{
-	(*SignInRequest)(nil),  // 0: user.SignInRequest
-	(*SignInResponse)(nil), // 1: user.SignInResponse
-	(*SignInUser)(nil),     // 2: user.SignInUser
-	(*SignUpRequest)(nil),  // 3: user.SignUpRequest
-	(*SignUpResponse)(nil), // 4: user.SignUpResponse
+	(*SignInRequest)(nil),         // 0: user.SignInRequest
+	(*SignInResponse)(nil),        // 1: user.SignInResponse
+	(*SignInUser)(nil),            // 2: user.SignInUser
+	(*SignUpRequest)(nil),         // 3: user.SignUpRequest
+	(*SignUpResponse)(nil),        // 4: user.SignUpResponse
+	(*AlreadyExistsRequest)(nil),  // 5: user.AlreadyExistsRequest
+	(*AlreadyExistsResponse)(nil), // 6: user.AlreadyExistsResponse
 }
 var file_user_proto_depIdxs = []int32{
 	2, // 0: user.SignInResponse.users:type_name -> user.SignInUser
 	2, // 1: user.SignUpResponse.user:type_name -> user.SignInUser
 	0, // 2: user.User.SignIn:input_type -> user.SignInRequest
 	3, // 3: user.User.SignUp:input_type -> user.SignUpRequest
-	1, // 4: user.User.SignIn:output_type -> user.SignInResponse
-	4, // 5: user.User.SignUp:output_type -> user.SignUpResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
+	5, // 4: user.User.AlreadyExists:input_type -> user.AlreadyExistsRequest
+	1, // 5: user.User.SignIn:output_type -> user.SignInResponse
+	4, // 6: user.User.SignUp:output_type -> user.SignUpResponse
+	6, // 7: user.User.AlreadyExists:output_type -> user.AlreadyExistsResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -488,6 +606,30 @@ func file_user_proto_init() {
 				return nil
 			}
 		}
+		file_user_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AlreadyExistsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AlreadyExistsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -495,7 +637,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -523,6 +665,7 @@ const _ = grpc.SupportPackageIsVersion6
 type UserClient interface {
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
 	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResponse, error)
+	AlreadyExists(ctx context.Context, in *AlreadyExistsRequest, opts ...grpc.CallOption) (*AlreadyExistsResponse, error)
 }
 
 type userClient struct {
@@ -551,10 +694,20 @@ func (c *userClient) SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc
 	return out, nil
 }
 
+func (c *userClient) AlreadyExists(ctx context.Context, in *AlreadyExistsRequest, opts ...grpc.CallOption) (*AlreadyExistsResponse, error) {
+	out := new(AlreadyExistsResponse)
+	err := c.cc.Invoke(ctx, "/user.User/AlreadyExists", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 type UserServer interface {
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
 	SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error)
+	AlreadyExists(context.Context, *AlreadyExistsRequest) (*AlreadyExistsResponse, error)
 }
 
 // UnimplementedUserServer can be embedded to have forward compatible implementations.
@@ -566,6 +719,9 @@ func (*UnimplementedUserServer) SignIn(context.Context, *SignInRequest) (*SignIn
 }
 func (*UnimplementedUserServer) SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
+}
+func (*UnimplementedUserServer) AlreadyExists(context.Context, *AlreadyExistsRequest) (*AlreadyExistsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AlreadyExists not implemented")
 }
 
 func RegisterUserServer(s *grpc.Server, srv UserServer) {
@@ -608,6 +764,24 @@ func _User_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_AlreadyExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlreadyExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).AlreadyExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.User/AlreadyExists",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).AlreadyExists(ctx, req.(*AlreadyExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _User_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "user.User",
 	HandlerType: (*UserServer)(nil),
@@ -619,6 +793,10 @@ var _User_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SignUp",
 			Handler:    _User_SignUp_Handler,
+		},
+		{
+			MethodName: "AlreadyExists",
+			Handler:    _User_AlreadyExists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

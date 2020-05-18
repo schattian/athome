@@ -7,6 +7,8 @@ package user;
 service User {
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
   rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
+
+  rpc AlreadyExists (AlreadyExistsRequest) returns (AlreadyExistsResponse) {}
 }
 
 message SignInRequest {
@@ -39,3 +41,11 @@ message SignUpResponse {
   SignInUser user = 1;
 }
 
+message AlreadyExistsRequest {
+  string email = 1;
+  string role = 2;
+}
+
+message AlreadyExistsResponse {
+  bool exists = 1;
+}
