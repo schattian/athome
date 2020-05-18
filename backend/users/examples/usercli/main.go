@@ -26,14 +26,14 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 
-	signUp(ctx, c)
-	signIn(ctx, c)
+	// signUp(ctx, c)
+	// signIn(ctx, c)
 	alreadyExists(ctx, c)
 	defer cancel()
 }
 
 func alreadyExists(ctx context.Context, c pbuser.UserClient) {
-	alreadyExists, err := c.AlreadyExists(ctx, &pbuser.AlreadyExistsRequest{Email: "foo@bar.com", Role: "foobarbaz"})
+	alreadyExists, err := c.AlreadyExists(ctx, &pbuser.AlreadyExistsRequest{Email: "foo@bar.com", Role: "service-provider"})
 	if err != nil {
 		log.Fatalf("AlreadyExists: %v", err)
 	}
