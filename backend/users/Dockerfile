@@ -7,8 +7,8 @@ ARG env=development
 ENV ENV $env
 WORKDIR /user
 
+COPY pbgo ./pbgo
 COPY go.* ./
-
 RUN go mod download
 
 COPY . .
