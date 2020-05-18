@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
+	"github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
