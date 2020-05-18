@@ -28,7 +28,16 @@ func main() {
 
 	signUp(ctx, c)
 	signIn(ctx, c)
+	alreadyExists(ctx, c)
 	defer cancel()
+}
+
+func alreadyExists(ctx context.Context, c pbuser.UserClient) {
+	alreadyExists, err := c.AlreadyExists(ctx, &pbuser.AlreadyExistsRequest{Email: "foo@bar.com", Role: "foobarbaz"})
+	if err != nil {
+		log.Fatalf("AlreadyExists: %v", err)
+	}
+	log.Println(alreadyExists)
 }
 
 func signIn(ctx context.Context, c pbuser.UserClient) {
