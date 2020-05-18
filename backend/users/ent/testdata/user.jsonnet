@@ -1,5 +1,8 @@
 {
-    foo:{
-        email: "foo@test.com",
-    },
+  foo: {
+    email: 'foo@test.com',
+    name: 'foobar',
+    surname: 'baz',
+    role: 'service-provider',
+  },
 }

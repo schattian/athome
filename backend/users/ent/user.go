@@ -23,6 +23,7 @@ func (u *User) String() string {
 	s, _ := json.Marshal(u)
 	return string(s)
 }
+
 func (u *User) Validate() *xerrors.Errors {
 	errs := xerrors.NewErrors()
 	for _, field := range []Validable{u.Email, u.Role, u.Name, u.Surname, u.Role} {
