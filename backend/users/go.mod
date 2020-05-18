@@ -6,7 +6,7 @@ require (
 	github.com/athomecomar/athomecomar/athome/pb/go v0.0.0
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.1.0
-	github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58
+	github.com/athomecomar/xerrors v1.2.1
 	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813
 	github.com/golang-migrate/migrate/v4 v4.11.0
 	github.com/golang/protobuf v1.4.2 // indirect
@@ -20,7 +20,6 @@ require (
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
 	google.golang.org/genproto v0.0.0-20200515170657-fc4c6c6a6587 // indirect
 	google.golang.org/grpc v1.29.1
-	google.golang.org/protobuf v1.23.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
 

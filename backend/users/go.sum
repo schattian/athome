@@ -37,8 +37,8 @@ github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCP
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.1.0 h1:B+gZLQnYgO5HV4uksDHcMHXwIc6HkVsV2L/5z+bsoiY=
 github.com/athomecomar/storeql v1.1.0/go.mod h1:m50GeTulV5UVxvm4i0NM+tb7MiSKHeA0El8feuCbvpA=
-github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58 h1:3XlyyCdmgZhJb/9b/0agT8WrNzFPVTgh/OWRW8ocgtI=
-github.com/athomecomar/xerrors v1.1.1-0.20200517202822-060c4da30e58/go.mod h1:SZCU7m+WSVAth8MVs946uGeS+BhetUaE4m3HyXfK5LM=
+github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=
+github.com/athomecomar/xerrors v1.2.1/go.mod h1:Ira4CbX2hG2tS0Fc9ShSV3Et1pgf/uqGgb2SgB507IE=
 github.com/aws/aws-sdk-go v1.17.7/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/bitly/go-hostpool v0.0.0-20171023180738-a3a6125de932/go.mod h1:NOuUCSz6Q9T7+igc/hlvDOUdtWKryOrtFyIVABv/p7k=
@@ -275,6 +275,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
+github.com/stretchr/testify v1.5.1 h1:nOGnQDM7FYENwehXlg/kFVnos3rEvtKTjRvOWSzb6H4=
+github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/xanzy/go-gitlab v0.15.0/go.mod h1:8zdQa/ri1dfn8eS3Ir1SyfvOKlw7WBJ8DVThkpGiXrs=
 github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c/go.mod h1:lB8K/P019DLNhemzwFU4jHLhdvlE6uDZjXFejJXr49I=
