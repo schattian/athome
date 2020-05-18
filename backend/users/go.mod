@@ -24,6 +24,6 @@ require (
 )
 
 replace (
-	github.com/athomecomar/athomecomar/athome/pb/go => ../../pb/go
+	github.com/athomecomar/athomecomar/athome/pb/go => ./pbgo
 	google.golang.org/grpc => github.com/grpc/grpc-go v1.29.1
 )
