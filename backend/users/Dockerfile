@@ -5,10 +5,10 @@ LABEL maintainer="Sebastián Chamena <sebachamena@gmail.com>"
 ARG env=development
 
 ENV ENV $env
-WORKDIR /user
+WORKDIR /users
 
-COPY pbgo ./pbgo
 COPY go.* ./
+
 RUN go mod download
 
 COPY . .

@@ -1,27 +1,27 @@
-version: "3"
+version: "3.7"
 services:
-  db:
+  users_db:
     env_file: ./build/db/dev.env 
     image: postgres:12
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - users_db:/var/lib/postgresql/data
 
-  svc:
+  users_svc:
     env_file: ./build/svc/dev.env 
     build: 
         args:
           env: development
         context: .
-    command: go run main.go 
-    ports:
-      - "9991:9991"
+    command: ls
     volumes:
       - .:/user
     environment:
       GRPC_GO_LOG_VERBOSITY_LEVEL: 99
       GRPC_GO_LOG_SEVERITY_LEVEL: info
+    ports:
+      - "9991:9991"
     depends_on:
-      - db   
+      - users_db   
 
 volumes:
-  postgres:
+  users_db:
