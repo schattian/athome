@@ -1,0 +1,15 @@
+#!/bin/sh
+DIR=$(dirname "$0")
+cd $DIR
+
+echo "Wanna build? [y/N]: "
+read build
+
+build=${build:-n}
+
+if [ $build = "y" ]
+then
+    docker-compose build --parallel
+fi
+
+docker-compose up -d

@@ -1,0 +1,26 @@
+#!/bin/sh
+DIR=$(dirname "$0")
+cd $DIR
+
+echo "Wanna remove orphans? [Y/n]: "
+read orphans
+
+echo "Wanna remove volumes? [y/N]: "
+read volumes
+
+volumes=${volumes:-n}
+orphans=${orphans:-y}
+
+cmd="docker-compose down"
+
+if [ $orphans = "y" ]
+then
+    cmd="$cmd --remove-orphans"
+fi
+
+if [ $volumes = "y" ]
+then
+	cmd="$cmd -v"
+fi
+
+$cmd
