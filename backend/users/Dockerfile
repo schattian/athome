@@ -10,14 +10,18 @@ RUN go mod download
 
 COPY . .
 
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./migrate ./migrations
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./users .
 
 FROM scratch
 
-COPY --from=builder /users/users /users
+WORKDIR /users
 
-COPY ./migrate /migrate 
+COPY --from=builder /users/users ./users
+COPY --from=builder /users/migrate ./migrate
+
+COPY ./migrations/*.sql ./migrations/
 
 EXPOSE 9991
 
-CMD ["/users"]
+CMD ["/users/users"]
