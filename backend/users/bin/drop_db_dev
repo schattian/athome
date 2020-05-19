@@ -1,2 +1,3 @@
 #!/bin/sh
-docker-compose exec -T db psql -U postgres -c "drop database user_dev"
+cd ../../
+docker-compose exec -T users_db psql -U postgres -c "drop database user_dev"
