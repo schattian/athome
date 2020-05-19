@@ -3,7 +3,6 @@ module github.com/athomecomar/athome/backend/users
 go 1.14
 
 require (
-	github.com/athomecomar/athomecomar/athome/pb/go v0.0.0
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.1.0
 	github.com/athomecomar/xerrors v1.2.1
@@ -23,7 +22,4 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
 
-replace (
-	github.com/athomecomar/athomecomar/athome/pb/go => ./pbgo
-	google.golang.org/grpc => github.com/grpc/grpc-go v1.29.1
-)
+replace google.golang.org/grpc => github.com/grpc/grpc-go v1.29.1

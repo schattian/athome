@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./go/pbuser";
+option go_package = "../backend/users/pbuser";
 
 package user;
 
