@@ -45,8 +45,8 @@ message SignUpResponse {
 }
 
 message AlreadyExistsRequest {
-  string email = 1;
-  string role = 2;
+  string email = 1 [(validate.rules).string = {email: true} ];
+  string role = 2 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
 }
 
 message AlreadyExistsResponse {
