@@ -13,6 +13,6 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o user .
+RUN go build -o users .
 
 EXPOSE 9991
