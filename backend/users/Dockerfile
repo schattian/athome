@@ -16,6 +16,8 @@ FROM scratch
 
 COPY --from=builder /users/users /users
 
+COPY ./migrate /migrate 
+
 EXPOSE 9991
 
 CMD ["/users"]
