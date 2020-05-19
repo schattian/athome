@@ -7,7 +7,6 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
 	_ "github.com/lib/pq"
 )
 

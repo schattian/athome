@@ -1,6 +1,6 @@
 package server
 
-import "github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
+import "github.com/athomecomar/athome/backend/users/pbuser"
 
 type Server struct {
 	pbuser.UnimplementedUserServer

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athomecomar/athome/pb/go/pbuser"
+	"github.com/athomecomar/athome/backend/users/pbuser"
 	"google.golang.org/grpc"
 )
 
