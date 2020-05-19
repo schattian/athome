@@ -1,6 +1,9 @@
 syntax = "proto3";
 
-option go_package = "../backend/users/pbuser";
+import "validate/validate.proto";
+// import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+option go_package = "./pbuser";
 
 package user;
 
@@ -12,8 +15,8 @@ service User {
 }
 
 message SignInRequest {
-  string email = 1;
-  string password = 2;
+  string email = 1 [(validate.rules).string = {email: true}];
+  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
 }
 
 message SignInResponse {
@@ -30,11 +33,11 @@ message SignInUser {
 }
 
 message SignUpRequest {
-  string email = 1;
-  string password = 2;
-  string role = 3;
-  string name = 4;
-  string surname = 5;
+  string email = 1 [(validate.rules).string = {email: true} ];
+  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
+  string role = 3 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
+  string name = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string surname = 5 [(validate.rules).string = {min_len: 2, max_len: 30}];
 }
 
 message SignUpResponse {
