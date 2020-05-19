@@ -6,7 +6,7 @@ protoc \
   -I . \
   -I ${GOPATH}/src \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
-  --go_out="../backend/users/" \
+  --go_out="plugins=grpc:../backend/users/" \
   --js_out="library=pb_user,binary:js" \
   --validate_out="lang=go:../backend/users/" \
   user.proto
