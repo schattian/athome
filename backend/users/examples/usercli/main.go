@@ -33,11 +33,11 @@ func main() {
 }
 
 func alreadyExists(ctx context.Context, c pbuser.UserClient) {
-	alreadyExists, err := c.AlreadyExists(ctx, &pbuser.AlreadyExistsRequest{Email: "foo@bar.com", Role: "service-provider"})
+	alreadyExists, err := c.AlreadyExists(ctx, &pbuser.AlreadyExistsRequest{Email: "foobar.com", Role: "service-provider"})
 	if err != nil {
 		log.Fatalf("AlreadyExists: %v", err)
 	}
-	log.Println(alreadyExists)
+	log.Println(alreadyExists.Exists)
 }
 
 func signIn(ctx context.Context, c pbuser.UserClient) {
