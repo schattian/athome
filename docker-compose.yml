@@ -13,11 +13,8 @@ services:
 
   users_svc:
     env_file: backend/users/build/svc/dev.env
-    #    command: /users/users
     build:
       context: backend/users
-      #    volumes:
-     #- ./backend/users/:/users
     ports:
       - "9991:9991"
     depends_on:
