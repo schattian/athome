@@ -17,8 +17,11 @@ services:
       context: backend/users
     ports:
       - "9991:9991"
+    volumes:
+      - ./backend/users/migrations:/users/migrations
     depends_on:
       - users_db
 
 volumes:
   users_db:
+  users_svc:
