@@ -5,6 +5,8 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/xerrors"
+	"github.com/pkg/errors"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -17,6 +19,15 @@ type User struct {
 	Surname field.Surname `json:"surname,omitempty"`
 
 	Role field.Role `json:"role,omitempty"`
+}
+
+func (u *User) AssignPassword(pwd string) error {
+	hash, err := passwordHash(pwd)
+	if err != nil {
+		return errors.Wrap(err, "passwordHash")
+	}
+	u.PasswordHash = hash
+	return nil
 }
 
 func (u *User) String() string {
@@ -35,4 +46,12 @@ func (u *User) Validate() *xerrors.Errors {
 		return errs
 	}
 	return nil
+}
+
+func passwordHash(pwd string) (string, error) {
+	ph, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+	if err != nil {
+		return "", errors.Wrap(err, "bcrypt.GenerateFromPassword")
+	}
+	return string(ph), nil
 }
