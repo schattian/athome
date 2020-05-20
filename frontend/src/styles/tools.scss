@@ -1,0 +1,66 @@
+//////////////////////
+// general app declaration
+//////////////////////
+$PurpleHaze: #7d7098;
+
+@mixin grid(
+  $gap: 10px,
+  $justify: initial,
+  $alignItems: initial,
+  $template-cols: initial,
+  $template-rows: initial,
+  $areas: initial
+) {
+  display: grid;
+  grid-gap: $gap;
+  justify-content: $justify;
+  align-items: $alignItems;
+  grid-template-columns: $template-cols;
+  grid-template-rows: $template-rows;
+  grid-template-areas: $areas;
+}
+button {
+  border: none;
+  background: transparent;
+  outline: none;
+  :hover {
+    cursor: pointer;
+  }
+}
+
+// @mixin clean-button {
+//   border: none;
+//   background: transparent;
+//   :focus {
+//     outline: 0;
+//   }
+// }
+
+@mixin xs {
+  @media (max-width: 566px) {
+    @content;
+  }
+}
+@mixin uptoSm {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+@mixin uptoMd {
+  @media (max-width: 960px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (max-width: 1920px) {
+    @content;
+  }
+}
+

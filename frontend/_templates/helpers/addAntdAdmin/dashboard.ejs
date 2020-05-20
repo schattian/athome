@@ -1,0 +1,147 @@
+---
+to: src/screens/<%= h.changeCase.lcFirst(name) %>/<%= h.changeCase.lcFirst(name) %>.js
+---
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import Router from 'next/router';
+import { LayoutProvider } from 'src/components/DashboardLayout/LayoutContext';
+import DashboardLayout from 'src/components/DashboardLayout';
+import { getDeep } from 'src/utils';
+import { connect } from 'react-redux';
+import { i18n } from 'src/i18n';
+import { setLocal as setLocalDashboard, locals as localsDashboard } from 'feathers-mongoose-casl-dashboard/lib';
+import { setLocal, locals } from 'redux-admin';
+import Button from '@material-ui/core/Button';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
+import { dispatchAction, selectors } from 'net-provider';
+import dynamic from 'next/dynamic';
+import DashboardSideBar from 'src/components/DashboardSideBar';
+
+import 'feathers-mongoose-casl-dashboard/lib/style.css';
+import 'antd/dist/antd.min.css';
+
+const fullLangsName = {
+  en: 'enUS',
+  he: 'heIL',
+};
+
+const LtrDashboard = dynamic(() => import('./DashboardAppLtr'));
+const RtlDashBoard = dynamic(() => import('./DashboardAppRtl'));
+
+
+const getUrl = function getUrl() {
+  const query = Router.router.query && Router.router.query.screen;
+  return query;
+};
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screenName: null,
+    };
+    if (i18n.language) {
+      setLocal(locals[fullLangsName[i18n.language]] || locals.heIl);
+      setLocalDashboard(localsDashboard[fullLangsName[i18n.language]] || localsDashboard.heIL);
+    }
+  }
+
+  componentDidMount() {
+    const screenName = getUrl();
+    this.setState({ screenName });
+    Router.router.events.on('beforeHistoryChange', this.handleRouteChange);
+    dispatchAction.Read({
+      targetKey: 'dashboard',
+      url: 'dashboard',
+      customHandleResponse: (res) => res.data.data,
+      getCountFromResponse: (res) => res.data.total,
+    });
+  }
+
+  componentWillUnmount() {
+    Router.router.events.off('beforeHistoryChange', this.handleRouteChange);
+  }
+
+  handleRouteChange = (url) => {
+    function getParameterByName(name) {
+      // eslint-disable-next-line no-param-reassign
+      // eslint-disable-next-line no-useless-escape
+      const nameStr = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp(`[?&]${nameStr}(=([^&#]*)|&|#|$)`);
+      const results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    const screenName = getParameterByName('screen');
+    // eslint-disable-next-line react/destructuring-assignment
+    if (screenName !== this.state.screenName) {
+      this.setState({ screenName });
+    }
+  }
+
+  renderBoxes = () => {
+    const { data, classes } = this.props;
+    if (!data) return null;
+    return data.filter((item) => item.schema).map((item) => {
+      const currentLang = i18n.language;
+      const fullLangName = fullLangsName[currentLang];
+      const localName = getDeep(item, `data.dashboardConfig.i18n.${fullLangName}.serviceName`);
+      return (
+        <Link
+          href={`/dashboard?screen=${item.result.name}`}
+          key={item.result.name}
+        >
+          <Button variant="contained" component="a" className={classes.button}>
+            {localName || item.result.name}
+          </Button>
+        </Link>
+      );
+    });
+  }
+
+  render() {
+    const { screenName } = this.state;
+    const { data } = this.props;
+    if (!data) return 'Loading dashboard...';
+    const currentLang = i18n.language;
+    const fullLangName = fullLangsName[currentLang];
+    setLocal(locals[fullLangName] || locals.enUS);
+    setLocalDashboard(localsDashboard[fullLangName] || localsDashboard.enUS);
+    const isRtl = i18n.dir() === 'rtl';
+    const DashboardApp = isRtl ? RtlDashBoard : LtrDashboard;
+    return (
+      <LayoutProvider>
+        <DashboardLayout
+          renderMain={() => (
+            screenName ? <DashboardApp url={screenName} /> : this.renderBoxes()
+          )}
+          renderSidebarBody={DashboardSideBar}
+        />
+      </LayoutProvider>
+    );
+  }
+}
+
+function mapStateToProps(store) {
+  const {
+    data, error, loading, count,
+  } = selectors.getCrudObject(store, 'dashboard');
+  return {
+    data,
+    error,
+    loading,
+    count,
+  };
+}
+
+const styles = () => createStyles({
+  button: {
+    margin: 15,
+  },
+});
+
+const Extended = withStyles(styles)(Dashboard);
+
+export default connect(mapStateToProps, null)(Extended);

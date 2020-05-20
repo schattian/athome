@@ -1,0 +1,9 @@
+---
+inject: true
+to: 'src/redux/rootSaga.js'
+after: "effects"
+skip_if: import <%= h.changeCase.lcFirst(name) %>
+---
+<% if(locals.saga) { -%>
+import <%= h.changeCase.lcFirst(name) %> from './<%= h.changeCase.lcFirst(name) %>/<%= h.changeCase.lcFirst(name) %>.saga';
+<%}-%>

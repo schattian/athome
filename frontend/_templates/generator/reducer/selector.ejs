@@ -1,0 +1,17 @@
+---
+to: src/redux/<%= h.changeCase.lcFirst(name) %>/<%= h.changeCase.lcFirst(name) %>.selectors.js
+---
+import { createSelector } from 'reselect';
+
+export const getState = (state) => state.<%= h.changeCase.lcFirst(name) %>;
+
+<% if(locals.example) { -%>
+export const getCount = createSelector(getState, (<%= h.changeCase.lcFirst(name) %>State) => (
+  <%= h.changeCase.lcFirst(name) %>State.count
+));
+<%}-%>
+<% if(!locals.example) { -%>
+//export const getSomeValue = createSelector(getState, (<%= h.changeCase.lcFirst(name) %>State) => (
+//  <%= h.changeCase.lcFirst(name) %>State.someValue
+//));
+<%}-%>

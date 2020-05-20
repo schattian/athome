@@ -1,0 +1,47 @@
+---
+to: '<% if(saga) { %>src/redux/<%= h.changeCase.lcFirst(name) %>/workers/<%= h.changeCase.lcFirst(name) %>.worker.js%><% } %>'
+---
+<% const nameLower = h.changeCase.lcFirst(name) -%>
+
+<% if(locals.example) { -%>
+import {
+  put,
+} from 'redux-saga/effects';
+import ApiService, { httpRequest } from 'src/services/api';
+import { startLoading, stopLoading, LoaderTypes } from '../../loaders';
+
+function* onCountChange(action) {
+  const value = 4; // just example
+  try {
+    yield put(startLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE }));
+    const response = yield httpRequest(ApiService.onCountChange, value);
+    // yield put(onCountEnd({ data: response.data }));
+    yield put(stopLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE }));
+  } catch (error) {
+    yield put(stopLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE, error }));
+  }
+}
+
+export default onCountChange;
+<%}-%>
+<% if(!locals.example) { -%>
+// import {
+//   put,
+// } from 'redux-saga/effects';
+// import ApiService, { httpRequest } from 'src/services/api';
+// import { startLoading, stopLoading, LoaderTypes } from '../../loaders';
+
+// function* onCountChange(action) {
+//   const value = 4; // just example
+//   try {
+//     yield put(startLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE }));
+//     const response = yield httpRequest(ApiService.onCountChange, value);
+//     // yield put(onCountEnd({ data: response.data }));
+//     yield put(stopLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE }));
+//   } catch (error) {
+//     yield put(stopLoading({ loaderType: LoaderTypes.ON_COUNT_CHNAGE, error }));
+//   }
+// }
+
+// export default onCountChange;
+<%}-%>
