@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "validate/validate.proto";
-// import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 option go_package = "./pbuser";
 
@@ -9,9 +8,55 @@ package user;
 
 service User {
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
-  rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
 
-  rpc AlreadyExists (AlreadyExistsRequest) returns (AlreadyExistsResponse) {}
+  rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
+  rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
+  rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
+
+  rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
+  
+//   rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
+//   rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
+}
+
+message FetchOnboardingRequest {
+  int64 token = 1;
+}
+
+message FetchOnboardingResponse{
+  string role = 1;
+  string email = 2;
+  string name = 3;
+  string surname = 4;
+  int64 stage = 5;
+}
+
+message SignUpStartRequest {
+  string role = 1 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
+}
+
+message SignUpStartResponse{
+  int64 token = 1;
+}
+
+message SignUpSharedRequest {
+  int64 token = 1;
+  string email = 2 [(validate.rules).string = {email: true} ];
+  string name = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string surname = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
+}
+
+message SignUpSharedResponse{
+  int64 token = 1;
+}
+
+message SignUpEndRequest{
+  int64 token = 1;
+  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
+}
+
+message SignUpEndResponse {
+  SignInUser user = 1;
 }
 
 message SignInRequest {
@@ -30,25 +75,4 @@ message SignInUser {
   string name = 4;
   string surname = 5;
   string email = 6;
-}
-
-message SignUpRequest {
-  string email = 1 [(validate.rules).string = {email: true} ];
-  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
-  string role = 3 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
-  string name = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
-  string surname = 5 [(validate.rules).string = {min_len: 2, max_len: 30}];
-}
-
-message SignUpResponse {
-  SignInUser user = 1;
-}
-
-message AlreadyExistsRequest {
-  string email = 1 [(validate.rules).string = {email: true} ];
-  string role = 2 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
-}
-
-message AlreadyExistsResponse {
-  bool exists = 1;
 }

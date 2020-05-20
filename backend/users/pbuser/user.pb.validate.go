@@ -36,6 +36,662 @@ var (
 // define the regex for a UUID once up-front
 var _user_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on FetchOnboardingRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchOnboardingRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	return nil
+}
+
+// FetchOnboardingRequestValidationError is the validation error returned by
+// FetchOnboardingRequest.Validate if the designated constraints aren't met.
+type FetchOnboardingRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchOnboardingRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchOnboardingRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchOnboardingRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchOnboardingRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchOnboardingRequestValidationError) ErrorName() string {
+	return "FetchOnboardingRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchOnboardingRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchOnboardingRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchOnboardingRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchOnboardingRequestValidationError{}
+
+// Validate checks the field values on FetchOnboardingResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchOnboardingResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Role
+
+	// no validation rules for Email
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	// no validation rules for Stage
+
+	return nil
+}
+
+// FetchOnboardingResponseValidationError is the validation error returned by
+// FetchOnboardingResponse.Validate if the designated constraints aren't met.
+type FetchOnboardingResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchOnboardingResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchOnboardingResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchOnboardingResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchOnboardingResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchOnboardingResponseValidationError) ErrorName() string {
+	return "FetchOnboardingResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchOnboardingResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchOnboardingResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchOnboardingResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchOnboardingResponseValidationError{}
+
+// Validate checks the field values on SignUpStartRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpStartRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if _, ok := _SignUpStartRequest_Role_InLookup[m.GetRole()]; !ok {
+		return SignUpStartRequestValidationError{
+			field:  "Role",
+			reason: "value must be in list [service-provider consumer merchant]",
+		}
+	}
+
+	return nil
+}
+
+// SignUpStartRequestValidationError is the validation error returned by
+// SignUpStartRequest.Validate if the designated constraints aren't met.
+type SignUpStartRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpStartRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpStartRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpStartRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpStartRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpStartRequestValidationError) ErrorName() string {
+	return "SignUpStartRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpStartRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpStartRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpStartRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpStartRequestValidationError{}
+
+var _SignUpStartRequest_Role_InLookup = map[string]struct{}{
+	"service-provider": {},
+	"consumer":         {},
+	"merchant":         {},
+}
+
+// Validate checks the field values on SignUpStartResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpStartResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	return nil
+}
+
+// SignUpStartResponseValidationError is the validation error returned by
+// SignUpStartResponse.Validate if the designated constraints aren't met.
+type SignUpStartResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpStartResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpStartResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpStartResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpStartResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpStartResponseValidationError) ErrorName() string {
+	return "SignUpStartResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpStartResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpStartResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpStartResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpStartResponseValidationError{}
+
+// Validate checks the field values on SignUpSharedRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpSharedRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	if err := m._validateEmail(m.GetEmail()); err != nil {
+		return SignUpSharedRequestValidationError{
+			field:  "Email",
+			reason: "value must be a valid email address",
+			cause:  err,
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return SignUpSharedRequestValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return SignUpSharedRequestValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+func (m *SignUpSharedRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *SignUpSharedRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+// SignUpSharedRequestValidationError is the validation error returned by
+// SignUpSharedRequest.Validate if the designated constraints aren't met.
+type SignUpSharedRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpSharedRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpSharedRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpSharedRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpSharedRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpSharedRequestValidationError) ErrorName() string {
+	return "SignUpSharedRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpSharedRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpSharedRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpSharedRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpSharedRequestValidationError{}
+
+// Validate checks the field values on SignUpSharedResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpSharedResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	return nil
+}
+
+// SignUpSharedResponseValidationError is the validation error returned by
+// SignUpSharedResponse.Validate if the designated constraints aren't met.
+type SignUpSharedResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpSharedResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpSharedResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpSharedResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpSharedResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpSharedResponseValidationError) ErrorName() string {
+	return "SignUpSharedResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpSharedResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpSharedResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpSharedResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpSharedResponseValidationError{}
+
+// Validate checks the field values on SignUpEndRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *SignUpEndRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 5 || l > 10 {
+		return SignUpEndRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 5 and 10 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// SignUpEndRequestValidationError is the validation error returned by
+// SignUpEndRequest.Validate if the designated constraints aren't met.
+type SignUpEndRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpEndRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpEndRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpEndRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpEndRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpEndRequestValidationError) ErrorName() string { return "SignUpEndRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SignUpEndRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpEndRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpEndRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpEndRequestValidationError{}
+
+// Validate checks the field values on SignUpEndResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *SignUpEndResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpEndResponseValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SignUpEndResponseValidationError is the validation error returned by
+// SignUpEndResponse.Validate if the designated constraints aren't met.
+type SignUpEndResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpEndResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpEndResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpEndResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpEndResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpEndResponseValidationError) ErrorName() string {
+	return "SignUpEndResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpEndResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpEndResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpEndResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpEndResponseValidationError{}
+
 // Validate checks the field values on SignInRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -321,442 +977,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SignInUserValidationError{}
-
-// Validate checks the field values on SignUpRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *SignUpRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if err := m._validateEmail(m.GetEmail()); err != nil {
-		return SignUpRequestValidationError{
-			field:  "Email",
-			reason: "value must be a valid email address",
-			cause:  err,
-		}
-	}
-
-	if l := utf8.RuneCountInString(m.GetPassword()); l < 5 || l > 10 {
-		return SignUpRequestValidationError{
-			field:  "Password",
-			reason: "value length must be between 5 and 10 runes, inclusive",
-		}
-	}
-
-	if _, ok := _SignUpRequest_Role_InLookup[m.GetRole()]; !ok {
-		return SignUpRequestValidationError{
-			field:  "Role",
-			reason: "value must be in list [service-provider consumer merchant]",
-		}
-	}
-
-	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
-		return SignUpRequestValidationError{
-			field:  "Name",
-			reason: "value length must be between 2 and 30 runes, inclusive",
-		}
-	}
-
-	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
-		return SignUpRequestValidationError{
-			field:  "Surname",
-			reason: "value length must be between 2 and 30 runes, inclusive",
-		}
-	}
-
-	return nil
-}
-
-func (m *SignUpRequest) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
-	}
-
-	return nil
-}
-
-func (m *SignUpRequest) _validateEmail(addr string) error {
-	a, err := mail.ParseAddress(addr)
-	if err != nil {
-		return err
-	}
-	addr = a.Address
-
-	if len(addr) > 254 {
-		return errors.New("email addresses cannot exceed 254 characters")
-	}
-
-	parts := strings.SplitN(addr, "@", 2)
-
-	if len(parts[0]) > 64 {
-		return errors.New("email address local phrase cannot exceed 64 characters")
-	}
-
-	return m._validateHostname(parts[1])
-}
-
-// SignUpRequestValidationError is the validation error returned by
-// SignUpRequest.Validate if the designated constraints aren't met.
-type SignUpRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SignUpRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SignUpRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SignUpRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SignUpRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SignUpRequestValidationError) ErrorName() string { return "SignUpRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e SignUpRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSignUpRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SignUpRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SignUpRequestValidationError{}
-
-var _SignUpRequest_Role_InLookup = map[string]struct{}{
-	"service-provider": {},
-	"consumer":         {},
-	"merchant":         {},
-}
-
-// Validate checks the field values on SignUpResponse with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *SignUpResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpResponseValidationError{
-				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// SignUpResponseValidationError is the validation error returned by
-// SignUpResponse.Validate if the designated constraints aren't met.
-type SignUpResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SignUpResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SignUpResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SignUpResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SignUpResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SignUpResponseValidationError) ErrorName() string { return "SignUpResponseValidationError" }
-
-// Error satisfies the builtin error interface
-func (e SignUpResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSignUpResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SignUpResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SignUpResponseValidationError{}
-
-// Validate checks the field values on AlreadyExistsRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *AlreadyExistsRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if err := m._validateEmail(m.GetEmail()); err != nil {
-		return AlreadyExistsRequestValidationError{
-			field:  "Email",
-			reason: "value must be a valid email address",
-			cause:  err,
-		}
-	}
-
-	if _, ok := _AlreadyExistsRequest_Role_InLookup[m.GetRole()]; !ok {
-		return AlreadyExistsRequestValidationError{
-			field:  "Role",
-			reason: "value must be in list [service-provider consumer merchant]",
-		}
-	}
-
-	return nil
-}
-
-func (m *AlreadyExistsRequest) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
-	}
-
-	return nil
-}
-
-func (m *AlreadyExistsRequest) _validateEmail(addr string) error {
-	a, err := mail.ParseAddress(addr)
-	if err != nil {
-		return err
-	}
-	addr = a.Address
-
-	if len(addr) > 254 {
-		return errors.New("email addresses cannot exceed 254 characters")
-	}
-
-	parts := strings.SplitN(addr, "@", 2)
-
-	if len(parts[0]) > 64 {
-		return errors.New("email address local phrase cannot exceed 64 characters")
-	}
-
-	return m._validateHostname(parts[1])
-}
-
-// AlreadyExistsRequestValidationError is the validation error returned by
-// AlreadyExistsRequest.Validate if the designated constraints aren't met.
-type AlreadyExistsRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AlreadyExistsRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AlreadyExistsRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AlreadyExistsRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AlreadyExistsRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AlreadyExistsRequestValidationError) ErrorName() string {
-	return "AlreadyExistsRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e AlreadyExistsRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAlreadyExistsRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AlreadyExistsRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AlreadyExistsRequestValidationError{}
-
-var _AlreadyExistsRequest_Role_InLookup = map[string]struct{}{
-	"service-provider": {},
-	"consumer":         {},
-	"merchant":         {},
-}
-
-// Validate checks the field values on AlreadyExistsResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *AlreadyExistsResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Exists
-
-	return nil
-}
-
-// AlreadyExistsResponseValidationError is the validation error returned by
-// AlreadyExistsResponse.Validate if the designated constraints aren't met.
-type AlreadyExistsResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AlreadyExistsResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AlreadyExistsResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AlreadyExistsResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AlreadyExistsResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AlreadyExistsResponseValidationError) ErrorName() string {
-	return "AlreadyExistsResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e AlreadyExistsResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAlreadyExistsResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AlreadyExistsResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AlreadyExistsResponseValidationError{}
