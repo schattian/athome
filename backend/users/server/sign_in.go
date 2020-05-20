@@ -13,15 +13,17 @@ import (
 )
 
 func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.SignInResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+
 	db, err := connDB()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
 	}
-	email := in.GetEmail()
-	if email == "" {
-		return nil, status.Error(xerrors.InvalidArgument, "no email given")
-	}
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM users WHERE email=$1 limit 3`, email)
+	defer db.Close()
+
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM users WHERE email=$1 limit 3`, in.GetEmail())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
