@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+option go_package = "./pbuser";
+
+package user;
+
+service User {
+  rpc SignIn (SignInRequest) returns (SignInResponse) {}
+
+  rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
+  rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
+  rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
+
+  rpc FetchOnboarding(FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
+}
+
+message FetchOnboardingRequest {
+  int64 token = 1;
+}
+
+message FetchOnboardingResponse{
+  string role = 1;
+  string email = 2;
+  string name = 3;
+  string surname = 4;
+  int64 stage = 5;
+}
+
+
+message SignUpStartRequest {
+  string role = 1;
+}
+
+message SignUpStartResponse{
+  int64 token = 1;
+}
+
+message SignUpSharedRequest {
+  int64 token = 1;
+  string email = 2;
+  string name = 3;
+  string surname = 4;
+}
+
+message SignUpSharedResponse{
+  int64 token = 1;
+}
+
+message SignUpEndRequest{
+  int64 token = 1;
+  string password = 2;
+}
+
+message SignUpEndResponse {
+  SignInUser user = 1;
+}
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  repeated SignInUser users = 1;
+}
+
+message SignInUser {
+  int64 id = 1;
+  string token = 2;
+  string role = 3;
+  string name = 4;
+  string surname = 5;
+  string email = 6;
+}
