@@ -1,0 +1,105 @@
+---
+to: src/components/DashboardSideBar/DashboardSideBar.js
+---
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import Router from 'next/router';
+import SidebarLink from 'src/components/DashboardLayout/Sidebar/SidebarLink';
+import { getDeep } from 'src/utils';
+import { connect } from 'react-redux';
+import { i18n } from 'src/i18n';
+import { withStyles, createStyles } from '@material-ui/core/styles';
+import {
+  TableChart as TableChartIcon,
+} from '@material-ui/icons';
+import { dispatchAction, selectors } from 'net-provider';
+import { Icon } from 'antd';
+
+const fullLangsName = {
+  en: 'enUS',
+  he: 'heIL',
+};
+
+class DashboardSideBar extends React.Component {
+  componentDidMount() {
+    dispatchAction.Read({
+      targetKey: 'dashboard',
+      url: 'dashboard',
+      customHandleResponse: (res) => res.data.data,
+      getCountFromResponse: (res) => res.data.total,
+    });
+  }
+
+  renderStaticLinks = () => {
+    const { isSidebarOpened } = this.props;
+    return (
+      <React.Fragment>
+        <SidebarLink
+          key="sales"
+          isSidebarOpened={isSidebarOpened}
+          id="sales"
+          label="Sales"
+          link="/dashboard/sales"
+          icon={<TableChartIcon />}
+          isLinkActive={Router.pathname === '/dashboard/sales'}
+        />
+      </React.Fragment>
+    );
+  }
+
+  renderDynamicLinks = () => {
+    const { data, isSidebarOpened } = this.props;
+    if (!data) return null;
+    const dataToRender = data.filter((item) => item.schema);
+    return dataToRender.map((item) => {
+      const icon = getDeep(
+        item,
+        'data.dashboardConfig.sideBarIconName',
+      );
+      const currentLang = i18n.language;
+      const fullLangName = fullLangsName[currentLang];
+      const localName = getDeep(item, `data.dashboardConfig.i18n.${fullLangName}.serviceName`);
+      const screenName = (Router.query || {}).screen;
+      return (
+        <SidebarLink
+          key={item.result.name}
+          isSidebarOpened={isSidebarOpened}
+          id={item.result.name}
+          label={localName || item.result.name}
+          link={`/dashboard?screen=${item.result.name}`}
+          icon={icon ? <Icon type={icon} /> : <TableChartIcon />}
+          isLinkActive={screenName && item.result.name === screenName}
+        />
+      );
+    });
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.renderStaticLinks()}
+        {this.renderDynamicLinks()}
+      </React.Fragment>
+    );
+  }
+}
+
+function mapStateToProps(store) {
+  const {
+    data, error, loading, count,
+  } = selectors.getCrudObject(store, 'dashboard');
+  return {
+    data,
+    error,
+    loading,
+    count,
+  };
+}
+
+const styles = () => createStyles({
+});
+
+const Extended = withStyles(styles)(DashboardSideBar);
+
+export default connect(mapStateToProps, null)(Extended);

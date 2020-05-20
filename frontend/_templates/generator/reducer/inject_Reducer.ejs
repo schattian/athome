@@ -1,0 +1,7 @@
+---
+inject: true
+to: src/redux/rootReducer.js
+after: "= combineReducers"
+skip_if:   <%= h.changeCase.lcFirst(name) %>,
+---
+  <%= h.changeCase.lcFirst(name) %>,
