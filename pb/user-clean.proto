@@ -13,11 +13,14 @@ service User {
   rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
-  rpc FetchOnboarding(FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
+  rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
+
+//   rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
+//   rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
 }
 
 message FetchOnboardingRequest {
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message FetchOnboardingResponse{
@@ -28,28 +31,27 @@ message FetchOnboardingResponse{
   int64 stage = 5;
 }
 
-
 message SignUpStartRequest {
   string role = 1;
 }
 
 message SignUpStartResponse{
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message SignUpSharedRequest {
-  int64 token = 1;
+  uint64 token = 1;
   string email = 2;
   string name = 3;
   string surname = 4;
 }
 
 message SignUpSharedResponse{
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message SignUpEndRequest{
-  int64 token = 1;
+  uint64 token = 1;
   string password = 2;
 }
 
@@ -67,7 +69,7 @@ message SignInResponse {
 }
 
 message SignInUser {
-  int64 id = 1;
+  uint64 id = 1;
   string token = 2;
   string role = 3;
   string name = 4;
