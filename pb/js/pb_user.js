@@ -326,7 +326,7 @@ proto.user.FetchOnboardingRequest.deserializeBinaryFromReader = function(msg, re
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setToken(value);
       break;
     default:
@@ -360,7 +360,7 @@ proto.user.FetchOnboardingRequest.serializeBinaryToWriter = function(message, wr
   var f = undefined;
   f = message.getToken();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -369,7 +369,7 @@ proto.user.FetchOnboardingRequest.serializeBinaryToWriter = function(message, wr
 
 
 /**
- * optional int64 token = 1;
+ * optional uint64 token = 1;
  * @return {number}
  */
 proto.user.FetchOnboardingRequest.prototype.getToken = function() {
@@ -836,7 +836,7 @@ proto.user.SignUpStartResponse.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setToken(value);
       break;
     default:
@@ -870,7 +870,7 @@ proto.user.SignUpStartResponse.serializeBinaryToWriter = function(message, write
   var f = undefined;
   f = message.getToken();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -879,7 +879,7 @@ proto.user.SignUpStartResponse.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional int64 token = 1;
+ * optional uint64 token = 1;
  * @return {number}
  */
 proto.user.SignUpStartResponse.prototype.getToken = function() {
@@ -969,7 +969,7 @@ proto.user.SignUpSharedRequest.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setToken(value);
       break;
     case 2:
@@ -1015,7 +1015,7 @@ proto.user.SignUpSharedRequest.serializeBinaryToWriter = function(message, write
   var f = undefined;
   f = message.getToken();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1045,7 +1045,7 @@ proto.user.SignUpSharedRequest.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional int64 token = 1;
+ * optional uint64 token = 1;
  * @return {number}
  */
 proto.user.SignUpSharedRequest.prototype.getToken = function() {
@@ -1186,7 +1186,7 @@ proto.user.SignUpSharedResponse.deserializeBinaryFromReader = function(msg, read
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setToken(value);
       break;
     default:
@@ -1220,7 +1220,7 @@ proto.user.SignUpSharedResponse.serializeBinaryToWriter = function(message, writ
   var f = undefined;
   f = message.getToken();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1229,7 +1229,7 @@ proto.user.SignUpSharedResponse.serializeBinaryToWriter = function(message, writ
 
 
 /**
- * optional int64 token = 1;
+ * optional uint64 token = 1;
  * @return {number}
  */
 proto.user.SignUpSharedResponse.prototype.getToken = function() {
@@ -1317,7 +1317,7 @@ proto.user.SignUpEndRequest.deserializeBinaryFromReader = function(msg, reader) 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setToken(value);
       break;
     case 2:
@@ -1355,7 +1355,7 @@ proto.user.SignUpEndRequest.serializeBinaryToWriter = function(message, writer) 
   var f = undefined;
   f = message.getToken();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1371,7 +1371,7 @@ proto.user.SignUpEndRequest.serializeBinaryToWriter = function(message, writer) 
 
 
 /**
- * optional int64 token = 1;
+ * optional uint64 token = 1;
  * @return {number}
  */
 proto.user.SignUpEndRequest.prototype.getToken = function() {
@@ -1952,7 +1952,7 @@ proto.user.SignInUser.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setId(value);
       break;
     case 2:
@@ -2006,7 +2006,7 @@ proto.user.SignInUser.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -2050,7 +2050,7 @@ proto.user.SignInUser.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int64 id = 1;
+ * optional uint64 id = 1;
  * @return {number}
  */
 proto.user.SignInUser.prototype.getId = function() {

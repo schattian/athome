@@ -14,13 +14,13 @@ service User {
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
-  
+
 //   rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
 //   rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
 }
 
 message FetchOnboardingRequest {
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message FetchOnboardingResponse{
@@ -36,23 +36,23 @@ message SignUpStartRequest {
 }
 
 message SignUpStartResponse{
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message SignUpSharedRequest {
-  int64 token = 1;
+  uint64 token = 1;
   string email = 2 [(validate.rules).string = {email: true} ];
   string name = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
   string surname = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
 }
 
 message SignUpSharedResponse{
-  int64 token = 1;
+  uint64 token = 1;
 }
 
 message SignUpEndRequest{
-  int64 token = 1;
-  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
+  uint64 token = 1;
+  string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
 }
 
 message SignUpEndResponse {
@@ -61,7 +61,7 @@ message SignUpEndResponse {
 
 message SignInRequest {
   string email = 1 [(validate.rules).string = {email: true}];
-  string password = 2 [(validate.rules).string = {min_len: 5, max_len: 10}];
+  string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
 }
 
 message SignInResponse {
@@ -69,7 +69,7 @@ message SignInResponse {
 }
 
 message SignInUser {
-  int64 id = 1;
+  uint64 id = 1;
   string token = 2;
   string role = 3;
   string name = 4;

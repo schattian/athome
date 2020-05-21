@@ -551,10 +551,10 @@ func (m *SignUpEndRequest) Validate() error {
 
 	// no validation rules for Token
 
-	if l := utf8.RuneCountInString(m.GetPassword()); l < 5 || l > 10 {
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 6 || l > 25 {
 		return SignUpEndRequestValidationError{
 			field:  "Password",
-			reason: "value length must be between 5 and 10 runes, inclusive",
+			reason: "value length must be between 6 and 25 runes, inclusive",
 		}
 	}
 
@@ -708,10 +708,10 @@ func (m *SignInRequest) Validate() error {
 		}
 	}
 
-	if l := utf8.RuneCountInString(m.GetPassword()); l < 5 || l > 10 {
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 6 || l > 25 {
 		return SignInRequestValidationError{
 			field:  "Password",
-			reason: "value length must be between 5 and 10 runes, inclusive",
+			reason: "value length must be between 6 and 25 runes, inclusive",
 		}
 	}
 
