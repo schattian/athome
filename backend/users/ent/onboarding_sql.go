@@ -1,10 +1,10 @@
 package ent
 
-func (o *Onboarding) GetId() int64 {
+func (o *Onboarding) GetId() uint64 {
 	return o.Id
 }
 
-func (o *Onboarding) SetId(id int64) {
+func (o *Onboarding) SetId(id uint64) {
 	o.Id = id
 }
 

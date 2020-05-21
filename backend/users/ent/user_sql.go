@@ -1,10 +1,10 @@
 package ent
 
-func (u *User) GetId() int64 {
+func (u *User) GetId() uint64 {
 	return u.Id
 }
 
-func (u *User) SetId(id int64) {
+func (u *User) SetId(id uint64) {
 	u.Id = id
 }
 

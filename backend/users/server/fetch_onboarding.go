@@ -44,7 +44,7 @@ func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbuser.FetchOnboard
 }
 
 type tokenizable interface {
-	GetToken() int64
+	GetToken() uint64
 }
 
 func fetchOnboardingByToken(ctx context.Context, db *sqlx.DB, in tokenizable) (*ent.Onboarding, error) {

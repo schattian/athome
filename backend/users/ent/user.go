@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	Id int64 `json:"id,omitempty"`
+	Id uint64 `json:"id,omitempty"`
 
 	Email        field.Email `json:"email,omitempty"`
 	PasswordHash string      `json:"password_hash,omitempty"`

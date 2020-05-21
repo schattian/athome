@@ -13,7 +13,7 @@ import (
 )
 
 type Onboarding struct {
-	Id      int64         `json:"id,omitempty"`
+	Id      uint64        `json:"id,omitempty"`
 	Email   field.Email   `json:"email,omitempty"`
 	Role    field.Role    `json:"role,omitempty"`
 	Stage   field.Stage   `json:"stage"`
