@@ -12,3 +12,8 @@ protoc \
   --js_out="library=pb_user,binary:js" \
   --validate_out="lang=go:../backend/users/" \
   user.proto
+
+cd ..
+./pbclean ./pb/user.proto 2> ./pb/user.clean.proto
+
+echo "Done"
