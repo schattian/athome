@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/xerrors"
+	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 
 	"github.com/athomecomar/athome/backend/users/ent"
@@ -41,8 +42,14 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 			continue
 		}
 
-		users = append(users, userToSignInUser(user))
+		signedUser, err := userToSignInUser(user)
+		if err != nil {
+			return nil, status.Errorf(xerrors.Internal, "userToSignInUser9: %v", err)
+		}
+
+		users = append(users, signedUser)
 	}
+
 	err = rows.Err()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "rows.Err: %v", err)
@@ -50,13 +57,17 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 	return &pbuser.SignInResponse{Users: users}, nil
 }
 
-func userToSignInUser(user *ent.User) *pbuser.SignInUser {
+func userToSignInUser(user *ent.User) (*pbuser.SignInUser, error) {
+	token, err := user.CreateSignToken()
+	if err != nil {
+		return nil, errors.Wrap(err, "CreateSignToken")
+	}
 	return &pbuser.SignInUser{
 		Id:      user.Id,
-		Token:   user.PasswordHash,
+		Jwt:     token,
 		Email:   string(user.Email),
 		Role:    string(user.Role),
 		Name:    string(user.Name),
 		Surname: string(user.Surname),
-	}
+	}, nil
 }
