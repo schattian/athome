@@ -7,6 +7,8 @@ option go_package = "./pbuser";
 package user;
 
 service User {
+  rpc Sign (SignRequest) returns (SignResponse) {}
+
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
@@ -70,9 +72,17 @@ message SignInResponse {
 
 message SignInUser {
   uint64 id = 1;
-  string token = 2;
+  string jwt = 2;
   string role = 3;
   string name = 4;
   string surname = 5;
   string email = 6;
+}
+
+message SignRequest {
+  string sign_jwt = 1;
+}
+
+message SignResponse {
+  string jwt = 1;
 }

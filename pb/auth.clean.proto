@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "./pbauth";
+
+package auth;
+
+
+service Auth {
+  rpc Sign (SignRequest) returns (SignResponse) {}
+  rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse) {}
+}
+
+message AuthenticateRequest {
+  string jwt = 1;
+}
+
+message AuthenticateResponse {
+  uint64 user_id = 1;
+}
+
+message SignRequest {
+  string sign_jwt = 1;
+}
+
+message SignResponse {
+  string jwt = 1;
+}
+
