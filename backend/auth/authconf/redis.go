@@ -9,7 +9,7 @@ import (
 const DATABASE_SCHEME = "postgres"
 
 func GetDATABASE_PORT() (port string) {
-	return ":6479"
+	return ":6379"
 }
 
 func GetDATABASE_NUMBER() (dbnum int) {
@@ -17,7 +17,7 @@ func GetDATABASE_NUMBER() (dbnum int) {
 }
 
 func GetDATABASE_HOST() (host string) {
-	return "auth_db"
+	return "auth_redis"
 }
 
 func GetDATABASE_PASSWORD() (pwd string) {

@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/athomecomar/xerrors"
 	"github.com/dgrijalva/jwt-go"
@@ -35,3 +36,10 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 
 	return claims, nil
 }
+
+func userIdToKey(uid uint64) string {
+	return string(strconv.Itoa(int(uid)))
+}
+
+const accessKey = "access"
+const refreshKey = "refresh"

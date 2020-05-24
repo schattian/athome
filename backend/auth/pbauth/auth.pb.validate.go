@@ -36,22 +36,23 @@ var (
 // define the regex for a UUID once up-front
 var _auth_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on AuthenticateRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveAuthenticationRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *AuthenticateRequest) Validate() error {
+func (m *RetrieveAuthenticationRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Jwt
+	// no validation rules for AccessToken
 
 	return nil
 }
 
-// AuthenticateRequestValidationError is the validation error returned by
-// AuthenticateRequest.Validate if the designated constraints aren't met.
-type AuthenticateRequestValidationError struct {
+// RetrieveAuthenticationRequestValidationError is the validation error
+// returned by RetrieveAuthenticationRequest.Validate if the designated
+// constraints aren't met.
+type RetrieveAuthenticationRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -59,24 +60,24 @@ type AuthenticateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AuthenticateRequestValidationError) Field() string { return e.field }
+func (e RetrieveAuthenticationRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AuthenticateRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveAuthenticationRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AuthenticateRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveAuthenticationRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AuthenticateRequestValidationError) Key() bool { return e.key }
+func (e RetrieveAuthenticationRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AuthenticateRequestValidationError) ErrorName() string {
-	return "AuthenticateRequestValidationError"
+func (e RetrieveAuthenticationRequestValidationError) ErrorName() string {
+	return "RetrieveAuthenticationRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AuthenticateRequestValidationError) Error() string {
+func (e RetrieveAuthenticationRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -88,14 +89,14 @@ func (e AuthenticateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAuthenticateRequest.%s: %s%s",
+		"invalid %sRetrieveAuthenticationRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AuthenticateRequestValidationError{}
+var _ error = RetrieveAuthenticationRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -103,12 +104,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AuthenticateRequestValidationError{}
+} = RetrieveAuthenticationRequestValidationError{}
 
-// Validate checks the field values on AuthenticateResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveAuthenticationResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *AuthenticateResponse) Validate() error {
+func (m *RetrieveAuthenticationResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -118,9 +119,10 @@ func (m *AuthenticateResponse) Validate() error {
 	return nil
 }
 
-// AuthenticateResponseValidationError is the validation error returned by
-// AuthenticateResponse.Validate if the designated constraints aren't met.
-type AuthenticateResponseValidationError struct {
+// RetrieveAuthenticationResponseValidationError is the validation error
+// returned by RetrieveAuthenticationResponse.Validate if the designated
+// constraints aren't met.
+type RetrieveAuthenticationResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -128,24 +130,24 @@ type AuthenticateResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e AuthenticateResponseValidationError) Field() string { return e.field }
+func (e RetrieveAuthenticationResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AuthenticateResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveAuthenticationResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AuthenticateResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveAuthenticationResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AuthenticateResponseValidationError) Key() bool { return e.key }
+func (e RetrieveAuthenticationResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AuthenticateResponseValidationError) ErrorName() string {
-	return "AuthenticateResponseValidationError"
+func (e RetrieveAuthenticationResponseValidationError) ErrorName() string {
+	return "RetrieveAuthenticationResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AuthenticateResponseValidationError) Error() string {
+func (e RetrieveAuthenticationResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -157,14 +159,14 @@ func (e AuthenticateResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAuthenticateResponse.%s: %s%s",
+		"invalid %sRetrieveAuthenticationResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AuthenticateResponseValidationError{}
+var _ error = RetrieveAuthenticationResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -172,24 +174,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AuthenticateResponseValidationError{}
+} = RetrieveAuthenticationResponseValidationError{}
 
-// Validate checks the field values on SignRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *SignRequest) Validate() error {
+// Validate checks the field values on CreateAuthenticationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateAuthenticationRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for SignJwt
+	// no validation rules for SignToken
 
 	return nil
 }
 
-// SignRequestValidationError is the validation error returned by
-// SignRequest.Validate if the designated constraints aren't met.
-type SignRequestValidationError struct {
+// CreateAuthenticationRequestValidationError is the validation error returned
+// by CreateAuthenticationRequest.Validate if the designated constraints
+// aren't met.
+type CreateAuthenticationRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -197,22 +200,24 @@ type SignRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e SignRequestValidationError) Field() string { return e.field }
+func (e CreateAuthenticationRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SignRequestValidationError) Reason() string { return e.reason }
+func (e CreateAuthenticationRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SignRequestValidationError) Cause() error { return e.cause }
+func (e CreateAuthenticationRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SignRequestValidationError) Key() bool { return e.key }
+func (e CreateAuthenticationRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SignRequestValidationError) ErrorName() string { return "SignRequestValidationError" }
+func (e CreateAuthenticationRequestValidationError) ErrorName() string {
+	return "CreateAuthenticationRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e SignRequestValidationError) Error() string {
+func (e CreateAuthenticationRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -224,14 +229,14 @@ func (e SignRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSignRequest.%s: %s%s",
+		"invalid %sCreateAuthenticationRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SignRequestValidationError{}
+var _ error = CreateAuthenticationRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -239,24 +244,31 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SignRequestValidationError{}
+} = CreateAuthenticationRequestValidationError{}
 
-// Validate checks the field values on SignResponse with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *SignResponse) Validate() error {
+// Validate checks the field values on CreateAuthenticationResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateAuthenticationResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Jwt
+	// no validation rules for AccessToken
+
+	// no validation rules for RefreshToken
+
+	// no validation rules for AccessTokenExpNs
+
+	// no validation rules for RefreshTokenExpNs
 
 	return nil
 }
 
-// SignResponseValidationError is the validation error returned by
-// SignResponse.Validate if the designated constraints aren't met.
-type SignResponseValidationError struct {
+// CreateAuthenticationResponseValidationError is the validation error returned
+// by CreateAuthenticationResponse.Validate if the designated constraints
+// aren't met.
+type CreateAuthenticationResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -264,22 +276,24 @@ type SignResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SignResponseValidationError) Field() string { return e.field }
+func (e CreateAuthenticationResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SignResponseValidationError) Reason() string { return e.reason }
+func (e CreateAuthenticationResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SignResponseValidationError) Cause() error { return e.cause }
+func (e CreateAuthenticationResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SignResponseValidationError) Key() bool { return e.key }
+func (e CreateAuthenticationResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SignResponseValidationError) ErrorName() string { return "SignResponseValidationError" }
+func (e CreateAuthenticationResponseValidationError) ErrorName() string {
+	return "CreateAuthenticationResponseValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e SignResponseValidationError) Error() string {
+func (e CreateAuthenticationResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -291,14 +305,14 @@ func (e SignResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSignResponse.%s: %s%s",
+		"invalid %sCreateAuthenticationResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SignResponseValidationError{}
+var _ error = CreateAuthenticationResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -306,4 +320,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SignResponseValidationError{}
+} = CreateAuthenticationResponseValidationError{}
