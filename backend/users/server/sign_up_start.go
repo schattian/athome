@@ -47,6 +47,6 @@ func signUpStartRequestToOnboarding(in *pbuser.SignUpStartRequest) *ent.Onboardi
 
 func onboardingToSignUpStartResponse(o *ent.Onboarding) *pbuser.SignUpStartResponse {
 	return &pbuser.SignUpStartResponse{
-		Token: o.Id,
+		OnboardingId: o.Id,
 	}
 }

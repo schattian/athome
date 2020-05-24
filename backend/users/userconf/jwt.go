@@ -8,13 +8,13 @@ import (
 )
 
 func GetSIGN_JWT_EXP() time.Duration {
-	return 5 * time.Second
+	return 2 * time.Minute
 }
 
 func GetSIGN_JWT_SECRET() string {
 	pwd := os.Getenv("SIGN_JWT_SECRET")
 	if isSilly(pwd) && envconf.NotInDevelopment() {
-		panic("nil db pwd given")
+		panic("silly sign_jwt secret given")
 	}
 	return pwd
 }

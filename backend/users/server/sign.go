@@ -4,16 +4,21 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"time"
+
+	"github.com/athomecomar/athome/backend/users/pbauth"
 
 	"github.com/athomecomar/athome/backend/users/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/pkg/errors"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
 func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
-	claims, err := claimJwt(in.GetSignJwt(), userconf.GetSIGN_JWT_SECRET)
+	claims, err := claimJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
 	}
@@ -23,30 +28,38 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 		return nil, status.Errorf(xerrors.InvalidArgument, "strconv.ParseUint: %v", err)
 	}
 
-	token, err := createAuthToken(userId)
+	tokens, err := createTokens(userId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "createAuthToken: %v", err)
 	}
 
-	return &pbuser.SignResponse{Jwt: token}, nil
+	return &pbuser.SignResponse{
+		AccessToken:       tokens.GetAccessToken(),
+		RefreshToken:      tokens.GetRefreshToken(),
+		AccessTokenExpNs:  tokens.GetAccessTokenExpNs(),
+		RefreshTokenExpNs: tokens.GetRefreshTokenExpNs(),
+	}, nil
 }
 
-func retrieveAuthToken(signToken string) (string, error) {
+func createTokens(userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
 	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		return "", errors.Wrapf(err, "grpc.Dial at: %v", userconf.GetAUTH_ADDR())
+		return nil, errors.Wrapf(err, "grpc.Dial at: %v", userconf.GetAUTH_ADDR())
 	}
 	defer conn.Close()
-	c := pbuser.NewAuthClient(conn)
-
+	c := pbauth.NewAuthClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	authResponse, err := c.Sign(ctx, &pbuser.SignRequest{Jwt: signToken})
+	signJwt, err := createSignToken(userId)
 	if err != nil {
-		return "", errors.Wrap(err, "pbuser.Sign")
+		return nil, errors.Wrap(err, "createSignToken")
 	}
-	return authResponse.GetJwt(), nil
+	authResponse, err := c.CreateAuthentication(ctx, &pbauth.CreateAuthenticationRequest{SignToken: signJwt})
+	if err != nil {
+		return nil, errors.Wrap(err, "pbuser.Sign")
+	}
+	return authResponse, nil
 }
 
 func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
@@ -58,7 +71,7 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 		return []byte(secretFn()), nil
 	})
 	if err != nil {
-		return nil, status.Error(xerrors.Internal, "jwt isnt parsable")
+		return nil, status.Errorf(xerrors.InvalidArgument, "jwt.Parse: %v", err)
 	}
 
 	claims, ok := claimableToken.Claims.(jwt.MapClaims)
@@ -67,12 +80,26 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 	}
 
 	if !claimableToken.Valid {
-		return nil, status.Errorf(xerrors.Unauthenticated, "claimable Jwt.Valid: %v", err)
+		return nil, status.Errorf(xerrors.InvalidArgument, "claimable token is not valid")
 	}
 
 	if err := claims.Valid(); err != nil {
-		return nil, status.Errorf(xerrors.Unauthenticated, "claimed jwt.Valid: %v", err)
+		return nil, status.Errorf(xerrors.InvalidArgument, "claimed jwt.Valid: %v", err)
 	}
 
 	return claims, nil
+}
+
+func createSignToken(userId uint64) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": userId,
+		"exp":     time.Now().Add(userconf.GetSIGN_JWT_EXP()).Unix(),
+		"nbf":     time.Now().Unix(),
+	})
+
+	tokenString, err := token.SignedString([]byte(userconf.GetSIGN_JWT_SECRET()))
+	if err != nil {
+		return "", errors.Wrap(err, "jwt.SignedString")
+	}
+	return tokenString, nil
 }

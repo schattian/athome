@@ -21,7 +21,7 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 	}
 	defer db.Close()
 
-	previous, err := fetchOnboardingByToken(ctx, db, in)
+	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}

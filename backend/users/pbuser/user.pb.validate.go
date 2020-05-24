@@ -44,7 +44,7 @@ func (m *FetchOnboardingRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Token
+	// no validation rules for OnboardingId
 
 	return nil
 }
@@ -270,7 +270,7 @@ func (m *SignUpStartResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Token
+	// no validation rules for OnboardingId
 
 	return nil
 }
@@ -339,7 +339,7 @@ func (m *SignUpSharedRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Token
+	// no validation rules for OnboardingId
 
 	if err := m._validateEmail(m.GetEmail()); err != nil {
 		return SignUpSharedRequestValidationError{
@@ -480,7 +480,7 @@ func (m *SignUpSharedResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Token
+	// no validation rules for OnboardingId
 
 	return nil
 }
@@ -549,7 +549,7 @@ func (m *SignUpEndRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Token
+	// no validation rules for OnboardingId
 
 	if l := utf8.RuneCountInString(m.GetPassword()); l < 6 || l > 25 {
 		return SignUpEndRequestValidationError{
@@ -845,6 +845,8 @@ func (m *SignInResponse) Validate() error {
 
 	}
 
+	// no validation rules for SignTokenExpNs
+
 	return nil
 }
 
@@ -911,7 +913,7 @@ func (m *SignInUser) Validate() error {
 
 	// no validation rules for Id
 
-	// no validation rules for Jwt
+	// no validation rules for SignToken
 
 	// no validation rules for Role
 
@@ -986,7 +988,7 @@ func (m *SignRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for SignJwt
+	// no validation rules for SignToken
 
 	return nil
 }
@@ -1053,7 +1055,13 @@ func (m *SignResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Jwt
+	// no validation rules for AccessToken
+
+	// no validation rules for RefreshToken
+
+	// no validation rules for AccessTokenExpNs
+
+	// no validation rules for RefreshTokenExpNs
 
 	return nil
 }
