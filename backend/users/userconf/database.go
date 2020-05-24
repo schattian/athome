@@ -40,9 +40,7 @@ func GetDATABASE_HOST() (host string) {
 func GetDATABASE_PASSWORD() (pwd string) {
 	pwd = os.Getenv("POSTGRES_PASSWORD")
 	if pwd == "" && envconf.NotInDevelopment() {
-		if pwd == "" {
-			panic("nil db pwd given")
-		}
+		panic("nil db pwd given")
 	}
 	return
 }

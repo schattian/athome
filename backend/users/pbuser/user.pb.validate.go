@@ -911,7 +911,7 @@ func (m *SignInUser) Validate() error {
 
 	// no validation rules for Id
 
-	// no validation rules for Token
+	// no validation rules for Jwt
 
 	// no validation rules for Role
 
@@ -977,3 +977,137 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SignInUserValidationError{}
+
+// Validate checks the field values on SignRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SignRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for SignJwt
+
+	return nil
+}
+
+// SignRequestValidationError is the validation error returned by
+// SignRequest.Validate if the designated constraints aren't met.
+type SignRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignRequestValidationError) ErrorName() string { return "SignRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SignRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignRequestValidationError{}
+
+// Validate checks the field values on SignResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SignResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Jwt
+
+	return nil
+}
+
+// SignResponseValidationError is the validation error returned by
+// SignResponse.Validate if the designated constraints aren't met.
+type SignResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignResponseValidationError) ErrorName() string { return "SignResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SignResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignResponseValidationError{}

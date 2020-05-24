@@ -6,6 +6,7 @@ require (
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.3.0
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813
 	github.com/golang-migrate/migrate/v4 v4.11.0
