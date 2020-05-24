@@ -22,9 +22,9 @@ func (s *Server) FetchOnboarding(ctx context.Context, in *pbuser.FetchOnboarding
 		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
 	}
 	defer db.Close()
-	onboarding, err := fetchOnboardingByToken(ctx, db, in)
+	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
-		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetToken())
+		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
 	}
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
@@ -43,13 +43,9 @@ func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbuser.FetchOnboard
 	}
 }
 
-type tokenizable interface {
-	GetToken() uint64
-}
-
-func fetchOnboardingByToken(ctx context.Context, db *sqlx.DB, in tokenizable) (*ent.Onboarding, error) {
+func fetchOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*ent.Onboarding, error) {
 	o := &ent.Onboarding{}
-	row := db.QueryRowxContext(ctx, `SELECT * FROM onboardings WHERE id=$1`, in.GetToken())
+	row := db.QueryRowxContext(ctx, `SELECT * FROM onboardings WHERE id=$1`, token)
 	err := row.StructScan(o)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")

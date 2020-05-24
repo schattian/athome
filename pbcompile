@@ -2,13 +2,29 @@
 DIR=$(dirname "$0")
 cd $DIR/pb
 
-# clean_regex=\[\(.*?\}\]
-
+pbcompile()
+{
 protoc \
   -I . \
   -I ${GOPATH}/src \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
-  --go_out="plugins=grpc:../backend/users/" \
-  --js_out="library=pb_user,binary:js" \
-  --validate_out="lang=go:../backend/users/" \
-  user.proto
+  --go_out="plugins=grpc:../backend/$2/" \
+  --js_out="library=pb_$1,binary:js" \
+  --validate_out="lang=go:../backend/$2/" \
+  $1.proto
+
+../pbclean ./$1.proto > ./$1.clean.proto
+}
+
+pbpropague()
+{
+	cp -r ../backend/$2/pb$1 ../backend/$3
+}
+
+pbcompile user users
+
+pbcompile auth auth
+
+pbpropague auth auth users
+
+echo "Done"

@@ -21,7 +21,7 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 	}
 	defer db.Close()
 
-	previous, err := fetchOnboardingByToken(ctx, db, in)
+	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}
@@ -48,10 +48,14 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB: %v", err)
 	}
 
-	err = storeql.DeleteFromDB(ctx, db, onboarding)
+	signedUser, err := userToSignInUser(user)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "DeleteFromDB: %v", err)
 	}
 
-	return &pbuser.SignUpEndResponse{User: userToSignInUser(user)}, nil
+	err = storeql.DeleteFromDB(ctx, db, onboarding)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "DeleteFromDB: %v", err)
+	}
+	return &pbuser.SignUpEndResponse{User: signedUser}, nil
 }

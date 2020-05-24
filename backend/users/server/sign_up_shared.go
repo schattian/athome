@@ -22,7 +22,7 @@ func (s *Server) SignUpShared(ctx context.Context, in *pbuser.SignUpSharedReques
 	}
 	defer db.Close()
 
-	previous, err := fetchOnboardingByToken(ctx, db, in)
+	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}
@@ -56,6 +56,6 @@ func signUpSharedRequestToOnboarding(prev *ent.Onboarding, in *pbuser.SignUpShar
 
 func onboardingToSignUpSharedResponse(o *ent.Onboarding) *pbuser.SignUpSharedResponse {
 	return &pbuser.SignUpSharedResponse{
-		Token: o.Id,
+		OnboardingId: o.Id,
 	}
 }

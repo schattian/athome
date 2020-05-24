@@ -11,3 +11,11 @@ func GetPORT() (port string) {
 	}
 	return
 }
+
+func GetAUTH_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "auth_svc:9990"
+	}
+	return
+}

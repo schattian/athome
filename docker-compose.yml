@@ -22,6 +22,22 @@ services:
     depends_on:
       - users_db
 
+  auth_svc:
+    env_file: backend/auth/build/svc/dev.env
+    build:
+      context: backend/auth
+    ports:
+      - "9990:9990"
+    depends_on:
+      - auth_redis
+
+  auth_redis:
+    image: redis:4-alpine
+    command: redis-server --requirepass redis_pwd
+    volumes:
+      - auth_redis:/data
+
 volumes:
-  users_db:
   users_svc:
+  users_db:
+  auth_redis:

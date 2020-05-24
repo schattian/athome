@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "./pbauth";
+
+package auth;
+
+
+service Auth {
+  rpc CreateAuthentication (CreateAuthenticationRequest) returns (CreateAuthenticationResponse) {}
+  rpc RetrieveAuthentication (RetrieveAuthenticationRequest) returns (RetrieveAuthenticationResponse) {}
+}
+
+message RetrieveAuthenticationRequest {
+  string access_token = 1;
+}
+
+message RetrieveAuthenticationResponse {
+  uint64 user_id = 1;
+}
+
+message CreateAuthenticationRequest {
+  string sign_token = 1;
+}
+
+message CreateAuthenticationResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+
+  uint64 access_token_exp_ns = 3;
+  uint64 refresh_token_exp_ns = 4;
+}
+
+

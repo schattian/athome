@@ -4,10 +4,12 @@ import (
 	"context"
 
 	"github.com/athomecomar/xerrors"
+	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -41,22 +43,35 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 			continue
 		}
 
-		users = append(users, userToSignInUser(user))
+		signedUser, err := userToSignInUser(user)
+		if err != nil {
+			return nil, status.Errorf(xerrors.Internal, "userToSignInUser9: %v", err)
+		}
+
+		users = append(users, signedUser)
 	}
+
 	err = rows.Err()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "rows.Err: %v", err)
 	}
-	return &pbuser.SignInResponse{Users: users}, nil
+	return &pbuser.SignInResponse{
+		Users:          users,
+		SignTokenExpNs: uint64(userconf.GetSIGN_JWT_EXP().Nanoseconds()),
+	}, nil
 }
 
-func userToSignInUser(user *ent.User) *pbuser.SignInUser {
-	return &pbuser.SignInUser{
-		Id:      user.Id,
-		Token:   user.PasswordHash,
-		Email:   string(user.Email),
-		Role:    string(user.Role),
-		Name:    string(user.Name),
-		Surname: string(user.Surname),
+func userToSignInUser(user *ent.User) (*pbuser.SignInUser, error) {
+	token, err := createSignToken(user.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, "CreateSignToken")
 	}
+	return &pbuser.SignInUser{
+		Id:        user.Id,
+		SignToken: token,
+		Email:     string(user.Email),
+		Role:      string(user.Role),
+		Name:      string(user.Name),
+		Surname:   string(user.Surname),
+	}, nil
 }
