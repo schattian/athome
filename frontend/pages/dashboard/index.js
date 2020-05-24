@@ -1,8 +1,7 @@
-import React from 'react';
-import Dashboard from 'src/screens/dashboard';
-
-import Page from 'src/components/Page';
 import Head from 'next/head';
+import React from 'react';
+import Page from 'src/components/Page';
+import Dashboard from 'src/layouts/dashboard';
 
 export default Page({
   loginRequired: true,

@@ -1,7 +1,7 @@
-import React from 'react';
-import Screen from 'src/screens/signin';
-import Page from 'src/components/Page';
 import Head from 'next/head';
+import React from 'react';
+import Page from 'src/components/Page';
+import Screen from 'src/layouts/signin';
 
 export default Page({
   loginRequired: false,

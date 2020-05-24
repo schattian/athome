@@ -1,0 +1,10 @@
+{
+  "screenName": "signin",
+  "title": "Sign In",
+  "emailFieldLabel": "Email Address",
+  "passwordLabel": "Password",
+  "signinRememberMe": "Remember Me",
+  "submitButton": "Sign In",
+  "forgotPasswordButton": "Forgot password?",
+  "dontHaveAccountButton": "Don't have an account? Sign Up"
+}

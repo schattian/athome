@@ -29,6 +29,7 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([
-  withCSS, withSass, withBundleAnalyzer, withImages,
-], nextConfig);
+module.exports = withPlugins(
+  [withCSS, withSass, withBundleAnalyzer, withImages],
+  nextConfig,
+);

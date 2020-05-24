@@ -1,7 +1,7 @@
-import React from 'react';
-import Screen from 'src/screens/verifyAccount';
-import Page from 'src/components/Page';
 import Head from 'next/head';
+import React from 'react';
+import Page from 'src/components/Page';
+import Screen from 'src/layouts/verifyAccount';
 
 export default Page({
   loginRequired: false,

@@ -1,20 +1,20 @@
-import React from 'react';
-import Screen from 'src/screens/signup';
-import Page from 'src/components/Page';
 import Head from 'next/head';
+import React from 'react';
+import Page from 'src/components/Page';
+import Layout from 'src/layouts/signup';
 
 export default Page({
   loginRequired: false,
   logoutRequired: true,
   adminRequired: false,
   i18n: ['signup'],
-  showSwitchLangBtn: true,
+  showSwitchLangBtn: false,
   displayName: 'SignupPage',
 })(() => (
   <React.Fragment>
     <Head>
       <title>Sign up</title>
     </Head>
-    <Screen />
+    <Layout />
   </React.Fragment>
 ));
