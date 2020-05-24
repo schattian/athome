@@ -16,13 +16,10 @@ service User {
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
-
-//   rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
-//   rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
 }
 
 message FetchOnboardingRequest {
-  uint64 token = 1;
+  uint64 onboarding_id = 1;
 }
 
 message FetchOnboardingResponse{
@@ -38,22 +35,22 @@ message SignUpStartRequest {
 }
 
 message SignUpStartResponse{
-  uint64 token = 1;
+  uint64 onboarding_id = 1;
 }
 
 message SignUpSharedRequest {
-  uint64 token = 1;
+  uint64 onboarding_id = 1;
   string email = 2 [(validate.rules).string = {email: true}];
   string name = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
   string surname = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
 }
 
 message SignUpSharedResponse{
-  uint64 token = 1;
+  uint64 onboarding_id = 1;
 }
 
 message SignUpEndRequest{
-  uint64 token = 1;
+  uint64 onboarding_id = 1;
   string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
 }
 
@@ -68,11 +65,13 @@ message SignInRequest {
 
 message SignInResponse {
   repeated SignInUser users = 1;
+  uint64 sign_token_exp_ns = 7;
+
 }
 
 message SignInUser {
   uint64 id = 1;
-  string jwt = 2;
+  string sign_token = 2;
   string role = 3;
   string name = 4;
   string surname = 5;
@@ -80,9 +79,13 @@ message SignInUser {
 }
 
 message SignRequest {
-  string sign_jwt = 1;
+  string sign_token = 1;
 }
 
 message SignResponse {
-  string jwt = 1;
+  string access_token = 1;
+  string refresh_token = 2;
+
+  uint64 access_token_exp_ns = 3;
+  uint64 refresh_token_exp_ns = 4;
 }

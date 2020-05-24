@@ -25,6 +25,6 @@ pbcompile user users
 
 pbcompile auth auth
 
-#pbpropague auth auth users
+pbpropague auth auth users
 
 echo "Done"
