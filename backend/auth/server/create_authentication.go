@@ -16,6 +16,13 @@ import (
 )
 
 func (s *Server) CreateAuthentication(ctx context.Context, in *pbauth.CreateAuthenticationRequest) (*pbauth.CreateAuthenticationResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	return s.createAuthentication(ctx, in)
+}
+
+func (s *Server) createAuthentication(ctx context.Context, in *pbauth.CreateAuthenticationRequest) (*pbauth.CreateAuthenticationResponse, error) {
 	claims, err := claimJwt(in.GetSignToken(), authconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err

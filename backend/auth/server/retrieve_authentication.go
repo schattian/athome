@@ -14,6 +14,13 @@ import (
 )
 
 func (s *Server) RetrieveAuthentication(ctx context.Context, in *pbauth.RetrieveAuthenticationRequest) (*pbauth.RetrieveAuthenticationResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	return s.retrieveAuthentication(ctx, in)
+}
+
+func (s *Server) retrieveAuthentication(ctx context.Context, in *pbauth.RetrieveAuthenticationRequest) (*pbauth.RetrieveAuthenticationResponse, error) {
 	claims, err := claimJwt(in.GetAccessToken(), authconf.GetAUTH_JWT_SECRET)
 	if err != nil {
 		return nil, err
