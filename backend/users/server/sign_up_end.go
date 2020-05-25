@@ -7,6 +7,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/pbuser"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
+	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc/status"
 )
@@ -20,7 +21,10 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
 	}
 	defer db.Close()
+	return s.signUpEnd(ctx, db, in)
+}
 
+func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEndRequest) (*pbuser.SignUpEndResponse, error) {
 	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)

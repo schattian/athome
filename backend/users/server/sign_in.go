@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/xerrors"
+	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 
@@ -24,7 +25,10 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
 	}
 	defer db.Close()
+	return s.signIn(ctx, db, in)
+}
 
+func (s *Server) signIn(ctx context.Context, db *sqlx.DB, in *pbuser.SignInRequest) (*pbuser.SignInResponse, error) {
 	rows, err := db.QueryxContext(ctx, `SELECT * FROM users WHERE email=$1 limit 3`, in.GetEmail())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)

@@ -22,6 +22,10 @@ func (s *Server) FetchOnboarding(ctx context.Context, in *pbuser.FetchOnboarding
 		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
 	}
 	defer db.Close()
+	return s.fetchOnboarding(ctx, db, in)
+}
+
+func (s *Server) fetchOnboarding(ctx context.Context, db *sqlx.DB, in *pbuser.FetchOnboardingRequest) (*pbuser.FetchOnboardingResponse, error) {
 	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
@@ -29,7 +33,6 @@ func (s *Server) FetchOnboarding(ctx context.Context, in *pbuser.FetchOnboarding
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}
-
 	return onboardingToFetchOnboardingResponse(onboarding), nil
 }
 

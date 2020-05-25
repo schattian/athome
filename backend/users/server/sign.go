@@ -18,6 +18,13 @@ import (
 )
 
 func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	return s.sign(ctx, in)
+}
+
+func (s *Server) sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
 	claims, err := claimJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
