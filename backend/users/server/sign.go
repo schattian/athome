@@ -21,10 +21,16 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	return s.sign(ctx, in)
+	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		return nil, errors.Wrapf(err, "grpc.Dial at: %v", userconf.GetAUTH_ADDR())
+	}
+	defer conn.Close()
+
+	return s.sign(ctx, conn, in)
 }
 
-func (s *Server) sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+func (s *Server) sign(ctx context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
 	claims, err := claimJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
@@ -35,7 +41,7 @@ func (s *Server) sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 		return nil, status.Errorf(xerrors.InvalidArgument, "strconv.ParseUint: %v", err)
 	}
 
-	tokens, err := createTokens(userId)
+	tokens, err := createTokens(conn, userId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "createAuthToken: %v", err)
 	}
@@ -48,12 +54,7 @@ func (s *Server) sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	}, nil
 }
 
-func createTokens(userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
-	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
-	if err != nil {
-		return nil, errors.Wrapf(err, "grpc.Dial at: %v", userconf.GetAUTH_ADDR())
-	}
-	defer conn.Close()
+func createTokens(conn *grpc.ClientConn, userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
 	c := pbauth.NewAuthClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
