@@ -1,15 +1,8 @@
+local onboardings = import './onboardings.jsonnet';
 {
   base: {
-    foo: {
-      email: 'foo@foodomain.fooext',
-      name: 'fooName',
-      surname: 'fooSurname',
-    },
-    bar: {
-      email: 'bar@bardomain.barext',
-      name: 'barName',
-      surname: 'barSurname',
-    },
+    foo: onboardings.base.foo { id: 4 },
+    bar: onboardings.base.bar { id: 30 },
   },
 
   consumers:
