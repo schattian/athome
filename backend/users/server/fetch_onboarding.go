@@ -51,6 +51,9 @@ func fetchOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*en
 	row := db.QueryRowxContext(ctx, `SELECT * FROM onboardings WHERE id=$1`, token)
 	err := row.StructScan(o)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return o, nil

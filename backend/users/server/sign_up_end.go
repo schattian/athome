@@ -29,6 +29,9 @@ func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEn
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}
+	if previous == nil {
+		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
+	}
 
 	onboarding := previous.Next()
 	code, err := onboarding.MustStage(field.End)
