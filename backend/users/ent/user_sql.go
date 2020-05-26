@@ -17,10 +17,10 @@ func (u *User) SQLTable() string {
 func (u *User) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
 		"id":            u.Id,
-		"email":         string(u.Email),
 		"password_hash": u.PasswordHash,
-		"role":          string(u.Role),
-		"name":          string(u.Name),
-		"surname":       string(u.Surname),
+		"email":         u.Email,
+		"role":          u.Role,
+		"name":          u.Name,
+		"surname":       u.Surname,
 	}
 }
