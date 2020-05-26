@@ -8,7 +8,10 @@ import (
 )
 
 func GetAUTH_JWT_SECRET() string {
-	pwd := os.Getenv("AUTH_JWT_SECRET")
+	pwd := "auth_jwt"
+	if env := os.Getenv("AUTH_JWT_SECRET"); env != "" {
+		pwd = env
+	}
 	if isSilly(pwd) && envconf.NotInDevelopment() {
 		panic("silly auth_jwt secret given")
 	}
@@ -16,7 +19,10 @@ func GetAUTH_JWT_SECRET() string {
 }
 
 func GetSIGN_JWT_SECRET() string {
-	pwd := os.Getenv("SIGN_JWT_SECRET")
+	pwd := "sign_jwt"
+	if env := os.Getenv("SIGN_JWT_SECRET"); env != "" {
+		pwd = env
+	}
 	if isSilly(pwd) && envconf.NotInDevelopment() {
 		panic("silly sign_jwt secret given")
 	}
