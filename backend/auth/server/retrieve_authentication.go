@@ -32,7 +32,7 @@ func (s *Server) retrieveAuthentication(ctx context.Context, in *pbauth.Retrieve
 	}
 	access, _, err := retrieveTokens(ctx, s.Redis, userId)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "retrieveTokens: %v", err)
+		return nil, status.Errorf(xerrors.Unauthenticated, "retrieveTokens: %v", err)
 	}
 	if access != in.GetAccessToken() {
 		return nil, status.Error(xerrors.Unauthenticated, "token given mismatch")
@@ -53,13 +53,21 @@ func retrieveTokens(ctx context.Context, r *redis.Client, userId uint64) (access
 
 	access, ok := vals[0].(string)
 	if !ok {
-		err = fmt.Errorf("invalid value type of value key: %s", accessKey)
+		if vals[0] == nil {
+			err = fmt.Errorf("nil value stored for key: %s", accessKey)
+		} else {
+			err = fmt.Errorf("invalid value type for key: %s", accessKey)
+		}
 		return
 	}
 
 	refresh, ok = vals[1].(string)
 	if !ok {
-		err = fmt.Errorf("invalid value type of value key: %s", refreshKey)
+		if vals[1] == nil {
+			err = fmt.Errorf("nil value stored for key: %s", accessKey)
+		} else {
+			err = fmt.Errorf("invalid value type for key: %s", accessKey)
+		}
 		return
 	}
 
