@@ -18,7 +18,7 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 		return []byte(secretFn()), nil
 	})
 	if err != nil {
-		return nil, status.Error(xerrors.Internal, "jwt isnt parsable")
+		return nil, status.Errorf(xerrors.InvalidArgument, "jwt isnt parsable: %v", err)
 	}
 
 	claims, ok := claimableToken.Claims.(jwt.MapClaims)
