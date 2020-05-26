@@ -31,7 +31,7 @@ func TestServer_signUpStart(t *testing.T) {
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpStartRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpStartRequest(gOnboardings.Consumers.Foo),
 			},
 			execStub: &sqlassist.QueryStubber{
 				Expect: "INSERT INTO onboardings", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gOnboardings.Consumers.Foo.Id),
@@ -43,7 +43,7 @@ func TestServer_signUpStart(t *testing.T) {
 			name: "consumer qr err",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpStartRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpStartRequest(gOnboardings.Consumers.Foo),
 			},
 			execStub: &sqlassist.QueryStubber{
 				Err:    errors.New("foo"),

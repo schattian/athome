@@ -34,7 +34,7 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
@@ -56,7 +56,7 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "already exists basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
@@ -77,7 +77,7 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "invalid stage basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
@@ -98,7 +98,7 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "unexistant onboarding",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(t, gOnboardings.Consumers.Foo),
+				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
