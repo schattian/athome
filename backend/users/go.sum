@@ -37,6 +37,14 @@ github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCP
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.3.2 h1:Nx6qVCfayiIf+vmf0X4B4gwd3apKg8kWyKKTx8L0k/c=
 github.com/athomecomar/storeql v1.3.2/go.mod h1:m50GeTulV5UVxvm4i0NM+tb7MiSKHeA0El8feuCbvpA=
+github.com/athomecomar/storeql v1.4.0 h1:BW2o8cOEBxbiMV/nJVUmMhi4Gm84F+HIvkYbZLF4ZZA=
+github.com/athomecomar/storeql v1.4.0/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
+github.com/athomecomar/storeql v1.4.1 h1:uDD2MNjbhoPpG64t20X06l41T5078pYFpmhN9AoVvvc=
+github.com/athomecomar/storeql v1.4.1/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
+github.com/athomecomar/storeql v1.4.2 h1:i19j70CeGpGMZgsQjstJxyP4IlrobQdp+v/67EJfC3I=
+github.com/athomecomar/storeql v1.4.2/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
+github.com/athomecomar/storeql v1.4.3 h1:bgR7CS1aWgPmIfP30nQhacyL7XzZSD5jp+a3cvDQ5S8=
+github.com/athomecomar/storeql v1.4.3/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=
 github.com/athomecomar/xerrors v1.2.1/go.mod h1:Ira4CbX2hG2tS0Fc9ShSV3Et1pgf/uqGgb2SgB507IE=
 github.com/athomecomar/xtest v0.0.0-20200516201628-af9df9901326 h1:y7gk560BTL3sP2q9N5IbF28mchULjyfXIxnJqdpuPzI=
