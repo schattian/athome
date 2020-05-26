@@ -1,5 +1,7 @@
 package ent
 
+import "database/sql/driver"
+
 func (o *Onboarding) GetId() uint64 {
 	return o.Id
 }
@@ -12,13 +14,13 @@ func (o *Onboarding) SQLTable() string {
 	return "onboardings"
 }
 
-func (o *Onboarding) SQLColumns() []string {
-	return []string{
-		"id",
-		"email",
-		"stage",
-		"role",
-		"name",
-		"surname",
+func (o *Onboarding) SQLMap() map[string]driver.Value {
+	return map[string]driver.Value{
+		"id":      o.Id,
+		"email":   string(o.Email),
+		"stage":   int(o.Stage),
+		"role":    string(o.Role),
+		"name":    string(o.Name),
+		"surname": string(o.Surname),
 	}
 }

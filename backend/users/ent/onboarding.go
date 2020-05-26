@@ -51,7 +51,7 @@ func (o *Onboarding) MustStage(s field.Stage) (code codes.Code, err error) {
 }
 
 func (o *Onboarding) ValidateShared(ctx context.Context, db *sqlx.DB) (code codes.Code, err error) {
-	rows, err := db.QueryxContext(ctx, `SELECT COUNT(*) FROM users WHERE email=$1 AND role=$2 LIMIT 1`, o.Email, o.Role)
+	rows, err := db.QueryxContext(ctx, `SELECT COUNT(id) FROM users WHERE email=$1 AND role=$2 LIMIT 1`, o.Email, o.Role)
 	if err != nil {
 		return codes.Internal, errors.Wrap(err, "QueryxContext")
 	}
