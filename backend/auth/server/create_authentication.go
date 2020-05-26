@@ -43,7 +43,11 @@ func (s *Server) createAuthentication(ctx context.Context, in *pbauth.CreateAuth
 		return nil, status.Errorf(xerrors.Internal, "createRefreshToken: %v", err)
 	}
 
-	err = s.Redis.HSet(ctx, userIdToKey(userId), accessKey, accessToken, refreshKey, refreshToken).Err()
+	err = s.Redis.HMSet(ctx, userIdToKey(userId),
+		map[string]interface{}{
+			accessKey:  accessToken,
+			refreshKey: refreshToken,
+		}).Err()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "redis.HSet: %v", err)
 	}
