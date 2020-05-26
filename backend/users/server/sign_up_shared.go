@@ -30,7 +30,9 @@ func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbuser.SignU
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
 	}
-
+	if previous == nil {
+		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
+	}
 	onboarding := signUpSharedRequestToOnboarding(previous, in).Next()
 
 	code, err := onboarding.MustStage(field.Shared)
