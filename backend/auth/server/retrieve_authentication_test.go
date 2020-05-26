@@ -65,8 +65,7 @@ func TestServer_retrieveAuthentication(t *testing.T) {
 
 			got, err := s.retrieveAuthentication(tt.args.ctx, tt.args.in)
 			if status.Code(err) != tt.wantStatus {
-				t.Errorf("Server.retrieveAuthentication() error = %v, wantStatus %v", err, tt.wantStatus)
-				return
+				t.Fatalf("Server.retrieveAuthentication() error = %v, wantStatus %v", err, tt.wantStatus)
 			}
 
 			if diff := cmp.Diff(got, tt.want); diff != "" {
