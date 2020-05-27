@@ -7,6 +7,14 @@ matrix:
         - cd backend/users
       script:
         - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/auth
+      go: 1.14.x
+      before_script:
+        - cd backend/auth
+      script:
+        - make check
+
 
 notifications:
   email:
