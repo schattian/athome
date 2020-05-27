@@ -1,6 +1,7 @@
 #!/bin/sh
 DIR=$(dirname "$0")
 cd $DIR/pb
+#  --js_out="library=pb_$1,binary:js" \
 
 pbcompile()
 {
@@ -9,7 +10,6 @@ protoc \
   -I ${GOPATH}/src \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
   --go_out="plugins=grpc:../backend/$2/pb/" \
-  --js_out="library=pb_$1,binary:js" \
   --validate_out="lang=go:../backend/$2/pb/" \
   $1.proto
 
