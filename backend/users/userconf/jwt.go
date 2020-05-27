@@ -12,9 +12,27 @@ func GetSIGN_JWT_EXP() time.Duration {
 }
 
 func GetSIGN_JWT_SECRET() string {
-	pwd := os.Getenv("SIGN_JWT_SECRET")
+	pwd := "sign_jwt"
+	if env := os.Getenv("SIGN_JWT_SECRET"); env != "" {
+		pwd = env
+	}
 	if isSilly(pwd) && envconf.NotInDevelopment() {
 		panic("silly sign_jwt secret given")
+	}
+	return pwd
+}
+
+func GetFORGOT_JWT_EXP() time.Duration {
+	return 10 * time.Hour
+}
+
+func GetFORGOT_JWT_SECRET() string {
+	pwd := "forgot_jwt"
+	if env := os.Getenv("FORGOT_JWT_SECRET"); env != "" {
+		pwd = env
+	}
+	if isSilly(pwd) && envconf.NotInDevelopment() {
+		panic("silly forgot_jwt secret given")
 	}
 	return pwd
 }

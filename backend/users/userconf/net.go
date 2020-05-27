@@ -19,3 +19,11 @@ func GetAUTH_ADDR() (addr string) {
 	}
 	return
 }
+
+func GetMAILER_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "auth_svc:9992"
+	}
+	return
+}
