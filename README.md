@@ -1,5 +1,7 @@
 # athome
 
+[![Build Status](https://travis-ci.com/athomecomar/athome.svg?token=e2HswtC3ixASrSJvAGtB&branch=master)](https://travis-ci.com/athomecomar/athome)
+
 ## Structure 
 
 
