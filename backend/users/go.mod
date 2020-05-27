@@ -23,6 +23,7 @@ require (
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
 	google.golang.org/genproto v0.0.0-20200515170657-fc4c6c6a6587 // indirect
 	google.golang.org/grpc v1.29.1
+	google.golang.org/protobuf v1.23.0
 )
 
 replace google.golang.org/grpc => github.com/grpc/grpc-go v1.29.1
