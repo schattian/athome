@@ -10,7 +10,6 @@ require (
 	github.com/athomecomar/xtest v0.0.0-20200516201628-af9df9901326
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
-	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813
 	github.com/golang-migrate/migrate/v4 v4.11.0
 	github.com/golang/protobuf v1.4.2
 	github.com/google/go-cmp v0.4.1
