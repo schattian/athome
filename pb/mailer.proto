@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./pbmailer";
+
+package mailer;
+
+service Mailer {
+  rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message ForgotPasswordRequest {
+  string email = 1 [(validate.rules).string = {email: true}];
+  repeated TokenizedUser tokenized_users = 2;
+}
+
+message TokenizedUser{
+  string role = 1 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
+  string token = 2;
+}

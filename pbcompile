@@ -25,6 +25,10 @@ pbcompile user users
 
 pbcompile auth auth
 
+pbcompile mailer mailer
+
 pbpropague auth auth users
+
+pbpropague mailer mailer users
 
 echo "Done"
