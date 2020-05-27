@@ -5,7 +5,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/xtest/xload"
 	"github.com/pkg/errors"
 )

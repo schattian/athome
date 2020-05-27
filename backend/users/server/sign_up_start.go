@@ -8,7 +8,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/xerrors"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc/status"

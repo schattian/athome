@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/auth/authconf"
-	"github.com/athomecomar/athome/backend/auth/pbauth"
+	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
 	"github.com/athomecomar/athome/backend/auth/server"
 	"github.com/go-redis/redis/v8"
 

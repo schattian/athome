@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/athomecomar/athome/backend/auth/pbauth"
+	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"github.com/google/go-cmp/cmp"
 	"google.golang.org/grpc/status"

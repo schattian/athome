@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"

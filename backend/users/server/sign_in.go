@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"

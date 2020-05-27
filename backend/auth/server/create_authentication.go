@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/auth/authconf"
+	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 
-	"github.com/athomecomar/athome/backend/auth/pbauth"
 	"github.com/dgrijalva/jwt-go"
 )
 

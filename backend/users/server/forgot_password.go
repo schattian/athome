@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/users/pbmailer"
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbmailer"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"

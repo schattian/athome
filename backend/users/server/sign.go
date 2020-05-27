@@ -6,9 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/athomecomar/athome/backend/users/pbauth"
-
-	"github.com/athomecomar/athome/backend/users/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbauth"
+	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"github.com/dgrijalva/jwt-go"

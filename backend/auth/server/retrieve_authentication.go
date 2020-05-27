@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/athomecomar/athome/backend/auth/authconf"
-	"github.com/athomecomar/athome/backend/auth/pbauth"
+	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"github.com/go-redis/redis/v8"
 	"github.com/pkg/errors"
