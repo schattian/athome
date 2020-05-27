@@ -23,7 +23,7 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	}
 	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		return nil, errors.Wrapf(err, "grpc.Dial at: %v", userconf.GetAUTH_ADDR())
+		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
 	}
 	defer conn.Close()
 
@@ -31,14 +31,9 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 }
 
 func (s *Server) sign(ctx context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
-	claims, err := claimJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
+	userId, err := handleJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
-	}
-
-	userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
-	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "strconv.ParseUint: %v", err)
 	}
 
 	tokens, err := createTokens(conn, userId)
@@ -70,6 +65,18 @@ func createTokens(conn *grpc.ClientConn, userId uint64) (*pbauth.CreateAuthentic
 	return authResponse, nil
 }
 
+func handleJwt(token string, secretFn func() string) (uint64, error) {
+	claims, err := claimJwt(token, secretFn)
+	if err != nil {
+		return 0, err
+	}
+	userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
+	if err != nil {
+		return 0, status.Errorf(xerrors.InvalidArgument, "strconv.ParseUint: %v", err)
+	}
+	return userId, nil
+}
+
 func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 	claimableToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -99,13 +106,21 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 }
 
 func createSignToken(userId uint64) (string, error) {
+	return createToken(userId, userconf.GetSIGN_JWT_SECRET, userconf.GetSIGN_JWT_EXP)
+}
+
+func createForgotToken(userId uint64) (string, error) {
+	return createToken(userId, userconf.GetFORGOT_JWT_SECRET, userconf.GetFORGOT_JWT_EXP)
+}
+
+func createToken(userId uint64, secretFn func() string, expFn func() time.Duration) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": userId,
-		"exp":     time.Now().Add(userconf.GetSIGN_JWT_EXP()).Unix(),
+		"exp":     time.Now().Add(expFn()).Unix(),
 		"nbf":     time.Now().Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(userconf.GetSIGN_JWT_SECRET()))
+	tokenString, err := token.SignedString([]byte(secretFn()))
 	if err != nil {
 		return "", errors.Wrap(err, "jwt.SignedString")
 	}

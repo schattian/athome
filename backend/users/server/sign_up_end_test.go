@@ -19,6 +19,8 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+const fooPwd = "foopassword3"
+
 func TestServer_signUpEnd(t *testing.T) {
 	type args struct {
 		ctx context.Context
@@ -36,7 +38,7 @@ func TestServer_signUpEnd(t *testing.T) {
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, "asdsadasda"),
+				in:  onboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
