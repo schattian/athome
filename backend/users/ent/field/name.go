@@ -17,14 +17,14 @@ func (n Name) HumanName() string {
 
 func (n Name) Validate() error {
 	if n == "" {
-		return errors.New("El nombre es obligatorio")
+		return errors.New("name must exist")
 	}
 	if len(n) > 30 {
-		return errors.New("El nombre no puede tener más de 30 caracteres")
+		return errors.New("name len cant be < 30")
 	}
 	re := regexp.MustCompile(`^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$`)
 	if !re.Match([]byte(n)) {
-		return errors.New("Nombre inválido")
+		return errors.New("invalid name")
 	}
 	return nil
 }

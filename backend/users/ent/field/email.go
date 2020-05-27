@@ -18,7 +18,7 @@ func (e Email) HumanName() string {
 func (e Email) Validate() error {
 	re := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	if !re.Match([]byte(e)) {
-		return errors.New("Email inválido")
+		return errors.New("invalid email")
 	}
 	return nil
 }

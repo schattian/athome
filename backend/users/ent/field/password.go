@@ -14,10 +14,10 @@ func (p Password) HumanName() string {
 
 func (p Password) Validate() error {
 	if len(p) < 6 {
-		return errors.New("La contraseña debe ser de 6 caracteres como mínimo")
+		return errors.New("password len must be >= 6")
 	}
 	if len(p) > 25 {
-		return errors.New("La contraseña debe ser de 25 caracteres como máximo")
+		return errors.New("password len must be <= 25")
 	}
 	return nil
 }

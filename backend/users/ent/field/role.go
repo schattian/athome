@@ -26,5 +26,5 @@ func (r Role) Validate() error {
 			return nil
 		}
 	}
-	return errors.New("El rol no es válido")
+	return errors.New("invalid role")
 }

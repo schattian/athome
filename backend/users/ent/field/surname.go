@@ -17,15 +17,15 @@ func (s Surname) HumanName() string {
 
 func (s Surname) Validate() error {
 	if s == "" {
-		return errors.New("El apellido es obligatorio")
+		return errors.New("surname must exist")
 	}
 
 	if len(s) > 30 {
-		return errors.New("El apellido no puede tener más de 30 caracteres")
+		return errors.New("surname len cant be > 30")
 	}
 	re := regexp.MustCompile(`^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$`)
 	if !re.Match([]byte(s)) {
-		return errors.New("Apellido inválido")
+		return errors.New("invalid surname")
 	}
 	return nil
 }

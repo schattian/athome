@@ -29,7 +29,7 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	return s.sign(ctx, conn, in)
 }
 
-func (s *Server) sign(ctx context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+func (s *Server) sign(_ context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
 	userId, err := handleJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
