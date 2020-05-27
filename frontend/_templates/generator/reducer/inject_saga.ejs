@@ -1,9 +1,0 @@
----
-inject: true
-to: src/redux/rootSaga.js
-after: "  yield all"
-skip_if: <%= h.changeCase.lcFirst(name) %>Watcher
----
-<% if(locals.saga) { -%>
-    call(<%= h.changeCase.lcFirst(name) %>, '<%= h.changeCase.lcFirst(name) %>Watcher'),
-<%}-%>
