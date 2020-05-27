@@ -13,11 +13,23 @@ import (
 var (
 	gUsers       *goldenUsers
 	gOnboardings *goldenOnboardings
+	gTokens      *goldenTokens
 )
 
 func init() {
+	xload.DecodeJsonnet("tokens", &gTokens)
 	xload.DecodeJsonnet("users", &gUsers)
 	xload.DecodeJsonnet("onboardings", &gOnboardings)
+}
+
+type goldenTokens struct {
+	Sign   *variadicTokens `json:"sign,omitempty"`
+	Forgot *variadicTokens `json:"forgot,omitempty"`
+}
+
+type variadicTokens struct {
+	Valid   string `json:"valid,omitempty"`
+	Expired string `json:"expired,omitempty"`
 }
 
 type goldenUsers struct {
