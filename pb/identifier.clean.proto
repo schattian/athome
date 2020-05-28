@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+option go_package = "./pbidentifier";
+
+package identifier;
+
+service Identifier {
+  rpc ValidateLicense (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
+}
+
+message ValidateLicenseRequest{
+  string category = 1;
+  uint64 dni = 2;
+  string license = 3;
+}
+
+message ValidateLicenseResponse{
+  bool valid = 1;
+}
+

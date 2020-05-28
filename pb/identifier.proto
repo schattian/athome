@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+option go_package = "./pbidentifier";
+
+package identifier;
+
+service Identifier {
+  rpc ValidateLicense (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
+}
+
+message ValidateLicenseRequest{
+  string category = 1 [(validate.rules).string = {in: ["psychologist", "medic"] }];
+  uint64 dni = 2 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
+  string license = 3;
+}
+
+message ValidateLicenseResponse{
+  bool valid = 1;
+}

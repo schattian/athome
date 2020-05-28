@@ -23,11 +23,15 @@ pbpropague()
 
 pbcompile user users
 
+pbcompile identifier identifier
+
 pbcompile auth auth
 
 pbcompile mailer mailer
 
 pbpropague auth auth users
+
+pbpropague identifier identifier users
 
 pbpropague mailer mailer users
 
