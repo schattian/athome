@@ -7,20 +7,20 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/athomecomar/semantic/semerr"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/gocolly/colly"
 	"github.com/pkg/errors"
 )
 
-func VerifyLicense(cat semprov.Category, dni uint64, license string) (valid bool, err error) {
-	switch cat {
-	case semprov.Medic:
-	case semprov.Psychologist:
-		valid, err = verifyLicensePsychologist(dni, license)
-	default:
-		err = semerr.ErrProviderCategoryNotFound
-	}
+var VerifierByCategory = map[semprov.Category]licenseVerifier{
+	semprov.Medic:        verifyLicenseMedic,
+	semprov.Psychologist: verifyLicensePsychologist,
+}
+
+type licenseVerifier func(uint64, string) (bool, error)
+
+func verifyLicenseMedic(dni uint64, license string) (valid bool, err error) {
+
 	return
 }
 

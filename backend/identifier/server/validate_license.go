@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"errors"
 
 	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
 	"github.com/athomecomar/athome/backend/identifier/scraper"
@@ -20,12 +19,13 @@ func (s *Server) ValidateLicense(ctx context.Context, in *pbidentifier.ValidateL
 }
 
 func (s *Server) validateLicense(ctx context.Context, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
-	valid, err := scraper.VerifyLicense(semprov.Category(in.GetCategory()), in.GetDni(), in.GetLicense())
+	verifier, ok := scraper.VerifierByCategory[semprov.Category(in.GetCategory())]
+	if !ok {
+		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s: %v", in.GetCategory(), semerr.ErrProviderCategoryNotFound)
+	}
+	valid, err := verifier(in.GetDni(), in.GetLicense())
 	if err != nil {
-		if errors.Is(err, semerr.ErrProviderCategoryNotFound) {
-			return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s: %v", in.GetCategory(), err)
-		}
-		// return nil, status.Error
+		return nil, status.Errorf(xerrors.Internal, "%s verifier returned: %v", in.GetCategory(), err)
 	}
 	return &pbidentifier.ValidateLicenseResponse{Valid: valid}, nil
 }
