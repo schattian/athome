@@ -9,6 +9,8 @@ package identifier;
 service Identifier {
   rpc ValidateLicense (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
   rpc InferLicenseByFullname (InferLicenseByFullnameRequest) returns (InferLicenseByFullnameResponse) {}
+
+  rpc InferDataByCUE (InferDataByCUERequest) returns (InferDataByCUEResponse) {}
 }
 
 message ValidateLicenseRequest{
@@ -31,3 +33,32 @@ message InferLicenseByFullnameResponse{
   uint64 license = 1;
 }
 
+message InferDataByCUERequest{
+  uint64 cue = 1 [(validate.rules).uint64 = {gt: 20000000, lt: 999999999}];
+}
+
+message InferDataByCUEResponse{
+  string name = 1;
+  bool is_public = 2;
+  bool is_urban = 3;
+  string address = 4;
+  string phone = 6;
+  EducationType education_type = 7;
+  AlumnType alumn_type = 8;
+}
+
+message EducationType {
+  bool maternal = 1;
+  bool initial  = 2;
+  bool primary  = 3;
+  bool high_school  = 4;
+  bool technical = 5;
+  bool superior = 6;
+  bool courses = 7;
+}
+
+message AlumnType {
+  bool adult = 1;
+  bool special = 2;
+  bool normal = 3;
+}

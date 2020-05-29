@@ -354,3 +354,323 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = InferLicenseByFullnameResponseValidationError{}
+
+// Validate checks the field values on InferDataByCUERequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InferDataByCUERequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if val := m.GetCue(); val <= 20000000 || val >= 999999999 {
+		return InferDataByCUERequestValidationError{
+			field:  "Cue",
+			reason: "value must be inside range (20000000, 999999999)",
+		}
+	}
+
+	return nil
+}
+
+// InferDataByCUERequestValidationError is the validation error returned by
+// InferDataByCUERequest.Validate if the designated constraints aren't met.
+type InferDataByCUERequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InferDataByCUERequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InferDataByCUERequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InferDataByCUERequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InferDataByCUERequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InferDataByCUERequestValidationError) ErrorName() string {
+	return "InferDataByCUERequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InferDataByCUERequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInferDataByCUERequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InferDataByCUERequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InferDataByCUERequestValidationError{}
+
+// Validate checks the field values on InferDataByCUEResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InferDataByCUEResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for IsPublic
+
+	// no validation rules for IsUrban
+
+	// no validation rules for Address
+
+	// no validation rules for Phone
+
+	if v, ok := interface{}(m.GetEducationType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InferDataByCUEResponseValidationError{
+				field:  "EducationType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAlumnType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InferDataByCUEResponseValidationError{
+				field:  "AlumnType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// InferDataByCUEResponseValidationError is the validation error returned by
+// InferDataByCUEResponse.Validate if the designated constraints aren't met.
+type InferDataByCUEResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InferDataByCUEResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InferDataByCUEResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InferDataByCUEResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InferDataByCUEResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InferDataByCUEResponseValidationError) ErrorName() string {
+	return "InferDataByCUEResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InferDataByCUEResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInferDataByCUEResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InferDataByCUEResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InferDataByCUEResponseValidationError{}
+
+// Validate checks the field values on EducationType with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *EducationType) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Maternal
+
+	// no validation rules for Initial
+
+	// no validation rules for Primary
+
+	// no validation rules for HighSchool
+
+	// no validation rules for Technical
+
+	// no validation rules for Superior
+
+	// no validation rules for Courses
+
+	return nil
+}
+
+// EducationTypeValidationError is the validation error returned by
+// EducationType.Validate if the designated constraints aren't met.
+type EducationTypeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EducationTypeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EducationTypeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EducationTypeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EducationTypeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EducationTypeValidationError) ErrorName() string { return "EducationTypeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EducationTypeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEducationType.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EducationTypeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EducationTypeValidationError{}
+
+// Validate checks the field values on AlumnType with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *AlumnType) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Adult
+
+	// no validation rules for Special
+
+	// no validation rules for Normal
+
+	return nil
+}
+
+// AlumnTypeValidationError is the validation error returned by
+// AlumnType.Validate if the designated constraints aren't met.
+type AlumnTypeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AlumnTypeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AlumnTypeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AlumnTypeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AlumnTypeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AlumnTypeValidationError) ErrorName() string { return "AlumnTypeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AlumnTypeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAlumnType.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AlumnTypeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AlumnTypeValidationError{}
