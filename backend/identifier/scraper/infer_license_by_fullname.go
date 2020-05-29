@@ -16,10 +16,12 @@ var InferrorByFullnameByCategory = map[semprov.Category]inferrorByFullnameByCate
 
 type inferrorByFullnameByCategory func(afero.Fs, string, string) (uint64, error)
 
-const medicLicensesInferencesFilename = "medic_licenses_by_fullname.json"
+var InferrorByFullnameFilenames = map[semprov.Category]string{
+	semprov.Medic: "medic_licenses_by_fullname.json",
+}
 
 func inferrorByFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint64, error) {
-	f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + medicLicensesInferencesFilename)
+	f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + InferrorByFullnameFilenames[semprov.Medic])
 	if err != nil {
 		return 0, errors.Wrap(err, "fs.Open")
 	}
@@ -33,11 +35,8 @@ func inferrorByFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint6
 	var match uint64
 	for fullname, license := range licenseByName {
 		words := strings.Split(fullname, " ")
-		if len(givenSurnameWords)+len(givenNameWords) > len(words) {
-			continue
-		}
 		surnameWords := words[0:len(givenSurnameWords)]
-		nameWords := words[len(givenSurnameWords) : len(givenNameWords)+len(givenSurnameWords)]
+		nameWords := words[len(givenSurnameWords):]
 
 		eq, err := compareSlice(surnameWords, givenSurnameWords)
 		if err != nil {

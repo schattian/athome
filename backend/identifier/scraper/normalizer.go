@@ -55,6 +55,9 @@ func compareSlice(a, b []string) (eq bool, err error) {
 	sort.Strings(b)
 
 	for i, aword := range a {
+		if len(b)-1 < i {
+			break
+		}
 		eq, err = compare(aword, b[i])
 		if err != nil {
 			return false, errors.Wrap(err, "compare")
