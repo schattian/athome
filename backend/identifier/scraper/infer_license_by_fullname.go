@@ -2,7 +2,6 @@ package scraper
 
 import (
 	"encoding/json"
-	"log"
 	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/identifierconf"
@@ -47,12 +46,10 @@ func inferrorByFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint6
 		if !eq {
 			continue
 		}
-		log.Printf("comparing %v with %v", nameWords, givenNameWords)
-		eq, err = compareSlice(nameWords, givenNameWords)
+		eq, err = compareSliceSoft(nameWords, givenNameWords)
 		if err != nil {
 			return 0, errors.Wrap(err, "compareSlice on nameWords")
 		}
-		log.Println(eq)
 		if eq {
 			match = license
 		}

@@ -31,12 +31,29 @@ func toNormal(s string) (string, error) {
 		return "", errors.Wrap(err, "stripAccents")
 	}
 	s = removeNonWord(s)
+	s = strings.TrimSpace(s)
 	return s, nil
 }
 
+// compareSliceSoft compares, and sorts before, each word in a[i] with b[j]
+func compareSliceSoft(a, b []string) (eq bool, err error) {
+	if len(b) > len(a) {
+		eq, err = compareSlice(b, a)
+	}
+	if len(a) > len(b) {
+		eq, err = compareSlice(a, b)
+	}
+	if len(a) == len(b) {
+		eq, err = compareSlice(a, b)
+	}
+	return
+}
+
+// compareSlice compares, and sorts before, each word in a[i] with b[i]
 func compareSlice(a, b []string) (eq bool, err error) {
 	sort.Strings(a)
 	sort.Strings(b)
+
 	for i, aword := range a {
 		eq, err = compare(aword, b[i])
 		if err != nil {

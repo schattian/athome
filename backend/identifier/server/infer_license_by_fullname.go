@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
 	"github.com/athomecomar/athome/backend/identifier/scraper"
@@ -23,12 +24,13 @@ func (s *Server) inferLicenseByFullname(ctx context.Context, in *pbidentifier.In
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", in.GetCategory())
 	}
-	license, err := inferror(afero.NewOsFs(), in.GetName(), in.GetSurname())
+	name, surname := strings.TrimSpace(in.GetName()), strings.TrimSpace(in.GetSurname())
+	license, err := inferror(afero.NewOsFs(), name, surname)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "%s inferror by fullname returned: %v", in.GetCategory(), err)
 	}
 	if license == 0 {
-		return nil, status.Errorf(xerrors.NotFound, "couldn't infer license for fullname: %s %s", in.GetName(), in.GetSurname())
+		return nil, status.Errorf(xerrors.NotFound, "couldn't infer license for fullname: %s %s", name, surname)
 	}
 	return &pbidentifier.InferLicenseByFullnameResponse{License: license}, nil
 }
