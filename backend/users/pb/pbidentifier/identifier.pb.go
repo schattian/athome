@@ -28,7 +28,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type ValidateLicenseRequest struct {
 	Category             string   `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
 	Dni                  uint64   `protobuf:"varint,2,opt,name=dni,proto3" json:"dni,omitempty"`
-	License              string   `protobuf:"bytes,3,opt,name=license,proto3" json:"license,omitempty"`
+	License              uint64   `protobuf:"varint,3,opt,name=license,proto3" json:"license,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -73,11 +73,11 @@ func (m *ValidateLicenseRequest) GetDni() uint64 {
 	return 0
 }
 
-func (m *ValidateLicenseRequest) GetLicense() string {
+func (m *ValidateLicenseRequest) GetLicense() uint64 {
 	if m != nil {
 		return m.License
 	}
-	return ""
+	return 0
 }
 
 type ValidateLicenseResponse struct {
@@ -119,9 +119,105 @@ func (m *ValidateLicenseResponse) GetValid() bool {
 	return false
 }
 
+type InferLicenseByFullnameRequest struct {
+	Category             string   `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Surname              string   `protobuf:"bytes,3,opt,name=surname,proto3" json:"surname,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InferLicenseByFullnameRequest) Reset()         { *m = InferLicenseByFullnameRequest{} }
+func (m *InferLicenseByFullnameRequest) String() string { return proto.CompactTextString(m) }
+func (*InferLicenseByFullnameRequest) ProtoMessage()    {}
+func (*InferLicenseByFullnameRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f5f65ec84694b166, []int{2}
+}
+
+func (m *InferLicenseByFullnameRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InferLicenseByFullnameRequest.Unmarshal(m, b)
+}
+func (m *InferLicenseByFullnameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InferLicenseByFullnameRequest.Marshal(b, m, deterministic)
+}
+func (m *InferLicenseByFullnameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InferLicenseByFullnameRequest.Merge(m, src)
+}
+func (m *InferLicenseByFullnameRequest) XXX_Size() int {
+	return xxx_messageInfo_InferLicenseByFullnameRequest.Size(m)
+}
+func (m *InferLicenseByFullnameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_InferLicenseByFullnameRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InferLicenseByFullnameRequest proto.InternalMessageInfo
+
+func (m *InferLicenseByFullnameRequest) GetCategory() string {
+	if m != nil {
+		return m.Category
+	}
+	return ""
+}
+
+func (m *InferLicenseByFullnameRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *InferLicenseByFullnameRequest) GetSurname() string {
+	if m != nil {
+		return m.Surname
+	}
+	return ""
+}
+
+type InferLicenseByFullnameResponse struct {
+	License              uint64   `protobuf:"varint,1,opt,name=license,proto3" json:"license,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InferLicenseByFullnameResponse) Reset()         { *m = InferLicenseByFullnameResponse{} }
+func (m *InferLicenseByFullnameResponse) String() string { return proto.CompactTextString(m) }
+func (*InferLicenseByFullnameResponse) ProtoMessage()    {}
+func (*InferLicenseByFullnameResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f5f65ec84694b166, []int{3}
+}
+
+func (m *InferLicenseByFullnameResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InferLicenseByFullnameResponse.Unmarshal(m, b)
+}
+func (m *InferLicenseByFullnameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InferLicenseByFullnameResponse.Marshal(b, m, deterministic)
+}
+func (m *InferLicenseByFullnameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InferLicenseByFullnameResponse.Merge(m, src)
+}
+func (m *InferLicenseByFullnameResponse) XXX_Size() int {
+	return xxx_messageInfo_InferLicenseByFullnameResponse.Size(m)
+}
+func (m *InferLicenseByFullnameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_InferLicenseByFullnameResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InferLicenseByFullnameResponse proto.InternalMessageInfo
+
+func (m *InferLicenseByFullnameResponse) GetLicense() uint64 {
+	if m != nil {
+		return m.License
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*ValidateLicenseRequest)(nil), "identifier.ValidateLicenseRequest")
 	proto.RegisterType((*ValidateLicenseResponse)(nil), "identifier.ValidateLicenseResponse")
+	proto.RegisterType((*InferLicenseByFullnameRequest)(nil), "identifier.InferLicenseByFullnameRequest")
+	proto.RegisterType((*InferLicenseByFullnameResponse)(nil), "identifier.InferLicenseByFullnameResponse")
 }
 
 func init() {
@@ -129,23 +225,30 @@ func init() {
 }
 
 var fileDescriptor_f5f65ec84694b166 = []byte{
-	// 248 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc8, 0x4c, 0x49, 0xcd,
-	0x2b, 0xc9, 0x4c, 0xcb, 0x4c, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x42, 0x88,
-	0x48, 0x89, 0x97, 0x25, 0xe6, 0x64, 0xa6, 0x24, 0x96, 0xa4, 0xea, 0xc3, 0x18, 0x10, 0x45, 0x4a,
-	0x3d, 0x8c, 0x5c, 0x62, 0x61, 0x50, 0x21, 0x9f, 0xcc, 0xe4, 0xd4, 0xbc, 0xe2, 0xd4, 0xa0, 0xd4,
-	0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x21, 0x33, 0x2e, 0x8e, 0xe4, 0xc4, 0x92, 0xd4, 0xf4, 0xfc, 0xa2,
-	0x4a, 0x09, 0x46, 0x05, 0x46, 0x0d, 0x4e, 0x27, 0xa9, 0x5f, 0x4e, 0xe2, 0x45, 0xa2, 0x41, 0x3c,
-	0x05, 0xc5, 0x95, 0xc9, 0x19, 0xf9, 0x39, 0xf9, 0xe9, 0x99, 0xc5, 0x25, 0x41, 0xac, 0xb9, 0xa9,
-	0x29, 0x99, 0xc9, 0x41, 0x70, 0xb5, 0x42, 0x0a, 0x5c, 0xcc, 0x29, 0x79, 0x99, 0x12, 0x4c, 0x0a,
-	0x8c, 0x1a, 0x2c, 0x4e, 0x7c, 0xbf, 0x9c, 0xb8, 0x8d, 0x38, 0x05, 0xfe, 0x1f, 0xbc, 0xae, 0xaf,
-	0xb0, 0xbf, 0xc5, 0x36, 0x08, 0x24, 0x25, 0x24, 0xc1, 0xc5, 0x9e, 0x03, 0xb1, 0x4b, 0x82, 0x19,
-	0x64, 0x70, 0x10, 0x8c, 0xab, 0xa4, 0xcf, 0x25, 0x8e, 0xe1, 0x9a, 0xe2, 0x82, 0xfc, 0xbc, 0xe2,
-	0x54, 0x21, 0x11, 0x2e, 0x56, 0xb0, 0xdb, 0xc1, 0x6e, 0xe1, 0x08, 0x82, 0x70, 0x8c, 0xb2, 0xb8,
-	0xb8, 0x3c, 0xe1, 0xde, 0x14, 0x8a, 0xe1, 0xe2, 0x47, 0xd3, 0x2e, 0xa4, 0xa4, 0x87, 0x14, 0x30,
-	0xd8, 0x7d, 0x2a, 0xa5, 0x8c, 0x57, 0x0d, 0xc4, 0x7e, 0x25, 0x06, 0x27, 0x81, 0x28, 0x3e, 0x3d,
-	0xfd, 0x82, 0x24, 0x84, 0xda, 0x24, 0x36, 0x70, 0x20, 0x1a, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff,
-	0x54, 0xed, 0xfb, 0x07, 0x7d, 0x01, 0x00, 0x00,
+	// 353 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xcf, 0x4e, 0xf2, 0x40,
+	0x10, 0xc0, 0xbf, 0xe5, 0x7f, 0xe7, 0x23, 0xd8, 0xac, 0x06, 0x1a, 0x12, 0x48, 0x53, 0x2e, 0xe8,
+	0x81, 0x26, 0x78, 0x33, 0xf1, 0xb2, 0x07, 0x13, 0x12, 0x4f, 0x7b, 0xf0, 0x60, 0xbc, 0x94, 0x76,
+	0xc1, 0x4d, 0x4a, 0x5b, 0x76, 0x8b, 0x09, 0x77, 0x3d, 0xfa, 0x4c, 0xc6, 0xa7, 0xf0, 0xe4, 0x8b,
+	0xf4, 0xa2, 0x61, 0x4b, 0xa1, 0x02, 0x12, 0x6f, 0xdd, 0xd9, 0xdf, 0x74, 0x7e, 0x33, 0xb3, 0xa0,
+	0x73, 0x8f, 0x05, 0x31, 0x9f, 0x70, 0x26, 0x06, 0x91, 0x08, 0xe3, 0x10, 0xc3, 0x36, 0xd2, 0x6e,
+	0x3d, 0x39, 0x3e, 0xf7, 0x9c, 0x98, 0xd9, 0xd9, 0x47, 0x0a, 0x59, 0x2f, 0x08, 0x9a, 0x77, 0xeb,
+	0xd0, 0x2d, 0x77, 0x59, 0x20, 0x19, 0x65, 0xf3, 0x05, 0x93, 0x31, 0xb6, 0xa1, 0xe6, 0x3a, 0x31,
+	0x9b, 0x86, 0x62, 0x69, 0x20, 0x13, 0xf5, 0x35, 0x72, 0x9a, 0x10, 0x5d, 0x34, 0x68, 0x3d, 0x92,
+	0x4b, 0xf7, 0x31, 0xf4, 0xc3, 0x29, 0x97, 0x31, 0xdd, 0x40, 0xd8, 0x84, 0xa2, 0x17, 0x70, 0xa3,
+	0x60, 0xa2, 0x7e, 0x89, 0x34, 0x12, 0xf2, 0x7f, 0xa8, 0xe9, 0x5f, 0xef, 0x1f, 0xb6, 0xf9, 0xf6,
+	0x7c, 0x4d, 0x57, 0x57, 0xd8, 0x80, 0xaa, 0x9f, 0x16, 0x31, 0x8a, 0x2b, 0x8a, 0x66, 0x47, 0xcb,
+	0x86, 0xd6, 0x9e, 0x86, 0x8c, 0xc2, 0x40, 0x32, 0x7c, 0x06, 0x65, 0x25, 0xad, 0x24, 0x6a, 0x34,
+	0x3d, 0x58, 0xaf, 0x08, 0x3a, 0xa3, 0x60, 0xc2, 0xc4, 0x1a, 0x27, 0xcb, 0x9b, 0x85, 0xef, 0x07,
+	0xce, 0x6c, 0xe3, 0xdf, 0xdf, 0xf3, 0xaf, 0x27, 0x44, 0x13, 0x55, 0x5a, 0x9e, 0x31, 0x8f, 0xbb,
+	0x39, 0xf1, 0x0e, 0x94, 0x56, 0x89, 0xca, 0x5c, 0x23, 0x5a, 0x42, 0x2a, 0xa2, 0xa4, 0x17, 0x8c,
+	0x2e, 0x55, 0x61, 0xdc, 0x83, 0xaa, 0x5c, 0x08, 0x45, 0x14, 0x77, 0x89, 0xec, 0xc6, 0xba, 0x82,
+	0xee, 0x6f, 0x3a, 0xeb, 0x3e, 0x72, 0xcd, 0xa3, 0x1f, 0xcd, 0x0f, 0x3f, 0x11, 0xc0, 0x68, 0xb3,
+	0x2c, 0xfc, 0x00, 0x27, 0x3b, 0xb3, 0xc0, 0xd6, 0x20, 0xb7, 0xde, 0xc3, 0xfb, 0x6a, 0xf7, 0x8e,
+	0x32, 0xa9, 0x84, 0xf5, 0x0f, 0xcf, 0xa1, 0x79, 0x58, 0x14, 0x9f, 0xe7, 0x7f, 0x70, 0x74, 0xb6,
+	0xed, 0x8b, 0xbf, 0xa0, 0x59, 0x49, 0xa2, 0xdf, 0x37, 0x06, 0x76, 0x34, 0xde, 0xa6, 0x8c, 0x2b,
+	0xea, 0xf5, 0x5d, 0x7e, 0x07, 0x00, 0x00, 0xff, 0xff, 0x3d, 0xcb, 0xcf, 0xa0, 0xb6, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -161,6 +264,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IdentifierClient interface {
 	ValidateLicense(ctx context.Context, in *ValidateLicenseRequest, opts ...grpc.CallOption) (*ValidateLicenseResponse, error)
+	InferLicenseByFullname(ctx context.Context, in *InferLicenseByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseByFullnameResponse, error)
 }
 
 type identifierClient struct {
@@ -180,9 +284,19 @@ func (c *identifierClient) ValidateLicense(ctx context.Context, in *ValidateLice
 	return out, nil
 }
 
+func (c *identifierClient) InferLicenseByFullname(ctx context.Context, in *InferLicenseByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseByFullnameResponse, error) {
+	out := new(InferLicenseByFullnameResponse)
+	err := c.cc.Invoke(ctx, "/identifier.Identifier/InferLicenseByFullname", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentifierServer is the server API for Identifier service.
 type IdentifierServer interface {
 	ValidateLicense(context.Context, *ValidateLicenseRequest) (*ValidateLicenseResponse, error)
+	InferLicenseByFullname(context.Context, *InferLicenseByFullnameRequest) (*InferLicenseByFullnameResponse, error)
 }
 
 // UnimplementedIdentifierServer can be embedded to have forward compatible implementations.
@@ -191,6 +305,9 @@ type UnimplementedIdentifierServer struct {
 
 func (*UnimplementedIdentifierServer) ValidateLicense(ctx context.Context, req *ValidateLicenseRequest) (*ValidateLicenseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateLicense not implemented")
+}
+func (*UnimplementedIdentifierServer) InferLicenseByFullname(ctx context.Context, req *InferLicenseByFullnameRequest) (*InferLicenseByFullnameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InferLicenseByFullname not implemented")
 }
 
 func RegisterIdentifierServer(s *grpc.Server, srv IdentifierServer) {
@@ -215,6 +332,24 @@ func _Identifier_ValidateLicense_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Identifier_InferLicenseByFullname_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InferLicenseByFullnameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentifierServer).InferLicenseByFullname(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/identifier.Identifier/InferLicenseByFullname",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentifierServer).InferLicenseByFullname(ctx, req.(*InferLicenseByFullnameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Identifier_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "identifier.Identifier",
 	HandlerType: (*IdentifierServer)(nil),
@@ -222,6 +357,10 @@ var _Identifier_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateLicense",
 			Handler:    _Identifier_ValidateLicense_Handler,
+		},
+		{
+			MethodName: "InferLicenseByFullname",
+			Handler:    _Identifier_InferLicenseByFullname_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

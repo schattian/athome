@@ -8,14 +8,26 @@ package identifier;
 
 service Identifier {
   rpc ValidateLicense (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
+  rpc InferLicenseByFullname (InferLicenseByFullnameRequest) returns (InferLicenseByFullnameResponse) {}
 }
 
 message ValidateLicenseRequest{
-  string category = 1 [(validate.rules).string = {in: ["psychologist", "medic"] }];
+  string category = 1 [(validate.rules).string = {in: ["psychologist"] }];
   uint64 dni = 2 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
-  string license = 3;
+  uint64 license = 3;
 }
 
 message ValidateLicenseResponse{
   bool valid = 1;
 }
+
+message InferLicenseByFullnameRequest{
+  string category = 1 [(validate.rules).string = {in: ["medic"] }];
+  string name = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string surname = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
+}
+
+message InferLicenseByFullnameResponse{
+  uint64 license = 1;
+}
+

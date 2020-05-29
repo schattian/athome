@@ -47,7 +47,7 @@ func (m *ValidateLicenseRequest) Validate() error {
 	if _, ok := _ValidateLicenseRequest_Category_InLookup[m.GetCategory()]; !ok {
 		return ValidateLicenseRequestValidationError{
 			field:  "Category",
-			reason: "value must be in list [psychologist medic]",
+			reason: "value must be in list [psychologist]",
 		}
 	}
 
@@ -121,7 +121,6 @@ var _ interface {
 
 var _ValidateLicenseRequest_Category_InLookup = map[string]struct{}{
 	"psychologist": {},
-	"medic":        {},
 }
 
 // Validate checks the field values on ValidateLicenseResponse with the rules
@@ -192,3 +191,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ValidateLicenseResponseValidationError{}
+
+// Validate checks the field values on InferLicenseByFullnameRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InferLicenseByFullnameRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if _, ok := _InferLicenseByFullnameRequest_Category_InLookup[m.GetCategory()]; !ok {
+		return InferLicenseByFullnameRequestValidationError{
+			field:  "Category",
+			reason: "value must be in list [medic]",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return InferLicenseByFullnameRequestValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return InferLicenseByFullnameRequestValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// InferLicenseByFullnameRequestValidationError is the validation error
+// returned by InferLicenseByFullnameRequest.Validate if the designated
+// constraints aren't met.
+type InferLicenseByFullnameRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InferLicenseByFullnameRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InferLicenseByFullnameRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InferLicenseByFullnameRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InferLicenseByFullnameRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InferLicenseByFullnameRequestValidationError) ErrorName() string {
+	return "InferLicenseByFullnameRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InferLicenseByFullnameRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInferLicenseByFullnameRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InferLicenseByFullnameRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InferLicenseByFullnameRequestValidationError{}
+
+var _InferLicenseByFullnameRequest_Category_InLookup = map[string]struct{}{
+	"medic": {},
+}
+
+// Validate checks the field values on InferLicenseByFullnameResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InferLicenseByFullnameResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for License
+
+	return nil
+}
+
+// InferLicenseByFullnameResponseValidationError is the validation error
+// returned by InferLicenseByFullnameResponse.Validate if the designated
+// constraints aren't met.
+type InferLicenseByFullnameResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InferLicenseByFullnameResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InferLicenseByFullnameResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InferLicenseByFullnameResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InferLicenseByFullnameResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InferLicenseByFullnameResponseValidationError) ErrorName() string {
+	return "InferLicenseByFullnameResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InferLicenseByFullnameResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInferLicenseByFullnameResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InferLicenseByFullnameResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InferLicenseByFullnameResponseValidationError{}
