@@ -16,16 +16,17 @@ func (s *Server) InferLicenseByFullname(ctx context.Context, in *pbidentifier.In
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	return s.inferLicenseByFullname(ctx, in)
+	fs := afero.NewOsFs()
+	return s.inferLicenseByFullname(ctx, fs, in)
 }
 
-func (s *Server) inferLicenseByFullname(ctx context.Context, in *pbidentifier.InferLicenseByFullnameRequest) (*pbidentifier.InferLicenseByFullnameResponse, error) {
+func (s *Server) inferLicenseByFullname(ctx context.Context, fs afero.Fs, in *pbidentifier.InferLicenseByFullnameRequest) (*pbidentifier.InferLicenseByFullnameResponse, error) {
 	inferror, ok := scraper.InferrorByFullnameByCategory[semprov.Category(in.GetCategory())]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", in.GetCategory())
 	}
 	name, surname := strings.TrimSpace(in.GetName()), strings.TrimSpace(in.GetSurname())
-	license, err := inferror(afero.NewOsFs(), name, surname)
+	license, err := inferror(fs, name, surname)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "%s inferror by fullname returned: %v", in.GetCategory(), err)
 	}
