@@ -8,11 +8,12 @@ require (
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/semantic v0.1.2
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/athomecomar/xtest v0.1.0
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/gocolly/colly v1.2.0
 	github.com/gocolly/colly/v2 v2.0.1
 	github.com/golang/protobuf v1.4.2
-	github.com/google/go-cmp v0.4.1 // indirect
+	github.com/google/go-cmp v0.4.1
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.2.2
 	golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2 // indirect
