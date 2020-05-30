@@ -11,6 +11,9 @@ service User {
   rpc Sign (SignRequest) returns (SignResponse) {}
 
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
+  rpc SignOut (SignOutRequest) returns (google.protobuf.Empty) {}
+
+  rpc SwitchRole (SwitchRoleRequest) returns (SignResponse) {}
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
   rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
@@ -22,8 +25,19 @@ service User {
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
 }
 
+message SwitchRoleRequest {
+  string access_token = 1;
+  string role = 2;
+
+  string password = 3;
+}
+
+message SignOutRequest {
+  string access_token = 1;
+}
+
 message ResetPasswordRequest {
-  string token = 1; 
+  string token = 1;
   string password = 2;
 }
 
