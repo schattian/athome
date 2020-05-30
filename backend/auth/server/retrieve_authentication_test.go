@@ -56,6 +56,7 @@ func TestServer_retrieveAuthentication(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			miniredis := connMiniredis(t)
 			redis := redisCli(miniredis)
 			if tt.previousRecord != nil {

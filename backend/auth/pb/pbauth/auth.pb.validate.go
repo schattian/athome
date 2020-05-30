@@ -176,6 +176,76 @@ var _ interface {
 	ErrorName() string
 } = RetrieveAuthenticationResponseValidationError{}
 
+// Validate checks the field values on DeleteAuthenticationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteAuthenticationRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// DeleteAuthenticationRequestValidationError is the validation error returned
+// by DeleteAuthenticationRequest.Validate if the designated constraints
+// aren't met.
+type DeleteAuthenticationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteAuthenticationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteAuthenticationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteAuthenticationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteAuthenticationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteAuthenticationRequestValidationError) ErrorName() string {
+	return "DeleteAuthenticationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteAuthenticationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteAuthenticationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteAuthenticationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteAuthenticationRequestValidationError{}
+
 // Validate checks the field values on CreateAuthenticationRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

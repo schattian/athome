@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 option go_package = "./pbauth";
+import "google/protobuf/empty.proto";
 
 package auth;
 
@@ -8,6 +9,7 @@ package auth;
 service Auth {
   rpc CreateAuthentication (CreateAuthenticationRequest) returns (CreateAuthenticationResponse) {}
   rpc RetrieveAuthentication (RetrieveAuthenticationRequest) returns (RetrieveAuthenticationResponse) {}
+  rpc DeleteAuthentication (DeleteAuthenticationRequest) returns (google.protobuf.Empty) {}
 }
 
 message RetrieveAuthenticationRequest {
@@ -16,6 +18,10 @@ message RetrieveAuthenticationRequest {
 
 message RetrieveAuthenticationResponse {
   uint64 user_id = 1;
+}
+
+message DeleteAuthenticationRequest {
+  string access_token = 1;
 }
 
 message CreateAuthenticationRequest {
