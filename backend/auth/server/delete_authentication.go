@@ -43,7 +43,7 @@ func (s *Server) deleteAuthentication(ctx context.Context, in *pbauth.DeleteAuth
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "deleteTokens: %v", err)
 	}
-	return nil, nil
+	return &emptypb.Empty{}, nil
 }
 
 func deleteTokens(ctx context.Context, r *redis.Client, userId uint64) (err error) {
