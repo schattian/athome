@@ -26,16 +26,18 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	}
 	defer conn.Close()
 
+	ctx, cancel := context.WithTimeout(ctx, time.Second)
+	defer cancel()
 	return s.sign(ctx, conn, in)
 }
 
-func (s *Server) sign(_ context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+func (s *Server) sign(ctx context.Context, conn *grpc.ClientConn, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
 	userId, err := handleJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
 	}
 
-	tokens, err := createTokens(conn, userId)
+	tokens, err := createTokens(ctx, conn, userId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "createAuthToken: %v", err)
 	}
@@ -48,11 +50,8 @@ func (s *Server) sign(_ context.Context, conn *grpc.ClientConn, in *pbuser.SignR
 	}, nil
 }
 
-func createTokens(conn *grpc.ClientConn, userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
+func createTokens(ctx context.Context, conn *grpc.ClientConn, userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
 	c := pbauth.NewAuthClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
 	signJwt, err := createSignToken(userId)
 	if err != nil {
 		return nil, errors.Wrap(err, "createSignToken")
