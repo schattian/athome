@@ -30,7 +30,7 @@ func TestServer_deleteAuthentication(t *testing.T) {
 			wantStatus: xerrors.OK,
 		},
 		{
-			name:           "another auth",
+			name:           "expired token given",
 			previousRecord: gTokens.Valid,
 			args: args{
 				ctx: context.Background(),
