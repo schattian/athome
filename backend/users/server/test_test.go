@@ -33,7 +33,8 @@ type variadicTokens struct {
 }
 
 type goldenUsers struct {
-	Consumers *variadicUsers `json:"consumers,omitempty"`
+	Consumers        *variadicUsers `json:"consumers,omitempty"`
+	ServiceProviders *variadicUsers `json:"service_providers,omitempty"`
 }
 
 type variadicUsers struct {
@@ -42,7 +43,8 @@ type variadicUsers struct {
 }
 
 type goldenOnboardings struct {
-	Consumers *variadicOnboardings `json:"consumers,omitempty"`
+	Consumers        *variadicOnboardings `json:"consumers,omitempty"`
+	ServiceProviders *variadicOnboardings `json:"service_providers,omitempty"`
 }
 
 type variadicOnboardings struct {

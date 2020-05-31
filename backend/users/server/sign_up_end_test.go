@@ -35,6 +35,29 @@ func TestServer_signUpEnd(t *testing.T) {
 		wantStatus xerrors.Code
 	}{
 		{
+			name: "oor consumer",
+			args: args{
+				ctx: context.Background(),
+				in:  onboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
+			},
+			queryStubs: []*sqlassist.QueryStubber{
+				{
+					Expect: "SELECT * FROM onboardings",
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.SelectCategory))...),
+				},
+				{
+					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.Consumers.Foo.Id),
+				},
+			},
+			execStubs: []*sqlassist.ExecStubber{
+				{
+					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
+				},
+			},
+			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
+			wantStatus: xerrors.OutOfRange,
+		},
+		{
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
@@ -57,6 +80,51 @@ func TestServer_signUpEnd(t *testing.T) {
 			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
 			wantStatus: xerrors.OK,
 		},
+		{
+			name: "basic service-provider",
+			args: args{
+				ctx: context.Background(),
+				in:  onboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Foo, fooPwd),
+			},
+			queryStubs: []*sqlassist.QueryStubber{
+				{
+					Expect: "SELECT * FROM onboardings",
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.SelectCategory))...),
+				},
+				{
+					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Foo.Id),
+				},
+			},
+			execStubs: []*sqlassist.ExecStubber{
+				{
+					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
+				},
+			},
+			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.ServiceProviders.Foo)},
+			wantStatus: xerrors.OK,
+		},
+		{
+			name: "oor service-provider",
+			args: args{
+				ctx: context.Background(),
+				in:  onboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Foo, fooPwd),
+			},
+			queryStubs: []*sqlassist.QueryStubber{
+				{
+					Expect: "SELECT * FROM onboardings",
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.Shared))...),
+				},
+				{
+					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Foo.Id),
+				},
+			},
+			execStubs: []*sqlassist.ExecStubber{
+				{
+					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
+				},
+			},
+			wantStatus: xerrors.OutOfRange,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -73,6 +141,9 @@ func TestServer_signUpEnd(t *testing.T) {
 			got, err := s.signUpEnd(tt.args.ctx, db, tt.args.in)
 			if status.Code(err) != tt.wantStatus {
 				t.Fatalf("Server.signUpEnd() error = %v, status: %v;  wantStatus %v", err, status.Code(err), tt.wantStatus)
+			}
+			if status.Code(err) != xerrors.OK {
+				return
 			}
 			tt.want.User.SignToken = got.User.GetSignToken()
 			if diff := cmp.Diff(got, tt.want); diff != "" {

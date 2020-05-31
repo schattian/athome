@@ -18,4 +18,9 @@
       foo: $.base.foo { id: 324, role: role },
     },
 
+  service_providers:
+    {
+      local role = 'service-provider',
+      foo: $.base.foo { id: 241, role: role, category: "medic" },
+    },
 }
