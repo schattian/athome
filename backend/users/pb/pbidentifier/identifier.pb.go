@@ -26,7 +26,6 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type ValidateLicenseRequest struct {
-	Category             string   `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
 	Dni                  uint64   `protobuf:"varint,2,opt,name=dni,proto3" json:"dni,omitempty"`
 	License              uint64   `protobuf:"varint,3,opt,name=license,proto3" json:"license,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -58,13 +57,6 @@ func (m *ValidateLicenseRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ValidateLicenseRequest proto.InternalMessageInfo
-
-func (m *ValidateLicenseRequest) GetCategory() string {
-	if m != nil {
-		return m.Category
-	}
-	return ""
-}
 
 func (m *ValidateLicenseRequest) GetDni() uint64 {
 	if m != nil {
@@ -119,8 +111,7 @@ func (m *ValidateLicenseResponse) GetValid() bool {
 	return false
 }
 
-type InferLicenseByFullnameRequest struct {
-	Category             string   `protobuf:"bytes,1,opt,name=category,proto3" json:"category,omitempty"`
+type InferByFullnameRequest struct {
 	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Surname              string   `protobuf:"bytes,3,opt,name=surname,proto3" json:"surname,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -128,87 +119,127 @@ type InferLicenseByFullnameRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *InferLicenseByFullnameRequest) Reset()         { *m = InferLicenseByFullnameRequest{} }
-func (m *InferLicenseByFullnameRequest) String() string { return proto.CompactTextString(m) }
-func (*InferLicenseByFullnameRequest) ProtoMessage()    {}
-func (*InferLicenseByFullnameRequest) Descriptor() ([]byte, []int) {
+func (m *InferByFullnameRequest) Reset()         { *m = InferByFullnameRequest{} }
+func (m *InferByFullnameRequest) String() string { return proto.CompactTextString(m) }
+func (*InferByFullnameRequest) ProtoMessage()    {}
+func (*InferByFullnameRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f5f65ec84694b166, []int{2}
 }
 
-func (m *InferLicenseByFullnameRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_InferLicenseByFullnameRequest.Unmarshal(m, b)
+func (m *InferByFullnameRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InferByFullnameRequest.Unmarshal(m, b)
 }
-func (m *InferLicenseByFullnameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_InferLicenseByFullnameRequest.Marshal(b, m, deterministic)
+func (m *InferByFullnameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InferByFullnameRequest.Marshal(b, m, deterministic)
 }
-func (m *InferLicenseByFullnameRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_InferLicenseByFullnameRequest.Merge(m, src)
+func (m *InferByFullnameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InferByFullnameRequest.Merge(m, src)
 }
-func (m *InferLicenseByFullnameRequest) XXX_Size() int {
-	return xxx_messageInfo_InferLicenseByFullnameRequest.Size(m)
+func (m *InferByFullnameRequest) XXX_Size() int {
+	return xxx_messageInfo_InferByFullnameRequest.Size(m)
 }
-func (m *InferLicenseByFullnameRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_InferLicenseByFullnameRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_InferLicenseByFullnameRequest proto.InternalMessageInfo
-
-func (m *InferLicenseByFullnameRequest) GetCategory() string {
-	if m != nil {
-		return m.Category
-	}
-	return ""
+func (m *InferByFullnameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_InferByFullnameRequest.DiscardUnknown(m)
 }
 
-func (m *InferLicenseByFullnameRequest) GetName() string {
+var xxx_messageInfo_InferByFullnameRequest proto.InternalMessageInfo
+
+func (m *InferByFullnameRequest) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *InferLicenseByFullnameRequest) GetSurname() string {
+func (m *InferByFullnameRequest) GetSurname() string {
 	if m != nil {
 		return m.Surname
 	}
 	return ""
 }
 
-type InferLicenseByFullnameResponse struct {
+type InferLicenseResponse struct {
 	License              uint64   `protobuf:"varint,1,opt,name=license,proto3" json:"license,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *InferLicenseByFullnameResponse) Reset()         { *m = InferLicenseByFullnameResponse{} }
-func (m *InferLicenseByFullnameResponse) String() string { return proto.CompactTextString(m) }
-func (*InferLicenseByFullnameResponse) ProtoMessage()    {}
-func (*InferLicenseByFullnameResponse) Descriptor() ([]byte, []int) {
+func (m *InferLicenseResponse) Reset()         { *m = InferLicenseResponse{} }
+func (m *InferLicenseResponse) String() string { return proto.CompactTextString(m) }
+func (*InferLicenseResponse) ProtoMessage()    {}
+func (*InferLicenseResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f5f65ec84694b166, []int{3}
 }
 
-func (m *InferLicenseByFullnameResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_InferLicenseByFullnameResponse.Unmarshal(m, b)
+func (m *InferLicenseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InferLicenseResponse.Unmarshal(m, b)
 }
-func (m *InferLicenseByFullnameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_InferLicenseByFullnameResponse.Marshal(b, m, deterministic)
+func (m *InferLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InferLicenseResponse.Marshal(b, m, deterministic)
 }
-func (m *InferLicenseByFullnameResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_InferLicenseByFullnameResponse.Merge(m, src)
+func (m *InferLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InferLicenseResponse.Merge(m, src)
 }
-func (m *InferLicenseByFullnameResponse) XXX_Size() int {
-	return xxx_messageInfo_InferLicenseByFullnameResponse.Size(m)
+func (m *InferLicenseResponse) XXX_Size() int {
+	return xxx_messageInfo_InferLicenseResponse.Size(m)
 }
-func (m *InferLicenseByFullnameResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_InferLicenseByFullnameResponse.DiscardUnknown(m)
+func (m *InferLicenseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_InferLicenseResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_InferLicenseByFullnameResponse proto.InternalMessageInfo
+var xxx_messageInfo_InferLicenseResponse proto.InternalMessageInfo
 
-func (m *InferLicenseByFullnameResponse) GetLicense() uint64 {
+func (m *InferLicenseResponse) GetLicense() uint64 {
 	if m != nil {
 		return m.License
+	}
+	return 0
+}
+
+type InferTomeAndFolioResponse struct {
+	Tome                 uint64   `protobuf:"varint,1,opt,name=tome,proto3" json:"tome,omitempty"`
+	Folio                uint64   `protobuf:"varint,2,opt,name=folio,proto3" json:"folio,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InferTomeAndFolioResponse) Reset()         { *m = InferTomeAndFolioResponse{} }
+func (m *InferTomeAndFolioResponse) String() string { return proto.CompactTextString(m) }
+func (*InferTomeAndFolioResponse) ProtoMessage()    {}
+func (*InferTomeAndFolioResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f5f65ec84694b166, []int{4}
+}
+
+func (m *InferTomeAndFolioResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InferTomeAndFolioResponse.Unmarshal(m, b)
+}
+func (m *InferTomeAndFolioResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InferTomeAndFolioResponse.Marshal(b, m, deterministic)
+}
+func (m *InferTomeAndFolioResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InferTomeAndFolioResponse.Merge(m, src)
+}
+func (m *InferTomeAndFolioResponse) XXX_Size() int {
+	return xxx_messageInfo_InferTomeAndFolioResponse.Size(m)
+}
+func (m *InferTomeAndFolioResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_InferTomeAndFolioResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InferTomeAndFolioResponse proto.InternalMessageInfo
+
+func (m *InferTomeAndFolioResponse) GetTome() uint64 {
+	if m != nil {
+		return m.Tome
+	}
+	return 0
+}
+
+func (m *InferTomeAndFolioResponse) GetFolio() uint64 {
+	if m != nil {
+		return m.Folio
 	}
 	return 0
 }
@@ -224,7 +255,7 @@ func (m *InferDataByCUERequest) Reset()         { *m = InferDataByCUERequest{} }
 func (m *InferDataByCUERequest) String() string { return proto.CompactTextString(m) }
 func (*InferDataByCUERequest) ProtoMessage()    {}
 func (*InferDataByCUERequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f5f65ec84694b166, []int{4}
+	return fileDescriptor_f5f65ec84694b166, []int{5}
 }
 
 func (m *InferDataByCUERequest) XXX_Unmarshal(b []byte) error {
@@ -269,7 +300,7 @@ func (m *InferDataByCUEResponse) Reset()         { *m = InferDataByCUEResponse{}
 func (m *InferDataByCUEResponse) String() string { return proto.CompactTextString(m) }
 func (*InferDataByCUEResponse) ProtoMessage()    {}
 func (*InferDataByCUEResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f5f65ec84694b166, []int{5}
+	return fileDescriptor_f5f65ec84694b166, []int{6}
 }
 
 func (m *InferDataByCUEResponse) XXX_Unmarshal(b []byte) error {
@@ -356,7 +387,7 @@ func (m *EducationType) Reset()         { *m = EducationType{} }
 func (m *EducationType) String() string { return proto.CompactTextString(m) }
 func (*EducationType) ProtoMessage()    {}
 func (*EducationType) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f5f65ec84694b166, []int{6}
+	return fileDescriptor_f5f65ec84694b166, []int{7}
 }
 
 func (m *EducationType) XXX_Unmarshal(b []byte) error {
@@ -439,7 +470,7 @@ func (m *AlumnType) Reset()         { *m = AlumnType{} }
 func (m *AlumnType) String() string { return proto.CompactTextString(m) }
 func (*AlumnType) ProtoMessage()    {}
 func (*AlumnType) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f5f65ec84694b166, []int{7}
+	return fileDescriptor_f5f65ec84694b166, []int{8}
 }
 
 func (m *AlumnType) XXX_Unmarshal(b []byte) error {
@@ -484,8 +515,9 @@ func (m *AlumnType) GetNormal() bool {
 func init() {
 	proto.RegisterType((*ValidateLicenseRequest)(nil), "identifier.ValidateLicenseRequest")
 	proto.RegisterType((*ValidateLicenseResponse)(nil), "identifier.ValidateLicenseResponse")
-	proto.RegisterType((*InferLicenseByFullnameRequest)(nil), "identifier.InferLicenseByFullnameRequest")
-	proto.RegisterType((*InferLicenseByFullnameResponse)(nil), "identifier.InferLicenseByFullnameResponse")
+	proto.RegisterType((*InferByFullnameRequest)(nil), "identifier.InferByFullnameRequest")
+	proto.RegisterType((*InferLicenseResponse)(nil), "identifier.InferLicenseResponse")
+	proto.RegisterType((*InferTomeAndFolioResponse)(nil), "identifier.InferTomeAndFolioResponse")
 	proto.RegisterType((*InferDataByCUERequest)(nil), "identifier.InferDataByCUERequest")
 	proto.RegisterType((*InferDataByCUEResponse)(nil), "identifier.InferDataByCUEResponse")
 	proto.RegisterType((*EducationType)(nil), "identifier.EducationType")
@@ -497,50 +529,51 @@ func init() {
 }
 
 var fileDescriptor_f5f65ec84694b166 = []byte{
-	// 684 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0xc1, 0x6e, 0xd3, 0x4a,
-	0x14, 0x7d, 0x4e, 0xd2, 0xc4, 0xbe, 0x69, 0xf3, 0xac, 0x79, 0xaf, 0xad, 0x9b, 0xf7, 0x5a, 0x82,
-	0xbb, 0x09, 0x2c, 0x1a, 0x29, 0xb0, 0x02, 0x21, 0x81, 0xa1, 0x48, 0x95, 0x58, 0xa0, 0x29, 0x45,
-	0x02, 0x21, 0x45, 0x13, 0x7b, 0xda, 0x8c, 0xe4, 0xd8, 0xee, 0x8c, 0x8d, 0xe4, 0x1d, 0x0b, 0xd8,
-	0xc1, 0x8a, 0x9f, 0x61, 0x87, 0x90, 0xf8, 0x04, 0x24, 0x24, 0xc4, 0x1f, 0xf0, 0x07, 0xd9, 0x14,
-	0xcd, 0x64, 0xec, 0xba, 0x09, 0x54, 0xec, 0x72, 0xee, 0x3d, 0x67, 0xe6, 0x9c, 0x9b, 0xb9, 0x06,
-	0x9b, 0x05, 0x34, 0x4a, 0xd9, 0x31, 0xa3, 0x7c, 0x2f, 0xe1, 0x71, 0x1a, 0x23, 0x38, 0xaf, 0x74,
-	0x37, 0x5f, 0x92, 0x90, 0x05, 0x24, 0xa5, 0x83, 0xe2, 0xc7, 0x9c, 0xe4, 0xbe, 0x31, 0x60, 0xe3,
-	0xa9, 0x2e, 0x3d, 0x62, 0x3e, 0x8d, 0x04, 0xc5, 0xf4, 0x34, 0xa3, 0x22, 0x45, 0x03, 0x30, 0x7d,
-	0x92, 0xd2, 0x93, 0x98, 0xe7, 0x8e, 0xd1, 0x33, 0xfa, 0x96, 0xf7, 0xcf, 0xcc, 0xb3, 0x79, 0x07,
-	0xaf, 0x26, 0x22, 0xf7, 0x27, 0x71, 0x18, 0x9f, 0x30, 0x91, 0xe2, 0x92, 0x84, 0x7a, 0x50, 0x0f,
-	0x22, 0xe6, 0xd4, 0x7a, 0x46, 0xbf, 0xe1, 0x75, 0x66, 0x5e, 0x7b, 0x68, 0xd9, 0x67, 0x9f, 0xbe,
-	0x0e, 0x7a, 0x1f, 0x5f, 0xdf, 0xc1, 0xb2, 0x85, 0x1c, 0x68, 0x85, 0xf3, 0x4b, 0x9c, 0xba, 0x64,
-	0xe1, 0x02, 0xba, 0x03, 0xd8, 0x5c, 0xb2, 0x21, 0x92, 0x38, 0x12, 0x14, 0xfd, 0x0b, 0x2b, 0xca,
-	0xb4, 0x32, 0x61, 0xe2, 0x39, 0x70, 0xdf, 0x19, 0xb0, 0x7d, 0x10, 0x1d, 0x53, 0xae, 0xe9, 0x5e,
-	0xfe, 0x30, 0x0b, 0xc3, 0x88, 0x4c, 0x4b, 0xff, 0xfd, 0x25, 0xff, 0xab, 0x33, 0xcf, 0xe2, 0x2d,
-	0xbc, 0x32, 0xa5, 0x01, 0xf3, 0x2b, 0xc6, 0xb7, 0xa1, 0x21, 0x85, 0xca, 0xb9, 0xe5, 0x59, 0x33,
-	0xaf, 0xc9, 0x1b, 0x76, 0xcd, 0xd9, 0xc1, 0xaa, 0x8c, 0x76, 0xa1, 0x25, 0x32, 0xae, 0x18, 0xf5,
-	0x45, 0x46, 0xd1, 0x71, 0x6f, 0xc1, 0xce, 0xef, 0xec, 0xe8, 0x1c, 0x95, 0xf0, 0xc6, 0xc5, 0xf0,
-	0xb7, 0x61, 0x5d, 0x69, 0x1f, 0x90, 0x94, 0x78, 0xf9, 0xfd, 0xa3, 0xfd, 0x22, 0x82, 0x0b, 0x75,
-	0x3f, 0xd3, 0x74, 0xcf, 0x9e, 0x79, 0x6b, 0xc3, 0xb6, 0x7d, 0xf6, 0xfe, 0xc7, 0xf7, 0x7a, 0xef,
-	0xd5, 0xb7, 0xcf, 0x16, 0x96, 0x4d, 0xf7, 0x6d, 0x0d, 0x36, 0x16, 0xd5, 0xfa, 0x46, 0xa4, 0x73,
-	0xa9, 0xf4, 0x3a, 0xcc, 0x7f, 0x60, 0x31, 0x31, 0x4a, 0xb2, 0x71, 0xc8, 0x7c, 0x15, 0xd8, 0xc4,
-	0x26, 0x13, 0x8f, 0x15, 0x46, 0x5b, 0x60, 0x32, 0x31, 0xca, 0xf8, 0x98, 0x44, 0x2a, 0xaa, 0x89,
-	0x5b, 0x4c, 0x1c, 0x49, 0x28, 0xdd, 0x93, 0x20, 0xe0, 0x54, 0x08, 0xa7, 0xa1, 0x8e, 0x2b, 0xa0,
-	0xfc, 0x7f, 0x92, 0x49, 0x1c, 0x51, 0xa7, 0xa9, 0xea, 0x73, 0x80, 0xee, 0x42, 0x87, 0x06, 0x99,
-	0x4f, 0x52, 0x16, 0x47, 0xa3, 0x34, 0x4f, 0xa8, 0xd3, 0xea, 0x19, 0xfd, 0xf6, 0x70, 0x6b, 0xaf,
-	0xf2, 0x50, 0xf7, 0x0b, 0xc6, 0x93, 0x3c, 0xa1, 0x78, 0x8d, 0x56, 0x21, 0xba, 0x09, 0x40, 0xc2,
-	0x6c, 0xaa, 0xd5, 0xa6, 0x52, 0xaf, 0x57, 0xd5, 0xf7, 0x64, 0x57, 0x29, 0x2d, 0x52, 0xfc, 0x74,
-	0xbf, 0x18, 0xb0, 0x76, 0xe1, 0x58, 0xd4, 0x05, 0x73, 0x4a, 0x52, 0xca, 0x23, 0x12, 0xea, 0x27,
-	0x54, 0x62, 0x99, 0x8a, 0x45, 0x2c, 0x65, 0x24, 0xd4, 0xb3, 0x28, 0xa0, 0xec, 0x24, 0x9c, 0x4d,
-	0x09, 0xcf, 0x8b, 0x49, 0x68, 0x88, 0xae, 0x40, 0x7b, 0xc2, 0x4e, 0x26, 0x23, 0xe1, 0x4f, 0xe2,
-	0x38, 0x54, 0xd3, 0x30, 0x31, 0xc8, 0xd2, 0xa1, 0xaa, 0xa0, 0xff, 0xc1, 0x4a, 0xa9, 0x3f, 0x89,
-	0x98, 0x4f, 0x42, 0x67, 0x45, 0xb5, 0xcf, 0x0b, 0xd2, 0x8e, 0xc8, 0x12, 0xca, 0x59, 0xcc, 0xd5,
-	0xc4, 0x4c, 0x5c, 0x62, 0x79, 0xa9, 0x1f, 0x67, 0x5c, 0x50, 0xa1, 0xa6, 0x65, 0xe2, 0x02, 0xba,
-	0x87, 0x60, 0x95, 0x71, 0xe5, 0xc4, 0x49, 0x90, 0x85, 0x69, 0xb1, 0x11, 0x0a, 0x48, 0xb1, 0x48,
-	0xa8, 0x5f, 0xc9, 0xa2, 0x21, 0xda, 0x80, 0x66, 0x14, 0xf3, 0x29, 0x09, 0x75, 0x14, 0x8d, 0x86,
-	0x1f, 0x6a, 0x00, 0x07, 0xe5, 0x3c, 0xd1, 0x0b, 0xf8, 0x7b, 0x61, 0x07, 0x91, 0x5b, 0x9d, 0xf7,
-	0xaf, 0xbf, 0x13, 0xdd, 0xdd, 0x4b, 0x39, 0xf3, 0xa7, 0xe8, 0xfe, 0x85, 0x4e, 0xf5, 0x33, 0x5d,
-	0x5a, 0x10, 0x74, 0xad, 0x7a, 0xc0, 0xa5, 0x3b, 0xdd, 0xbd, 0xfe, 0x27, 0xd4, 0xf2, 0xca, 0x67,
-	0xd0, 0xb9, 0xb8, 0x19, 0xe8, 0xea, 0x92, 0x7e, 0x71, 0xe7, 0xba, 0xee, 0x65, 0x94, 0xe2, 0x68,
-	0xcf, 0x7e, 0xde, 0xd9, 0x1b, 0x24, 0xe3, 0x73, 0xea, 0xb8, 0xa9, 0x3e, 0xa8, 0x37, 0x7e, 0x06,
-	0x00, 0x00, 0xff, 0xff, 0x41, 0x05, 0x6f, 0xfc, 0x89, 0x05, 0x00, 0x00,
+	// 698 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0xdf, 0x6a, 0x13, 0x4f,
+	0x14, 0x6e, 0x9a, 0x34, 0xd9, 0x3d, 0xa1, 0x21, 0x0c, 0xfd, 0xb3, 0x4d, 0x7f, 0x7f, 0xd2, 0x2d,
+	0x42, 0xaf, 0x1a, 0x89, 0xde, 0x89, 0x60, 0x57, 0x5b, 0x28, 0x54, 0x28, 0xdb, 0x56, 0x50, 0x84,
+	0x30, 0xd9, 0x9d, 0x36, 0x03, 0x93, 0x99, 0x75, 0x66, 0x57, 0xd9, 0x3b, 0x2f, 0xbc, 0xf4, 0xce,
+	0xb7, 0xf0, 0x25, 0x44, 0xf0, 0x11, 0x04, 0x41, 0x7c, 0x03, 0xdf, 0xa0, 0x37, 0x95, 0x99, 0xdd,
+	0x4d, 0x36, 0x49, 0x29, 0xde, 0xcd, 0x77, 0xce, 0xf7, 0x9d, 0x39, 0xe7, 0x63, 0xce, 0x40, 0x9b,
+	0x86, 0x84, 0xc7, 0xf4, 0x92, 0x12, 0xb9, 0x1f, 0x49, 0x11, 0x0b, 0x04, 0xd3, 0x48, 0x67, 0xf3,
+	0x2d, 0x66, 0x34, 0xc4, 0x31, 0xe9, 0x15, 0x87, 0x8c, 0xe4, 0x9e, 0xc3, 0xc6, 0x8b, 0x3c, 0x72,
+	0x42, 0x03, 0xc2, 0x15, 0xf1, 0xc9, 0x9b, 0x84, 0xa8, 0x18, 0x75, 0xa1, 0x1a, 0x72, 0xea, 0x2c,
+	0x77, 0x2b, 0x7b, 0x35, 0xaf, 0x75, 0xed, 0x35, 0xfb, 0x76, 0xfb, 0xe6, 0xeb, 0x8f, 0x5e, 0xf7,
+	0xcb, 0x87, 0xc7, 0xbe, 0x4e, 0x21, 0x07, 0x1a, 0x2c, 0xd3, 0x38, 0x55, 0xcd, 0xf2, 0x0b, 0xe8,
+	0xf6, 0x60, 0x73, 0xa1, 0xaa, 0x8a, 0x04, 0x57, 0x04, 0xad, 0xc1, 0x8a, 0x69, 0xc1, 0xa9, 0x74,
+	0x2b, 0x7b, 0x96, 0x9f, 0x01, 0xf7, 0x35, 0x6c, 0x1c, 0xf3, 0x4b, 0x22, 0xbd, 0xf4, 0x28, 0x61,
+	0x8c, 0xe3, 0xf1, 0xa4, 0x8d, 0x7f, 0xa1, 0xa6, 0xa1, 0xe9, 0xc3, 0xf6, 0xec, 0x6b, 0xaf, 0x2e,
+	0x6b, 0xed, 0x65, 0xe7, 0x3f, 0xdf, 0x84, 0xd1, 0x2e, 0x34, 0x54, 0x22, 0x0d, 0xa3, 0x3a, 0xcf,
+	0x28, 0x32, 0xee, 0x7d, 0x58, 0x33, 0xd5, 0xe7, 0x7b, 0x29, 0x0d, 0x50, 0x99, 0x1d, 0xe0, 0x10,
+	0xb6, 0x8c, 0xe2, 0x5c, 0x8c, 0xc9, 0x01, 0x0f, 0x8f, 0x04, 0xa3, 0x62, 0x22, 0x43, 0x50, 0x8b,
+	0xc5, 0xb8, 0xd0, 0x98, 0xb3, 0x1e, 0xeb, 0x52, 0x93, 0x32, 0xbf, 0xfc, 0x0c, 0xb8, 0x8f, 0x60,
+	0xdd, 0x94, 0x79, 0x86, 0x63, 0xec, 0xa5, 0x4f, 0x2f, 0x0e, 0x8b, 0xa9, 0x5c, 0xa8, 0x06, 0x49,
+	0x5e, 0xc1, 0x6b, 0x5f, 0x7b, 0xab, 0xfd, 0x66, 0xfb, 0xe6, 0xd3, 0xef, 0x5f, 0xd5, 0xee, 0xfb,
+	0x9f, 0xdf, 0x6c, 0x5f, 0x27, 0xdd, 0x8f, 0xcb, 0xb9, 0x29, 0x25, 0xf5, 0xb4, 0x03, 0x33, 0xb2,
+	0xd6, 0xdb, 0xb9, 0x13, 0xdb, 0x60, 0x53, 0x35, 0x88, 0x92, 0x21, 0xa3, 0x81, 0xe9, 0xc2, 0xf2,
+	0x2d, 0xaa, 0x4e, 0x0d, 0x46, 0x5b, 0x60, 0x51, 0x35, 0x48, 0xe4, 0x10, 0x73, 0xe3, 0x93, 0xe5,
+	0x37, 0xa8, 0xba, 0xd0, 0x50, 0x9b, 0x80, 0xc3, 0x50, 0x12, 0xa5, 0x9c, 0x9a, 0x29, 0x57, 0x40,
+	0x3d, 0x53, 0x34, 0x12, 0x9c, 0x38, 0x75, 0x13, 0xcf, 0x00, 0x7a, 0x02, 0x2d, 0x12, 0x26, 0x01,
+	0x8e, 0xa9, 0xe0, 0x83, 0x38, 0x8d, 0x88, 0xd3, 0xe8, 0x56, 0xf6, 0x9a, 0xfd, 0xad, 0xfd, 0xd2,
+	0x0b, 0x3c, 0x2c, 0x18, 0xe7, 0x69, 0x44, 0xfc, 0x55, 0x52, 0x86, 0xe8, 0x21, 0x00, 0x66, 0xc9,
+	0x38, 0x57, 0x5b, 0x46, 0xbd, 0x5e, 0x56, 0x1f, 0xe8, 0xac, 0x51, 0xda, 0xb8, 0x38, 0xba, 0xdf,
+	0x2b, 0xb0, 0x3a, 0x53, 0x16, 0x75, 0xc0, 0x1a, 0xe3, 0x98, 0x48, 0x8e, 0x59, 0xfe, 0x9a, 0x26,
+	0x58, 0x4f, 0x45, 0x39, 0x8d, 0x29, 0x66, 0xb9, 0x17, 0x05, 0xd4, 0x99, 0x48, 0xd2, 0x31, 0x96,
+	0x69, 0xe1, 0x44, 0x0e, 0xd1, 0xff, 0xd0, 0x1c, 0xd1, 0xab, 0xd1, 0x40, 0x05, 0x23, 0x21, 0x98,
+	0x71, 0xc3, 0xf2, 0x41, 0x87, 0xce, 0x4c, 0x04, 0xfd, 0x03, 0x76, 0x4c, 0x82, 0x11, 0xa7, 0x01,
+	0x66, 0xce, 0x8a, 0x49, 0x4f, 0x03, 0xba, 0x1d, 0x95, 0x44, 0x44, 0x52, 0x21, 0x8d, 0x63, 0x96,
+	0x3f, 0xc1, 0xfa, 0xd2, 0x40, 0x24, 0x52, 0x11, 0x65, 0xdc, 0xb2, 0xfc, 0x02, 0xba, 0x67, 0x60,
+	0x4f, 0xc6, 0xd5, 0x8e, 0xe3, 0x30, 0x61, 0x71, 0xb1, 0x1c, 0x06, 0x68, 0xb1, 0x8a, 0x48, 0x50,
+	0x9a, 0x25, 0x87, 0x68, 0x03, 0xea, 0x5c, 0xc8, 0x31, 0x66, 0xf9, 0x28, 0x39, 0xea, 0x7f, 0xae,
+	0x02, 0x1c, 0x4f, 0xfc, 0x44, 0x23, 0xd8, 0x9e, 0x5b, 0xc7, 0x53, 0x95, 0x06, 0x23, 0xc1, 0xc4,
+	0x15, 0xd5, 0x8f, 0xb1, 0xec, 0xfd, 0xed, 0xbf, 0x41, 0x67, 0xf7, 0x4e, 0x4e, 0xf6, 0x2c, 0xdd,
+	0x25, 0x44, 0x60, 0xbb, 0xbc, 0x69, 0xd3, 0x75, 0x7e, 0x4e, 0x42, 0x1a, 0xcc, 0xde, 0x74, 0xfb,
+	0xc2, 0x77, 0xba, 0x0b, 0x9c, 0xc5, 0x6b, 0x22, 0xd8, 0x59, 0x58, 0xcf, 0x69, 0xa5, 0x13, 0xfc,
+	0x2e, 0x25, 0xf2, 0xaf, 0x2e, 0xbb, 0xb7, 0xc0, 0xb9, 0x6d, 0xe3, 0xdd, 0x25, 0xf4, 0x12, 0x5a,
+	0xb3, 0xbb, 0x88, 0x76, 0x16, 0xa4, 0xf3, 0x5b, 0xde, 0x71, 0xef, 0xa2, 0x14, 0xa5, 0xbd, 0xf6,
+	0xab, 0xd6, 0x7e, 0x2f, 0x1a, 0x4e, 0xa9, 0xc3, 0xba, 0xf9, 0x9b, 0x1f, 0xfc, 0x09, 0x00, 0x00,
+	0xff, 0xff, 0x24, 0xe3, 0x0a, 0xa2, 0xd4, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -555,8 +588,9 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IdentifierClient interface {
-	ValidateLicense(ctx context.Context, in *ValidateLicenseRequest, opts ...grpc.CallOption) (*ValidateLicenseResponse, error)
-	InferLicenseByFullname(ctx context.Context, in *InferLicenseByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseByFullnameResponse, error)
+	ValidateLicensePsychologist(ctx context.Context, in *ValidateLicenseRequest, opts ...grpc.CallOption) (*ValidateLicenseResponse, error)
+	InferLicenseByFullnameMedic(ctx context.Context, in *InferByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseResponse, error)
+	InferTomeAndFolioByFullnameLawyer(ctx context.Context, in *InferByFullnameRequest, opts ...grpc.CallOption) (*InferTomeAndFolioResponse, error)
 	InferDataByCUE(ctx context.Context, in *InferDataByCUERequest, opts ...grpc.CallOption) (*InferDataByCUEResponse, error)
 }
 
@@ -568,18 +602,27 @@ func NewIdentifierClient(cc grpc.ClientConnInterface) IdentifierClient {
 	return &identifierClient{cc}
 }
 
-func (c *identifierClient) ValidateLicense(ctx context.Context, in *ValidateLicenseRequest, opts ...grpc.CallOption) (*ValidateLicenseResponse, error) {
+func (c *identifierClient) ValidateLicensePsychologist(ctx context.Context, in *ValidateLicenseRequest, opts ...grpc.CallOption) (*ValidateLicenseResponse, error) {
 	out := new(ValidateLicenseResponse)
-	err := c.cc.Invoke(ctx, "/identifier.Identifier/ValidateLicense", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/identifier.Identifier/ValidateLicensePsychologist", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *identifierClient) InferLicenseByFullname(ctx context.Context, in *InferLicenseByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseByFullnameResponse, error) {
-	out := new(InferLicenseByFullnameResponse)
-	err := c.cc.Invoke(ctx, "/identifier.Identifier/InferLicenseByFullname", in, out, opts...)
+func (c *identifierClient) InferLicenseByFullnameMedic(ctx context.Context, in *InferByFullnameRequest, opts ...grpc.CallOption) (*InferLicenseResponse, error) {
+	out := new(InferLicenseResponse)
+	err := c.cc.Invoke(ctx, "/identifier.Identifier/InferLicenseByFullnameMedic", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identifierClient) InferTomeAndFolioByFullnameLawyer(ctx context.Context, in *InferByFullnameRequest, opts ...grpc.CallOption) (*InferTomeAndFolioResponse, error) {
+	out := new(InferTomeAndFolioResponse)
+	err := c.cc.Invoke(ctx, "/identifier.Identifier/InferTomeAndFolioByFullnameLawyer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -597,8 +640,9 @@ func (c *identifierClient) InferDataByCUE(ctx context.Context, in *InferDataByCU
 
 // IdentifierServer is the server API for Identifier service.
 type IdentifierServer interface {
-	ValidateLicense(context.Context, *ValidateLicenseRequest) (*ValidateLicenseResponse, error)
-	InferLicenseByFullname(context.Context, *InferLicenseByFullnameRequest) (*InferLicenseByFullnameResponse, error)
+	ValidateLicensePsychologist(context.Context, *ValidateLicenseRequest) (*ValidateLicenseResponse, error)
+	InferLicenseByFullnameMedic(context.Context, *InferByFullnameRequest) (*InferLicenseResponse, error)
+	InferTomeAndFolioByFullnameLawyer(context.Context, *InferByFullnameRequest) (*InferTomeAndFolioResponse, error)
 	InferDataByCUE(context.Context, *InferDataByCUERequest) (*InferDataByCUEResponse, error)
 }
 
@@ -606,11 +650,14 @@ type IdentifierServer interface {
 type UnimplementedIdentifierServer struct {
 }
 
-func (*UnimplementedIdentifierServer) ValidateLicense(ctx context.Context, req *ValidateLicenseRequest) (*ValidateLicenseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ValidateLicense not implemented")
+func (*UnimplementedIdentifierServer) ValidateLicensePsychologist(ctx context.Context, req *ValidateLicenseRequest) (*ValidateLicenseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateLicensePsychologist not implemented")
 }
-func (*UnimplementedIdentifierServer) InferLicenseByFullname(ctx context.Context, req *InferLicenseByFullnameRequest) (*InferLicenseByFullnameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InferLicenseByFullname not implemented")
+func (*UnimplementedIdentifierServer) InferLicenseByFullnameMedic(ctx context.Context, req *InferByFullnameRequest) (*InferLicenseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InferLicenseByFullnameMedic not implemented")
+}
+func (*UnimplementedIdentifierServer) InferTomeAndFolioByFullnameLawyer(ctx context.Context, req *InferByFullnameRequest) (*InferTomeAndFolioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InferTomeAndFolioByFullnameLawyer not implemented")
 }
 func (*UnimplementedIdentifierServer) InferDataByCUE(ctx context.Context, req *InferDataByCUERequest) (*InferDataByCUEResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InferDataByCUE not implemented")
@@ -620,38 +667,56 @@ func RegisterIdentifierServer(s *grpc.Server, srv IdentifierServer) {
 	s.RegisterService(&_Identifier_serviceDesc, srv)
 }
 
-func _Identifier_ValidateLicense_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Identifier_ValidateLicensePsychologist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateLicenseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentifierServer).ValidateLicense(ctx, in)
+		return srv.(IdentifierServer).ValidateLicensePsychologist(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/identifier.Identifier/ValidateLicense",
+		FullMethod: "/identifier.Identifier/ValidateLicensePsychologist",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentifierServer).ValidateLicense(ctx, req.(*ValidateLicenseRequest))
+		return srv.(IdentifierServer).ValidateLicensePsychologist(ctx, req.(*ValidateLicenseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Identifier_InferLicenseByFullname_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InferLicenseByFullnameRequest)
+func _Identifier_InferLicenseByFullnameMedic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InferByFullnameRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentifierServer).InferLicenseByFullname(ctx, in)
+		return srv.(IdentifierServer).InferLicenseByFullnameMedic(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/identifier.Identifier/InferLicenseByFullname",
+		FullMethod: "/identifier.Identifier/InferLicenseByFullnameMedic",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentifierServer).InferLicenseByFullname(ctx, req.(*InferLicenseByFullnameRequest))
+		return srv.(IdentifierServer).InferLicenseByFullnameMedic(ctx, req.(*InferByFullnameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Identifier_InferTomeAndFolioByFullnameLawyer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InferByFullnameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentifierServer).InferTomeAndFolioByFullnameLawyer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/identifier.Identifier/InferTomeAndFolioByFullnameLawyer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentifierServer).InferTomeAndFolioByFullnameLawyer(ctx, req.(*InferByFullnameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -679,12 +744,16 @@ var _Identifier_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*IdentifierServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ValidateLicense",
-			Handler:    _Identifier_ValidateLicense_Handler,
+			MethodName: "ValidateLicensePsychologist",
+			Handler:    _Identifier_ValidateLicensePsychologist_Handler,
 		},
 		{
-			MethodName: "InferLicenseByFullname",
-			Handler:    _Identifier_InferLicenseByFullname_Handler,
+			MethodName: "InferLicenseByFullnameMedic",
+			Handler:    _Identifier_InferLicenseByFullnameMedic_Handler,
+		},
+		{
+			MethodName: "InferTomeAndFolioByFullnameLawyer",
+			Handler:    _Identifier_InferTomeAndFolioByFullnameLawyer_Handler,
 		},
 		{
 			MethodName: "InferDataByCUE",

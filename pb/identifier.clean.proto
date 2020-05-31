@@ -7,14 +7,16 @@ option go_package = "./pbidentifier";
 package identifier;
 
 service Identifier {
-  rpc ValidateLicense (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
-  rpc InferLicenseByFullname (InferLicenseByFullnameRequest) returns (InferLicenseByFullnameResponse) {}
+  rpc ValidateLicensePsychologist (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
+  
+  rpc InferLicenseByFullnameMedic (InferByFullnameRequest) returns (InferLicenseResponse) {}
+
+  rpc InferTomeAndFolioByFullnameLawyer (InferByFullnameRequest) returns (InferTomeAndFolioResponse) {}
 
   rpc InferDataByCUE (InferDataByCUERequest) returns (InferDataByCUEResponse) {}
 }
 
 message ValidateLicenseRequest{
-  string category = 1;
   uint64 dni = 2;
   uint64 license = 3;
 }
@@ -23,14 +25,18 @@ message ValidateLicenseResponse{
   bool valid = 1;
 }
 
-message InferLicenseByFullnameRequest{
-  string category = 1;
+message InferByFullnameRequest{
   string name = 2;
   string surname = 3;
 }
 
-message InferLicenseByFullnameResponse{
+message InferLicenseResponse{
   uint64 license = 1;
+}
+
+message InferTomeAndFolioResponse{
+  uint64 tome = 1;
+  uint64 folio = 2;
 }
 
 message InferDataByCUERequest{
