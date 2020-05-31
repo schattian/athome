@@ -13,10 +13,11 @@ service Mailer {
 
 message ForgotPasswordRequest {
   string email = 1 [(validate.rules).string = {email: true}];
-  repeated TokenizedUser tokenized_users = 2;
+  string name = 2;
+  repeated TokenizedUser tokenized_users = 3;
 }
 
-message TokenizedUser{
+message TokenizedUser {
   string role = 1 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
   string token = 2;
 }

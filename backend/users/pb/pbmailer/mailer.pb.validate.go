@@ -52,6 +52,8 @@ func (m *ForgotPasswordRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for Name
+
 	for idx, item := range m.GetTokenizedUsers() {
 		_, _ = idx, item
 
