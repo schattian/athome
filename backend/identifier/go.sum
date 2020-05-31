@@ -10,10 +10,10 @@ github.com/antchfx/xmlquery v1.0.0 h1:YuEPqexGG2opZKNc9JU3Zw6zFXwC47wNcy6/F8oKsr
 github.com/antchfx/xmlquery v1.0.0/go.mod h1:/+CnyD/DzHRnv2eRxrVbieRU/FIF6N0C+7oTtyUtCKk=
 github.com/antchfx/xpath v1.0.0 h1:Q5gFgh2O40VTSwMOVbFE7nFNRBu3tS21Tn0KAWeEjtk=
 github.com/antchfx/xpath v1.0.0/go.mod h1:Yee4kTMuNiPYJ7nSNorELQMr1J33uOpXDMByNYhvtNk=
-github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
-github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
-github.com/athomecomar/semantic v0.1.2 h1:Rf1WPgPH10a3dRE/ieECnZmSG12t1sdfmGbQlF+6Qe0=
-github.com/athomecomar/semantic v0.1.2/go.mod h1:gxh3VPcVC/8LuthEC263RCNQNkxgkiWUFE8ARLDomhI=
+github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=
+github.com/athomecomar/envconf v1.2.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
+github.com/athomecomar/semantic v0.1.3 h1:PoB1aVDweVgPOc+FnTjSuQrjZZiMu0wjhxUHz2fjDE8=
+github.com/athomecomar/semantic v0.1.3/go.mod h1:gxh3VPcVC/8LuthEC263RCNQNkxgkiWUFE8ARLDomhI=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=
 github.com/athomecomar/xerrors v1.2.1/go.mod h1:Ira4CbX2hG2tS0Fc9ShSV3Et1pgf/uqGgb2SgB507IE=
 github.com/athomecomar/xtest v0.1.0 h1:cF4/BEl/vEfZ5NMB+EhIFAcOagGCbocvioLjhfpfg70=

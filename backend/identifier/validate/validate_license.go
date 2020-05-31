@@ -1,4 +1,4 @@
-package scraper
+package validate
 
 import (
 	"fmt"
@@ -7,18 +7,19 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/athomecomar/athome/backend/identifier/scrap"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/gocolly/colly"
 	"github.com/pkg/errors"
 )
 
-var VerifierByCategory = map[semprov.Category]licenseVerifier{
-	semprov.Psychologist: verifyLicensePsychologist,
+var ByCategory = map[semprov.Category]licenseValidator{
+	semprov.Psychologist: licensePsychologist,
 }
 
-type licenseVerifier func(uint64, uint64) (bool, error)
+type licenseValidator func(uint64, uint64) (bool, error)
 
-func verifyLicensePsychologist(dni uint64, license uint64) (valid bool, err error) {
+func licensePsychologist(dni uint64, license uint64) (valid bool, err error) {
 	const uri = "http://www.colpsiba.org.ar/autogestion/autogestion/"
 	const formName = "F1"
 	const licenseFormName = "idmatriculado"
@@ -26,7 +27,7 @@ func verifyLicensePsychologist(dni uint64, license uint64) (valid bool, err erro
 
 	formCollector := colly.NewCollector()
 	formValues := make(url.Values)
-	formCollector.OnHTML("form", getFormValuesAsUrlValues(formName, formValues))
+	formCollector.OnHTML("form", scrap.GetFormValuesAsUrlValues(formName, formValues))
 	err = formCollector.Visit(uri)
 	if err != nil {
 		return false, errors.Wrap(err, "Visit")
@@ -53,19 +54,6 @@ func verifyLicensePsychologist(dni uint64, license uint64) (valid bool, err erro
 		return
 	}
 	return resp.ContentLength < 50000, nil
-}
-
-func getFormValuesAsUrlValues(formName string, formValues url.Values) colly.HTMLCallback {
-	return func(e *colly.HTMLElement) {
-		if e.Attr("name") != formName {
-			return
-		}
-		names := e.ChildAttrs("input", "name")
-		vals := e.ChildAttrs("input", "value")
-		for i, n := range names {
-			formValues.Set(n, vals[i])
-		}
-	}
 }
 
 //  func getFormValues(formName string, formValues map[string]string) colly.HTMLCallback {

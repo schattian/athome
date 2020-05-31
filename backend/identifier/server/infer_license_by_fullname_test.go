@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/athomecomar/athome/backend/identifier/identifierconf"
+	"github.com/athomecomar/athome/backend/identifier/infer"
 	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
-	"github.com/athomecomar/athome/backend/identifier/scraper"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"github.com/athomecomar/xtest"
@@ -172,7 +172,7 @@ func TestServer_inferLicenseByFullname(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			fs := afero.NewMemMapFs()
-			xtest.AddFileToFs(t, identifierconf.GetDATA_DIR()+"/"+scraper.InferrorByFullnameFilenames[tt.args.category], tt.fileContent, fs)
+			xtest.AddFileToFs(t, identifierconf.GetDATA_DIR()+"/"+infer.ByFullnameFilenames[tt.args.category], tt.fileContent, fs)
 			s := &Server{}
 			got, err := s.inferLicenseByFullname(tt.args.ctx, fs, tt.args.category, tt.args.in)
 			if status.Code(err) != tt.wantStatus {

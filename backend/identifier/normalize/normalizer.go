@@ -1,4 +1,4 @@
-package scraper
+package normalize
 
 import (
 	"sort"
@@ -24,7 +24,7 @@ func removeNonWord(s string) string {
 	return clean([]byte(s))
 }
 
-func toNormal(s string) (string, error) {
+func ToNormal(s string) (string, error) {
 	s = strings.ToLower(s)
 	s, err := stripAccents(s)
 	if err != nil {
@@ -35,22 +35,22 @@ func toNormal(s string) (string, error) {
 	return s, nil
 }
 
-// compareSliceSoft compares, and sorts before, each word in a[i] with b[j]
-func compareSliceSoft(a, b []string) (eq bool, err error) {
+// CompareSliceSoft compares, and sorts before, each word in a[i] with b[j]
+func CompareSliceSoft(a, b []string) (eq bool, err error) {
 	if len(b) > len(a) {
-		eq, err = compareSlice(b, a)
+		eq, err = CompareSlice(b, a)
 	}
 	if len(a) > len(b) {
-		eq, err = compareSlice(a, b)
+		eq, err = CompareSlice(a, b)
 	}
 	if len(a) == len(b) {
-		eq, err = compareSlice(a, b)
+		eq, err = CompareSlice(a, b)
 	}
 	return
 }
 
-// compareSlice compares, and sorts before, each word in a[i] with b[i]
-func compareSlice(a, b []string) (eq bool, err error) {
+// CompareSlice compares, and sorts before, each word in a[i] with b[i]
+func CompareSlice(a, b []string) (eq bool, err error) {
 	sort.Strings(a)
 	sort.Strings(b)
 
@@ -58,7 +58,7 @@ func compareSlice(a, b []string) (eq bool, err error) {
 		if len(b)-1 < i {
 			break
 		}
-		eq, err = compare(aword, b[i])
+		eq, err = Compare(aword, b[i])
 		if err != nil {
 			return false, errors.Wrap(err, "compare")
 		}
@@ -69,12 +69,12 @@ func compareSlice(a, b []string) (eq bool, err error) {
 	return
 }
 
-func compare(a, b string) (bool, error) {
-	a, err := toNormal(a)
+func Compare(a, b string) (bool, error) {
+	a, err := ToNormal(a)
 	if err != nil {
 		return false, errors.Wrap(err, "a.toNormal")
 	}
-	b, err = toNormal(b)
+	b, err = ToNormal(b)
 	if err != nil {
 		return false, errors.Wrap(err, "b.toNormal")
 	}

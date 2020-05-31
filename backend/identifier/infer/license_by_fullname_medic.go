@@ -1,27 +1,20 @@
-package scraper
+package infer
 
 import (
 	"encoding/json"
 	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/identifierconf"
+	"github.com/athomecomar/athome/backend/identifier/normalize"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
 )
 
-var InferrorByFullnameByCategory = map[semprov.Category]inferrorByFullnameByCategory{
-	semprov.Medic: inferrorByFullnameByCategoryMedic,
-}
+type medicInferencesByFullname map[string]uint64
 
-type inferrorByFullnameByCategory func(afero.Fs, string, string) (uint64, error)
-
-var InferrorByFullnameFilenames = map[semprov.Category]string{
-	semprov.Medic: "medic_licenses_by_fullname.json",
-}
-
-func inferrorByFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint64, error) {
-	f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + InferrorByFullnameFilenames[semprov.Medic])
+func licensebyFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint64, error) {
+	f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + ByFullnameFilenames[semprov.Medic])
 	if err != nil {
 		return 0, errors.Wrap(err, "fs.Open")
 	}
@@ -38,22 +31,21 @@ func inferrorByFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint6
 		surnameWords := words[0:len(givenSurnameWords)]
 		nameWords := words[len(givenSurnameWords):]
 
-		eq, err := compareSlice(surnameWords, givenSurnameWords)
+		eq, err := normalize.CompareSlice(surnameWords, givenSurnameWords)
 		if err != nil {
 			return 0, errors.Wrap(err, "compareSlice on surnameWords")
 		}
 		if !eq {
 			continue
 		}
-		eq, err = compareSliceSoft(nameWords, givenNameWords)
+		eq, err = normalize.CompareSliceSoft(nameWords, givenNameWords)
 		if err != nil {
 			return 0, errors.Wrap(err, "compareSlice on nameWords")
 		}
 		if eq {
 			match = license
+			break
 		}
 	}
 	return match, nil
 }
-
-type medicInferencesByFullname map[string]uint64

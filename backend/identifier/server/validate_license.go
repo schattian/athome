@@ -4,21 +4,21 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
-	"github.com/athomecomar/athome/backend/identifier/scraper"
+	"github.com/athomecomar/athome/backend/identifier/validate"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) ValidateLicense(ctx context.Context, c semprov.Category, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
+func (s *Server) ValidateLicensePsychologist(ctx context.Context, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	return s.validateLicense(ctx, c, in)
+	return s.validateLicense(ctx, semprov.Psychologist, in)
 }
 
 func (s *Server) validateLicense(ctx context.Context, c semprov.Category, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
-	verifier, ok := scraper.VerifierByCategory[c]
+	verifier, ok := validate.ByCategory[c]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", c)
 	}
