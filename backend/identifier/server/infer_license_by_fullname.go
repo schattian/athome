@@ -20,7 +20,7 @@ func (s *Server) InferLicenseByFullname(ctx context.Context, c *semprov.Category
 	return s.inferLicenseByFullname(ctx, fs, c, in)
 }
 
-func (s *Server) inferLicenseByFullname(ctx context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
+func (s *Server) inferLicenseByFullname(_ context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
 	inferror, ok := infer.LicenseByFullnameByCategory[category]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %v", category)

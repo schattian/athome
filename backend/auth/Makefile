@@ -3,7 +3,7 @@ PKGS := $(PKG)/server $(PKG)/authconf
 SRCDIRS := $(shell go list -f '{{.Dir}}' $(PKGS))
 GO := go
 
-check: test vet gofmt misspell unconvert staticcheck ineffassign unparam
+check: test vet gofmt misspell unconvert staticcheck ineffassign
 
 test:
 	$(GO) test $(PKGS)

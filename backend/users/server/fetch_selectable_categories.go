@@ -38,23 +38,23 @@ func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, in 
 
 	switch onboarding.Role {
 	case field.Merchant:
-		out, err = s.fetchSelectableCategoriesMerchant(ctx, db, in)
+		out, err = fetchSelectableCategoriesMerchant()
 	case field.ServiceProvider:
-		out, err = s.fetchSelectableCategoriesServiceProvider(ctx, db, in)
+		out = fetchSelectableCategoriesServiceProvider()
 	default:
 		err = status.Errorf(xerrors.InvalidArgument, "invalid role given: %v", onboarding.Role)
 	}
 	return
 }
 
-func (s *Server) fetchSelectableCategoriesServiceProvider(ctx context.Context, db *sqlx.DB, in *pbuser.FetchSelectableCategoriesRequest) (out *pbuser.FetchSelectableCategoriesResponse, err error) {
+func fetchSelectableCategoriesServiceProvider() (out *pbuser.FetchSelectableCategoriesResponse) {
 	var cats []*pbuser.Category
 	for _, cat := range semprov.Root.Childs {
 		cats = append(cats, semprovCategoryToPbCategory(cat))
 	}
 	return &pbuser.FetchSelectableCategoriesResponse{
 		Categories: cats,
-	}, nil
+	}
 }
 
 func semprovCategoryToPbCategory(c *semprov.Category) *pbuser.Category {
@@ -65,6 +65,6 @@ func semprovCategoryToPbCategory(c *semprov.Category) *pbuser.Category {
 	return &pbuser.Category{Name: c.Name, Childs: childs}
 }
 
-func (s *Server) fetchSelectableCategoriesMerchant(ctx context.Context, db *sqlx.DB, in *pbuser.FetchSelectableCategoriesRequest) (out *pbuser.FetchSelectableCategoriesResponse, err error) {
+func fetchSelectableCategoriesMerchant() (out *pbuser.FetchSelectableCategoriesResponse, err error) {
 	return nil, status.Error(xerrors.Unimplemented, "not implemented yet")
 }

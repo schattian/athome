@@ -40,7 +40,7 @@ func (s *Server) retrieveAuthentication(ctx context.Context, in *pbauth.Retrieve
 	return &pbauth.RetrieveAuthenticationResponse{UserId: userId}, nil
 }
 
-func retrieveTokens(ctx context.Context, r *redis.Client, userId uint64) (access string, refresh string, err error) {
+func retrieveTokens(ctx context.Context, r *redis.Client, userId uint64) (access, refresh string, err error) {
 	vals, err := r.HMGet(ctx, userIdToKey(userId), accessKey, refreshKey).Result()
 	if err != nil {
 		err = errors.Wrap(err, "redis.HMGet")
@@ -51,7 +51,8 @@ func retrieveTokens(ctx context.Context, r *redis.Client, userId uint64) (access
 		return
 	}
 
-	access, ok := vals[0].(string)
+	var ok bool
+	access, ok = vals[0].(string)
 	if !ok {
 		if vals[0] == nil {
 			err = fmt.Errorf("nil value stored for key: %s", accessKey)
@@ -64,9 +65,9 @@ func retrieveTokens(ctx context.Context, r *redis.Client, userId uint64) (access
 	refresh, ok = vals[1].(string)
 	if !ok {
 		if vals[1] == nil {
-			err = fmt.Errorf("nil value stored for key: %s", accessKey)
+			err = fmt.Errorf("nil value stored for key: %s", refreshKey)
 		} else {
-			err = fmt.Errorf("invalid value type for key: %s", accessKey)
+			err = fmt.Errorf("invalid value type for key: %s", refreshKey)
 		}
 		return
 	}

@@ -34,23 +34,23 @@ func (o *Onboarding) String() string {
 	return string(s)
 }
 
-func (o *Onboarding) SetCategory(ctx context.Context, db *sqlx.DB, categoryName string) (err error) {
+func (o *Onboarding) SetCategory(categoryName string) (err error) {
 	switch o.Role {
 	case field.Merchant:
-		err = o.setCategoryMerchant(ctx, db, categoryName)
+		err = o.setCategoryMerchant(categoryName)
 	case field.ServiceProvider:
-		err = o.setCategoryServiceProvider(ctx, db, categoryName)
+		err = o.setCategoryServiceProvider(categoryName)
 	default:
 		err = fmt.Errorf("invalid role (not classifiable): %v", o.Role)
 	}
 	return
 }
 
-func (o *Onboarding) setCategoryMerchant(ctx context.Context, db *sqlx.DB, categoryName string) error {
+func (o *Onboarding) setCategoryMerchant(_ string) error {
 	return errors.New("not implemented")
 }
 
-func (o *Onboarding) setCategoryServiceProvider(ctx context.Context, db *sqlx.DB, categoryName string) error {
+func (o *Onboarding) setCategoryServiceProvider(categoryName string) error {
 	cat := semprov.Loc(categoryName)
 	if cat == nil {
 		return semerr.ErrProviderCategoryNotFound

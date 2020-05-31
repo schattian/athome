@@ -49,7 +49,7 @@ func (s *Server) signUpSelectCategory(ctx context.Context, db *sqlx.DB, in *pbus
 		return nil, status.Errorf(code, "ValidateByStage: %v", err)
 	}
 
-	err = onboarding.SetCategory(ctx, db, in.GetCategoryName())
+	err = onboarding.SetCategory(in.GetCategoryName())
 	if err != nil {
 		err = status.Errorf(xerrors.Internal, "onboarding.SetCategory: %v", err)
 		return

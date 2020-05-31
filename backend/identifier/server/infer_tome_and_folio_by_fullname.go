@@ -20,7 +20,7 @@ func (s *Server) InferTomeAndFolioByFullname(ctx context.Context, category *semp
 	return s.inferTomeAndFolioByFullname(ctx, fs, category, in)
 }
 
-func (s *Server) inferTomeAndFolioByFullname(ctx context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
+func (s *Server) inferTomeAndFolioByFullname(_ context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
 	inferror, ok := infer.TomeAndFolioByFullnameByCategory[category]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %v", category)

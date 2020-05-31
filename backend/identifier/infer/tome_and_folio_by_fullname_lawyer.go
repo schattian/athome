@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/identifierconf"
-	"github.com/athomecomar/athome/backend/identifier/normalize"
+	"github.com/athomecomar/athome/backend/identifier/normalise"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
@@ -38,7 +38,7 @@ func tomeAndFolioByFullnameAttorneyAndLawyers(c *semprov.Category) tomeAndFolioB
 		for _, lawyer := range lawyers {
 			surnameWords, nameWords := strings.Split(lawyer.Surname, " "), strings.Split(lawyer.Name, " ")
 
-			eq, err = normalize.CompareSlice(surnameWords, givenSurnameWords)
+			eq, err = normalise.CompareSlice(surnameWords, givenSurnameWords)
 			if err != nil {
 				err = errors.Wrap(err, "compareSlice on surnameWords")
 				return
@@ -46,7 +46,7 @@ func tomeAndFolioByFullnameAttorneyAndLawyers(c *semprov.Category) tomeAndFolioB
 			if !eq {
 				continue
 			}
-			eq, err = normalize.CompareSliceSoft(nameWords, givenNameWords)
+			eq, err = normalise.CompareSliceSoft(nameWords, givenNameWords)
 			if err != nil {
 				err = errors.Wrap(err, "compareSlice on nameWords")
 				return

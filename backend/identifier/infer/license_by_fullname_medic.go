@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/identifierconf"
-	"github.com/athomecomar/athome/backend/identifier/normalize"
+	"github.com/athomecomar/athome/backend/identifier/normalise"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/pkg/errors"
 	"github.com/spf13/afero"
@@ -31,14 +31,14 @@ func licensebyFullnameByCategoryMedic(fs afero.Fs, name, surname string) (uint64
 		surnameWords := words[0:len(givenSurnameWords)]
 		nameWords := words[len(givenSurnameWords):]
 
-		eq, err := normalize.CompareSlice(surnameWords, givenSurnameWords)
+		eq, err := normalise.CompareSlice(surnameWords, givenSurnameWords)
 		if err != nil {
 			return 0, errors.Wrap(err, "compareSlice on surnameWords")
 		}
 		if !eq {
 			continue
 		}
-		eq, err = normalize.CompareSliceSoft(nameWords, givenNameWords)
+		eq, err = normalise.CompareSliceSoft(nameWords, givenNameWords)
 		if err != nil {
 			return 0, errors.Wrap(err, "compareSlice on nameWords")
 		}

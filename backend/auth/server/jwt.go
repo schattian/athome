@@ -38,7 +38,7 @@ func claimJwt(token string, secretFn func() string) (jwt.MapClaims, error) {
 }
 
 func userIdToKey(uid uint64) string {
-	return string(strconv.Itoa(int(uid)))
+	return strconv.Itoa(int(uid))
 }
 
 const accessKey = "access"
