@@ -23,7 +23,7 @@ func ForgotPassword(name string, tokenByRole map[string]string) hermes.Email {
 				"Has recibido este mensaje porque se ha solicitado recuperar la contraseña.",
 			},
 			Outros: []string{
-				"Si no has solicitado el cambio de contraseña, ignora este mensaje.",
+				"Si no has solicitado recuperar tu contraseña, ignora este mensaje.",
 			},
 			Signature: "Muchas gracias",
 		},
@@ -32,7 +32,6 @@ func ForgotPassword(name string, tokenByRole map[string]string) hermes.Email {
 
 	for role, token := range tokenByRole {
 		action := hermes.Action{
-			// Instructions: fmt.Sprintf("Haz click en el siguiente botón para restablecer tu contraseña como %v:", RoleTranslations[role]),
 			Button: hermes.Button{
 				Color: ColorByRole[role],
 				Text:  "Cambiar contraseña de " + RoleTranslations[role],

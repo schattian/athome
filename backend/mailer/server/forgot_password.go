@@ -49,7 +49,7 @@ func (s *Server) forgotPassword(ctx context.Context, in *pbmailer.ForgotPassword
 
 func (s *Server) forgotPasswordMessage(in *pbmailer.ForgotPasswordRequest) *gomail.Message {
 	m := gomail.NewMessage()
-	from := mailerconf.GetSMTP_SENDER()
+	from := mailerconf.GetSMTP_INSTITUTIONAL_SENDER()
 	to := mail.Address{
 		Name:    in.GetName(),
 		Address: in.GetEmail(),

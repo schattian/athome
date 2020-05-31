@@ -19,11 +19,10 @@ func GetSMTP_CONFIG() *smtpConfig {
 		User:     envconf.Get("SMTP_USER", ""),
 		Host:     envconf.Get("SMTP_HOST", "localhost"),
 		Password: envconf.Get("SMTP_PASSWORD", ""),
-		Sender:   GetSMTP_SENDER(),
 	}
 }
 
-func GetSMTP_SENDER_NAME() (name string) {
+func GetSMTP_INSTITUTIONAL_SENDER_NAME() (name string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
 		name = "atHome development"
@@ -35,21 +34,20 @@ func GetSMTP_SENDER_NAME() (name string) {
 	return
 }
 
-func GetSMTP_SENDER_EMAIL() string {
+func GetSMTP_INSTITUTIONAL_SENDER_EMAIL() string {
 	return "athome@athome.com.ar"
 }
 
-func GetSMTP_SENDER() mail.Address {
+func GetSMTP_INSTITUTIONAL_SENDER() mail.Address {
 	return mail.Address{
-		Name:    GetSMTP_SENDER_NAME(),
-		Address: GetSMTP_SENDER_EMAIL(),
+		Name:    GetSMTP_INSTITUTIONAL_SENDER_NAME(),
+		Address: GetSMTP_INSTITUTIONAL_SENDER_EMAIL(),
 	}
 }
 
 type smtpConfig struct {
 	Host     string
 	Port     int
-	Sender   mail.Address
 	User     string
 	Password string
 }
