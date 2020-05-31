@@ -9,7 +9,7 @@ require (
 	github.com/antchfx/xmlquery v1.0.0 // indirect
 	github.com/antchfx/xpath v1.0.0 // indirect
 	github.com/athomecomar/envconf v1.2.0
-	github.com/athomecomar/semantic v0.1.3
+	github.com/athomecomar/semantic v0.2.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.1.0
 	github.com/envoyproxy/protoc-gen-validate v0.3.0

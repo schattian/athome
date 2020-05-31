@@ -18,7 +18,7 @@ import (
 func TestServer_inferLicenseByFullname(t *testing.T) {
 	type args struct {
 		ctx      context.Context
-		category semprov.Category
+		category *semprov.Category
 		in       *pbidentifier.InferByFullnameRequest
 	}
 	tests := []struct {

@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) InferTomeAndFolioByFullname(ctx context.Context, category semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
+func (s *Server) InferTomeAndFolioByFullname(ctx context.Context, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -20,7 +20,7 @@ func (s *Server) InferTomeAndFolioByFullname(ctx context.Context, category sempr
 	return s.inferTomeAndFolioByFullname(ctx, fs, category, in)
 }
 
-func (s *Server) inferTomeAndFolioByFullname(ctx context.Context, fs afero.Fs, category semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
+func (s *Server) inferTomeAndFolioByFullname(ctx context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
 	inferror, ok := infer.TomeAndFolioByFullnameByCategory[category]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", category)

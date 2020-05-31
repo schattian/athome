@@ -5,11 +5,11 @@ import (
 	"github.com/spf13/afero"
 )
 
-var LicenseByFullnameByCategory = map[semprov.Category]licenseByFullnameByCategory{
+var LicenseByFullnameByCategory = map[*semprov.Category]licenseByFullnameByCategory{
 	semprov.Medic: licensebyFullnameByCategoryMedic,
 }
 
-var ByFullnameFilenames = map[semprov.Category]string{
+var ByFullnameFilenames = map[*semprov.Category]string{
 	semprov.Medic:    "medic_licenses_by_fullname.json",
 	semprov.Lawyer:   "lawyers.json",
 	semprov.Attorney: "attorneys.json",

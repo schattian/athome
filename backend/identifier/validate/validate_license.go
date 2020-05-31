@@ -13,7 +13,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-var ByCategory = map[semprov.Category]licenseValidator{
+var ByCategory = map[*semprov.Category]licenseValidator{
 	semprov.Psychologist: licensePsychologist,
 }
 

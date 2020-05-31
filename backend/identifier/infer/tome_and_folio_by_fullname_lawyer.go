@@ -18,7 +18,7 @@ type Lawyer struct {
 	Name    string `json:"name,omitempty"`
 }
 
-func tomeAndFolioByFullnameAttorneyAndLawyers(c semprov.Category) tomeAndFolioByFullnameByCategory {
+func tomeAndFolioByFullnameAttorneyAndLawyers(c *semprov.Category) tomeAndFolioByFullnameByCategory {
 	return func(fs afero.Fs, name, surname string) (tome uint64, folio uint64, err error) {
 		f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + ByFullnameFilenames[semprov.Lawyer])
 		if err != nil {

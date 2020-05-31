@@ -17,7 +17,7 @@ func (s *Server) ValidateLicensePsychologist(ctx context.Context, in *pbidentifi
 	return s.validateLicense(ctx, semprov.Psychologist, in)
 }
 
-func (s *Server) validateLicense(ctx context.Context, c semprov.Category, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
+func (s *Server) validateLicense(ctx context.Context, c *semprov.Category, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
 	verifier, ok := validate.ByCategory[c]
 	if !ok {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", c)
