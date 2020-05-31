@@ -12,6 +12,14 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func (s *Server) InferTomeAndFolioByFullname(ctx context.Context, category semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	fs := afero.NewOsFs()
+	return s.inferTomeAndFolioByFullname(ctx, fs, category, in)
+}
+
 func (s *Server) inferTomeAndFolioByFullname(ctx context.Context, fs afero.Fs, category semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
 	inferror, ok := infer.TomeAndFolioByFullnameByCategory[category]
 	if !ok {
@@ -29,9 +37,9 @@ func (s *Server) inferTomeAndFolioByFullname(ctx context.Context, fs afero.Fs, c
 }
 
 func (s *Server) InferTomeAndFolioByFullnameLawyer(ctx context.Context, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
-	if err := in.Validate(); err != nil {
-		return nil, err
-	}
-	fs := afero.NewOsFs()
-	return s.inferTomeAndFolioByFullname(ctx, fs, semprov.Lawyer, in)
+	return s.InferTomeAndFolioByFullname(ctx, semprov.Lawyer, in)
+}
+
+func (s *Server) InferTomeAndFolioByFullnameAttorney(ctx context.Context, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferTomeAndFolioResponse, error) {
+	return s.InferTomeAndFolioByFullname(ctx, semprov.Attorney, in)
 }

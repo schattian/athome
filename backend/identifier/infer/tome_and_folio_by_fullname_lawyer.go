@@ -18,41 +18,44 @@ type Lawyer struct {
 	Name    string `json:"name,omitempty"`
 }
 
-func tomeAndFolioByFullnameByCategoryLawyer(fs afero.Fs, name, surname string) (tome uint64, folio uint64, err error) {
-	f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + ByFullnameFilenames[semprov.Lawyer])
-	if err != nil {
-		err = errors.Wrap(err, "fs.Open")
-		return
-	}
-	var lawyers []*Lawyer
-	err = json.NewDecoder(f).Decode(&lawyers)
-	if err != nil {
-		err = errors.Wrap(err, "json.Decode")
-		return
-	}
-	givenSurnameWords, givenNameWords := strings.Split(surname, " "), strings.Split(name, " ")
-
-	var eq bool
-	for _, lawyer := range lawyers {
-		surnameWords, nameWords := strings.Split(lawyer.Surname, " "), strings.Split(lawyer.Name, " ")
-
-		eq, err = normalize.CompareSlice(surnameWords, givenSurnameWords)
+func tomeAndFolioByFullnameAttorneyAndLawyers(c semprov.Category) tomeAndFolioByFullnameByCategory {
+	return func(fs afero.Fs, name, surname string) (tome uint64, folio uint64, err error) {
+		f, err := fs.Open(identifierconf.GetDATA_DIR() + "/" + ByFullnameFilenames[semprov.Lawyer])
 		if err != nil {
-			err = errors.Wrap(err, "compareSlice on surnameWords")
+			err = errors.Wrap(err, "fs.Open")
 			return
 		}
-		if !eq {
-			continue
-		}
-		eq, err = normalize.CompareSliceSoft(nameWords, givenNameWords)
+
+		var lawyers []*Lawyer
+		err = json.NewDecoder(f).Decode(&lawyers)
 		if err != nil {
-			err = errors.Wrap(err, "compareSlice on nameWords")
+			err = errors.Wrap(err, "json.Decode")
 			return
 		}
-		if eq {
-			tome, folio = lawyer.Tome, lawyer.Folio
-			break
+		givenSurnameWords, givenNameWords := strings.Split(surname, " "), strings.Split(name, " ")
+
+		var eq bool
+		for _, lawyer := range lawyers {
+			surnameWords, nameWords := strings.Split(lawyer.Surname, " "), strings.Split(lawyer.Name, " ")
+
+			eq, err = normalize.CompareSlice(surnameWords, givenSurnameWords)
+			if err != nil {
+				err = errors.Wrap(err, "compareSlice on surnameWords")
+				return
+			}
+			if !eq {
+				continue
+			}
+			eq, err = normalize.CompareSliceSoft(nameWords, givenNameWords)
+			if err != nil {
+				err = errors.Wrap(err, "compareSlice on nameWords")
+				return
+			}
+			if eq {
+				tome, folio = lawyer.Tome, lawyer.Folio
+				break
+			}
 		}
+		return
 	}
-	return tome, folio, nil
 }

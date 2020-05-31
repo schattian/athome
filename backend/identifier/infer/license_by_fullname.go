@@ -7,8 +7,6 @@ import (
 
 var LicenseByFullnameByCategory = map[semprov.Category]licenseByFullnameByCategory{
 	semprov.Medic: licensebyFullnameByCategoryMedic,
-	// semprov.Lawyer: byFullnameByCategoryLawyer,
-	// semprov.Attorney: byFullnameByCategoryAttorney,
 }
 
 var ByFullnameFilenames = map[semprov.Category]string{

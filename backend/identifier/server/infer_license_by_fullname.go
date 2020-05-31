@@ -12,6 +12,14 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func (s *Server) InferLicenseByFullname(ctx context.Context, c semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	fs := afero.NewOsFs()
+	return s.inferLicenseByFullname(ctx, fs, c, in)
+}
+
 func (s *Server) inferLicenseByFullname(ctx context.Context, fs afero.Fs, category semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
 	inferror, ok := infer.LicenseByFullnameByCategory[category]
 	if !ok {
@@ -29,9 +37,5 @@ func (s *Server) inferLicenseByFullname(ctx context.Context, fs afero.Fs, catego
 }
 
 func (s *Server) InferLicenseByFullnameMedic(ctx context.Context, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
-	if err := in.Validate(); err != nil {
-		return nil, err
-	}
-	fs := afero.NewOsFs()
-	return s.inferLicenseByFullname(ctx, fs, semprov.Medic, in)
+	return s.InferLicenseByFullname(ctx, semprov.Medic, in)
 }
