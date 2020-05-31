@@ -17,7 +17,9 @@ service User {
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
   rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
+  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (SignUpSelectCategoryResponse) {}
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
+
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
 
@@ -25,6 +27,11 @@ service User {
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message SignUpSelectCategoryRequest{
+  uint64 onboarding_id = 1;
+  string category_name = 2;
 }
 
 message FetchSelectableCategoriesRequest {

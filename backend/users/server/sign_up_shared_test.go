@@ -12,7 +12,6 @@ import (
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
 	"github.com/athomecomar/xerrors"
-	"github.com/google/go-cmp/cmp"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc/status"
 )
@@ -27,7 +26,6 @@ func TestServer_signUpShared(t *testing.T) {
 		args       args
 		queryStubs []*sqlassist.QueryStubber
 		execStub   *sqlassist.ExecStubber
-		want       *pbuser.SignUpSharedResponse
 		wantStatus xerrors.Code
 	}{
 		{
@@ -49,7 +47,6 @@ func TestServer_signUpShared(t *testing.T) {
 			execStub: &sqlassist.ExecStubber{
 				Expect: "UPDATE onboardings SET", Result: sqlmock.NewResult(1, 1),
 			},
-			want:       &pbuser.SignUpSharedResponse{OnboardingId: gOnboardings.Consumers.Foo.Id},
 			wantStatus: xerrors.OK,
 		},
 		{
@@ -121,12 +118,9 @@ func TestServer_signUpShared(t *testing.T) {
 				tt.execStub.Stub(mock)
 			}
 			s := &Server{}
-			got, err := s.signUpShared(tt.args.ctx, db, tt.args.in)
+			_, err := s.signUpShared(tt.args.ctx, db, tt.args.in)
 			if status.Code(err) != tt.wantStatus {
 				t.Fatalf("Server.signUpShared() error = %v, status: %v;  wantStatus %v", err, status.Code(err), tt.wantStatus)
-			}
-			if diff := cmp.Diff(got, tt.want); diff != "" {
-				t.Errorf("Server.signUpShared() errored mismatch (-want +got): %s", diff)
 			}
 		})
 	}

@@ -11,9 +11,10 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) SignUpShared(ctx context.Context, in *pbuser.SignUpSharedRequest) (*pbuser.SignUpSharedResponse, error) {
+func (s *Server) SignUpShared(ctx context.Context, in *pbuser.SignUpSharedRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -25,7 +26,7 @@ func (s *Server) SignUpShared(ctx context.Context, in *pbuser.SignUpSharedReques
 	return s.signUpShared(ctx, db, in)
 }
 
-func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpSharedRequest) (*pbuser.SignUpSharedResponse, error) {
+func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpSharedRequest) (*emptypb.Empty, error) {
 	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
@@ -50,7 +51,7 @@ func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbuser.SignU
 		return nil, status.Errorf(xerrors.Internal, "UpdateIntoDB: %v", err)
 	}
 
-	return onboardingToSignUpSharedResponse(onboarding), nil
+	return &emptypb.Empty{}, nil
 }
 
 func signUpSharedRequestToOnboarding(prev *ent.Onboarding, in *pbuser.SignUpSharedRequest) *ent.Onboarding {
@@ -58,10 +59,4 @@ func signUpSharedRequestToOnboarding(prev *ent.Onboarding, in *pbuser.SignUpShar
 	prev.Name = field.Name(in.GetName())
 	prev.Email = field.Email(in.GetEmail())
 	return prev
-}
-
-func onboardingToSignUpSharedResponse(o *ent.Onboarding) *pbuser.SignUpSharedResponse {
-	return &pbuser.SignUpSharedResponse{
-		OnboardingId: o.Id,
-	}
 }

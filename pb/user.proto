@@ -16,8 +16,10 @@ service User {
   rpc SwitchRole (SwitchRoleRequest) returns (SignResponse) {}
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
-  rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
+  rpc SignUpShared (SignUpSharedRequest) returns (google.protobuf.Empty) {}
+  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (SignUpSelectCategoryResponse) {}
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
+
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
 
@@ -25,6 +27,11 @@ service User {
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message SignUpSelectCategoryRequest{
+  uint64 onboarding_id = 1;
+  string category_name = 2;
 }
 
 message FetchSelectableCategoriesRequest {
@@ -84,10 +91,6 @@ message SignUpSharedRequest {
   string email = 2 [(validate.rules).string = {email: true}];
   string name = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
   string surname = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
-}
-
-message SignUpSharedResponse{
-  uint64 onboarding_id = 1;
 }
 
 message SignUpEndRequest{
