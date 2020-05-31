@@ -36,6 +36,78 @@ var (
 // define the regex for a UUID once up-front
 var _user_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on SignUpSelectCategoryRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpSelectCategoryRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for OnboardingId
+
+	// no validation rules for CategoryName
+
+	return nil
+}
+
+// SignUpSelectCategoryRequestValidationError is the validation error returned
+// by SignUpSelectCategoryRequest.Validate if the designated constraints
+// aren't met.
+type SignUpSelectCategoryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpSelectCategoryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpSelectCategoryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpSelectCategoryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpSelectCategoryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpSelectCategoryRequestValidationError) ErrorName() string {
+	return "SignUpSelectCategoryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpSelectCategoryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpSelectCategoryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpSelectCategoryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpSelectCategoryRequestValidationError{}
+
 // Validate checks the field values on FetchSelectableCategoriesRequest with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, an error is returned.
@@ -1057,75 +1129,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SignUpSharedRequestValidationError{}
-
-// Validate checks the field values on SignUpSharedResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SignUpSharedResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for OnboardingId
-
-	return nil
-}
-
-// SignUpSharedResponseValidationError is the validation error returned by
-// SignUpSharedResponse.Validate if the designated constraints aren't met.
-type SignUpSharedResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SignUpSharedResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SignUpSharedResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SignUpSharedResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SignUpSharedResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SignUpSharedResponseValidationError) ErrorName() string {
-	return "SignUpSharedResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SignUpSharedResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSignUpSharedResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SignUpSharedResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SignUpSharedResponseValidationError{}
 
 // Validate checks the field values on SignUpEndRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an

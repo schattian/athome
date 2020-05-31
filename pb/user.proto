@@ -17,7 +17,7 @@ service User {
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
   rpc SignUpShared (SignUpSharedRequest) returns (google.protobuf.Empty) {}
-  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (SignUpSelectCategoryResponse) {}
+  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (google.protobuf.Empty) {}
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
 

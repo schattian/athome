@@ -16,8 +16,8 @@ service User {
   rpc SwitchRole (SwitchRoleRequest) returns (SignResponse) {}
 
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
-  rpc SignUpShared (SignUpSharedRequest) returns (SignUpSharedResponse) {}
-  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (SignUpSelectCategoryResponse) {}
+  rpc SignUpShared (SignUpSharedRequest) returns (google.protobuf.Empty) {}
+  rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (google.protobuf.Empty) {}
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
 
@@ -91,10 +91,6 @@ message SignUpSharedRequest {
   string email = 2;
   string name = 3;
   string surname = 4;
-}
-
-message SignUpSharedResponse{
-  uint64 onboarding_id = 1;
 }
 
 message SignUpEndRequest{
