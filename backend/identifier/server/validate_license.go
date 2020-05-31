@@ -20,11 +20,11 @@ func (s *Server) ValidateLicensePsychologist(ctx context.Context, in *pbidentifi
 func (s *Server) validateLicense(ctx context.Context, c *semprov.Category, in *pbidentifier.ValidateLicenseRequest) (*pbidentifier.ValidateLicenseResponse, error) {
 	verifier, ok := validate.ByCategory[c]
 	if !ok {
-		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", c)
+		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %v", c)
 	}
 	valid, err := verifier(in.GetDni(), in.GetLicense())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "%s verifier returned: %v", c, err)
+		return nil, status.Errorf(xerrors.Internal, "%v verifier returned: %v", c, err)
 	}
 	return &pbidentifier.ValidateLicenseResponse{Valid: valid}, nil
 }

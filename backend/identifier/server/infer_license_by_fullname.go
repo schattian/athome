@@ -23,12 +23,12 @@ func (s *Server) InferLicenseByFullname(ctx context.Context, c *semprov.Category
 func (s *Server) inferLicenseByFullname(ctx context.Context, fs afero.Fs, category *semprov.Category, in *pbidentifier.InferByFullnameRequest) (*pbidentifier.InferLicenseResponse, error) {
 	inferror, ok := infer.LicenseByFullnameByCategory[category]
 	if !ok {
-		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %s", category)
+		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category %v", category)
 	}
 	name, surname := strings.TrimSpace(in.GetName()), strings.TrimSpace(in.GetSurname())
 	license, err := inferror(fs, name, surname)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "%s inferror by fullname returned: %v", category, err)
+		return nil, status.Errorf(xerrors.Internal, "%v inferror by fullname returned: %v", category, err)
 	}
 	if license == 0 {
 		return nil, status.Errorf(xerrors.NotFound, "couldn't infer license for fullname: %s %s", name, surname)
