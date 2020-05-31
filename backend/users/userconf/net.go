@@ -5,9 +5,9 @@ import "github.com/athomecomar/envconf"
 func GetPORT() (port string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
-		port = ":9991"
+		port = ":9990"
 	case envconf.Staging, envconf.Production:
-		port = ":30051"
+		port = ":9990"
 	}
 	return
 }
@@ -15,7 +15,7 @@ func GetPORT() (port string) {
 func GetAUTH_ADDR() (addr string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
-		addr = "auth_svc:9990"
+		addr = "auth_svc:9900"
 	}
 	return
 }
@@ -23,7 +23,7 @@ func GetAUTH_ADDR() (addr string) {
 func GetMAILER_ADDR() (addr string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
-		addr = "auth_svc:9992"
+		addr = "mailer_svc:9901"
 	}
 	return
 }

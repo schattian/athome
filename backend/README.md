@@ -1,5 +1,16 @@
 # Backend 
 
+## Ports
+
+Only internal:
+ - **9900**: auth
+ - **9901**: mailer 
+ - **9902**: identifier
+
+
+Exposed svcs:
+ - **9990**: users
+
 ## Naming
 
 For instance, suppose the svc created to serve entity-related things (an
