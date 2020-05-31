@@ -36,6 +36,240 @@ var (
 // define the regex for a UUID once up-front
 var _user_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on FetchSelectableCategoriesRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *FetchSelectableCategoriesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for OnboardingId
+
+	return nil
+}
+
+// FetchSelectableCategoriesRequestValidationError is the validation error
+// returned by FetchSelectableCategoriesRequest.Validate if the designated
+// constraints aren't met.
+type FetchSelectableCategoriesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchSelectableCategoriesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchSelectableCategoriesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchSelectableCategoriesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchSelectableCategoriesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchSelectableCategoriesRequestValidationError) ErrorName() string {
+	return "FetchSelectableCategoriesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchSelectableCategoriesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchSelectableCategoriesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchSelectableCategoriesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchSelectableCategoriesRequestValidationError{}
+
+// Validate checks the field values on FetchSelectableCategoriesResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *FetchSelectableCategoriesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetCategories() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchSelectableCategoriesResponseValidationError{
+					field:  fmt.Sprintf("Categories[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchSelectableCategoriesResponseValidationError is the validation error
+// returned by FetchSelectableCategoriesResponse.Validate if the designated
+// constraints aren't met.
+type FetchSelectableCategoriesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchSelectableCategoriesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchSelectableCategoriesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchSelectableCategoriesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchSelectableCategoriesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchSelectableCategoriesResponseValidationError) ErrorName() string {
+	return "FetchSelectableCategoriesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchSelectableCategoriesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchSelectableCategoriesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchSelectableCategoriesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchSelectableCategoriesResponseValidationError{}
+
+// Validate checks the field values on Category with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Category) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	for idx, item := range m.GetChilds() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CategoryValidationError{
+					field:  fmt.Sprintf("Childs[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// CategoryValidationError is the validation error returned by
+// Category.Validate if the designated constraints aren't met.
+type CategoryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CategoryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CategoryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CategoryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CategoryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CategoryValidationError) ErrorName() string { return "CategoryValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CategoryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCategory.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CategoryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CategoryValidationError{}
+
 // Validate checks the field values on SwitchRoleRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.

@@ -21,14 +21,28 @@ service User {
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
 
+  rpc FetchSelectableCategories (FetchSelectableCategoriesRequest) returns (FetchSelectableCategoriesResponse) {}
+
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message FetchSelectableCategoriesRequest {
+  uint64 onboarding_id = 1;
+}
+
+message FetchSelectableCategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message Category {
+  string name = 1;
+  repeated Category childs = 2;
 }
 
 message SwitchRoleRequest {
   string access_token = 1;
   string role = 2;
-
   string password = 3;
 }
 
