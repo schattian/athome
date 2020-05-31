@@ -16,11 +16,12 @@ func (o *Onboarding) SQLTable() string {
 
 func (o *Onboarding) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":      o.Id,
-		"email":   o.Email,
-		"stage":   o.Stage,
-		"role":    o.Role,
-		"name":    o.Name,
-		"surname": o.Surname,
+		"id":       o.Id,
+		"email":    o.Email,
+		"category": o.Category,
+		"stage":    o.Stage,
+		"role":     o.Role,
+		"name":     o.Name,
+		"surname":  o.Surname,
 	}
 }

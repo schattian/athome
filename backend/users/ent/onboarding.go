@@ -9,16 +9,19 @@ import (
 	"google.golang.org/grpc/codes"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/semantic/semerr"
+	"github.com/athomecomar/semantic/semprov"
 	"github.com/jmoiron/sqlx"
 )
 
 type Onboarding struct {
-	Id      uint64        `json:"id,omitempty"`
-	Email   field.Email   `json:"email,omitempty"`
-	Role    field.Role    `json:"role,omitempty"`
-	Stage   field.Stage   `json:"stage"`
-	Name    field.Name    `json:"name,omitempty"`
-	Surname field.Surname `json:"surname,omitempty"`
+	Id       uint64        `json:"id,omitempty"`
+	Email    field.Email   `json:"email,omitempty"`
+	Role     field.Role    `json:"role,omitempty"`
+	Stage    field.Stage   `json:"stage"`
+	Name     field.Name    `json:"name,omitempty"`
+	Surname  field.Surname `json:"surname,omitempty"`
+	Category string        `json:"category,omitempty"`
 }
 
 func (o *Onboarding) Next() *Onboarding {
@@ -29,6 +32,33 @@ func (o *Onboarding) Next() *Onboarding {
 func (o *Onboarding) String() string {
 	s, _ := json.Marshal(o)
 	return string(s)
+}
+
+func (o *Onboarding) SetCategory(ctx context.Context, db *sqlx.DB, categoryName string) (err error) {
+	switch o.Role {
+	case field.Merchant:
+		err = o.setCategoryMerchant(ctx, db, categoryName)
+	case field.ServiceProvider:
+		err = o.setCategoryServiceProvider(ctx, db, categoryName)
+	default:
+		err = fmt.Errorf("invalid role (not classifiable): %v", o.Role)
+	}
+	return
+}
+
+func (o *Onboarding) setCategoryMerchant(ctx context.Context, db *sqlx.DB, categoryName string) error {
+	return errors.New("not implemented")
+}
+
+func (o *Onboarding) setCategoryServiceProvider(ctx context.Context, db *sqlx.DB, categoryName string) error {
+	cat := semprov.Loc(categoryName)
+	if cat == nil {
+		return semerr.ErrProviderCategoryNotFound
+	}
+	if cat.Childs != nil {
+		return fmt.Errorf("invalid category: %s. It got %d childs", cat.Name, len(cat.Childs))
+	}
+	return nil
 }
 
 func (o *Onboarding) ToUser() *User {

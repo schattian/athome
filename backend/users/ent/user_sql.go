@@ -19,6 +19,7 @@ func (u *User) SQLMap() map[string]driver.Value {
 		"id":            u.Id,
 		"password_hash": u.PasswordHash,
 		"email":         u.Email,
+		"category":      u.Category,
 		"role":          u.Role,
 		"name":          u.Name,
 		"surname":       u.Surname,

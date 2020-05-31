@@ -15,8 +15,9 @@ type User struct {
 	Email        field.Email `json:"email,omitempty"`
 	PasswordHash string      `json:"password_hash,omitempty"`
 
-	Name    field.Name    `json:"name,omitempty"`
-	Surname field.Surname `json:"surname,omitempty"`
+	Category string        `json:"category,omitempty"`
+	Name     field.Name    `json:"name,omitempty"`
+	Surname  field.Surname `json:"surname,omitempty"`
 
 	Role field.Role `json:"role,omitempty"`
 }
