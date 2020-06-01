@@ -1,5 +1,5 @@
 PKG := github.com/athomecomar/athome/backend/users
-PKGS := $(PKG)/server $(PKG)/ent/... $(PKG)/migrations $(PKG)/userconf
+PKGS := $(PKG)/server/... $(PKG)/ent/... $(PKG)/migrations $(PKG)/userconf
 SRCDIRS := $(shell go list -f '{{.Dir}}' $(PKGS))
 GO := go
 
