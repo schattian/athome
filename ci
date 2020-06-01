@@ -1,0 +1,9 @@
+#!/bin/sh
+DIR=$(dirname "$0")
+DIR=${DIR}/backend
+
+for svc in users auth mailer identifier
+do
+  cd $DIR/$svc || cd ../$svc
+  make check
+done
