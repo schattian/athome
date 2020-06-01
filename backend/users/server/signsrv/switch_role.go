@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
@@ -33,14 +34,15 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbuser.SwitchRoleRequest) (
 		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
 	}
 	defer conn.Close()
+	c := pbauth.NewAuthClient(conn)
 
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	return s.switchRole(ctx, db, conn, in)
+	return s.switchRole(ctx, db, c, in)
 }
 
-func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbuser.SwitchRoleRequest) (*pbuser.SignResponse, error) {
-	oldUser, err := server.GetUserFromAccessToken(ctx, db, conn, in.GetAccessToken())
+func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.SwitchRoleRequest) (*pbuser.SignResponse, error) {
+	oldUser, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -67,5 +69,5 @@ func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, conn *grpc.ClientC
 		return nil, status.Errorf(xerrors.Internal, "createSignToken: %v", err)
 	}
 
-	return s.sign(ctx, conn, &pbuser.SignRequest{SignToken: signToken})
+	return s.sign(ctx, c, &pbuser.SignRequest{SignToken: signToken})
 }

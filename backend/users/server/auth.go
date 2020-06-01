@@ -7,12 +7,10 @@ import (
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
-func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, access string) (*ent.User, error) {
-	c := pbauth.NewAuthClient(conn)
+func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, access string) (*ent.User, error) {
 	userId, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
 	if err != nil {
 		return nil, err
