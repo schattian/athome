@@ -1,4 +1,4 @@
-package server
+package signsrv
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -18,9 +19,9 @@ func (s *Server) ResetPassword(ctx context.Context, in *pbuser.ResetPasswordRequ
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	db, err := connDB()
+	db, err := server.ConnDB()
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
 

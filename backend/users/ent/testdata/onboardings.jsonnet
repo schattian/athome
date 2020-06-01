@@ -1,1 +1,0 @@
-../../server/testdata/onboardings.jsonnet

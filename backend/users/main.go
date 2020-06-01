@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
-	"github.com/athomecomar/athome/backend/users/server"
+	"github.com/athomecomar/athome/backend/users/server/signsrv"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
@@ -19,7 +19,9 @@ func main() {
 	}
 	s := grpc.NewServer()
 	log.Println("listening on port " + port)
-	pbuser.RegisterUserServer(s, &server.Server{})
+
+	pbuser.RegisterSignServer(s, &signsrv.Server{})
+	// pbuser.RegisterUserServer(s,)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

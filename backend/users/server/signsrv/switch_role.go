@@ -1,4 +1,4 @@
-package server
+package signsrv
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -22,9 +23,9 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbuser.SwitchRoleRequest) (
 		return nil, err
 	}
 
-	db, err := connDB()
+	db, err := server.ConnDB()
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
 

@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func connDB() (*sqlx.DB, error) {
+func ConnDB() (*sqlx.DB, error) {
 	db, err := sqlx.Open("postgres", userconf.GetDATABASE_SRC())
 	if err != nil {
 		return nil, errors.Wrap(err, "sqlx.Open")

@@ -1,10 +1,11 @@
-package server
+package signsrv
 
 import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -16,9 +17,9 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	db, err := connDB()
+	db, err := server.ConnDB()
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "connDB: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
 	return s.signUpEnd(ctx, db, in)

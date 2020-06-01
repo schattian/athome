@@ -1,4 +1,4 @@
-package server
+package signsrv
 
 type Server struct {
 }

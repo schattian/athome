@@ -7,7 +7,7 @@ option go_package = "./pbuser";
 
 package user;
 
-service User {
+service Sign {
   rpc Sign (SignRequest) returns (SignResponse) {}
 
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
