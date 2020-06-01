@@ -9,6 +9,7 @@ local onboardings = import './onboardings.jsonnet';
     {
       local role = 'consumer',
       foo: $.base.foo { role: role },
+      bar: $.base.bar { role: role },
     },
 
   service_providers:

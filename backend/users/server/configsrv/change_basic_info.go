@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
@@ -35,17 +36,15 @@ func (s *Server) ChangeBasicInfo(ctx context.Context, in *pbuser.ChangeBasicInfo
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
 
-	return s.changeBasicInfo(ctx, db, conn, in)
+	return s.changeBasicInfo(ctx, db, pbauth.NewAuthClient(conn), in)
 }
 
-func (s *Server) changeBasicInfo(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbuser.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
-	user, err := server.GetUserFromAccessToken(ctx, db, conn, in.GetAccessToken())
+func (s *Server) changeBasicInfo(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
+	user, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
-
 	user.Name, user.Surname = field.Name(in.GetName()), field.Surname(in.GetSurname())
-
 	err = storeql.UpdateIntoDB(ctx, db, user)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.UpdateIntoDB: %v", err)
