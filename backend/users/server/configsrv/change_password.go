@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
@@ -33,14 +34,16 @@ func (s *Server) ChangePassword(ctx context.Context, in *pbuser.ChangePasswordRe
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
 	}
+	c := pbauth.NewAuthClient(conn)
+
 	defer conn.Close()
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	return s.changePassword(ctx, db, conn, in)
+	return s.changePassword(ctx, db, c, in)
 }
 
-func (s *Server) changePassword(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbuser.ChangePasswordRequest) (*emptypb.Empty, error) {
-	user, err := server.GetUserFromAccessToken(ctx, db, conn, in.GetAccessToken())
+func (s *Server) changePassword(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.ChangePasswordRequest) (*emptypb.Empty, error) {
+	user, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

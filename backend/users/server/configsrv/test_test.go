@@ -1,6 +1,8 @@
 package configsrv
 
 import (
+	"testing"
+
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/xtest/xload"
 )
@@ -45,4 +47,13 @@ type goldenOnboardings struct {
 type variadicOnboardings struct {
 	Foo *ent.Onboarding `json:"foo,omitempty"`
 	Bar *ent.Onboarding `json:"bar,omitempty"`
+}
+
+func assignPassword(t *testing.T, u *ent.User, pwd string) *ent.User {
+	t.Helper()
+	err := u.AssignPassword(pwd)
+	if err != nil {
+		t.Fatalf("err assigning password: %v", err)
+	}
+	return u
 }
