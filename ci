@@ -2,8 +2,12 @@
 DIR=$(dirname "$0")
 DIR=${DIR}/backend
 
+GREENa="\e[1;44m"
+GREENb="\e[0m"
 for svc in users auth mailer identifier
 do
   cd $DIR/$svc || cd ../$svc
-  make check
+
+  echo "${GREENa}Checking${GREENb} ${svc}"
+  make check --silent
 done
