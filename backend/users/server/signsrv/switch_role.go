@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
@@ -41,20 +40,12 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbuser.SwitchRoleRequest) (
 }
 
 func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbuser.SwitchRoleRequest) (*pbuser.SignResponse, error) {
-	c := pbauth.NewAuthClient(conn)
-	userId, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: in.GetAccessToken()})
+	oldUser, err := server.GetUserFromAccessToken(ctx, db, conn, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
 
-	oldUser := &ent.User{}
-	row := db.QueryRowxContext(ctx, `SELECT * FROM users WHERE id=$1`, userId.GetUserId())
-	err = row.StructScan(oldUser)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "oldUser row.StructScan: %v", err)
-	}
-
-	row = db.QueryRowxContext(ctx, `SELECT * FROM users WHERE email=$1 AND role=$2`, oldUser.Email, in.GetRole())
+	row := db.QueryRowxContext(ctx, `SELECT * FROM users WHERE email=$1 AND role=$2`, oldUser.Email, in.GetRole())
 	user := &ent.User{}
 	err = row.StructScan(user)
 	if errors.Is(err, sql.ErrNoRows) {
