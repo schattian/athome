@@ -10,19 +10,41 @@ services:
     env_file: backend/users/build/svc/dev.env
     build:
       context: backend/users
+      args:
+        svc_name: users
     ports:
-      - "9991:9991"
+      - "9990:9990"
     volumes:
       - ./backend/users/migrations:/users/migrations
     depends_on:
       - users_db
 
+  mailer_svc:
+    env_file: backend/mailer/build/svc/dev.env
+    build:
+      context: backend/mailer
+      args:
+        svc_name: mailer
+    ports:
+      - "9901:9901"
+
+  identifier_svc:
+    env_file: backend/identifier/build/svc/dev.env
+    build:
+      context: backend/identifier
+      args:
+        svc_name: identifier
+    ports:
+      - "9902:9902"
+
   auth_svc:
     env_file: backend/auth/build/svc/dev.env
     build:
       context: backend/auth
+      args:
+        svc_name: auth
     ports:
-      - "9990:9990"
+      - "9900:9900"
     depends_on:
       - auth_redis
 

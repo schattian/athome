@@ -1,8 +1,10 @@
 FROM golang:alpine AS builder
 
+ARG svc_name
+
 LABEL maintainer="Sebastián Chamena <sebachamena@gmail.com>"
 
-WORKDIR /auth
+WORKDIR /${svc_name}
 
 COPY go.* ./
 
@@ -10,14 +12,14 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./auth .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./${svc_name} .
 
 FROM scratch
 
-WORKDIR /auth
+ARG svc_name
 
-COPY --from=builder /auth/auth ./auth
+WORKDIR /${svc_name}
 
-EXPOSE 9990
+COPY --from=builder /${svc_name}/${svc_name} ./${svc_name}
 
 CMD ["/auth/auth"]
