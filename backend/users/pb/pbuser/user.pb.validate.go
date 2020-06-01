@@ -1708,3 +1708,169 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SignResponseValidationError{}
+
+// Validate checks the field values on ChangePasswordRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ChangePasswordRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	if l := utf8.RuneCountInString(m.GetOldPassword()); l < 6 || l > 25 {
+		return ChangePasswordRequestValidationError{
+			field:  "OldPassword",
+			reason: "value length must be between 6 and 25 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetNewPassword()); l < 6 || l > 25 {
+		return ChangePasswordRequestValidationError{
+			field:  "NewPassword",
+			reason: "value length must be between 6 and 25 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// ChangePasswordRequestValidationError is the validation error returned by
+// ChangePasswordRequest.Validate if the designated constraints aren't met.
+type ChangePasswordRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChangePasswordRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChangePasswordRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChangePasswordRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChangePasswordRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChangePasswordRequestValidationError) ErrorName() string {
+	return "ChangePasswordRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChangePasswordRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChangePasswordRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChangePasswordRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChangePasswordRequestValidationError{}
+
+// Validate checks the field values on ChangeBasicInfoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ChangeBasicInfoRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return ChangeBasicInfoRequestValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return ChangeBasicInfoRequestValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// ChangeBasicInfoRequestValidationError is the validation error returned by
+// ChangeBasicInfoRequest.Validate if the designated constraints aren't met.
+type ChangeBasicInfoRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChangeBasicInfoRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChangeBasicInfoRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChangeBasicInfoRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChangeBasicInfoRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChangeBasicInfoRequestValidationError) ErrorName() string {
+	return "ChangeBasicInfoRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChangeBasicInfoRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChangeBasicInfoRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChangeBasicInfoRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChangeBasicInfoRequestValidationError{}

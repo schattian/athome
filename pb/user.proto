@@ -133,3 +133,21 @@ message SignResponse {
   uint64 access_token_exp_ns = 3;
   uint64 refresh_token_exp_ns = 4;
 }
+
+
+service Config {
+  rpc ChangePassword (ChangePasswordRequest) returns (google.protobuf.Empty) {}
+  rpc ChangeBasicInfo (ChangeBasicInfoRequest) returns (google.protobuf.Empty) {}
+}
+
+message ChangePasswordRequest {
+  string access_token = 1;
+  string old_password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
+  string new_password = 3 [(validate.rules).string = {min_len: 6, max_len: 25}];
+}
+
+message ChangeBasicInfoRequest {
+  string access_token = 1;
+  string name = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string surname = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
+}

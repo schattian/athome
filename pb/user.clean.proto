@@ -134,3 +134,20 @@ message SignResponse {
   uint64 refresh_token_exp_ns = 4;
 }
 
+
+service Config {
+  rpc ChangePassword (ChangePasswordRequest) returns (google.protobuf.Empty) {}
+  rpc ChangeBasicInfo (ChangeBasicInfoRequest) returns (google.protobuf.Empty) {}
+}
+
+message ChangePasswordRequest {
+  string access_token = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message ChangeBasicInfoRequest {
+  string access_token = 1;
+  string name = 2;
+  string surname = 3;
+}
