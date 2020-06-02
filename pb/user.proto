@@ -18,8 +18,10 @@ service Sign {
   rpc SignUpStart (SignUpStartRequest) returns (SignUpStartResponse) {}
   rpc SignUpShared (SignUpSharedRequest) returns (google.protobuf.Empty) {}
   rpc SignUpSelectCategory (SignUpSelectCategoryRequest) returns (google.protobuf.Empty) {}
-  rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
+  rpc SignUpIdentification (SignUpIdentificationRequest) returns (google.protobuf.Empty) {}
+
+  rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
   rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
 
@@ -27,7 +29,42 @@ service Sign {
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
+
 }
+
+message SignUpIdentificationRequest {
+  uint64 dni = 1 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
+
+  Medic medic = 2;
+  Psychologist psychologist = 3;
+  Lawyer lawyer = 4;
+  Attorney attorney = 5;
+  EducationalInstitution educational_institution = 6;
+
+  message Medic {
+    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  }
+
+  message EducationalInstitution {
+    uint64 cue = 1 [(validate.rules).uint64 = {gt: 20000000, lt: 999999999}];
+  }
+
+  message Attorney {
+    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  }
+
+  message Lawyer {
+    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  }
+
+  message Psychologist {
+    uint64 license = 1;
+  }
+}
+
 
 message SignUpSelectCategoryRequest{
   uint64 onboarding_id = 1;

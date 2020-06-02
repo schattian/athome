@@ -8,7 +8,7 @@ package identifier;
 
 service Identifier {
   rpc ValidateLicensePsychologist (ValidateLicenseRequest) returns (ValidateLicenseResponse) {}
-  
+
   rpc InferLicenseByFullnameMedic (InferByFullnameRequest) returns (InferLicenseResponse) {}
 
   rpc InferTomeAndFolioByFullnameLawyer (InferByFullnameRequest) returns (InferTomeAndFolioResponse) {}

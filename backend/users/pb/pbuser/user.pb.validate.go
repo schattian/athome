@@ -36,6 +36,131 @@ var (
 // define the regex for a UUID once up-front
 var _user_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on SignUpIdentificationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpIdentificationRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if val := m.GetDni(); val <= 999999 || val >= 99999999 {
+		return SignUpIdentificationRequestValidationError{
+			field:  "Dni",
+			reason: "value must be inside range (999999, 99999999)",
+		}
+	}
+
+	if v, ok := interface{}(m.GetMedic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpIdentificationRequestValidationError{
+				field:  "Medic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetPsychologist()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpIdentificationRequestValidationError{
+				field:  "Psychologist",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetLawyer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpIdentificationRequestValidationError{
+				field:  "Lawyer",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAttorney()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpIdentificationRequestValidationError{
+				field:  "Attorney",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetEducationalInstitution()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignUpIdentificationRequestValidationError{
+				field:  "EducationalInstitution",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SignUpIdentificationRequestValidationError is the validation error returned
+// by SignUpIdentificationRequest.Validate if the designated constraints
+// aren't met.
+type SignUpIdentificationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequestValidationError) ErrorName() string {
+	return "SignUpIdentificationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequestValidationError{}
+
 // Validate checks the field values on SignUpSelectCategoryRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1874,3 +1999,402 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ChangeBasicInfoRequestValidationError{}
+
+// Validate checks the field values on SignUpIdentificationRequest_Medic with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *SignUpIdentificationRequest_Medic) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_MedicValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_MedicValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// SignUpIdentificationRequest_MedicValidationError is the validation error
+// returned by SignUpIdentificationRequest_Medic.Validate if the designated
+// constraints aren't met.
+type SignUpIdentificationRequest_MedicValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequest_MedicValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequest_MedicValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequest_MedicValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequest_MedicValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequest_MedicValidationError) ErrorName() string {
+	return "SignUpIdentificationRequest_MedicValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequest_MedicValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest_Medic.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequest_MedicValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequest_MedicValidationError{}
+
+// Validate checks the field values on
+// SignUpIdentificationRequest_EducationalInstitution with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *SignUpIdentificationRequest_EducationalInstitution) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if val := m.GetCue(); val <= 20000000 || val >= 999999999 {
+		return SignUpIdentificationRequest_EducationalInstitutionValidationError{
+			field:  "Cue",
+			reason: "value must be inside range (20000000, 999999999)",
+		}
+	}
+
+	return nil
+}
+
+// SignUpIdentificationRequest_EducationalInstitutionValidationError is the
+// validation error returned by
+// SignUpIdentificationRequest_EducationalInstitution.Validate if the
+// designated constraints aren't met.
+type SignUpIdentificationRequest_EducationalInstitutionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) ErrorName() string {
+	return "SignUpIdentificationRequest_EducationalInstitutionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequest_EducationalInstitutionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest_EducationalInstitution.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequest_EducationalInstitutionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequest_EducationalInstitutionValidationError{}
+
+// Validate checks the field values on SignUpIdentificationRequest_Attorney
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *SignUpIdentificationRequest_Attorney) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_AttorneyValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_AttorneyValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// SignUpIdentificationRequest_AttorneyValidationError is the validation error
+// returned by SignUpIdentificationRequest_Attorney.Validate if the designated
+// constraints aren't met.
+type SignUpIdentificationRequest_AttorneyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequest_AttorneyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequest_AttorneyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequest_AttorneyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequest_AttorneyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequest_AttorneyValidationError) ErrorName() string {
+	return "SignUpIdentificationRequest_AttorneyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequest_AttorneyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest_Attorney.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequest_AttorneyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequest_AttorneyValidationError{}
+
+// Validate checks the field values on SignUpIdentificationRequest_Lawyer with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *SignUpIdentificationRequest_Lawyer) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_LawyerValidationError{
+			field:  "Name",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 30 {
+		return SignUpIdentificationRequest_LawyerValidationError{
+			field:  "Surname",
+			reason: "value length must be between 2 and 30 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// SignUpIdentificationRequest_LawyerValidationError is the validation error
+// returned by SignUpIdentificationRequest_Lawyer.Validate if the designated
+// constraints aren't met.
+type SignUpIdentificationRequest_LawyerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequest_LawyerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequest_LawyerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequest_LawyerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequest_LawyerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequest_LawyerValidationError) ErrorName() string {
+	return "SignUpIdentificationRequest_LawyerValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequest_LawyerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest_Lawyer.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequest_LawyerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequest_LawyerValidationError{}
+
+// Validate checks the field values on SignUpIdentificationRequest_Psychologist
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *SignUpIdentificationRequest_Psychologist) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for License
+
+	return nil
+}
+
+// SignUpIdentificationRequest_PsychologistValidationError is the validation
+// error returned by SignUpIdentificationRequest_Psychologist.Validate if the
+// designated constraints aren't met.
+type SignUpIdentificationRequest_PsychologistValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequest_PsychologistValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequest_PsychologistValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequest_PsychologistValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequest_PsychologistValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequest_PsychologistValidationError) ErrorName() string {
+	return "SignUpIdentificationRequest_PsychologistValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequest_PsychologistValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest_Psychologist.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequest_PsychologistValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequest_PsychologistValidationError{}
