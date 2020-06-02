@@ -1,9 +1,11 @@
 CREATE TABLE IF NOT EXISTS onboardings(
   id serial primary key,
-  email   varchar(40),
-  category   varchar(40),
-  role   varchar(17) not null,
   stage integer not null,
+  
+  role   varchar(17) not null,
+  email   varchar(40),
   name varchar(30),
   surname varchar(30)
+
+  category   varchar(40),
 );
