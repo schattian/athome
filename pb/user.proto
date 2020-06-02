@@ -33,13 +33,14 @@ service Sign {
 }
 
 message SignUpIdentificationRequest {
-  uint64 dni = 1 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
+  uint64 onboarding_id = 1;
+  uint64 dni = 2 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
 
-  Medic medic = 2;
-  Psychologist psychologist = 3;
-  Lawyer lawyer = 4;
-  Attorney attorney = 5;
-  EducationalInstitution educational_institution = 6;
+  Medic medic = 3;
+  Psychologist psychologist = 4;
+  Lawyer lawyer = 5;
+  Attorney attorney = 6;
+  EducationalInstitution educational_institution = 7;
 
   message Medic {
     string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
