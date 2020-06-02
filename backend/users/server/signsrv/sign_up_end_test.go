@@ -8,6 +8,8 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/userjwt"
+	"github.com/athomecomar/athome/backend/users/internal/usertest"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
@@ -38,12 +40,12 @@ func TestServer_signUpEnd(t *testing.T) {
 			name: "oor consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
+				in:  usertest.OnboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.SelectCategory))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.SelectCategory))...),
 				},
 				{
 					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.Consumers.Foo.Id),
@@ -54,19 +56,19 @@ func TestServer_signUpEnd(t *testing.T) {
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
+			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
 			wantStatus: xerrors.OutOfRange,
 		},
 		{
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
+				in:  usertest.OnboardingToSignUpEndRequest(gOnboardings.Consumers.Foo, fooPwd),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.Shared))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Shared))...),
 				},
 				{
 					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.Consumers.Foo.Id),
@@ -77,45 +79,60 @@ func TestServer_signUpEnd(t *testing.T) {
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
+			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
 			wantStatus: xerrors.OK,
 		},
 		{
 			name: "basic service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Foo, fooPwd),
+				in:  usertest.OnboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Medic.Foo, fooPwd),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.SelectCategory))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.Identification))...),
 				},
 				{
-					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Foo.Id),
+					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Medic.Foo.Id),
+				},
+				{
+					Expect: "SELECT * FROM onboarding_identifications",
+					Rows: sqlmock.
+						NewRows(storeql.SQLColumns(gOnboardingIdentifications.ServiceProviders.Medic.Foo)).
+						AddRow(storeql.
+							SQLValues(gOnboardingIdentifications.ServiceProviders.Medic.Foo)...,
+						),
+				},
+
+				{
+					Expect: "INSERT INTO identifications", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gOnboardingIdentifications.ServiceProviders.Medic.Foo.Id),
 				},
 			},
 			execStubs: []*sqlassist.ExecStubber{
 				{
+					Expect: "DELETE FROM onboarding_identifications", Result: sqlmock.NewResult(0, 1),
+				},
+				{
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: userToSignInUserUnsafe(t, gUsers.ServiceProviders.Foo)},
+			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.ServiceProviders.Medic.Foo)},
 			wantStatus: xerrors.OK,
 		},
 		{
 			name: "oor service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Foo, fooPwd),
+				in:  usertest.OnboardingToSignUpEndRequest(gOnboardings.ServiceProviders.Medic.Foo, fooPwd),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.Shared))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.Shared))...),
 				},
 				{
-					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Foo.Id),
+					Expect: "INSERT INTO users", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gUsers.ServiceProviders.Medic.Foo.Id),
 				},
 			},
 			execStubs: []*sqlassist.ExecStubber{
@@ -154,7 +171,7 @@ func TestServer_signUpEnd(t *testing.T) {
 				return
 			}
 
-			claims, err := claimJwt(got.User.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
+			claims, err := userjwt.ClaimJwt(got.User.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 			if err != nil {
 				t.Fatalf("Server.signUpEnd() errored parsing generated sign token: %v", err)
 			}

@@ -6,7 +6,6 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -35,6 +34,7 @@ func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEn
 	}
 
 	onboarding := previous.Next()
+
 	code, err := onboarding.MustStage(field.End)
 	if err != nil {
 		return nil, status.Errorf(code, "MustStage: %v", err)
@@ -45,25 +45,13 @@ func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEn
 		return nil, status.Errorf(code, "ValidateByStage: %v", err)
 	}
 
-	user := onboarding.ToUser()
-	err = user.AssignPassword(in.GetPassword())
+	user, _, err := onboarding.Close(ctx, db, in.GetPassword())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "AssignPassword: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "onboarding.Close: %v", err)
 	}
-
-	err = storeql.InsertIntoDB(ctx, db, user)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB: %v", err)
-	}
-
 	signedUser, err := userToSignInUser(user)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "DeleteFromDB: %v", err)
-	}
-
-	err = storeql.DeleteFromDB(ctx, db, onboarding)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "DeleteFromDB: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "userToSignInUser: %v", err)
 	}
 	return &pbuser.SignUpEndResponse{User: signedUser}, nil
 }

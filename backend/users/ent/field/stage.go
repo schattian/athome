@@ -7,6 +7,7 @@ const (
 	Start          Stage = 1
 	Shared         Stage = 2
 	SelectCategory Stage = 3
+	Identification Stage = 4
 
 	End Stage = -1
 )
@@ -46,6 +47,8 @@ func nextServiceProvider(actual Stage) (next Stage) {
 	case Shared:
 		next = SelectCategory
 	case SelectCategory:
+		next = Identification
+	case Identification:
 		next = End
 	case End:
 		next = Nil
@@ -62,6 +65,8 @@ func nextMerchant(actual Stage) (next Stage) {
 	case Shared:
 		next = SelectCategory
 	case SelectCategory:
+		next = Identification
+	case Identification:
 		next = End
 	case End:
 		next = Nil

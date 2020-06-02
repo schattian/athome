@@ -44,6 +44,8 @@ func (m *SignUpIdentificationRequest) Validate() error {
 		return nil
 	}
 
+	// no validation rules for OnboardingId
+
 	if val := m.GetDni(); val <= 999999 || val >= 99999999 {
 		return SignUpIdentificationRequestValidationError{
 			field:  "Dni",

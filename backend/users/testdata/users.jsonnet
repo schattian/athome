@@ -15,7 +15,12 @@ local onboardings = import './onboardings.jsonnet';
   service_providers:
     {
       local role = 'service-provider',
-      foo: $.base.foo { role: role, category: "medic" },
+      medic: {
+        foo: $.base.foo { role: role, category: 'medic' },
+      },
+      lawyer: {
+        foo: $.base.foo { role: role, category: 'lawyer' },
+      },
     },
 
 }

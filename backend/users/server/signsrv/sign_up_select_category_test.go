@@ -6,6 +6,7 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/usertest"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/storeql"
@@ -32,12 +33,12 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 			name: "oor service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Foo.Id},
+				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.SelectCategory))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.SelectCategory))...),
 				},
 			},
 			wantStatus: xerrors.OutOfRange,
@@ -46,12 +47,12 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 			name: "basic service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Foo.Id},
+				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.ServiceProviders.Foo, field.Shared))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.Shared))...),
 				},
 			},
 			execStubs: []*sqlassist.ExecStubber{

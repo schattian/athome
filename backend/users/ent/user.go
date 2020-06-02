@@ -1,10 +1,12 @@
 package ent
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/xerrors"
+	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -20,6 +22,20 @@ type User struct {
 	Surname  field.Surname `json:"surname,omitempty"`
 
 	Role field.Role `json:"role,omitempty"`
+}
+
+func (u *User) Identification(ctx context.Context, db *sqlx.DB) (*Identification, error) {
+	row := db.QueryRowxContext(ctx, `SELECT * FROM identifications WHERE user_id=?`, u.Id)
+	err := row.Err()
+	if err != nil {
+		return nil, errors.Wrap(err, "row.Err")
+	}
+	i := &Identification{}
+	err = row.StructScan(i)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return i, nil
 }
 
 func (u *User) AssignPassword(pwd string) error {

@@ -3,6 +3,7 @@ package signsrv
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/pb/pbmailer"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
@@ -48,7 +49,7 @@ func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, conn *grpc.Cli
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "rows.Scan: %v", err)
 		}
-		tokenizedUser.Token, err = createForgotToken(userId)
+		tokenizedUser.Token, err = userjwt.CreateForgotToken(userId)
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "createForgotToken: %v", err)
 		}

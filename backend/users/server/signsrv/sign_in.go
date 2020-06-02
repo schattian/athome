@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
@@ -67,7 +68,7 @@ func (s *Server) signIn(ctx context.Context, db *sqlx.DB, in *pbuser.SignInReque
 }
 
 func userToSignInUser(user *ent.User) (*pbuser.SignInUser, error) {
-	token, err := createSignToken(user.Id)
+	token, err := userjwt.CreateSignToken(user.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "CreateSignToken")
 	}

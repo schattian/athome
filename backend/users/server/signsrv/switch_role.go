@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/athome/backend/users/server"
@@ -64,7 +65,7 @@ func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClien
 		}
 	}
 
-	signToken, err := createSignToken(user.Id)
+	signToken, err := userjwt.CreateSignToken(user.Id)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "createSignToken: %v", err)
 	}

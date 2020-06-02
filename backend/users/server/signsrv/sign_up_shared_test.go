@@ -7,6 +7,7 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/usertest"
 	"github.com/athomecomar/athome/backend/users/pb/pbuser"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
@@ -32,12 +33,12 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.Start))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Start))...),
 				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
@@ -53,12 +54,12 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "already exists basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.Start))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Start))...),
 				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
@@ -74,12 +75,12 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "invalid stage basic consumer",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
 					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(setStage(gOnboardings.Consumers.Foo, field.Shared))...),
+					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Shared))...),
 				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
@@ -95,7 +96,7 @@ func TestServer_signUpShared(t *testing.T) {
 			name: "unexistant onboarding",
 			args: args{
 				ctx: context.Background(),
-				in:  onboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
