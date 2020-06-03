@@ -13,6 +13,8 @@ service Identifier {
 
   rpc InferTomeAndFolioByFullnameLawyer (InferByFullnameRequest) returns (InferTomeAndFolioResponse) {}
 
+  rpc InferTomeAndFolioByFullnameAttorney (InferByFullnameRequest) returns (InferTomeAndFolioResponse) {}
+
   rpc InferDataByCUE (InferDataByCUERequest) returns (InferDataByCUEResponse) {}
 }
 
