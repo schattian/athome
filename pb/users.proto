@@ -1,10 +1,9 @@
 syntax = "proto3";
 
-import "semantic.proto";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "./pbusers";
+option go_package = "github.com/athomecomar/backend/users/pbusers";
 
 package users;
 
@@ -78,7 +77,15 @@ message FetchSelectableCategoriesRequest {
 }
 
 message FetchSelectableCategoriesResponse {
-  repeated semantic.Category categories = 1;
+  repeated Category categories = 1;
+}
+
+message Category {
+  uint64 id = 1;
+  string name = 2;
+
+  uint64 parent_id = 3;
+  repeated Category childs = 4;
 }
 
 message SwitchRoleRequest {

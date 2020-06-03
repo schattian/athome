@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "validate/validate.proto";
 
-option go_package = "./pbidentifier";
+option go_package = "github.com/athomecomar/backend/identifier/pbidentifier";
 
 package identifier;
 

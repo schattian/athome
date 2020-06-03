@@ -3,7 +3,7 @@ syntax = "proto3";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "./pbsemantic";
+option go_package = "github.com/athomecomar/backend/semantic/pbsemantic";
 
 package semantic;
 
