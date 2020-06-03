@@ -10,6 +10,8 @@ Only internal:
 
 Exposed svcs:
  - **9990**: users
+ - **9991**: semantic 
+ - **9992**: products 
 
 ## Naming
 
