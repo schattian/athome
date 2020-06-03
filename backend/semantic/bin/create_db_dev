@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T semantic_db psql -U postgres -c "create database semantic_dev"
