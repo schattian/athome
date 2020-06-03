@@ -9,8 +9,8 @@ protoc \
   -I . \
   -I ${GOPATH}/src \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
-  --go_out="plugins=grpc:../backend/$2/pb/" \
-  --validate_out="lang=go:../backend/$2/pb/" \
+  --go_out="plugins=grpc:../backend/$1/pb/" \
+  --validate_out="lang=go:../backend/$1/pb/" \
   $1.proto
 
 ../pbclean ./$1.proto > ./$1.clean.proto
@@ -18,21 +18,21 @@ protoc \
 
 pbpropague()
 {
-	cp -r ../backend/$2/pb/pb$1 ../backend/$3/pb/
+	cp -r ../backend/$1/pb/pb$1 ../backend/$2/pb/
 }
 
-pbcompile user users
+pbcompile users
 
-pbcompile identifier identifier
+pbcompile identifier
 
-pbcompile auth auth
+pbcompile auth
 
-pbcompile mailer mailer
+pbcompile mailer
 
-pbpropague auth auth users
+pbpropague auth users
 
-pbpropague identifier identifier users
+pbpropague identifier users
 
-pbpropague mailer mailer users
+pbpropague mailer users
 
 echo "Done"

@@ -10,14 +10,14 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.SignInResponse, error) {
+func (s *Server) SignIn(ctx context.Context, in *pbusers.SignInRequest) (*pbusers.SignInResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -30,12 +30,12 @@ func (s *Server) SignIn(ctx context.Context, in *pbuser.SignInRequest) (*pbuser.
 	return s.signIn(ctx, db, in)
 }
 
-func (s *Server) signIn(ctx context.Context, db *sqlx.DB, in *pbuser.SignInRequest) (*pbuser.SignInResponse, error) {
+func (s *Server) signIn(ctx context.Context, db *sqlx.DB, in *pbusers.SignInRequest) (*pbusers.SignInResponse, error) {
 	rows, err := db.QueryxContext(ctx, `SELECT * FROM users WHERE email=$1 limit 3`, in.GetEmail())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
-	var users []*pbuser.SignInUser
+	var users []*pbusers.SignInUser
 	defer rows.Close()
 	for rows.Next() {
 		user := &ent.User{}
@@ -61,18 +61,18 @@ func (s *Server) signIn(ctx context.Context, db *sqlx.DB, in *pbuser.SignInReque
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "rows.Err: %v", err)
 	}
-	return &pbuser.SignInResponse{
+	return &pbusers.SignInResponse{
 		Users:          users,
 		SignTokenExpNs: uint64(userconf.GetSIGN_JWT_EXP().Nanoseconds()),
 	}, nil
 }
 
-func userToSignInUser(user *ent.User) (*pbuser.SignInUser, error) {
+func userToSignInUser(user *ent.User) (*pbusers.SignInUser, error) {
 	token, err := userjwt.CreateSignToken(user.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, "CreateSignToken")
 	}
-	return &pbuser.SignInUser{
+	return &pbusers.SignInUser{
 		Id:        user.Id,
 		SignToken: token,
 		Email:     string(user.Email),

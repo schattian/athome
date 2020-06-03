@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) FetchOnboarding(ctx context.Context, in *pbuser.FetchOnboardingRequest) (*pbuser.FetchOnboardingResponse, error) {
+func (s *Server) FetchOnboarding(ctx context.Context, in *pbusers.FetchOnboardingRequest) (*pbusers.FetchOnboardingResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -26,7 +26,7 @@ func (s *Server) FetchOnboarding(ctx context.Context, in *pbuser.FetchOnboarding
 	return s.fetchOnboarding(ctx, db, in)
 }
 
-func (s *Server) fetchOnboarding(ctx context.Context, db *sqlx.DB, in *pbuser.FetchOnboardingRequest) (*pbuser.FetchOnboardingResponse, error) {
+func (s *Server) fetchOnboarding(ctx context.Context, db *sqlx.DB, in *pbusers.FetchOnboardingRequest) (*pbusers.FetchOnboardingResponse, error) {
 	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
@@ -37,8 +37,8 @@ func (s *Server) fetchOnboarding(ctx context.Context, db *sqlx.DB, in *pbuser.Fe
 	return onboardingToFetchOnboardingResponse(onboarding), nil
 }
 
-func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbuser.FetchOnboardingResponse {
-	return &pbuser.FetchOnboardingResponse{
+func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbusers.FetchOnboardingResponse {
+	return &pbusers.FetchOnboardingResponse{
 		Email:   string(o.Email),
 		Name:    string(o.Name),
 		Role:    string(o.Role),

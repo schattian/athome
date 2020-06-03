@@ -6,7 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
@@ -17,7 +17,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) ChangeBasicInfo(ctx context.Context, in *pbuser.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
+func (s *Server) ChangeBasicInfo(ctx context.Context, in *pbusers.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func (s *Server) ChangeBasicInfo(ctx context.Context, in *pbuser.ChangeBasicInfo
 	return s.changeBasicInfo(ctx, db, pbauth.NewAuthClient(conn), in)
 }
 
-func (s *Server) changeBasicInfo(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
+func (s *Server) changeBasicInfo(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.ChangeBasicInfoRequest) (*emptypb.Empty, error) {
 	user, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err

@@ -8,14 +8,14 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) SignUpStart(ctx context.Context, in *pbuser.SignUpStartRequest) (*pbuser.SignUpStartResponse, error) {
+func (s *Server) SignUpStart(ctx context.Context, in *pbusers.SignUpStartRequest) (*pbusers.SignUpStartResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -27,7 +27,7 @@ func (s *Server) SignUpStart(ctx context.Context, in *pbuser.SignUpStartRequest)
 	return s.signUpStart(ctx, db, in)
 }
 
-func (s *Server) signUpStart(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpStartRequest) (*pbuser.SignUpStartResponse, error) {
+func (s *Server) signUpStart(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpStartRequest) (*pbusers.SignUpStartResponse, error) {
 	onboarding := signUpStartRequestToOnboarding(in).Next()
 	code, err := onboarding.ValidateByStage(ctx, db)
 	if err != nil {
@@ -40,12 +40,12 @@ func (s *Server) signUpStart(ctx context.Context, db *sqlx.DB, in *pbuser.SignUp
 	return onboardingToSignUpStartResponse(onboarding), nil
 }
 
-func signUpStartRequestToOnboarding(in *pbuser.SignUpStartRequest) *ent.Onboarding {
+func signUpStartRequestToOnboarding(in *pbusers.SignUpStartRequest) *ent.Onboarding {
 	return &ent.Onboarding{Role: field.Role(in.GetRole())}
 }
 
-func onboardingToSignUpStartResponse(o *ent.Onboarding) *pbuser.SignUpStartResponse {
-	return &pbuser.SignUpStartResponse{
+func onboardingToSignUpStartResponse(o *ent.Onboarding) *pbusers.SignUpStartResponse {
+	return &pbusers.SignUpStartResponse{
 		OnboardingId: o.Id,
 	}
 }

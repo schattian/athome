@@ -13,13 +13,13 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	_ "github.com/lib/pq"
 )
 
-func (s *Server) ChangePassword(ctx context.Context, in *pbuser.ChangePasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) ChangePassword(ctx context.Context, in *pbusers.ChangePasswordRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (s *Server) ChangePassword(ctx context.Context, in *pbuser.ChangePasswordRe
 	return s.changePassword(ctx, db, c, in)
 }
 
-func (s *Server) changePassword(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.ChangePasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) changePassword(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.ChangePasswordRequest) (*emptypb.Empty, error) {
 	user, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err

@@ -7,7 +7,7 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
 	"github.com/athomecomar/xerrors"
@@ -19,13 +19,13 @@ import (
 func TestServer_signUpStart(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.SignUpStartRequest
+		in  *pbusers.SignUpStartRequest
 	}
 	tests := []struct {
 		name       string
 		args       args
 		execStub   *sqlassist.QueryStubber
-		want       *pbuser.SignUpStartResponse
+		want       *pbusers.SignUpStartResponse
 		wantStatus xerrors.Code
 	}{
 		{
@@ -37,7 +37,7 @@ func TestServer_signUpStart(t *testing.T) {
 			execStub: &sqlassist.QueryStubber{
 				Expect: "INSERT INTO onboardings", Rows: sqlmock.NewRows([]string{"id"}).AddRow(gOnboardings.Consumers.Foo.Id),
 			},
-			want:       &pbuser.SignUpStartResponse{OnboardingId: gOnboardings.Consumers.Foo.Id},
+			want:       &pbusers.SignUpStartResponse{OnboardingId: gOnboardings.Consumers.Foo.Id},
 			wantStatus: xerrors.OK,
 		},
 		{

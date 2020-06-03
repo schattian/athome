@@ -7,7 +7,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
@@ -20,7 +20,7 @@ import (
 func TestServer_signUpSelectCategory(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.SignUpSelectCategoryRequest
+		in  *pbusers.SignUpSelectCategoryRequest
 	}
 	tests := []struct {
 		name       string
@@ -33,7 +33,7 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 			name: "oor service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
+				in:  &pbusers.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
@@ -47,7 +47,7 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 			name: "basic service-provider",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
+				in:  &pbusers.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{

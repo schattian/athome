@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) SignUpSelectCategory(ctx context.Context, in *pbuser.SignUpSelectCategoryRequest) (*emptypb.Empty, error) {
+func (s *Server) SignUpSelectCategory(ctx context.Context, in *pbusers.SignUpSelectCategoryRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (s *Server) SignUpSelectCategory(ctx context.Context, in *pbuser.SignUpSele
 	return s.signUpSelectCategory(ctx, db, in)
 }
 
-func (s *Server) signUpSelectCategory(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpSelectCategoryRequest) (e *emptypb.Empty, err error) {
+func (s *Server) signUpSelectCategory(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpSelectCategoryRequest) (e *emptypb.Empty, err error) {
 	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())

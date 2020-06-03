@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
@@ -16,7 +16,7 @@ import (
 func TestServer_resetPassword(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.ResetPasswordRequest
+		in  *pbusers.ResetPasswordRequest
 	}
 	tests := []struct {
 		name       string
@@ -29,7 +29,7 @@ func TestServer_resetPassword(t *testing.T) {
 			name: "basic change of pwd",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.ResetPasswordRequest{Token: gTokens.Forgot.Valid, Password: fooPwd},
+				in:  &pbusers.ResetPasswordRequest{Token: gTokens.Forgot.Valid, Password: fooPwd},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{
@@ -48,7 +48,7 @@ func TestServer_resetPassword(t *testing.T) {
 			name: "expired token",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.ResetPasswordRequest{Token: gTokens.Forgot.Expired, Password: fooPwd},
+				in:  &pbusers.ResetPasswordRequest{Token: gTokens.Forgot.Expired, Password: fooPwd},
 			},
 			wantStatus: xerrors.InvalidArgument,
 		},

@@ -7,7 +7,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/internal/pbauthtest"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
@@ -22,7 +22,7 @@ const fooNewPwd = "barpassword4"
 func TestServer_changePassword(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.ChangePasswordRequest
+		in  *pbusers.ChangePasswordRequest
 	}
 	tests := []struct {
 		name       string
@@ -38,7 +38,7 @@ func TestServer_changePassword(t *testing.T) {
 			oldPwd: fooOldPwd,
 			args: args{
 				ctx: context.Background(),
-				in:  &pbuser.ChangePasswordRequest{OldPassword: fooOldPwd, NewPassword: fooNewPwd},
+				in:  &pbusers.ChangePasswordRequest{OldPassword: fooOldPwd, NewPassword: fooNewPwd},
 			},
 			c: pbauthtest.Client{Retrieve: &pbauth.RetrieveAuthenticationResponse{UserId: gUsers.Consumers.Foo.Id}},
 			queryStubs: []*sqlassist.QueryStubber{

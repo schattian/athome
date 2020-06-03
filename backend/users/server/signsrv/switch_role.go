@@ -8,7 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) SwitchRole(ctx context.Context, in *pbuser.SwitchRoleRequest) (*pbuser.SignResponse, error) {
+func (s *Server) SwitchRole(ctx context.Context, in *pbusers.SwitchRoleRequest) (*pbusers.SignResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbuser.SwitchRoleRequest) (
 	return s.switchRole(ctx, db, c, in)
 }
 
-func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbuser.SwitchRoleRequest) (*pbuser.SignResponse, error) {
+func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.SwitchRoleRequest) (*pbusers.SignResponse, error) {
 	oldUser, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
 	if err != nil {
 		return nil, err
@@ -70,5 +70,5 @@ func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClien
 		return nil, status.Errorf(xerrors.Internal, "createSignToken: %v", err)
 	}
 
-	return s.sign(ctx, c, &pbuser.SignRequest{SignToken: signToken})
+	return s.sign(ctx, c, &pbusers.SignRequest{SignToken: signToken})
 }

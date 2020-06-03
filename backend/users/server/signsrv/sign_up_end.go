@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*pbuser.SignUpEndResponse, error) {
+func (s *Server) SignUpEnd(ctx context.Context, in *pbusers.SignUpEndRequest) (*pbusers.SignUpEndResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbuser.SignUpEndRequest) (*p
 	return s.signUpEnd(ctx, db, in)
 }
 
-func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEndRequest) (*pbuser.SignUpEndResponse, error) {
+func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpEndRequest) (*pbusers.SignUpEndResponse, error) {
 	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
@@ -53,5 +53,5 @@ func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbuser.SignUpEn
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "userToSignInUser: %v", err)
 	}
-	return &pbuser.SignUpEndResponse{User: signedUser}, nil
+	return &pbusers.SignUpEndResponse{User: signedUser}, nil
 }

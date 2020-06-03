@@ -3,9 +3,9 @@ syntax = "proto3";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "./pbuser";
+option go_package = "./pbusers";
 
-package user;
+package users;
 
 service Sign {
   rpc Sign (SignRequest) returns (SignResponse) {}
@@ -34,7 +34,7 @@ service Sign {
 
 message SignUpIdentificationRequest {
   uint64 onboarding_id = 1;
-  uint64 dni = 2 [(validate.rules).uint64 = {gt: 999999, lt: 99999999}];
+  uint64 dni = 2;
 
   Medic medic = 3;
   Psychologist psychologist = 4;
@@ -43,22 +43,22 @@ message SignUpIdentificationRequest {
   EducationalInstitution educational_institution = 7;
 
   message Medic {
-    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
-    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string name = 1;
+    string surname = 2;
   }
 
   message EducationalInstitution {
-    uint64 cue = 1 [(validate.rules).uint64 = {gt: 20000000, lt: 999999999}];
+    uint64 cue = 1;
   }
 
   message Attorney {
-    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
-    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string name = 1;
+    string surname = 2;
   }
 
   message Lawyer {
-    string name = 1 [(validate.rules).string = {min_len: 2, max_len: 30}];
-    string surname = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
+    string name = 1;
+    string surname = 2;
   }
 
   message Psychologist {
@@ -87,7 +87,7 @@ message Category {
 
 message SwitchRoleRequest {
   string access_token = 1;
-  string role = 2 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
+  string role = 2;
   string password = 3;
 }
 
@@ -97,11 +97,11 @@ message SignOutRequest {
 
 message ResetPasswordRequest {
   string token = 1;
-  string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
+  string password = 2;
 }
 
 message ForgotPasswordRequest {
-  string email = 1 [(validate.rules).string = {email: true}];
+  string email = 1;
 }
 
 message FetchOnboardingRequest {
@@ -117,7 +117,7 @@ message FetchOnboardingResponse{
 }
 
 message SignUpStartRequest {
-  string role = 1 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
+  string role = 1;
 }
 
 message SignUpStartResponse{
@@ -126,14 +126,14 @@ message SignUpStartResponse{
 
 message SignUpSharedRequest {
   uint64 onboarding_id = 1;
-  string email = 2 [(validate.rules).string = {email: true}];
-  string name = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
-  string surname = 4 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string email = 2;
+  string name = 3;
+  string surname = 4;
 }
 
 message SignUpEndRequest{
   uint64 onboarding_id = 1;
-  string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
+  string password = 2;
 }
 
 message SignUpEndResponse {
@@ -141,8 +141,8 @@ message SignUpEndResponse {
 }
 
 message SignInRequest {
-  string email = 1 [(validate.rules).string = {email: true}];
-  string password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
+  string email = 1;
+  string password = 2;
 }
 
 message SignInResponse {
@@ -180,12 +180,13 @@ service Config {
 
 message ChangePasswordRequest {
   string access_token = 1;
-  string old_password = 2 [(validate.rules).string = {min_len: 6, max_len: 25}];
-  string new_password = 3 [(validate.rules).string = {min_len: 6, max_len: 25}];
+  string old_password = 2;
+  string new_password = 3;
 }
 
 message ChangeBasicInfoRequest {
   string access_token = 1;
-  string name = 2 [(validate.rules).string = {min_len: 2, max_len: 30}];
-  string surname = 3 [(validate.rules).string = {min_len: 2, max_len: 30}];
+  string name = 2;
+  string surname = 3;
 }
+

@@ -7,7 +7,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbidentifier"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/semantic/semerr"
@@ -21,7 +21,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) SignUpIdentification(ctx context.Context, in *pbuser.SignUpIdentificationRequest) (*emptypb.Empty, error) {
+func (s *Server) SignUpIdentification(ctx context.Context, in *pbusers.SignUpIdentificationRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (s *Server) SignUpIdentification(ctx context.Context, in *pbuser.SignUpIden
 	return s.signUpIdentification(ctx, db, c, in)
 }
 
-func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbidentifier.IdentifierClient, in *pbuser.SignUpIdentificationRequest) (e *emptypb.Empty, err error) {
+func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbidentifier.IdentifierClient, in *pbusers.SignUpIdentificationRequest) (e *emptypb.Empty, err error) {
 	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
@@ -78,7 +78,7 @@ func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbiden
 func signUpIdentificationServiceProvider(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
-	in *pbuser.SignUpIdentificationRequest,
+	in *pbusers.SignUpIdentificationRequest,
 	o *ent.Onboarding,
 ) (oi *ent.OnboardingIdentification, err error) {
 	switch o.Category {
@@ -103,7 +103,7 @@ func signUpIdentificationPsychologist(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
 	dni uint64,
-	in *pbuser.SignUpIdentificationRequest_Psychologist,
+	in *pbusers.SignUpIdentificationRequest_Psychologist,
 ) (*ent.OnboardingIdentification, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
@@ -121,7 +121,7 @@ func signUpIdentificationPsychologist(
 func signUpIdentificationMedic(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
-	in *pbuser.SignUpIdentificationRequest_Medic,
+	in *pbusers.SignUpIdentificationRequest_Medic,
 ) (*ent.OnboardingIdentification, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
@@ -136,7 +136,7 @@ func signUpIdentificationMedic(
 func signUpIdentificationAttorney(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
-	in *pbuser.SignUpIdentificationRequest_Attorney,
+	in *pbusers.SignUpIdentificationRequest_Attorney,
 ) (*ent.OnboardingIdentification, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
@@ -151,7 +151,7 @@ func signUpIdentificationAttorney(
 func signUpIdentificationLawyer(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
-	in *pbuser.SignUpIdentificationRequest_Lawyer,
+	in *pbusers.SignUpIdentificationRequest_Lawyer,
 ) (*ent.OnboardingIdentification, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err

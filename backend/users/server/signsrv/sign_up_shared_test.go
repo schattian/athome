@@ -8,7 +8,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
@@ -20,7 +20,7 @@ import (
 func TestServer_signUpShared(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.SignUpSharedRequest
+		in  *pbusers.SignUpSharedRequest
 	}
 	tests := []struct {
 		name       string

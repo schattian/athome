@@ -7,7 +7,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/users/internal/pbauthtest"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
@@ -19,7 +19,7 @@ import (
 func TestServer_changeBasicInfo(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.ChangeBasicInfoRequest
+		in  *pbusers.ChangeBasicInfoRequest
 	}
 	tests := []struct {
 		name       string
@@ -33,7 +33,7 @@ func TestServer_changeBasicInfo(t *testing.T) {
 			name: "ok",
 			args: args{
 				ctx: context.Background(),
-				in: &pbuser.ChangeBasicInfoRequest{
+				in: &pbusers.ChangeBasicInfoRequest{
 					Name: string(gUsers.Consumers.Bar.Name), Surname: string(gUsers.Consumers.Bar.Surname),
 				},
 			},

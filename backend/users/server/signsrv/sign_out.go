@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc"
@@ -14,7 +14,7 @@ import (
 )
 
 // Proxies request to auth svc
-func (s *Server) SignOut(ctx context.Context, in *pbuser.SignOutRequest) (*emptypb.Empty, error) {
+func (s *Server) SignOut(ctx context.Context, in *pbusers.SignOutRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -30,7 +30,7 @@ func (s *Server) SignOut(ctx context.Context, in *pbuser.SignOutRequest) (*empty
 	return s.signOut(ctx, conn, in)
 }
 
-func (s *Server) signOut(ctx context.Context, conn *grpc.ClientConn, in *pbuser.SignOutRequest) (*emptypb.Empty, error) {
+func (s *Server) signOut(ctx context.Context, conn *grpc.ClientConn, in *pbusers.SignOutRequest) (*emptypb.Empty, error) {
 	c := pbauth.NewAuthClient(conn)
 	authResponse, err := c.DeleteAuthentication(ctx, &pbauth.DeleteAuthenticationRequest{AccessToken: in.GetAccessToken()})
 	if err != nil {

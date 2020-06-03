@@ -10,7 +10,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
@@ -26,14 +26,14 @@ const fooPwd = "foopassword3"
 func TestServer_signUpEnd(t *testing.T) {
 	type args struct {
 		ctx context.Context
-		in  *pbuser.SignUpEndRequest
+		in  *pbusers.SignUpEndRequest
 	}
 	tests := []struct {
 		name       string
 		args       args
 		queryStubs []*sqlassist.QueryStubber
 		execStubs  []*sqlassist.ExecStubber
-		want       *pbuser.SignUpEndResponse
+		want       *pbusers.SignUpEndResponse
 		wantStatus xerrors.Code
 	}{
 		{
@@ -56,7 +56,7 @@ func TestServer_signUpEnd(t *testing.T) {
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
+			want:       &pbusers.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
 			wantStatus: xerrors.OutOfRange,
 		},
 		{
@@ -79,7 +79,7 @@ func TestServer_signUpEnd(t *testing.T) {
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
+			want:       &pbusers.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.Consumers.Foo)},
 			wantStatus: xerrors.OK,
 		},
 		{
@@ -117,7 +117,7 @@ func TestServer_signUpEnd(t *testing.T) {
 					Expect: "DELETE FROM onboardings", Result: sqlmock.NewResult(0, 1),
 				},
 			},
-			want:       &pbuser.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.ServiceProviders.Medic.Foo)},
+			want:       &pbusers.SignUpEndResponse{User: usertest.UserToSignInUserUnsafe(t, gUsers.ServiceProviders.Medic.Foo)},
 			wantStatus: xerrors.OK,
 		},
 		{

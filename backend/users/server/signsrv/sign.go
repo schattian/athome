@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 
@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+func (s *Server) Sign(ctx context.Context, in *pbusers.SignRequest) (*pbusers.SignResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func (s *Server) Sign(ctx context.Context, in *pbuser.SignRequest) (*pbuser.Sign
 	return s.sign(ctx, c, in)
 }
 
-func (s *Server) sign(ctx context.Context, c pbauth.AuthClient, in *pbuser.SignRequest) (*pbuser.SignResponse, error) {
+func (s *Server) sign(ctx context.Context, c pbauth.AuthClient, in *pbusers.SignRequest) (*pbusers.SignResponse, error) {
 	userId, err := handleJwt(in.GetSignToken(), userconf.GetSIGN_JWT_SECRET)
 	if err != nil {
 		return nil, err
@@ -45,7 +45,7 @@ func (s *Server) sign(ctx context.Context, c pbauth.AuthClient, in *pbuser.SignR
 		return nil, status.Errorf(xerrors.Internal, "createAuthToken: %v", err)
 	}
 
-	return &pbuser.SignResponse{
+	return &pbusers.SignResponse{
 		AccessToken:       tokens.GetAccessToken(),
 		RefreshToken:      tokens.GetRefreshToken(),
 		AccessTokenExpNs:  tokens.GetAccessTokenExpNs(),
@@ -71,7 +71,7 @@ func createAuthTokens(ctx context.Context, c pbauth.AuthClient, userId uint64) (
 	}
 	authResponse, err := c.CreateAuthentication(ctx, &pbauth.CreateAuthenticationRequest{SignToken: signJwt})
 	if err != nil {
-		return nil, errors.Wrap(err, "pbuser.Sign")
+		return nil, errors.Wrap(err, "pbusers.Sign")
 	}
 	return authResponse, nil
 }

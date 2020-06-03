@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/storeql"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) ResetPassword(ctx context.Context, in *pbuser.ResetPasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) ResetPassword(ctx context.Context, in *pbusers.ResetPasswordRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (s *Server) ResetPassword(ctx context.Context, in *pbuser.ResetPasswordRequ
 	return s.resetPassword(ctx, db, in)
 }
 
-func (s *Server) resetPassword(ctx context.Context, db *sqlx.DB, in *pbuser.ResetPasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) resetPassword(ctx context.Context, db *sqlx.DB, in *pbusers.ResetPasswordRequest) (*emptypb.Empty, error) {
 	userId, err := handleJwt(in.GetToken(), userconf.GetFORGOT_JWT_SECRET)
 	if err != nil {
 		return nil, err

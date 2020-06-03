@@ -5,7 +5,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/pb/pbmailer"
-	"github.com/athomecomar/athome/backend/users/pb/pbuser"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) ForgotPassword(ctx context.Context, in *pbuser.ForgotPasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) ForgotPassword(ctx context.Context, in *pbusers.ForgotPasswordRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func (s *Server) ForgotPassword(ctx context.Context, in *pbuser.ForgotPasswordRe
 	return s.forgotPassword(ctx, db, conn, in)
 }
 
-func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbuser.ForgotPasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbusers.ForgotPasswordRequest) (*emptypb.Empty, error) {
 	rows, err := db.QueryxContext(ctx, `SELECT id, role FROM users WHERE email=$1 limit 3`, in.GetEmail())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
