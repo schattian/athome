@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "semantic.proto";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
@@ -77,12 +78,7 @@ message FetchSelectableCategoriesRequest {
 }
 
 message FetchSelectableCategoriesResponse {
-  repeated Category categories = 1;
-}
-
-message Category {
-  string name = 1;
-  repeated Category childs = 2;
+  repeated semantic.Category categories = 1;
 }
 
 message SwitchRoleRequest {

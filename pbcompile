@@ -23,6 +23,8 @@ pbpropague()
 
 pbcompile users
 
+pbcompile semantic
+
 pbcompile identifier
 
 pbcompile auth
