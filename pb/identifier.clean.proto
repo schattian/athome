@@ -19,8 +19,8 @@ service Identifier {
 }
 
 message ValidateLicenseRequest{
-  uint64 dni = 2;
-  uint64 license = 3;
+  uint64 dni = 1;
+  uint64 license = 2;
 }
 
 message ValidateLicenseResponse{
@@ -28,8 +28,8 @@ message ValidateLicenseResponse{
 }
 
 message InferByFullnameRequest{
-  string name = 2;
-  string surname = 3;
+  string name = 1;
+  string surname = 2;
 }
 
 message InferLicenseResponse{
