@@ -1,6 +1,6 @@
 package srvproviders
 
-import "github.com/athomecomar/athome/backend/users/pb/pbsemantic"
+import "github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 
 type Server struct {
 	pbsemantic.UnimplementedServiceProvidersServer

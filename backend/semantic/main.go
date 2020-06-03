@@ -4,11 +4,11 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
-	"github.com/athomecomar/athome/backend/users/semanticconf"
-	"github.com/athomecomar/athome/backend/users/server/srvmerchants"
-	"github.com/athomecomar/athome/backend/users/server/srvproducts"
-	"github.com/athomecomar/athome/backend/users/server/srvproviders"
+	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
+	"github.com/athomecomar/athome/backend/semantic/semanticconf"
+	"github.com/athomecomar/athome/backend/semantic/server/srvmerchants"
+	"github.com/athomecomar/athome/backend/semantic/server/srvproducts"
+	"github.com/athomecomar/athome/backend/semantic/server/srvproviders"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )

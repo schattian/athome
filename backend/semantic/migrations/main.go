@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/athomecomar/athome/backend/users/semanticconf"
+	"github.com/athomecomar/athome/backend/semantic/semanticconf"
 	"github.com/golang-migrate/migrate/v4"
 
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
