@@ -21,6 +21,11 @@ pbpropague()
 	cp -r ../backend/$1/pb/pb$1 ../backend/$2/pb/
 }
 
+pbpropaguedep()
+{
+	cp -r ../backend/$1/pb/pb$1 ../backend/$2/pb/pb$2/
+}
+
 pbcompile users
 
 pbcompile semantic
@@ -36,5 +41,7 @@ pbpropague auth users
 pbpropague identifier users
 
 pbpropague mailer users
+
+#pbpropaguedep semantic users
 
 echo "Done"

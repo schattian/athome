@@ -3,7 +3,7 @@ syntax = "proto3";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/athomecomar/backend/products/pbproducts";
+option go_package = "./pbproducts";
 
 package products;
 
@@ -16,7 +16,7 @@ message PredictCategoryRequest {
 }
 
 message PredictCategoryResponse {
-  Category category = 1;    
+  Category category = 1;
   double score = 2;
 }
 

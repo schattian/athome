@@ -9,6 +9,7 @@ require (
 	github.com/athomecomar/storeql v1.4.5
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.0.0-20200516201628-af9df9901326
+	github.com/client9/misspell v0.3.4 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/golang-migrate/migrate/v4 v4.11.0

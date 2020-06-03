@@ -27,3 +27,11 @@ func GetMAILER_ADDR() (addr string) {
 	}
 	return
 }
+
+func GetSEMANTIC_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "semantic_svc:9991"
+	}
+	return
+}

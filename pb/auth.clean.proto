@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-option go_package = "github.com/athomecomar/backend/auth/pbauth";
+option go_package = "./pbauth";
 
 package auth;
 

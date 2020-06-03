@@ -7,10 +7,12 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
+	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
@@ -23,10 +25,17 @@ func (s *Server) FetchSelectableCategories(ctx context.Context, in *pbusers.Fetc
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
-	return s.fetchSelectableCategories(ctx, db, in)
+
+	conn, err := grpc.Dial(userconf.GetSEMANTIC_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetSEMANTIC_ADDR())
+	}
+	defer conn.Close()
+
+	return s.fetchSelectableCategories(ctx, db, conn, in)
 }
 
-func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, in *pbusers.FetchSelectableCategoriesRequest) (out *pbusers.FetchSelectableCategoriesResponse, err error) {
+func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbusers.FetchSelectableCategoriesRequest) (out *pbusers.FetchSelectableCategoriesResponse, err error) {
 	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
@@ -39,6 +48,7 @@ func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, in 
 
 	switch onboarding.Role {
 	case field.Merchant:
+
 		out, err = fetchSelectableCategoriesMerchant()
 	case field.ServiceProvider:
 		out = fetchSelectableCategoriesServiceProvider()
