@@ -60,13 +60,18 @@ func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbiden
 		oi, err = signUpIdentificationServiceProvider(ctx, c, in, onboarding)
 	}
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	err = storeql.InsertIntoDB(ctx, db, oi)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB: %v", err)
 	}
+	err = storeql.UpdateIntoDB(ctx, db, onboarding)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "UpdateIntoDB: %v", err)
+	}
+
 	return &emptypb.Empty{}, nil
 }
 
@@ -79,12 +84,38 @@ func signUpIdentificationServiceProvider(
 	switch o.Category {
 	case semprov.Medic.Name:
 		oi, err = signUpIdentificationMedic(ctx, c, in.GetMedic())
+	case semprov.Attorney.Name:
+		oi, err = signUpIdentificationAttorney(ctx, c, in.GetAttorney())
 	case semprov.Lawyer.Name:
 		oi, err = signUpIdentificationLawyer(ctx, c, in.GetLawyer())
+	case semprov.Psychologist.Name:
+		oi, err = signUpIdentificationPsychologist(ctx, c, in.GetDni(), in.GetPsychologist())
 	default:
-		err = semerr.ErrProviderCategoryNotFound
+		err = status.Error(xerrors.InvalidArgument, semerr.ErrProviderCategoryNotFound.Error())
+	}
+	if err != nil {
+		return
 	}
 	return
+}
+
+func signUpIdentificationPsychologist(
+	ctx context.Context,
+	c pbidentifier.IdentifierClient,
+	dni uint64,
+	in *pbuser.SignUpIdentificationRequest_Psychologist,
+) (*ent.OnboardingIdentification, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	resp, err := c.ValidateLicensePsychologist(ctx, &pbidentifier.ValidateLicenseRequest{License: in.GetLicense(), Dni: dni})
+	if err != nil {
+		return nil, err
+	}
+	if !resp.Valid {
+		return nil, status.Error(xerrors.InvalidArgument, "license doesnt match with dni")
+	}
+	return &ent.OnboardingIdentification{License: in.GetLicense()}, nil
 }
 
 func signUpIdentificationMedic(
@@ -92,6 +123,9 @@ func signUpIdentificationMedic(
 	c pbidentifier.IdentifierClient,
 	in *pbuser.SignUpIdentificationRequest_Medic,
 ) (*ent.OnboardingIdentification, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
 	resp, err := c.InferLicenseByFullnameMedic(ctx, nameableToInferByFullnameRequest(in))
 	if err != nil {
 		return nil, err
@@ -99,11 +133,29 @@ func signUpIdentificationMedic(
 	return &ent.OnboardingIdentification{License: resp.GetLicense(), Name: field.Name(in.GetName()), Surname: field.Surname(in.GetSurname())}, nil
 }
 
+func signUpIdentificationAttorney(
+	ctx context.Context,
+	c pbidentifier.IdentifierClient,
+	in *pbuser.SignUpIdentificationRequest_Attorney,
+) (*ent.OnboardingIdentification, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
+	resp, err := c.InferTomeAndFolioByFullnameAttorney(ctx, nameableToInferByFullnameRequest(in))
+	if err != nil {
+		return nil, err
+	}
+	return &ent.OnboardingIdentification{Tome: resp.GetTome(), Folio: resp.GetFolio()}, nil
+}
+
 func signUpIdentificationLawyer(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
 	in *pbuser.SignUpIdentificationRequest_Lawyer,
 ) (*ent.OnboardingIdentification, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
 	resp, err := c.InferTomeAndFolioByFullnameLawyer(ctx, nameableToInferByFullnameRequest(in))
 	if err != nil {
 		return nil, err
