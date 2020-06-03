@@ -9,12 +9,10 @@ package semantic;
 
 service ServiceProviders {
   rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
-  rpc GetAttributes(GetAttributesRequest) returns (GetAttributesResponse) {}
 }
 
 service Merchants {
   rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
-  rpc GetAttributes(GetAttributesRequest) returns (GetAttributesResponse) {}
 }
 
 service Products {

@@ -13,7 +13,7 @@ protoc \
   --validate_out="lang=go:../backend/$1/pb/" \
   $1.proto
 
-../pbclean ./$1.proto > ./$1.clean.proto
+../cleanpb ./$1.proto > ./clean.$1.proto
 }
 
 pbpropague()
