@@ -9,7 +9,7 @@ build=${build:-n}
 
 if [ $build = "y" ]
 then
-    docker-compose build --parallel
+    docker-compose build --parallel $1
 fi
 
 docker-compose up $1 $2
