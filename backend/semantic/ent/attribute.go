@@ -1,15 +1,15 @@
 package ent
 
-import "github.com/athomecomar/athome/backend/semantic/ent/field"
+import (
+	"github.com/athomecomar/athome/backend/semantic/ent/value"
+	"github.com/athomecomar/storeql"
+)
 
 type Attribute interface {
-	GetIsMultivalued() bool
+	storeql.Storable
 
-	GetValues() []interface{}
-	SetValues(v ...interface{})
-
-	GetValueType() field.ValueType
-	SetValueType(v field.ValueType)
+	GetValueType() value.Type
+	SetValueType(value.Type)
 
 	GetName() string
 	SetName(s string)

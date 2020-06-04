@@ -11,4 +11,6 @@ func TestOnboardingIdentificationsSQL(t *testing.T) {
 	sqltest.SQL(t, &ent.MerchantCategory{}, "MerchantCategory")
 	sqltest.SQL(t, &ent.ServiceProviderCategory{}, "ServiceProviderCategory")
 	sqltest.SQL(t, &ent.ProductCategory{}, "ProductCategory")
+
+	sqltest.SQL(t, &ent.ProductAttribute{}, "ProductCategory")
 }
