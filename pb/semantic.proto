@@ -16,6 +16,8 @@ service Merchants {
 }
 
 service Products {
+  rpc PredictCategory(stream PredictCategoryRequest) returns (stream PredictCategoryResponse) {}
+ 
   rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
   rpc GetAttributes(GetAttributesRequest) returns (GetAttributesResponse) {}
 }
@@ -46,4 +48,13 @@ message GetAttributesRequest {
 
 message GetAttributesResponse {
   repeated Attribute attributes = 1;
+}
+
+message PredictCategoryRequest {
+  string title = 1;
+}
+
+message PredictCategoryResponse {
+  Category category = 1;
+  double score = 2;
 }
