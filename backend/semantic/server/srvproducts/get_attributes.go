@@ -20,6 +20,7 @@ func (s *Server) GetAttributes(ctx context.Context, in *pbsemantic.GetAttributes
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	return s.getAttributes(ctx, db, in)
 }
 

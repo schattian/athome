@@ -425,3 +425,151 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAttributesResponseValidationError{}
+
+// Validate checks the field values on PredictCategoryRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *PredictCategoryRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Title
+
+	return nil
+}
+
+// PredictCategoryRequestValidationError is the validation error returned by
+// PredictCategoryRequest.Validate if the designated constraints aren't met.
+type PredictCategoryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PredictCategoryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PredictCategoryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PredictCategoryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PredictCategoryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PredictCategoryRequestValidationError) ErrorName() string {
+	return "PredictCategoryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PredictCategoryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPredictCategoryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PredictCategoryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PredictCategoryRequestValidationError{}
+
+// Validate checks the field values on PredictCategoryResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *PredictCategoryResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetCategory()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PredictCategoryResponseValidationError{
+				field:  "Category",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Score
+
+	return nil
+}
+
+// PredictCategoryResponseValidationError is the validation error returned by
+// PredictCategoryResponse.Validate if the designated constraints aren't met.
+type PredictCategoryResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PredictCategoryResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PredictCategoryResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PredictCategoryResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PredictCategoryResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PredictCategoryResponseValidationError) ErrorName() string {
+	return "PredictCategoryResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PredictCategoryResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPredictCategoryResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PredictCategoryResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PredictCategoryResponseValidationError{}

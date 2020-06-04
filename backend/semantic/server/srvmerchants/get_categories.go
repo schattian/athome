@@ -17,6 +17,7 @@ func (s *Server) GetCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemant
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	return s.getCategories(ctx, db)
 }
 

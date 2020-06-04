@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS product_attributes(
     -- 
     sl_string_value varchar(100) [],
     sl_int_64_value int [],
-    sl_float_64_value float8,
+    sl_float_64_value float8
 )

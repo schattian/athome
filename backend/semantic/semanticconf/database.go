@@ -34,7 +34,7 @@ func GetDATABASE_USER() (user string) {
 }
 
 func GetDATABASE_HOST() (host string) {
-	return "users_db"
+	return "semantic_db"
 }
 
 func GetDATABASE_PASSWORD() (pwd string) {

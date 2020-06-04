@@ -26,4 +26,4 @@ COPY --from=builder /${svc_name}/migrate ./migrate
 
 COPY ./migrations/*.sql ./migrations/
 
-CMD ["/users/users"]
+CMD ["/semantic/semantic"]
