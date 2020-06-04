@@ -8,7 +8,18 @@ option go_package = "./pbproducts";
 package products;
 
 service Creator {
+  rpc First (stream FirstRequest) returns (FirstResponse) {}
+}
 
+message FirstRequest{
+  string access_token = 1;
+  string title = 2;  // consider that, if sending two eq titles, it'll
+  // replace the another for that
+  uint64 category_id = 3;
+}
+
+message FirstResponse{
+  uint64 draft_id = 1;
 }
 
 message Page {

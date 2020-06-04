@@ -38,7 +38,10 @@ func (s *Server) predictCategory(ctx context.Context, db *sqlx.DB, srv pbsemanti
 		if err == io.EOF {
 			return nil
 		}
-
+		if err != nil {
+			return err
+		}
+		err = in.Validate()
 		if err != nil {
 			return err
 		}
