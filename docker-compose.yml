@@ -19,6 +19,25 @@ services:
     depends_on:
       - users_db
 
+  semantic_db:
+    env_file: backend/semantic/build/db/dev.env
+    image: postgres:12
+    volumes:
+      - semantic_db:/var/lib/postgresql/data
+
+  semantic_svc:
+    env_file: backend/semantic/build/svc/dev.env
+    build:
+      context: backend/semantic
+      args:
+        svc_name: semantic
+    ports:
+      - "9991:9991"
+    volumes:
+      - ./backend/semantic/migrations:/semantic/migrations
+    depends_on:
+      - semantic_db
+
   mailer_svc:
     env_file: backend/mailer/build/svc/dev.env
     build:
@@ -58,3 +77,5 @@ volumes:
   users_svc:
   users_db:
   auth_redis:
+  semantic_svc:
+  semantic_db:
