@@ -50,6 +50,8 @@ func (m *FirstRequest) Validate() error {
 
 	// no validation rules for CategoryId
 
+	// no validation rules for IsDeletion
+
 	return nil
 }
 
