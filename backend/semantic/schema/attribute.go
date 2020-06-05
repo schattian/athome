@@ -1,7 +1,7 @@
-package ent
+package schema
 
 import (
-	"github.com/athomecomar/athome/backend/semantic/ent/value"
+	"github.com/athomecomar/athome/backend/semantic/data/value"
 	"github.com/athomecomar/storeql"
 )
 

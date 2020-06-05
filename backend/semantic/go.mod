@@ -13,6 +13,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.6.0
 	github.com/pkg/errors v0.9.1
+	go.opentelemetry.io/otel v0.6.0
 	golang.org/x/crypto v0.0.0-20200602180216-279210d13fed // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect

@@ -22,13 +22,13 @@ func errInvalidValueType(given interface{}, expected Type) error {
 	return fmt.Errorf("%w; given: %T, expected: %s", ErrInvalidValueType, given, expected)
 }
 
-func (s String) SetValue(v interface{}) error {
+func (s String) SetValue(v interface{}) (Value, error) {
 	val, ok := v.(string)
 	if !ok {
-		return errInvalidValueType(v, s.Type())
+		return nil, errInvalidValueType(v, s.Type())
 	}
 	s.String = val
-	return nil
+	return s, nil
 }
 
 func (s String) GetValue() interface{} {
@@ -49,18 +49,17 @@ func (sli SlString) GetValue() interface{} {
 	return vals
 }
 
-func (sli SlString) SetValue(v interface{}) error {
+func (sli SlString) SetValue(v interface{}) (Value, error) {
 	val, ok := v.([]string)
 	if !ok {
-		return errInvalidValueType(v, sli.Type())
+		return nil, errInvalidValueType(v, sli.Type())
 	}
 	var xsli SlString
 	for _, value := range val {
 		s := sql.NullString{String: value, Valid: true}
 		xsli = append(xsli, String(s))
 	}
-	sli = xsli
-	return nil
+	return xsli, nil
 }
 
 func (sli SlString) IsNil() bool {

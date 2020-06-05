@@ -1,4 +1,4 @@
-package ent
+package schema
 
 type ProductCategory struct {
 	Id uint64 `json:"id,omitempty"`

@@ -1,4 +1,4 @@
-package ent
+package schema
 
 type ServiceProviderCategory struct {
 	Id uint64 `json:"id,omitempty"`

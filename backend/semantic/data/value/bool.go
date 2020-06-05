@@ -11,13 +11,13 @@ func (b Bool) IsNil() bool {
 	return !b.Valid
 }
 
-func (f Bool) SetValue(v interface{}) error {
+func (f Bool) SetValue(v interface{}) (Value, error) {
 	val, ok := v.(bool)
 	if !ok {
-		return errInvalidValueType(v, f.Type())
+		return nil, errInvalidValueType(v, f.Type())
 	}
 	f.Bool = val
-	return nil
+	return f, nil
 }
 
 func (f Bool) GetValue() interface{} {

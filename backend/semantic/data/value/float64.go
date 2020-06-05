@@ -8,13 +8,13 @@ func (f Float64) Type() Type {
 	return TypeFloat64
 }
 
-func (f Float64) SetValue(v interface{}) error {
+func (f Float64) SetValue(v interface{}) (Value, error) {
 	val, ok := v.(float64)
 	if !ok {
-		return errInvalidValueType(v, f.Type())
+		return nil, errInvalidValueType(v, f.Type())
 	}
 	f.Float64 = val
-	return nil
+	return f, nil
 }
 
 func (f Float64) GetValue() interface{} {
@@ -48,16 +48,15 @@ func (sli SlFloat64) GetValue() interface{} {
 	return vals
 }
 
-func (sli SlFloat64) SetValue(v interface{}) error {
+func (sli SlFloat64) SetValue(v interface{}) (Value, error) {
 	val, ok := v.([]float64)
 	if !ok {
-		return errInvalidValueType(v, sli.Type())
+		return nil, errInvalidValueType(v, sli.Type())
 	}
 	var xsli SlFloat64
 	for _, value := range val {
 		s := sql.NullFloat64{Float64: value, Valid: true}
 		xsli = append(xsli, Float64(s))
 	}
-	sli = xsli
-	return nil
+	return xsli, nil
 }

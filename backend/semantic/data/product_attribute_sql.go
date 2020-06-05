@@ -1,25 +1,22 @@
-package ent
+package data
 
 import "database/sql/driver"
 
-func (sp *ProductAttribute) GetId() uint64 {
+func (sp *ProductAttributeData) GetId() uint64 {
 	return sp.Id
 }
 
-func (sp *ProductAttribute) SetId(id uint64) {
+func (sp *ProductAttributeData) SetId(id uint64) {
 	sp.Id = id
 }
 
-func (sp *ProductAttribute) SQLTable() string {
-	return "product_attributes"
+func (sp *ProductAttributeData) SQLTable() string {
+	return "product_attributes_schema"
 }
 
-func (sp *ProductAttribute) SQLMap() map[string]driver.Value {
+func (sp *ProductAttributeData) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":          sp.Id,
-		"name":        sp.Name,
-		"category_id": sp.CategoryId,
-		"value_type":  sp.ValueType,
+		"id": sp.Id,
 
 		"bool_value":     sp.BoolValue,
 		"string_value":   sp.StringValue,

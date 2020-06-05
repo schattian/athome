@@ -8,13 +8,13 @@ func (i Int64) Type() Type {
 	return TypeInt64
 }
 
-func (s Int64) SetValue(v interface{}) error {
+func (s Int64) SetValue(v interface{}) (Value, error) {
 	val, ok := v.(int64)
 	if !ok {
-		return errInvalidValueType(v, s.Type())
+		return nil, errInvalidValueType(v, s.Type())
 	}
 	s.Int64 = val
-	return nil
+	return s, nil
 }
 
 func (i Int64) GetValue() interface{} {
@@ -48,16 +48,15 @@ func (sli SlInt64) GetValue() interface{} {
 	return vals
 }
 
-func (sli SlInt64) SetValue(v interface{}) error {
+func (sli SlInt64) SetValue(v interface{}) (Value, error) {
 	val, ok := v.([]int64)
 	if !ok {
-		return errInvalidValueType(v, sli.Type())
+		return nil, errInvalidValueType(v, sli.Type())
 	}
 	var xsli SlInt64
 	for _, value := range val {
 		s := sql.NullInt64{Int64: value, Valid: true}
 		xsli = append(xsli, Int64(s))
 	}
-	sli = xsli
-	return nil
+	return xsli, nil
 }

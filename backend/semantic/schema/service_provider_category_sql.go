@@ -1,4 +1,4 @@
-package ent
+package schema
 
 import "database/sql/driver"
 

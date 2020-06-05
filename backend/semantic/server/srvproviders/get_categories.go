@@ -3,8 +3,8 @@ package srvproviders
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/semantic/ent"
 	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
+	"github.com/athomecomar/athome/backend/semantic/schema"
 	"github.com/athomecomar/athome/backend/semantic/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -27,15 +27,15 @@ func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.Ge
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
 
-	var tree ent.CategoryTree
+	var tree schema.CategoryTree
 	for rows.Next() {
-		cat := &ent.ServiceProviderCategory{}
+		cat := &schema.ServiceProviderCategory{}
 		err = rows.StructScan(cat)
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "StructScan: %v", err)
 		}
 
-		tree, err = ent.AddCategoryToTree(tree, cat)
+		tree, err = schema.AddCategoryToTree(tree, cat)
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "AddCategoryToTree: %v", err)
 		}

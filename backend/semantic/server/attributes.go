@@ -1,12 +1,12 @@
 package server
 
 import (
-	"github.com/athomecomar/athome/backend/semantic/ent"
 	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
+	"github.com/athomecomar/athome/backend/semantic/schema"
 )
 
-func AttributeToPbsemanticAttribute(c ent.Attribute) *pbsemantic.Attribute {
-	return &pbsemantic.Attribute{
+func AttributeToPbsemanticAttribute(c schema.Attribute) *pbsemantic.AttributeSchema {
+	return &pbsemantic.AttributeSchema{
 		Name:       c.GetName(),
 		Id:         c.GetId(),
 		ValueType:  string(c.GetValueType()),

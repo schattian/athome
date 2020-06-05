@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS product_attributes(
+CREATE TABLE IF NOT EXISTS product_attributes_schema(
     id serial primary key,
     name varchar(50) not null,
     category_id integer not null,
