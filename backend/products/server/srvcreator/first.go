@@ -5,7 +5,6 @@ import (
 	"io"
 
 	"github.com/athomecomar/athome/backend/products/ent"
-	"github.com/athomecomar/athome/backend/products/ent/stage"
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/server"
 	"github.com/athomecomar/storeql"
@@ -26,7 +25,7 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 		return err
 	}
 
-	var userId uint64
+	var draft *ent.Draft
 	for {
 		select {
 		case <-ctx.Done():
@@ -46,19 +45,14 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 			return err
 		}
 
-		if userId == 0 {
-			userId, err = server.GetUserFromAccessToken(ctx, db, auth, in.GetAccessToken())
+		if draft == nil { // first iteration
+			draft, err = server.FetchLatestDraft(ctx, db, auth, authCloser, in.GetAccessToken())
 			if err != nil {
 				return err
 			}
-			err = authCloser()
-			if err != nil {
-				return status.Errorf(xerrors.Internal, "authConn.Close: %v", err)
-			}
-
 		}
 
-		resp, err := s.first(ctx, db, in, userId)
+		resp, err := s.first(ctx, db, in, draft)
 		if err != nil {
 			return err
 		}
@@ -70,30 +64,59 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 	}
 }
 
-func (s *Server) first(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, userId uint64) (*pbproducts.FirstResponse, error) {
-	draft := firstRequestToDraft(in)
-	err := draft.ValidateByStage()
-	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateByStage: %v", err)
+func (s *Server) first(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (f *pbproducts.FirstResponse, err error) {
+	switch in.IsDeletion {
+	case true:
+		f, err = s.firstDeletion(ctx, db, in, draft)
+	case false:
+		f, err = s.firstAddition(ctx, db, in, draft)
 	}
+	return
+}
 
-	err = storeql.InsertIntoDB(ctx, db, draft)
+func (s *Server) firstAddition(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (*pbproducts.FirstResponse, error) {
+	ln := firstRequestToDraftLine(in)
+	err := draft.ValidateLineByStage(ln)
+	if err != nil {
+		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateLineByStage: %v", err)
+	}
+	ln.Id = draft.Id
+
+	err = storeql.InsertIntoDB(ctx, db, ln)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
 
-	return draftTofirstResponse(draft), nil
+	return draftToFirstResponse(draft), nil
 }
 
-func firstRequestToDraft(in *pbproducts.FirstRequest) *ent.Draft {
-	return &ent.Draft{
+func (s *Server) firstDeletion(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (*pbproducts.FirstResponse, error) {
+	lns, err := draft.Lines(ctx, db)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "Lines: %v", err)
+	}
+	var ln *ent.DraftLine
+	for _, ln = range lns {
+		if ln.Title == in.GetTitle() {
+			break
+		}
+	}
+	err = storeql.DeleteFromDB(ctx, db, ln)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "storeql.DeleteFromDB: %v", err)
+	}
+
+	return draftToFirstResponse(draft), nil
+}
+
+func firstRequestToDraftLine(in *pbproducts.FirstRequest) *ent.DraftLine {
+	return &ent.DraftLine{
 		Title:      in.GetTitle(),
 		CategoryId: in.GetCategoryId(),
-		Stage:      stage.First,
 	}
 }
 
-func draftTofirstResponse(d *ent.Draft) *pbproducts.FirstResponse {
+func draftToFirstResponse(d *ent.Draft) *pbproducts.FirstResponse {
 	return &pbproducts.FirstResponse{
 		DraftId: d.Id,
 	}
