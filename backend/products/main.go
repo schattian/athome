@@ -7,7 +7,6 @@ import (
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/productconf"
 	"github.com/athomecomar/athome/backend/products/server/srvcreator"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
 

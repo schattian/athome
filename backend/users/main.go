@@ -8,7 +8,6 @@ import (
 	"github.com/athomecomar/athome/backend/users/server/configsrv"
 	"github.com/athomecomar/athome/backend/users/server/signsrv"
 	"github.com/athomecomar/athome/backend/users/userconf"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
 
