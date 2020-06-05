@@ -31,9 +31,15 @@ pbcompile auth
 
 pbcompile mailer
 
+pbcompile products
+
 pbpropague auth users
 
+pbpropague auth products
+
 pbpropague identifier users
+
+pbpropague semantic products
 
 pbpropague mailer users
 

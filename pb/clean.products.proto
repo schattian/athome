@@ -26,3 +26,4 @@ message Page {
   uint64 cursor = 1;
   uint64 size = 2;
 }
+
