@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T products_db psql -U postgres -c "create database product_dev"
