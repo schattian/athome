@@ -11,13 +11,13 @@ import (
 )
 
 func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, access string) (*ent.User, error) {
-	userId, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
+	resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
 	if err != nil {
 		return nil, err
 	}
 
 	user := &ent.User{}
-	row := db.QueryRowxContext(ctx, `SELECT * FROM users WHERE id=$1`, userId.GetUserId())
+	row := db.QueryRowxContext(ctx, `SELECT * FROM users WHERE id=$1`, resp.GetUserId())
 	err = row.StructScan(user)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "oldUser row.StructScan: %v", err)
