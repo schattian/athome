@@ -1,26 +1,80 @@
 syntax = "proto3";
 
 import "validate/validate.proto";
-//import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
 
 option go_package = "./pbproducts";
 
 package products;
 
 service Creator {
-  rpc First (stream FirstRequest) returns (stream FirstResponse) {}
+  rpc First (stream FirstRequest) returns (FirstResponse) {}
+
+  rpc Second (stream SecondRequest) returns (google.protobuf.Empty) {}
+  rpc CloneDraftLine (stream CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
+
+  rpc FetchDraft(FetchDraftRequest) returns (FetchDraftResponse) {}
 }
+
+message FetchDraftRequest{
+  string access_token = 1;
+}
+
+message FetchDraftResponse{
+  uint64 draft_id = 1;
+  uint64 stage = 2;
+  repeated DraftLine lines = 3;
+}
+
+message CloneDraftLineRequest {
+  string access_token = 1;
+  uint64 draft_line_id = 2;
+}
+
+message CloneDraftLineResponse {
+  DraftLine draft_line = 1;
+}
+
+message DraftLine {
+  uint64 draft_line_id = 1;
+
+  // first
+  string title = 2;
+  uint64 category_id = 3;
+
+  // second
+  uint64 price = 4;
+  uint64 stock = 5;
+  repeated AttributeData attributes = 6;
+
+  // third
+}
+
+
 
 message FirstRequest{
   string access_token = 1;
   string title = 2;  // consider that, if sending two eq titles, it'll
-  // replace the another for that
+  // perform just a deletion
   uint64 category_id = 3;
-
-  bool is_deletion = 4;
 }
 
 message FirstResponse{
+  uint64 draft_id = 1;
+}
+
+message AttributeData {
+  uint64 id = 1;
+  uint64 schema_id = 2;
+  google.protobuf.Any value = 3; 
+}
+
+message SecondRequest{
+  string access_token = 1;
+}
+
+message SecondResponse{
   uint64 draft_id = 1;
 }
 

@@ -19,7 +19,7 @@ service Products {
   rpc PredictCategory(stream PredictCategoryRequest) returns (stream PredictCategoryResponse) {}
 
   rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
-  rpc GetAttributes(GetAttributesRequest) returns (GetAttributesResponse) {}
+  rpc GetAttributesSchema(GetAttributesSchemaRequest) returns (GetAttributesSchemaResponse) {}
 }
 
 message Category {
@@ -30,7 +30,7 @@ message Category {
   repeated Category childs = 4;
 }
 
-message Attribute {
+message AttributeSchema {
   uint64 id = 1;
   uint64 category_id =  2;
 
@@ -42,12 +42,18 @@ message GetCategoriesResponse {
   repeated Category categories = 1;
 }
 
-message GetAttributesRequest {
+message GetAttributesSchemaRequest {
   uint64 category_id = 1;
 }
 
-message GetAttributesResponse {
-  repeated Attribute attributes = 1;
+message GetAttributesSchemaResponse {
+  repeated AttributeSchema attributes = 1;
+}
+
+message AttributeData {
+  uint64 id = 1;
+  uint64 schema_id = 2;
+  string value_type = 4;
 }
 
 message PredictCategoryRequest {
