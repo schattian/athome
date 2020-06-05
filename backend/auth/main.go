@@ -9,7 +9,6 @@ import (
 	"github.com/athomecomar/athome/backend/auth/server"
 	"github.com/go-redis/redis/v8"
 
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
 

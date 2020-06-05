@@ -9,7 +9,6 @@ import (
 	"github.com/athomecomar/athome/backend/semantic/server/srvmerchants"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproducts"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproviders"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
 

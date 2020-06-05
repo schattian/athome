@@ -10,7 +10,6 @@ import (
 	"github.com/matcornic/hermes/v2"
 	"gopkg.in/gomail.v2"
 
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"google.golang.org/grpc"
 )
 
