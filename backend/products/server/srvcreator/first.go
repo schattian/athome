@@ -51,7 +51,11 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 			if err != nil {
 				return err
 			}
-			authCloser()
+			err = authCloser()
+			if err != nil {
+				return status.Errorf(xerrors.Internal, "authConn.Close: %v", err)
+			}
+
 		}
 
 		resp, err := s.first(ctx, db, in, userId)
