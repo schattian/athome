@@ -22,10 +22,7 @@ func (s *Server) PredictCategory(srv pbsemantic.Products_PredictCategoryServer) 
 		return err
 	}
 	defer db.Close()
-	return s.predictCategory(ctx, db, srv)
-}
 
-func (s *Server) predictCategory(ctx context.Context, db *sqlx.DB, srv pbsemantic.Products_PredictCategoryServer) error {
 	predictor := predictor.NewPredictor(ctx)
 	for {
 		select {
@@ -45,15 +42,28 @@ func (s *Server) predictCategory(ctx context.Context, db *sqlx.DB, srv pbsemanti
 		if err != nil {
 			return err
 		}
-
-		cat, err := predictor.Predict(in.GetTitle())
+		resp, err := s.predictCategory(ctx, db, in, predictor)
 		if err != nil {
-			return status.Errorf(xerrors.Internal, "predictor.Predict: %v", err)
+			return err
 		}
 
-		err = srv.Send(&pbsemantic.PredictCategoryResponse{Score: 1, Category: &pbsemantic.Category{Name: cat.CategoryName}})
+		err = srv.Send(resp)
 		if err != nil {
 			return err
 		}
 	}
+}
+
+func (s *Server) predictCategory(ctx context.Context, db *sqlx.DB, in *pbsemantic.PredictCategoryRequest, predictor *predictor.Predictor) (*pbsemantic.PredictCategoryResponse, error) {
+	cat, err := predictor.Predict(in.GetTitle())
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "predictor.Predict: %v", err)
+	}
+	resp := &pbsemantic.PredictCategoryResponse{
+		Score: 1,
+		Category: &pbsemantic.Category{
+			Name: cat.CategoryName,
+		},
+	}
+	return resp, nil
 }
