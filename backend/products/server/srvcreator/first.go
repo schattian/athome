@@ -2,9 +2,12 @@ package srvcreator
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"io"
 
 	"github.com/athomecomar/athome/backend/products/ent"
+	"github.com/athomecomar/athome/backend/products/ent/stage"
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/server"
 	"github.com/athomecomar/storeql"
@@ -20,15 +23,16 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 	if err != nil {
 		return err
 	}
-	auth, authCloser, err := server.ConnAuth(ctx)
-	if err != nil {
-		return err
-	}
 
+	var resp *pbproducts.FirstResponse
 	var draft *ent.Draft
 	for {
 		select {
 		case <-ctx.Done():
+			err = srv.SendAndClose(resp)
+			if err != nil {
+				return err
+			}
 			return ctx.Err()
 		default: // no-op
 		}
@@ -46,41 +50,45 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 		}
 
 		if draft == nil { // first iteration
-			draft, err = server.FetchLatestDraft(ctx, db, auth, authCloser, in.GetAccessToken())
+			draft, err = server.FetchLatestDraft(ctx, db, in.GetAccessToken())
 			if err != nil {
 				return err
 			}
 		}
 
-		resp, err := s.first(ctx, db, in, draft)
-		if err != nil {
-			return err
+		if draft.Stage != stage.First {
+			return status.Errorf(xerrors.InvalidArgument, "stage expected %v, got %v", stage.First, draft.Stage)
 		}
 
-		err = srv.Send(resp)
+		resp, err = s.first(ctx, db, in.GetDraftLine(), draft)
 		if err != nil {
 			return err
 		}
 	}
 }
 
-func (s *Server) first(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (f *pbproducts.FirstResponse, err error) {
-	switch in.IsDeletion {
-	case true:
-		f, err = s.firstDeletion(ctx, db, in, draft)
-	case false:
-		f, err = s.firstAddition(ctx, db, in, draft)
+func (s *Server) first(ctx context.Context, db *sqlx.DB, in *pbproducts.DraftLineFirst, draft *ent.Draft) (*pbproducts.FirstResponse, error) {
+	ln, err := draft.LineByTitle(ctx, db, in.GetTitle())
+	if errors.Is(err, sql.ErrNoRows) {
+		err = nil
 	}
-	return
-}
+	if err != nil {
+		return nil, err
+	}
+	if ln != nil {
+		err = storeql.DeleteFromDB(ctx, db, ln)
+		if err != nil {
+			return nil, status.Errorf(xerrors.Internal, "storeql.DeleteFromDB: %v", err)
+		}
+		return draftToFirstResponse(draft), nil
+	}
 
-func (s *Server) firstAddition(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (*pbproducts.FirstResponse, error) {
-	ln := firstRequestToDraftLine(in)
-	err := draft.ValidateLineByStage(ln)
+	ln = firstRequestToDraftLine(in)
+	err = draft.ValidateLineByStage(ln)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateLineByStage: %v", err)
 	}
-	ln.Id = draft.Id
+	ln.DraftId = draft.Id
 
 	err = storeql.InsertIntoDB(ctx, db, ln)
 	if err != nil {
@@ -90,26 +98,7 @@ func (s *Server) firstAddition(ctx context.Context, db *sqlx.DB, in *pbproducts.
 	return draftToFirstResponse(draft), nil
 }
 
-func (s *Server) firstDeletion(ctx context.Context, db *sqlx.DB, in *pbproducts.FirstRequest, draft *ent.Draft) (*pbproducts.FirstResponse, error) {
-	lns, err := draft.Lines(ctx, db)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "Lines: %v", err)
-	}
-	var ln *ent.DraftLine
-	for _, ln = range lns {
-		if ln.Title == in.GetTitle() {
-			break
-		}
-	}
-	err = storeql.DeleteFromDB(ctx, db, ln)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "storeql.DeleteFromDB: %v", err)
-	}
-
-	return draftToFirstResponse(draft), nil
-}
-
-func firstRequestToDraftLine(in *pbproducts.FirstRequest) *ent.DraftLine {
+func firstRequestToDraftLine(in *pbproducts.DraftLineFirst) *ent.DraftLine {
 	return &ent.DraftLine{
 		Title:      in.GetTitle(),
 		CategoryId: in.GetCategoryId(),

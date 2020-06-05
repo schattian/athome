@@ -89,7 +89,7 @@ func (m *Category) GetChilds() []*Category {
 	return nil
 }
 
-type Attribute struct {
+type AttributeSchema struct {
 	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	CategoryId           uint64   `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -99,53 +99,53 @@ type Attribute struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Attribute) Reset()         { *m = Attribute{} }
-func (m *Attribute) String() string { return proto.CompactTextString(m) }
-func (*Attribute) ProtoMessage()    {}
-func (*Attribute) Descriptor() ([]byte, []int) {
+func (m *AttributeSchema) Reset()         { *m = AttributeSchema{} }
+func (m *AttributeSchema) String() string { return proto.CompactTextString(m) }
+func (*AttributeSchema) ProtoMessage()    {}
+func (*AttributeSchema) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{1}
 }
 
-func (m *Attribute) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Attribute.Unmarshal(m, b)
+func (m *AttributeSchema) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AttributeSchema.Unmarshal(m, b)
 }
-func (m *Attribute) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Attribute.Marshal(b, m, deterministic)
+func (m *AttributeSchema) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AttributeSchema.Marshal(b, m, deterministic)
 }
-func (m *Attribute) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Attribute.Merge(m, src)
+func (m *AttributeSchema) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AttributeSchema.Merge(m, src)
 }
-func (m *Attribute) XXX_Size() int {
-	return xxx_messageInfo_Attribute.Size(m)
+func (m *AttributeSchema) XXX_Size() int {
+	return xxx_messageInfo_AttributeSchema.Size(m)
 }
-func (m *Attribute) XXX_DiscardUnknown() {
-	xxx_messageInfo_Attribute.DiscardUnknown(m)
+func (m *AttributeSchema) XXX_DiscardUnknown() {
+	xxx_messageInfo_AttributeSchema.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Attribute proto.InternalMessageInfo
+var xxx_messageInfo_AttributeSchema proto.InternalMessageInfo
 
-func (m *Attribute) GetId() uint64 {
+func (m *AttributeSchema) GetId() uint64 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-func (m *Attribute) GetCategoryId() uint64 {
+func (m *AttributeSchema) GetCategoryId() uint64 {
 	if m != nil {
 		return m.CategoryId
 	}
 	return 0
 }
 
-func (m *Attribute) GetName() string {
+func (m *AttributeSchema) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Attribute) GetValueType() string {
+func (m *AttributeSchema) GetValueType() string {
 	if m != nil {
 		return m.ValueType
 	}
@@ -191,82 +191,137 @@ func (m *GetCategoriesResponse) GetCategories() []*Category {
 	return nil
 }
 
-type GetAttributesRequest struct {
+type GetAttributesSchemaRequest struct {
 	CategoryId           uint64   `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetAttributesRequest) Reset()         { *m = GetAttributesRequest{} }
-func (m *GetAttributesRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesRequest) ProtoMessage()    {}
-func (*GetAttributesRequest) Descriptor() ([]byte, []int) {
+func (m *GetAttributesSchemaRequest) Reset()         { *m = GetAttributesSchemaRequest{} }
+func (m *GetAttributesSchemaRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAttributesSchemaRequest) ProtoMessage()    {}
+func (*GetAttributesSchemaRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{3}
 }
 
-func (m *GetAttributesRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesRequest.Unmarshal(m, b)
+func (m *GetAttributesSchemaRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAttributesSchemaRequest.Unmarshal(m, b)
 }
-func (m *GetAttributesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesRequest.Marshal(b, m, deterministic)
+func (m *GetAttributesSchemaRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAttributesSchemaRequest.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesRequest.Merge(m, src)
+func (m *GetAttributesSchemaRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAttributesSchemaRequest.Merge(m, src)
 }
-func (m *GetAttributesRequest) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesRequest.Size(m)
+func (m *GetAttributesSchemaRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAttributesSchemaRequest.Size(m)
 }
-func (m *GetAttributesRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesRequest.DiscardUnknown(m)
+func (m *GetAttributesSchemaRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAttributesSchemaRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetAttributesSchemaRequest proto.InternalMessageInfo
 
-func (m *GetAttributesRequest) GetCategoryId() uint64 {
+func (m *GetAttributesSchemaRequest) GetCategoryId() uint64 {
 	if m != nil {
 		return m.CategoryId
 	}
 	return 0
 }
 
-type GetAttributesResponse struct {
-	Attributes           []*Attribute `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+type GetAttributesSchemaResponse struct {
+	Attributes           []*AttributeSchema `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *GetAttributesResponse) Reset()         { *m = GetAttributesResponse{} }
-func (m *GetAttributesResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesResponse) ProtoMessage()    {}
-func (*GetAttributesResponse) Descriptor() ([]byte, []int) {
+func (m *GetAttributesSchemaResponse) Reset()         { *m = GetAttributesSchemaResponse{} }
+func (m *GetAttributesSchemaResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAttributesSchemaResponse) ProtoMessage()    {}
+func (*GetAttributesSchemaResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{4}
 }
 
-func (m *GetAttributesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesResponse.Unmarshal(m, b)
+func (m *GetAttributesSchemaResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAttributesSchemaResponse.Unmarshal(m, b)
 }
-func (m *GetAttributesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesResponse.Marshal(b, m, deterministic)
+func (m *GetAttributesSchemaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAttributesSchemaResponse.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesResponse.Merge(m, src)
+func (m *GetAttributesSchemaResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAttributesSchemaResponse.Merge(m, src)
 }
-func (m *GetAttributesResponse) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesResponse.Size(m)
+func (m *GetAttributesSchemaResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAttributesSchemaResponse.Size(m)
 }
-func (m *GetAttributesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesResponse.DiscardUnknown(m)
+func (m *GetAttributesSchemaResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAttributesSchemaResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetAttributesSchemaResponse proto.InternalMessageInfo
 
-func (m *GetAttributesResponse) GetAttributes() []*Attribute {
+func (m *GetAttributesSchemaResponse) GetAttributes() []*AttributeSchema {
 	if m != nil {
 		return m.Attributes
 	}
 	return nil
+}
+
+type AttributeData struct {
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	SchemaId             uint64   `protobuf:"varint,2,opt,name=schema_id,json=schemaId,proto3" json:"schema_id,omitempty"`
+	ValueType            string   `protobuf:"bytes,4,opt,name=value_type,json=valueType,proto3" json:"value_type,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AttributeData) Reset()         { *m = AttributeData{} }
+func (m *AttributeData) String() string { return proto.CompactTextString(m) }
+func (*AttributeData) ProtoMessage()    {}
+func (*AttributeData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32e5db2b9bc8653e, []int{5}
+}
+
+func (m *AttributeData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AttributeData.Unmarshal(m, b)
+}
+func (m *AttributeData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AttributeData.Marshal(b, m, deterministic)
+}
+func (m *AttributeData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AttributeData.Merge(m, src)
+}
+func (m *AttributeData) XXX_Size() int {
+	return xxx_messageInfo_AttributeData.Size(m)
+}
+func (m *AttributeData) XXX_DiscardUnknown() {
+	xxx_messageInfo_AttributeData.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AttributeData proto.InternalMessageInfo
+
+func (m *AttributeData) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *AttributeData) GetSchemaId() uint64 {
+	if m != nil {
+		return m.SchemaId
+	}
+	return 0
+}
+
+func (m *AttributeData) GetValueType() string {
+	if m != nil {
+		return m.ValueType
+	}
+	return ""
 }
 
 type PredictCategoryRequest struct {
@@ -280,7 +335,7 @@ func (m *PredictCategoryRequest) Reset()         { *m = PredictCategoryRequest{}
 func (m *PredictCategoryRequest) String() string { return proto.CompactTextString(m) }
 func (*PredictCategoryRequest) ProtoMessage()    {}
 func (*PredictCategoryRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_32e5db2b9bc8653e, []int{5}
+	return fileDescriptor_32e5db2b9bc8653e, []int{6}
 }
 
 func (m *PredictCategoryRequest) XXX_Unmarshal(b []byte) error {
@@ -320,7 +375,7 @@ func (m *PredictCategoryResponse) Reset()         { *m = PredictCategoryResponse
 func (m *PredictCategoryResponse) String() string { return proto.CompactTextString(m) }
 func (*PredictCategoryResponse) ProtoMessage()    {}
 func (*PredictCategoryResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_32e5db2b9bc8653e, []int{6}
+	return fileDescriptor_32e5db2b9bc8653e, []int{7}
 }
 
 func (m *PredictCategoryResponse) XXX_Unmarshal(b []byte) error {
@@ -357,10 +412,11 @@ func (m *PredictCategoryResponse) GetScore() float64 {
 
 func init() {
 	proto.RegisterType((*Category)(nil), "semantic.Category")
-	proto.RegisterType((*Attribute)(nil), "semantic.Attribute")
+	proto.RegisterType((*AttributeSchema)(nil), "semantic.AttributeSchema")
 	proto.RegisterType((*GetCategoriesResponse)(nil), "semantic.GetCategoriesResponse")
-	proto.RegisterType((*GetAttributesRequest)(nil), "semantic.GetAttributesRequest")
-	proto.RegisterType((*GetAttributesResponse)(nil), "semantic.GetAttributesResponse")
+	proto.RegisterType((*GetAttributesSchemaRequest)(nil), "semantic.GetAttributesSchemaRequest")
+	proto.RegisterType((*GetAttributesSchemaResponse)(nil), "semantic.GetAttributesSchemaResponse")
+	proto.RegisterType((*AttributeData)(nil), "semantic.AttributeData")
 	proto.RegisterType((*PredictCategoryRequest)(nil), "semantic.PredictCategoryRequest")
 	proto.RegisterType((*PredictCategoryResponse)(nil), "semantic.PredictCategoryResponse")
 }
@@ -370,37 +426,39 @@ func init() {
 }
 
 var fileDescriptor_32e5db2b9bc8653e = []byte{
-	// 473 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x92, 0x4f, 0x6f, 0xd3, 0x40,
-	0x10, 0xc5, 0x6b, 0x27, 0x54, 0xf6, 0x14, 0x02, 0x5a, 0x4a, 0x6b, 0xa5, 0x82, 0x06, 0x9f, 0x22,
-	0x0e, 0x0e, 0x4a, 0x0f, 0x9c, 0x01, 0xa1, 0xaa, 0xfc, 0x91, 0x22, 0x83, 0x84, 0x84, 0x10, 0x91,
-	0xe3, 0x1d, 0xd2, 0x95, 0x1c, 0xaf, 0xd9, 0x1d, 0x07, 0xe5, 0x1b, 0xf0, 0xb1, 0x51, 0xd6, 0x5e,
-	0x3b, 0x4d, 0x02, 0xa7, 0xdc, 0x3c, 0xb3, 0x6f, 0xe6, 0xfd, 0x32, 0x79, 0xd0, 0xd3, 0xb8, 0x48,
-	0x72, 0x12, 0x69, 0x54, 0x28, 0x49, 0x92, 0x79, 0xb6, 0xee, 0x9f, 0x2f, 0x93, 0x4c, 0xf0, 0x84,
-	0x70, 0x64, 0x3f, 0x2a, 0x49, 0xff, 0x62, 0x2e, 0xe5, 0x3c, 0xc3, 0x91, 0xa9, 0x66, 0xe5, 0xcf,
-	0x11, 0x2e, 0x0a, 0x5a, 0x55, 0x8f, 0xe1, 0x6f, 0xf0, 0xde, 0x26, 0x84, 0x73, 0xa9, 0x56, 0xac,
-	0x07, 0xae, 0xe0, 0x81, 0x33, 0x70, 0x86, 0xdd, 0xd8, 0x15, 0x9c, 0x31, 0xe8, 0xe6, 0xc9, 0x02,
-	0x03, 0x77, 0xe0, 0x0c, 0xfd, 0xd8, 0x7c, 0xb3, 0x0b, 0xf0, 0x8b, 0x44, 0x61, 0x4e, 0x53, 0xc1,
-	0x83, 0x8e, 0x91, 0x7a, 0x55, 0xe3, 0x86, 0xb3, 0x17, 0x70, 0x9c, 0xde, 0x8a, 0x8c, 0xeb, 0xa0,
-	0x3b, 0xe8, 0x0c, 0x4f, 0xc6, 0x2c, 0x6a, 0x68, 0xad, 0x49, 0x5c, 0x2b, 0x42, 0x09, 0xfe, 0x6b,
-	0x22, 0x25, 0x66, 0x25, 0xe1, 0x8e, 0xf3, 0x25, 0x9c, 0xa4, 0xf5, 0xc0, 0xda, 0xc7, 0x35, 0x0f,
-	0x60, 0x5b, 0x37, 0x2d, 0x5a, 0x67, 0x03, 0xed, 0x29, 0xc0, 0x32, 0xc9, 0x4a, 0x9c, 0xd2, 0xaa,
-	0xc0, 0xa0, 0x6b, 0x5e, 0x7c, 0xd3, 0xf9, 0xb2, 0x2a, 0x30, 0xfc, 0x00, 0x4f, 0xae, 0x91, 0x6a,
-	0x0e, 0x81, 0x3a, 0x46, 0x5d, 0xc8, 0x5c, 0x23, 0x1b, 0x83, 0xdd, 0x2c, 0x50, 0x07, 0xce, 0x3f,
-	0xc9, 0x37, 0x54, 0xe1, 0x2b, 0x38, 0xbd, 0x46, 0x6a, 0x7e, 0x80, 0x8e, 0xf1, 0x57, 0x89, 0x9a,
-	0xb6, 0xc1, 0x9d, 0x6d, 0xf0, 0xf0, 0xa3, 0xa1, 0xd8, 0x1c, 0xac, 0x29, 0xae, 0x00, 0x92, 0xa6,
-	0x5b, 0x53, 0x3c, 0x6e, 0x29, 0x9a, 0x89, 0x78, 0x43, 0x16, 0x46, 0x70, 0x36, 0x51, 0xc8, 0x45,
-	0x4a, 0x0d, 0x65, 0x0d, 0x72, 0x0a, 0xf7, 0x48, 0x50, 0x86, 0x06, 0xc1, 0x8f, 0xab, 0x22, 0x9c,
-	0xc2, 0xf9, 0x8e, 0xbe, 0xf6, 0x8f, 0xc0, 0xb3, 0x98, 0x66, 0x66, 0xff, 0x0d, 0x1a, 0xcd, 0xda,
-	0x40, 0xa7, 0x52, 0x55, 0xe9, 0x70, 0xe2, 0xaa, 0x18, 0xff, 0x80, 0x47, 0x9f, 0x51, 0x2d, 0x45,
-	0x8a, 0x13, 0x25, 0x97, 0x82, 0xa3, 0xd2, 0xec, 0x3d, 0x3c, 0xb8, 0x73, 0x78, 0x76, 0x16, 0x55,
-	0x89, 0x8c, 0x6c, 0x22, 0xa3, 0x77, 0xeb, 0x44, 0xf6, 0x2f, 0x5b, 0xc3, 0xbd, 0xff, 0x54, 0x78,
-	0x34, 0xfe, 0x0a, 0xfe, 0x27, 0x54, 0xe9, 0x6d, 0x92, 0xd3, 0x61, 0x17, 0xff, 0x71, 0xc1, 0x9b,
-	0x28, 0xc9, 0xcb, 0x94, 0x34, 0xfb, 0x0e, 0x0f, 0xb7, 0xce, 0xc4, 0x06, 0xed, 0x8a, 0xfd, 0x17,
-	0xef, 0x3f, 0xff, 0x8f, 0xc2, 0xda, 0x0c, 0x9d, 0x97, 0xce, 0x21, 0xb1, 0x59, 0x6c, 0x76, 0xb5,
-	0x71, 0x62, 0xcf, 0xee, 0xcc, 0xec, 0x04, 0x74, 0x6b, 0xe7, 0x6e, 0x0e, 0xc3, 0xa3, 0x37, 0xbd,
-	0x6f, 0xf7, 0xa3, 0x51, 0x31, 0xb3, 0xba, 0xd9, 0xb1, 0xc1, 0xba, 0xfa, 0x1b, 0x00, 0x00, 0xff,
-	0xff, 0x2e, 0x66, 0x15, 0x0f, 0x7b, 0x04, 0x00, 0x00,
+	// 507 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x53, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0xc5, 0x49, 0xa8, 0xec, 0x29, 0x4d, 0xd1, 0x02, 0xad, 0x71, 0x84, 0x1a, 0x2c, 0x90, 0x22,
+	0x0e, 0x0e, 0x0a, 0x27, 0x0e, 0x1c, 0xf8, 0x52, 0x15, 0x10, 0x52, 0xe4, 0x22, 0x81, 0x00, 0x11,
+	0x6d, 0xbc, 0x43, 0xb2, 0x92, 0x63, 0x9b, 0xdd, 0x75, 0x50, 0xfe, 0x0a, 0xbf, 0x16, 0x65, 0xed,
+	0xb5, 0xd3, 0xc4, 0xa5, 0x97, 0xde, 0x3c, 0x33, 0x6f, 0xf6, 0xbd, 0x79, 0x9e, 0x81, 0xae, 0xc4,
+	0x25, 0x4d, 0x14, 0x8f, 0x82, 0x4c, 0xa4, 0x2a, 0x25, 0xb6, 0x89, 0xbd, 0xd3, 0x15, 0x8d, 0x39,
+	0xa3, 0x0a, 0x87, 0xe6, 0xa3, 0x80, 0x78, 0xbd, 0x79, 0x9a, 0xce, 0x63, 0x1c, 0xea, 0x68, 0x96,
+	0xff, 0x1a, 0xe2, 0x32, 0x53, 0xeb, 0xa2, 0xe8, 0xff, 0x01, 0xfb, 0x2d, 0x55, 0x38, 0x4f, 0xc5,
+	0x9a, 0x74, 0xa1, 0xc5, 0x99, 0x6b, 0xf5, 0xad, 0x41, 0x27, 0x6c, 0x71, 0x46, 0x08, 0x74, 0x12,
+	0xba, 0x44, 0xb7, 0xd5, 0xb7, 0x06, 0x4e, 0xa8, 0xbf, 0x49, 0x0f, 0x9c, 0x8c, 0x0a, 0x4c, 0xd4,
+	0x94, 0x33, 0xb7, 0xad, 0xa1, 0x76, 0x91, 0x18, 0x33, 0xf2, 0x0c, 0x0e, 0xa2, 0x05, 0x8f, 0x99,
+	0x74, 0x3b, 0xfd, 0xf6, 0xe0, 0x70, 0x44, 0x82, 0x4a, 0xad, 0x21, 0x09, 0x4b, 0x84, 0x9f, 0xc3,
+	0xf1, 0x6b, 0xa5, 0x04, 0x9f, 0xe5, 0x0a, 0x2f, 0xa2, 0x05, 0x2e, 0xe9, 0x1e, 0xff, 0x19, 0x1c,
+	0x46, 0x65, 0xdb, 0x86, 0xad, 0xa5, 0x0b, 0x60, 0x52, 0xe3, 0x5a, 0x60, 0x7b, 0x4b, 0xe0, 0x23,
+	0x80, 0x15, 0x8d, 0x73, 0x9c, 0xaa, 0x75, 0x86, 0x6e, 0x47, 0x57, 0x1c, 0x9d, 0xf9, 0xbc, 0xce,
+	0xd0, 0xff, 0x08, 0x0f, 0xce, 0x51, 0x95, 0x6a, 0x38, 0xca, 0x10, 0x65, 0x96, 0x26, 0x12, 0xc9,
+	0x08, 0xcc, 0xcb, 0x1c, 0xa5, 0x6b, 0x5d, 0xa9, 0x7f, 0x0b, 0xe5, 0xbf, 0x02, 0xef, 0x1c, 0x55,
+	0x35, 0x86, 0x2c, 0xe6, 0x08, 0xf1, 0x77, 0x8e, 0x52, 0xed, 0xca, 0xb7, 0x76, 0xe5, 0xfb, 0x5f,
+	0xa1, 0xd7, 0xd8, 0x5e, 0x2a, 0x7a, 0x09, 0x40, 0xab, 0x5a, 0xa9, 0xe8, 0x61, 0xad, 0x68, 0xc7,
+	0xbd, 0x70, 0x0b, 0xec, 0x7f, 0x87, 0xa3, 0xaa, 0xfc, 0x8e, 0xaa, 0x7d, 0x6b, 0x7b, 0xe0, 0x48,
+	0xdd, 0x56, 0x1b, 0x6b, 0x17, 0x89, 0x31, 0xbb, 0xce, 0xc2, 0x00, 0x4e, 0x26, 0x02, 0x19, 0x8f,
+	0x54, 0x65, 0x4a, 0x39, 0xf1, 0x7d, 0xb8, 0xad, 0xb8, 0x8a, 0x51, 0x13, 0x39, 0x61, 0x11, 0xf8,
+	0x53, 0x38, 0xdd, 0xc3, 0x97, 0x23, 0x06, 0x60, 0x1b, 0x3f, 0x74, 0x4f, 0xb3, 0xe5, 0x15, 0x66,
+	0x43, 0x20, 0xa3, 0x54, 0x14, 0x2b, 0x69, 0x85, 0x45, 0x30, 0xfa, 0x09, 0x77, 0x2f, 0x50, 0xac,
+	0x78, 0x84, 0x13, 0x91, 0xae, 0x38, 0x43, 0x21, 0xc9, 0x07, 0x38, 0xba, 0xf4, 0x9f, 0xc9, 0x49,
+	0x50, 0x9c, 0x41, 0x60, 0xce, 0x20, 0x78, 0xbf, 0x39, 0x03, 0xef, 0xac, 0x26, 0x6c, 0x5c, 0x0c,
+	0xff, 0xd6, 0xe8, 0x0b, 0x38, 0x9f, 0x50, 0x44, 0x0b, 0x9a, 0xa8, 0x9b, 0x7d, 0xf8, 0x6f, 0x0b,
+	0xec, 0x89, 0x48, 0x59, 0x1e, 0x29, 0x49, 0x7e, 0xc0, 0xf1, 0x8e, 0x4d, 0xa4, 0x5f, 0x3f, 0xd1,
+	0xec, 0xb8, 0xf7, 0xf8, 0x3f, 0x08, 0x43, 0x33, 0xb0, 0x9e, 0x5b, 0x37, 0x29, 0x9b, 0x30, 0xb8,
+	0xd7, 0xb0, 0xb7, 0xe4, 0xc9, 0xa5, 0xce, 0x2b, 0xae, 0xc2, 0x7b, 0x7a, 0x0d, 0xca, 0xb0, 0xbc,
+	0xe9, 0x7e, 0xbb, 0x13, 0x0c, 0xb3, 0x99, 0x41, 0xcf, 0x0e, 0xb4, 0xd0, 0x17, 0xff, 0x02, 0x00,
+	0x00, 0xff, 0xff, 0xc6, 0xc4, 0xcf, 0xc8, 0x02, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -561,7 +619,7 @@ var _Merchants_serviceDesc = grpc.ServiceDesc{
 type ProductsClient interface {
 	PredictCategory(ctx context.Context, opts ...grpc.CallOption) (Products_PredictCategoryClient, error)
 	GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
-	GetAttributes(ctx context.Context, in *GetAttributesRequest, opts ...grpc.CallOption) (*GetAttributesResponse, error)
+	GetAttributesSchema(ctx context.Context, in *GetAttributesSchemaRequest, opts ...grpc.CallOption) (*GetAttributesSchemaResponse, error)
 }
 
 type productsClient struct {
@@ -612,9 +670,9 @@ func (c *productsClient) GetCategories(ctx context.Context, in *empty.Empty, opt
 	return out, nil
 }
 
-func (c *productsClient) GetAttributes(ctx context.Context, in *GetAttributesRequest, opts ...grpc.CallOption) (*GetAttributesResponse, error) {
-	out := new(GetAttributesResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/GetAttributes", in, out, opts...)
+func (c *productsClient) GetAttributesSchema(ctx context.Context, in *GetAttributesSchemaRequest, opts ...grpc.CallOption) (*GetAttributesSchemaResponse, error) {
+	out := new(GetAttributesSchemaResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/GetAttributesSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -625,7 +683,7 @@ func (c *productsClient) GetAttributes(ctx context.Context, in *GetAttributesReq
 type ProductsServer interface {
 	PredictCategory(Products_PredictCategoryServer) error
 	GetCategories(context.Context, *empty.Empty) (*GetCategoriesResponse, error)
-	GetAttributes(context.Context, *GetAttributesRequest) (*GetAttributesResponse, error)
+	GetAttributesSchema(context.Context, *GetAttributesSchemaRequest) (*GetAttributesSchemaResponse, error)
 }
 
 // UnimplementedProductsServer can be embedded to have forward compatible implementations.
@@ -638,8 +696,8 @@ func (*UnimplementedProductsServer) PredictCategory(srv Products_PredictCategory
 func (*UnimplementedProductsServer) GetCategories(ctx context.Context, req *empty.Empty) (*GetCategoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCategories not implemented")
 }
-func (*UnimplementedProductsServer) GetAttributes(ctx context.Context, req *GetAttributesRequest) (*GetAttributesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAttributes not implemented")
+func (*UnimplementedProductsServer) GetAttributesSchema(ctx context.Context, req *GetAttributesSchemaRequest) (*GetAttributesSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttributesSchema not implemented")
 }
 
 func RegisterProductsServer(s *grpc.Server, srv ProductsServer) {
@@ -690,20 +748,20 @@ func _Products_GetCategories_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_GetAttributes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAttributesRequest)
+func _Products_GetAttributesSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAttributesSchemaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).GetAttributes(ctx, in)
+		return srv.(ProductsServer).GetAttributesSchema(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/GetAttributes",
+		FullMethod: "/semantic.Products/GetAttributesSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetAttributes(ctx, req.(*GetAttributesRequest))
+		return srv.(ProductsServer).GetAttributesSchema(ctx, req.(*GetAttributesSchemaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -717,8 +775,8 @@ var _Products_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Products_GetCategories_Handler,
 		},
 		{
-			MethodName: "GetAttributes",
-			Handler:    _Products_GetAttributes_Handler,
+			MethodName: "GetAttributesSchema",
+			Handler:    _Products_GetAttributesSchema_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

@@ -31,6 +31,16 @@ func (d *Draft) ValidateLineByStage(l *DraftLine) error {
 	return nil
 }
 
+func (d *Draft) LineByTitle(ctx context.Context, db *sqlx.DB, title string) (*DraftLine, error) {
+	rows := db.QueryRowxContext(ctx, `SELECT * FROM draft_lines WHERE draft_id=$1 AND title=$2`, d.Id, title)
+	ln := &DraftLine{}
+	err := rows.StructScan(ln)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return ln, nil
+}
+
 func (d *Draft) Lines(ctx context.Context, db *sqlx.DB) (lns []*DraftLine, err error) {
 	rows, err := db.QueryxContext(ctx, `SELECT * FROM draft_lines WHERE draft_id=$1`, d.Id)
 	if err != nil {

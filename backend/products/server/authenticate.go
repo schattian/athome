@@ -32,7 +32,19 @@ func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 	return c, conn.Close, nil
 }
 
-func FetchLatestDraft(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authCloser func() error, accessToken string) (*ent.Draft, error) {
+func FetchLatestDraft(ctx context.Context, db *sqlx.DB, accessToken string) (*ent.Draft, error) {
+	c, closer, err := ConnAuth(ctx)
+	if err != nil {
+		return nil, err
+	}
+	draft, err := fetchLatestDraft(ctx, db, c, closer, accessToken)
+	if err != nil {
+		return nil, err
+	}
+	return draft, nil
+}
+
+func fetchLatestDraft(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authCloser func() error, accessToken string) (*ent.Draft, error) {
 	defer authCloser()
 	userId, err := GetUserFromAccessToken(ctx, db, auth, accessToken)
 	if err != nil {
