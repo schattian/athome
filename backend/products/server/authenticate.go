@@ -27,7 +27,6 @@ func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 	if err != nil {
 		return nil, nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, productconf.GetAUTH_ADDR())
 	}
-	defer conn.Close()
 	c := pbauth.NewAuthClient(conn)
 	return c, conn.Close, nil
 }

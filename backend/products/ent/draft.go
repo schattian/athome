@@ -41,6 +41,16 @@ func (d *Draft) LineByTitle(ctx context.Context, db *sqlx.DB, title string) (*Dr
 	return ln, nil
 }
 
+func (d *Draft) LineById(ctx context.Context, db *sqlx.DB, id uint64) (*DraftLine, error) {
+	rows := db.QueryRowxContext(ctx, `SELECT * FROM draft_lines WHERE draft_id=$1 AND id=$2`, d.Id, id)
+	ln := &DraftLine{}
+	err := rows.StructScan(ln)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return ln, nil
+}
+
 func (d *Draft) Lines(ctx context.Context, db *sqlx.DB) (lns []*DraftLine, err error) {
 	rows, err := db.QueryxContext(ctx, `SELECT * FROM draft_lines WHERE draft_id=$1`, d.Id)
 	if err != nil {

@@ -11,6 +11,7 @@ import (
 type ProductAttributeData struct {
 	Id       uint64
 	SchemaId uint64
+	UserId   uint64
 
 	BoolValue    *value.Bool    `json:"bool_value,omitempty"`
 	StringValue  *value.String  `json:"string_value,omitempty"`
@@ -55,6 +56,36 @@ func FindProductAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*Pro
 	return d, nil
 }
 
+func (d *ProductAttributeData) Clone() (*ProductAttributeData, error) {
+	if d == nil {
+		return nil, errors.New("nil is not clonable")
+	}
+	cp := ProductAttributeData{}
+	cp = *d
+	cp.Id = 0
+	return &cp, nil
+}
+
+func FindProductAttributesDataByMatch(ctx context.Context, db *sqlx.DB, entityTable string, entityId uint64) ([]*ProductAttributeData, error) {
+	rows, err := db.QueryxContext(ctx,
+		`SELECT * FROM product_attributes_data WHERE entity_table=$1 AND entity_id=$2`,
+		entityTable, entityId,
+	)
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	var ds []*ProductAttributeData
+	for rows.Next() {
+		d := &ProductAttributeData{}
+		err = rows.StructScan(d)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		ds = append(ds, d)
+	}
+	return ds, nil
+}
+
 func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entityTable string, entityId uint64) (*ProductAttributeData, error) {
 	row := db.QueryRowxContext(ctx,
 		`SELECT * FROM product_attributes_data WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
@@ -74,6 +105,14 @@ func (pc *ProductAttributeData) GetSchemaId() uint64 {
 
 func (pc *ProductAttributeData) SetSchemaId(i uint64) {
 	pc.SchemaId = i
+}
+
+func (pc *ProductAttributeData) GetUserId() uint64 {
+	return pc.UserId
+}
+
+func (pc *ProductAttributeData) SetUserId(i uint64) {
+	pc.UserId = i
 }
 
 func (pc *ProductAttributeData) SetValue(v interface{}) error {

@@ -17,7 +17,6 @@ func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 	if err != nil {
 		return nil, nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, semanticconf.GetAUTH_ADDR())
 	}
-	defer conn.Close()
 	c := pbauth.NewAuthClient(conn)
 	return c, conn.Close, nil
 }
@@ -37,33 +36,34 @@ func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, access string) (ui
 	return resp.GetUserId(), nil
 }
 
-func AuthorizeThroughEntity(ctx context.Context, access string, entityId uint64, entityTable string) (err error) {
-	type authorizationFunc func(ctx context.Context, access string, entityId uint64) error
+func AuthorizeThroughEntity(ctx context.Context, access string, entityId uint64, entityTable string) (userId uint64, err error) {
+	type authorizationFunc func(ctx context.Context, access string, entityId uint64) (userId uint64, err error)
 
 	authFns := map[string]authorizationFunc{
 		"drafts": authorizeProductsDrafts,
 	}
 	authFn, ok := authFns[entityTable]
 	if !ok {
-		return status.Error(xerrors.InvalidArgument, "invalid entity table given")
+		return 0, status.Error(xerrors.InvalidArgument, "invalid entity table given")
 	}
 
 	return authFn(ctx, access, entityId)
 }
 
-func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64) error {
+func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64) (uint64, error) {
 	conn, err := grpc.Dial(semanticconf.GetPRODUCTS_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		return status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, semanticconf.GetAUTH_ADDR())
+		return 0, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, semanticconf.GetAUTH_ADDR())
 	}
 	defer conn.Close()
 	c := pbproducts.NewCreatorClient(conn)
 	draft, err := c.FetchDraft(ctx, &pbproducts.FetchDraftRequest{AccessToken: access})
 	if err != nil {
-		return err
+		return 0, err
 	}
 	if draft.GetDraftId() != entityId {
-		return status.Errorf(xerrors.PermissionDenied, "your draft is %d, while trying to edit %d", draft.GetDraftId(), entityId)
+		return 0, status.Errorf(xerrors.PermissionDenied, "your draft is %d, while trying to edit %d", draft.GetDraftId(), entityId)
 	}
-	return nil
+
+	return draft.GetUserId(), nil
 }

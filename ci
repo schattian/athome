@@ -4,7 +4,7 @@ DIR=${DIR}/backend
 
 GREENa="\e[1;44m"
 GREENb="\e[0m"
-for svc in users auth mailer identifier
+for svc in users auth mailer identifier products semantic
 do
   cd $DIR/$svc || cd ../$svc
 

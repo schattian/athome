@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS onboardings(
   name varchar(30),
   surname varchar(30)
 
-  category   varchar(40),
+  category  varchar(30) 
 );

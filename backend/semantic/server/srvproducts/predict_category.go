@@ -54,7 +54,7 @@ func (s *Server) PredictCategory(srv pbsemantic.Products_PredictCategoryServer) 
 	}
 }
 
-func (s *Server) predictCategory(ctx context.Context, db *sqlx.DB, in *pbsemantic.PredictCategoryRequest, predictor *predictor.Predictor) (*pbsemantic.PredictCategoryResponse, error) {
+func (s *Server) predictCategory(_ context.Context, _ *sqlx.DB, in *pbsemantic.PredictCategoryRequest, predictor *predictor.Predictor) (*pbsemantic.PredictCategoryResponse, error) {
 	cat, err := predictor.Predict(in.GetTitle())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "predictor.Predict: %v", err)

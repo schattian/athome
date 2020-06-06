@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/any.proto";
 
 option go_package = "./pbproducts";
 
@@ -36,24 +35,21 @@ message DraftLineSecond {
 }
 
 message AttributeData {
-  uint64 id = 1;
-  uint64 schema_id = 2;
-  google.protobuf.Any value = 3;
+  uint64 schema_id = 1;
+  repeated string values = 2;
 }
 
 message SecondRequest{
-  string access_token = 1;
-  DraftLineSecond draft_line = 2;
+  message Body {
+    uint64 draft_line_id = 1;
+    DraftLineSecond draft_line = 2;
+  }
+
+  oneof corpus{
+    string access_token = 1;
+    Body body = 2;
+  }
 }
-
-message SecondResponse{
-  uint64 draft_id = 1;
-}
-
-
-
-
-
 
 message Page {
   uint64 cursor = 1;
@@ -61,9 +57,12 @@ message Page {
 }
 
 message FirstRequest{
-  string access_token = 1;
-  DraftLineFirst draft_line = 2; // consider that, if sending two eq titles, it'll
-  // perform just a deletion
+  oneof corpus{
+    string access_token = 1;
+
+    DraftLineFirst draft_line = 2; // consider that, if sending two eq titles, it'll
+    // perform just a deletion
+  }
 }
 
 message FirstResponse{
@@ -85,5 +84,7 @@ message FetchDraftRequest{
 message FetchDraftResponse{
   uint64 draft_id = 1;
   uint64 stage = 2;
-  repeated DraftLine lines = 3;
+  uint64 user_id = 3;
+  repeated DraftLine lines = 4;
 }
+

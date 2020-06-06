@@ -28,7 +28,8 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 	}
 	defer db.Close()
 
-	var authorized bool
+	var userId, entityId uint64
+	var entityTable string
 	for {
 		select {
 		case <-ctx.Done():
@@ -48,15 +49,17 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 			return err
 		}
 
-		if !authorized {
-			err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetEntityId(), in.GetEntityTable())
+		if entityTable == "" || entityId == 0 {
+			auth := in.GetAuthorization()
+			entityTable, entityId = auth.GetEntityTable(), auth.GetEntityId()
+			userId, err = server.AuthorizeThroughEntity(ctx, auth.GetAccessToken(), entityId, entityTable)
 			if err != nil {
 				return err
 			}
-			authorized = true
+			continue
 		}
 
-		resp, err := s.setAttributesData(ctx, db, in)
+		resp, err := s.setAttributesData(ctx, db, in.GetData(), userId, entityTable, entityId)
 		if err != nil {
 			return err
 		}
@@ -68,14 +71,21 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 	}
 }
 
-func (s *Server) setAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.SetAttributesDataRequest) (*pbsemantic.SetAttributesDataResponse, error) {
-	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetData().GetSchemaId())
+func (s *Server) setAttributesData(
+	ctx context.Context,
+	db *sqlx.DB,
+	in *pbsemantic.AttributeData,
+	userId uint64,
+	entityTable string,
+	entityId uint64,
+) (*pbsemantic.SetAttributesDataResponse, error) {
+	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetSchemaId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesSchema: %v", err)
 	}
 
 	var d data.Attribute
-	d, err = data.FindProductAttributeDataByMatch(ctx, db, in.GetData().GetSchemaId(), in.GetEntityTable(), in.GetEntityId()) // yes, it can store multi attrs in one match on wrapper, but thats safer
+	d, err = data.FindProductAttributeDataByMatch(ctx, db, in.GetSchemaId(), entityTable, entityId) // yes, it can store multi attrs in one match on wrapper, but thats safer
 	if errors.Is(err, sql.ErrNoRows) {
 		d, err = attSchema.NewData()
 		if err != nil {
@@ -86,7 +96,12 @@ func (s *Server) setAttributesData(ctx context.Context, db *sqlx.DB, in *pbseman
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDataByMatch: %v", err)
 	}
 
-	val, err := value.Parse(attSchema.GetValueType(), in.GetData().GetValues()...)
+	err = data.MustUserId(d, userId)
+	if err != nil {
+		return nil, status.Errorf(xerrors.PermissionDenied, "MustUserId: %v", err)
+	}
+
+	val, err := value.Parse(attSchema.GetValueType(), in.GetValues()...)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "value.Parse: %v", err)
 	}

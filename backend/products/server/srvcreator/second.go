@@ -9,6 +9,8 @@ import (
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/products/server"
+	"github.com/athomecomar/currency"
+	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
@@ -31,6 +33,7 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 
 	var resp *emptypb.Empty
 	var draft *ent.Draft
+	var access string
 	for {
 		select {
 		case <-ctx.Done():
@@ -55,24 +58,78 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 		}
 
 		if draft == nil { // first iteration
-			draft, err = server.FetchLatestDraft(ctx, db, in.GetAccessToken())
+			access = in.GetAccessToken()
+			draft, err = server.FetchLatestDraft(ctx, db, access)
 			if err != nil {
 				return err
 			}
+			continue // see oneof def
 		}
 
 		if draft.Stage != stage.Second {
 			return status.Errorf(xerrors.InvalidArgument, "stage expected %v, got %v", stage.Second, draft.Stage)
 		}
 
-		resp, err = s.second(ctx, db, sem, in, draft)
+		resp, err = s.second(ctx, db, sem, in.GetBody(), draft, access)
 		if err != nil {
 			return err
 		}
 	}
 }
 
-func (s *Server) second(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, in *pbproducts.SecondRequest, draft *ent.Draft) (*emptypb.Empty, error) {
-	// sem.GetAttributesSchema(ctx, &pbsemantic.GetAttributesSchemaRequest{CategoryId: }, opts ...grpc.CallOption)
-	return nil, nil
+func (s *Server) second(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, in *pbproducts.SecondRequest_Body, draft *ent.Draft, access string) (*emptypb.Empty, error) {
+	ln, err := draft.LineById(ctx, db, in.GetDraftLineId())
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "LineById: %v", err)
+	}
+
+	semSrv, err := sem.SetAttributesData(ctx)
+	if err != nil {
+		return nil, err
+	}
+	authReq := &pbsemantic.SetAttributesDataRequest{
+		Corpus: &pbsemantic.SetAttributesDataRequest_Authorization_{
+			Authorization: &pbsemantic.SetAttributesDataRequest_Authorization{
+				AccessToken: access,
+				EntityTable: ln.SQLTable(),
+				EntityId:    ln.Id,
+			},
+		},
+	}
+	err = semSrv.Send(authReq)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, att := range in.GetDraftLine().Attributes {
+		req := &pbsemantic.SetAttributesDataRequest{
+			Corpus: &pbsemantic.SetAttributesDataRequest_Data{
+				Data: &pbsemantic.AttributeData{
+					SchemaId: att.GetSchemaId(),
+					Values:   att.GetValues(),
+				},
+			},
+		}
+		err = semSrv.Send(req)
+		if err != nil {
+			return nil, err
+		}
+		_, err := semSrv.Recv()
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	ln = applySecondRequestToDraftLine(in.GetDraftLine(), ln)
+	err = storeql.UpdateIntoDB(ctx, db, ln)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "UpdateIntoDB: %v", err)
+	}
+	return &emptypb.Empty{}, nil
+}
+
+func applySecondRequestToDraftLine(in *pbproducts.DraftLineSecond, ln *ent.DraftLine) *ent.DraftLine {
+	ln.Price = currency.ToARS(in.GetPrice())
+	ln.Stock = in.GetStock()
+	return ln
 }

@@ -4,16 +4,14 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/backend/users/userconf"
-	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (s *Server) FetchSelectableCategories(ctx context.Context, in *pbusers.FetchSelectableCategoriesRequest) (*pbusers.FetchSelectableCategoriesResponse, error) {
@@ -26,16 +24,13 @@ func (s *Server) FetchSelectableCategories(ctx context.Context, in *pbusers.Fetc
 	}
 	defer db.Close()
 
-	conn, err := grpc.Dial(userconf.GetSEMANTIC_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetSEMANTIC_ADDR())
-	}
-	defer conn.Close()
-
-	return s.fetchSelectableCategories(ctx, db, conn, in)
+	return s.fetchSelectableCategories(ctx, db, in)
 }
 
-func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbusers.FetchSelectableCategoriesRequest) (out *pbusers.FetchSelectableCategoriesResponse, err error) {
+func (s *Server) fetchSelectableCategories(
+	ctx context.Context, db *sqlx.DB,
+	in *pbusers.FetchSelectableCategoriesRequest,
+) (out *pbusers.FetchSelectableCategoriesResponse, err error) {
 	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
@@ -46,36 +41,27 @@ func (s *Server) fetchSelectableCategories(ctx context.Context, db *sqlx.DB, con
 		return
 	}
 
-	switch onboarding.Role {
-	case field.Merchant:
+	sem, semCloser, err := server.ConnSemantic(ctx, onboarding.Role)
+	if err != nil {
+		return
+	}
+	defer semCloser()
 
-		out, err = fetchSelectableCategoriesMerchant()
-	case field.ServiceProvider:
-		out = fetchSelectableCategoriesServiceProvider()
-	default:
-		err = status.Errorf(xerrors.InvalidArgument, "invalid role given: %v", onboarding.Role)
+	categories, err := sem.GetCategories(ctx, &emptypb.Empty{})
+	if err != nil {
+		return
+	}
+
+	for _, cat := range categories.Categories {
+		out.Categories = append(out.Categories, pbSemanticCategoryToPbUserCategory(cat))
 	}
 	return
 }
 
-func fetchSelectableCategoriesServiceProvider() (out *pbusers.FetchSelectableCategoriesResponse) {
-	var cats []*pbusers.Category
-	for _, cat := range semprov.Root.Childs {
-		cats = append(cats, semprovCategoryToPbCategory(cat))
-	}
-	return &pbusers.FetchSelectableCategoriesResponse{
-		Categories: cats,
-	}
-}
-
-func semprovCategoryToPbCategory(c *semprov.Category) *pbusers.Category {
+func pbSemanticCategoryToPbUserCategory(c *pbsemantic.Category) *pbusers.Category {
 	var childs []*pbusers.Category
-	for _, child := range c.Childs {
-		childs = append(childs, semprovCategoryToPbCategory(child))
+	for _, child := range c.GetChilds() {
+		childs = append(childs, pbSemanticCategoryToPbUserCategory(child))
 	}
-	return &pbusers.Category{Name: c.Name, Childs: childs}
-}
-
-func fetchSelectableCategoriesMerchant() (out *pbusers.FetchSelectableCategoriesResponse, err error) {
-	return nil, status.Error(xerrors.Unimplemented, "not implemented yet")
+	return &pbusers.Category{Name: c.GetName(), Childs: childs, Id: c.GetId(), ParentId: c.GetParentId()}
 }

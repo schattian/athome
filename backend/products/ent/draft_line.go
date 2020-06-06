@@ -33,12 +33,13 @@ func (ln *DraftLine) Draft(ctx context.Context, db *sqlx.DB) (*Draft, error) {
 	return d, nil
 }
 
-func (ln *DraftLine) Clone(ctx context.Context, db *sqlx.DB) (*DraftLine, error) {
+func (ln *DraftLine) Clone() (*DraftLine, error) {
 	if ln == nil {
 		return nil, errors.New("nil is not clonable")
 	}
 	cp := DraftLine{}
 	cp = *ln
+	cp.Stock = 0
 	cp.Id = 0
 	return &cp, nil
 }

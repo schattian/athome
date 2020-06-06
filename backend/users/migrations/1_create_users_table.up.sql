@@ -4,9 +4,9 @@ CREATE TABLE IF NOT EXISTS users(
   role   varchar(17) not null,
   name varchar(30) not null,
   surname varchar(30) not null,
-  password_hash    char(60) not null
+  password_hash    char(60) not null,
 
-  category   varchar(40),
+  category varchar(30)
 );
 
 ALTER TABLE ONLY users ADD CONSTRAINT uq_users UNIQUE(email, role);

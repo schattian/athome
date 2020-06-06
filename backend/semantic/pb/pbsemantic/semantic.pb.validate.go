@@ -507,6 +507,89 @@ var _ interface {
 	ErrorName() string
 } = SetAttributesDataResponseValidationError{}
 
+// Validate checks the field values on CloneAttributesDataResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CloneAttributesDataResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetAttributes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CloneAttributesDataResponseValidationError{
+					field:  fmt.Sprintf("Attributes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// CloneAttributesDataResponseValidationError is the validation error returned
+// by CloneAttributesDataResponse.Validate if the designated constraints
+// aren't met.
+type CloneAttributesDataResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloneAttributesDataResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloneAttributesDataResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloneAttributesDataResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloneAttributesDataResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloneAttributesDataResponseValidationError) ErrorName() string {
+	return "CloneAttributesDataResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloneAttributesDataResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloneAttributesDataResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloneAttributesDataResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloneAttributesDataResponseValidationError{}
+
 // Validate checks the field values on SetAttributesDataRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -515,20 +598,32 @@ func (m *SetAttributesDataRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for AccessToken
+	switch m.Corpus.(type) {
 
-	// no validation rules for EntityId
+	case *SetAttributesDataRequest_Authorization_:
 
-	// no validation rules for EntityTable
-
-	if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SetAttributesDataRequestValidationError{
-				field:  "Data",
-				reason: "embedded message failed validation",
-				cause:  err,
+		if v, ok := interface{}(m.GetAuthorization()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SetAttributesDataRequestValidationError{
+					field:  "Authorization",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
+	case *SetAttributesDataRequest_Data:
+
+		if v, ok := interface{}(m.GetData()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SetAttributesDataRequestValidationError{
+					field:  "Data",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
@@ -589,6 +684,81 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SetAttributesDataRequestValidationError{}
+
+// Validate checks the field values on CloneAttributesDataRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CloneAttributesDataRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for FromEntityId
+
+	// no validation rules for DestEntityId
+
+	// no validation rules for EntityTable
+
+	return nil
+}
+
+// CloneAttributesDataRequestValidationError is the validation error returned
+// by CloneAttributesDataRequest.Validate if the designated constraints aren't met.
+type CloneAttributesDataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloneAttributesDataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloneAttributesDataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloneAttributesDataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloneAttributesDataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloneAttributesDataRequestValidationError) ErrorName() string {
+	return "CloneAttributesDataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloneAttributesDataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloneAttributesDataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloneAttributesDataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloneAttributesDataRequestValidationError{}
 
 // Validate checks the field values on AttributeData with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -804,3 +974,77 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PredictCategoryResponseValidationError{}
+
+// Validate checks the field values on SetAttributesDataRequest_Authorization
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *SetAttributesDataRequest_Authorization) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
+
+	return nil
+}
+
+// SetAttributesDataRequest_AuthorizationValidationError is the validation
+// error returned by SetAttributesDataRequest_Authorization.Validate if the
+// designated constraints aren't met.
+type SetAttributesDataRequest_AuthorizationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetAttributesDataRequest_AuthorizationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetAttributesDataRequest_AuthorizationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetAttributesDataRequest_AuthorizationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetAttributesDataRequest_AuthorizationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetAttributesDataRequest_AuthorizationValidationError) ErrorName() string {
+	return "SetAttributesDataRequest_AuthorizationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetAttributesDataRequest_AuthorizationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetAttributesDataRequest_Authorization.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetAttributesDataRequest_AuthorizationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetAttributesDataRequest_AuthorizationValidationError{}

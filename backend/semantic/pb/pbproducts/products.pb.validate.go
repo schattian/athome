@@ -283,8 +283,6 @@ func (m *AttributeData) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
-
 	// no validation rules for SchemaId
 
 	return nil
@@ -352,18 +350,23 @@ func (m *SecondRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for AccessToken
+	switch m.Corpus.(type) {
 
-	// no validation rules for DraftLineId
+	case *SecondRequest_AccessToken:
+		// no validation rules for AccessToken
 
-	if v, ok := interface{}(m.GetDraftLine()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SecondRequestValidationError{
-				field:  "DraftLine",
-				reason: "embedded message failed validation",
-				cause:  err,
+	case *SecondRequest_Body_:
+
+		if v, ok := interface{}(m.GetBody()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SecondRequestValidationError{
+					field:  "Body",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
 	}
 
 	return nil
@@ -499,16 +502,23 @@ func (m *FirstRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for AccessToken
+	switch m.Corpus.(type) {
 
-	if v, ok := interface{}(m.GetDraftLine()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return FirstRequestValidationError{
-				field:  "DraftLine",
-				reason: "embedded message failed validation",
-				cause:  err,
+	case *FirstRequest_AccessToken:
+		// no validation rules for AccessToken
+
+	case *FirstRequest_DraftLine:
+
+		if v, ok := interface{}(m.GetDraftLine()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FirstRequestValidationError{
+					field:  "DraftLine",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
 	}
 
 	return nil
@@ -864,6 +874,8 @@ func (m *FetchDraftResponse) Validate() error {
 
 	// no validation rules for Stage
 
+	// no validation rules for UserId
+
 	for idx, item := range m.GetLines() {
 		_, _ = idx, item
 
@@ -937,3 +949,82 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FetchDraftResponseValidationError{}
+
+// Validate checks the field values on SecondRequest_Body with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SecondRequest_Body) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for DraftLineId
+
+	if v, ok := interface{}(m.GetDraftLine()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SecondRequest_BodyValidationError{
+				field:  "DraftLine",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SecondRequest_BodyValidationError is the validation error returned by
+// SecondRequest_Body.Validate if the designated constraints aren't met.
+type SecondRequest_BodyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecondRequest_BodyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecondRequest_BodyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecondRequest_BodyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecondRequest_BodyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecondRequest_BodyValidationError) ErrorName() string {
+	return "SecondRequest_BodyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SecondRequest_BodyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecondRequest_Body.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecondRequest_BodyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecondRequest_BodyValidationError{}

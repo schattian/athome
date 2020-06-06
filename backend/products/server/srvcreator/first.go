@@ -54,6 +54,7 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 			if err != nil {
 				return err
 			}
+			continue // see oneof def
 		}
 
 		if draft.Stage != stage.First {

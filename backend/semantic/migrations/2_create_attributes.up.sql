@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS product_attributes_schema(
 CREATE TABLE IF NOT EXISTS product_attributes_data(
     id serial primary key,
     schema_id integer not null,
+    user_id integer not null,
     entity_id integer not null,
     entity_table string not null,
 

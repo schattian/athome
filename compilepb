@@ -39,7 +39,13 @@ pbpropague auth products
 
 pbpropague identifier users
 
+pbpropague auth semantic
+
+pbpropague products semantic
+
 pbpropague semantic products
+
+pbpropague semantic users
 
 pbpropague mailer users
 
