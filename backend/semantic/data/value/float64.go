@@ -1,38 +1,53 @@
 package value
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+)
 
 type Float64 sql.NullFloat64
 
-func (f Float64) Type() Type {
+func (f *Float64) Type() Type {
 	return TypeFloat64
 }
 
-func (f Float64) SetValue(v interface{}) (Value, error) {
+func (f *Float64) SetValue(v interface{}) error {
 	val, ok := v.(float64)
 	if !ok {
-		return nil, errInvalidValueType(v, f.Type())
+		return errInvalidValueType(v, f.Type())
 	}
-	f.Float64 = val
-	return f, nil
+	f.Float64, f.Valid = val, true
+	return nil
 }
 
-func (f Float64) GetValue() interface{} {
+func (f *Float64) GetValue() interface{} {
 	return f.Float64
 }
 
-func (f Float64) IsNil() bool {
+func (f *Float64) IsNil() bool {
+	if f == nil {
+		return true
+	}
+
 	return !f.Valid
 }
 
-type SlFloat64 []Float64
+func (f *Float64) Strings() (strs []string) {
+	return []string{fmt.Sprintf("%f", f.Float64)}
+}
 
-func (slf SlFloat64) Type() Type {
+type SlFloat64 []*Float64
+
+func (slf *SlFloat64) Type() Type {
 	return TypeSlFloat64
 }
 
-func (slf SlFloat64) IsNil() bool {
-	for _, f := range slf {
+func (slf *SlFloat64) IsNil() bool {
+	if slf == nil {
+		return true
+	}
+
+	for _, f := range *slf {
 		if !f.IsNil() {
 			return false
 		}
@@ -40,23 +55,29 @@ func (slf SlFloat64) IsNil() bool {
 	return true
 }
 
-func (sli SlFloat64) GetValue() interface{} {
+func (sli *SlFloat64) Strings() (strs []string) {
+	for _, s := range *sli {
+		strs = append(strs, fmt.Sprintf("%f", s.Float64))
+	}
+	return
+}
+
+func (sli *SlFloat64) GetValue() interface{} {
 	var vals []interface{}
-	for _, value := range sli {
+	for _, value := range *sli {
 		vals = append(vals, value.GetValue())
 	}
 	return vals
 }
 
-func (sli SlFloat64) SetValue(v interface{}) (Value, error) {
+func (sli *SlFloat64) SetValue(v interface{}) error {
 	val, ok := v.([]float64)
 	if !ok {
-		return nil, errInvalidValueType(v, sli.Type())
+		return errInvalidValueType(v, sli.Type())
 	}
-	var xsli SlFloat64
 	for _, value := range val {
-		s := sql.NullFloat64{Float64: value, Valid: true}
-		xsli = append(xsli, Float64(s))
+		s := &Float64{Float64: value, Valid: true}
+		*sli = append(*sli, s)
 	}
-	return xsli, nil
+	return nil
 }

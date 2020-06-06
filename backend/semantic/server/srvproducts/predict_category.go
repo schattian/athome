@@ -15,7 +15,7 @@ import (
 
 func (s *Server) PredictCategory(srv pbsemantic.Products_PredictCategoryServer) error {
 	ctx := srv.Context()
-	context.WithTimeout(ctx, 300*time.Second)
+	context.WithTimeout(ctx, 3000*time.Second)
 
 	db, err := server.ConnDB()
 	if err != nil {

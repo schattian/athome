@@ -1,38 +1,61 @@
 package value
 
-import "database/sql"
+import (
+	"database/sql"
+	"strconv"
+)
 
 type Int64 sql.NullInt64
 
-func (i Int64) Type() Type {
+func (i *Int64) Type() Type {
 	return TypeInt64
 }
 
-func (s Int64) SetValue(v interface{}) (Value, error) {
+func (s *Int64) SetValue(v interface{}) error {
+	var val int64
 	val, ok := v.(int64)
 	if !ok {
-		return nil, errInvalidValueType(v, s.Type())
+		return errInvalidValueType(v, s.Type())
 	}
-	s.Int64 = val
-	return s, nil
+	s.Int64, s.Valid = val, true
+	return nil
 }
 
-func (i Int64) GetValue() interface{} {
+func (i *Int64) GetValue() interface{} {
 	return i.Int64
 }
 
-func (i Int64) IsNil() bool {
+func (i *Int64) IsNil() bool {
+	if i == nil {
+		return true
+	}
+
 	return !i.Valid
 }
 
-type SlInt64 []Int64
+func (s *Int64) Strings() (strs []string) {
+	return []string{strconv.Itoa(int(s.Int64))}
+}
 
-func (sli SlInt64) Type() Type {
+type SlInt64 []*Int64
+
+func (sli *SlInt64) Type() Type {
 	return TypeSlInt64
 }
 
-func (sli SlInt64) IsNil() bool {
-	for _, f := range sli {
+func (sli *SlInt64) Strings() (strs []string) {
+	for _, s := range *sli {
+		strs = append(strs, strconv.Itoa(int(s.Int64)))
+	}
+	return
+}
+
+func (sli *SlInt64) IsNil() bool {
+	if sli == nil {
+		return true
+	}
+
+	for _, f := range *sli {
 		if !f.IsNil() {
 			return false
 		}
@@ -40,23 +63,25 @@ func (sli SlInt64) IsNil() bool {
 	return true
 }
 
-func (sli SlInt64) GetValue() interface{} {
+func (sli *SlInt64) GetValue() interface{} {
 	var vals []interface{}
-	for _, value := range sli {
+	for _, value := range *sli {
 		vals = append(vals, value.GetValue())
 	}
 	return vals
 }
 
-func (sli SlInt64) SetValue(v interface{}) (Value, error) {
+func (sli *SlInt64) SetValue(v interface{}) error {
+	var val []int64
+
 	val, ok := v.([]int64)
 	if !ok {
-		return nil, errInvalidValueType(v, sli.Type())
+		return errInvalidValueType(v, sli.Type())
 	}
-	var xsli SlInt64
+
 	for _, value := range val {
-		s := sql.NullInt64{Int64: value, Valid: true}
-		xsli = append(xsli, Int64(s))
+		s := &Int64{Int64: value, Valid: true}
+		*sli = append(*sli, s)
 	}
-	return xsli, nil
+	return nil
 }

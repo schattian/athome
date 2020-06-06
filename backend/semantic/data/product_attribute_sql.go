@@ -16,7 +16,8 @@ func (sp *ProductAttributeData) SQLTable() string {
 
 func (sp *ProductAttributeData) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id": sp.Id,
+		"id":        sp.Id,
+		"schema_id": sp.SchemaId,
 
 		"bool_value":     sp.BoolValue,
 		"string_value":   sp.StringValue,

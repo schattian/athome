@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"github.com/athomecomar/athome/backend/semantic/data"
 	"github.com/athomecomar/athome/backend/semantic/data/value"
 	"github.com/athomecomar/storeql"
 )
@@ -16,4 +17,6 @@ type Attribute interface {
 
 	GetCategoryId() uint64
 	SetCategoryId(p uint64)
+
+	NewData() (data.Attribute, error)
 }

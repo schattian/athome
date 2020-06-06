@@ -1,25 +1,37 @@
 package value
 
-import "database/sql"
+import (
+	"database/sql"
+	"strconv"
+)
 
 type Bool sql.NullBool
 
-func (b Bool) Type() Type {
+func (b *Bool) Type() Type {
 	return TypeBool
 }
-func (b Bool) IsNil() bool {
+
+func (b *Bool) IsNil() bool {
+	if b == nil {
+		return true
+	}
+
 	return !b.Valid
 }
 
-func (f Bool) SetValue(v interface{}) (Value, error) {
+func (f *Bool) SetValue(v interface{}) error {
 	val, ok := v.(bool)
 	if !ok {
-		return nil, errInvalidValueType(v, f.Type())
+		return errInvalidValueType(v, f.Type())
 	}
-	f.Bool = val
-	return f, nil
+	f.Bool, f.Valid = val, true
+	return nil
 }
 
-func (f Bool) GetValue() interface{} {
+func (b *Bool) Strings() (strs []string) {
+	return []string{strconv.FormatBool(b.Bool)}
+}
+
+func (f *Bool) GetValue() interface{} {
 	return f.Bool
 }

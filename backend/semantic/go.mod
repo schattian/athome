@@ -6,9 +6,11 @@ require (
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.4.5
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/athomecomar/xtest v0.1.0
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
 	github.com/golang/protobuf v1.4.2
+	github.com/google/go-cmp v0.4.1
 	github.com/jcmturner/gokrb5/v8 v8.3.0 // indirect
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.6.0
@@ -21,6 +23,7 @@ require (
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	modernc.org/internal v1.0.0
 )
 
 replace google.golang.org/grpc => github.com/grpc/grpc-go v1.29.1
