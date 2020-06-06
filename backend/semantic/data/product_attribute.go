@@ -1,7 +1,10 @@
 package data
 
 import (
+	"context"
+
 	"github.com/athomecomar/athome/backend/semantic/data/value"
+	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
 
@@ -42,19 +45,35 @@ func NewProductAttributeData(t value.Type) (*ProductAttributeData, error) {
 	return pc, nil
 }
 
+func FindProductAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*ProductAttributeData, error) {
+	row := db.QueryRowxContext(ctx, `SELECT * FROM product_attributes_data WHERE id=$1`, id)
+	d := &ProductAttributeData{}
+	err := row.StructScan(d)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return d, nil
+}
+
+func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entityTable string, entityId uint64) (*ProductAttributeData, error) {
+	row := db.QueryRowxContext(ctx,
+		`SELECT * FROM product_attributes_data WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
+		schemaId, entityTable, entityId,
+	)
+	d := &ProductAttributeData{}
+	err := row.StructScan(d)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return d, nil
+}
+
 func (pc *ProductAttributeData) GetSchemaId() uint64 {
 	return pc.SchemaId
 }
 
 func (pc *ProductAttributeData) SetSchemaId(i uint64) {
 	pc.SchemaId = i
-}
-
-func (pc *ProductAttributeData) SetValueStrings(values ...string) error {
-	if len(values) == 0 {
-
-	}
-	return nil
 }
 
 func (pc *ProductAttributeData) SetValue(v interface{}) error {

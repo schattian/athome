@@ -2,9 +2,12 @@ package srvproducts
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"io"
 	"time"
 
+	"github.com/athomecomar/athome/backend/semantic/data"
 	"github.com/athomecomar/athome/backend/semantic/data/value"
 	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/semantic/schema"
@@ -53,7 +56,7 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 			authorized = true
 		}
 
-		resp, err := s.setAttributesData(ctx, db, in.GetData())
+		resp, err := s.setAttributesData(ctx, db, in)
 		if err != nil {
 			return err
 		}
@@ -65,30 +68,39 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 	}
 }
 
-func (s *Server) setAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.AttributeData) (*pbsemantic.SetAttributesDataResponse, error) {
-	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetSchemaId())
+func (s *Server) setAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.SetAttributesDataRequest) (*pbsemantic.SetAttributesDataResponse, error) {
+	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetData().GetSchemaId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesSchema: %v", err)
 	}
-	val, err := value.Parse(attSchema.GetValueType(), in.GetValues()...)
+
+	var d data.Attribute
+	d, err = data.FindProductAttributeDataByMatch(ctx, db, in.GetData().GetSchemaId(), in.GetEntityTable(), in.GetEntityId()) // yes, it can store multi attrs in one match on wrapper, but thats safer
+	if errors.Is(err, sql.ErrNoRows) {
+		d, err = attSchema.NewData()
+		if err != nil {
+			return nil, status.Errorf(xerrors.Internal, "schema.NewData: %v", err)
+		}
+	}
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDataByMatch: %v", err)
+	}
+
+	val, err := value.Parse(attSchema.GetValueType(), in.GetData().GetValues()...)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "value.Parse: %v", err)
 	}
-	data, err := attSchema.NewData()
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "schema.NewData: %v", err)
-	}
-	err = data.SetValue(val)
+	err = d.SetValue(val)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "data.SetValue: %v", err)
 	}
-	err = storeql.InsertIntoDB(ctx, db, data)
+	err = storeql.InsertIntoDB(ctx, db, d)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
 
 	return &pbsemantic.SetAttributesDataResponse{
-		AttributeDataId: data.GetId(),
-		Data:            server.DataAttributeToPbAttributeData(data),
+		AttributeDataId: d.GetId(),
+		Data:            server.DataAttributeToPbAttributeData(d),
 	}, nil
 }
