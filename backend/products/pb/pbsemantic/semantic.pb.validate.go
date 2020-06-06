@@ -345,6 +345,77 @@ var _ interface {
 	ErrorName() string
 } = GetAttributesSchemaRequestValidationError{}
 
+// Validate checks the field values on GetAttributesDataRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetAttributesDataRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
+
+	return nil
+}
+
+// GetAttributesDataRequestValidationError is the validation error returned by
+// GetAttributesDataRequest.Validate if the designated constraints aren't met.
+type GetAttributesDataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAttributesDataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAttributesDataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAttributesDataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAttributesDataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAttributesDataRequestValidationError) ErrorName() string {
+	return "GetAttributesDataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAttributesDataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAttributesDataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAttributesDataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAttributesDataRequestValidationError{}
+
 // Validate checks the field values on GetAttributesSchemaResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -427,6 +498,88 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAttributesSchemaResponseValidationError{}
+
+// Validate checks the field values on GetAttributesDataResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetAttributesDataResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetAttributes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetAttributesDataResponseValidationError{
+					field:  fmt.Sprintf("Attributes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// GetAttributesDataResponseValidationError is the validation error returned by
+// GetAttributesDataResponse.Validate if the designated constraints aren't met.
+type GetAttributesDataResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAttributesDataResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAttributesDataResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAttributesDataResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAttributesDataResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAttributesDataResponseValidationError) ErrorName() string {
+	return "GetAttributesDataResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAttributesDataResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAttributesDataResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAttributesDataResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAttributesDataResponseValidationError{}
 
 // Validate checks the field values on SetAttributesDataResponse with the rules
 // defined in the proto definition for this message. If any rules are

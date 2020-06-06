@@ -13,6 +13,10 @@ service Creator {
   rpc Second (stream SecondRequest) returns (google.protobuf.Empty) {}
   rpc CloneDraftLine (CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
 
+//  rpc Third (stream ThirdRequest) returns (google.protobuf.Empty) {}
+
+  // rpc RemoveDraftLine (RemoveDraftLineRequest) returns (google.protobuf.Empty) {}
+
   rpc FetchDraft(FetchDraftRequest) returns (FetchDraftResponse) {}
 }
 
@@ -61,7 +65,7 @@ message FirstRequest{
     string access_token = 1;
 
     DraftLineFirst draft_line = 2; // consider that, if sending two eq titles, it'll
-    // perform just a deletion
+    // return an err
   }
 }
 

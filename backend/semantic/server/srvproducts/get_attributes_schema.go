@@ -25,7 +25,7 @@ func (s *Server) GetAttributesSchema(ctx context.Context, in *pbsemantic.GetAttr
 }
 
 func (s *Server) getAttributesSchema(ctx context.Context, db *sqlx.DB, in *pbsemantic.GetAttributesSchemaRequest) (*pbsemantic.GetAttributesSchemaResponse, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_attributes WHERE category_id = $1`, in.GetCategoryId())
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_attributes_schema WHERE category_id = $1`, in.GetCategoryId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}

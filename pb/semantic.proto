@@ -20,6 +20,7 @@ service Products {
 
   rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
   rpc GetAttributesSchema(GetAttributesSchemaRequest) returns (GetAttributesSchemaResponse) {}
+  rpc GetAttributesData(GetAttributesDataRequest) returns (GetAttributesDataResponse) {}
 
   rpc SetAttributesData(stream SetAttributesDataRequest) returns (stream SetAttributesDataResponse) {}
   rpc CloneAttributesData(CloneAttributesDataRequest) returns (CloneAttributesDataResponse) {}
@@ -49,8 +50,17 @@ message GetAttributesSchemaRequest {
   uint64 category_id = 1;
 }
 
+message GetAttributesDataRequest {
+  uint64 entity_id = 1;
+  string entity_table = 2;
+}
+
 message GetAttributesSchemaResponse {
   repeated AttributeSchema attributes = 1;
+}
+
+message GetAttributesDataResponse {
+  repeated SetAttributesDataResponse attributes = 1;
 }
 
 message SetAttributesDataResponse {

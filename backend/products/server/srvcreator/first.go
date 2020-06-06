@@ -74,14 +74,10 @@ func (s *Server) first(ctx context.Context, db *sqlx.DB, in *pbproducts.DraftLin
 		err = nil
 	}
 	if err != nil {
-		return nil, err
+		return nil, status.Errorf(xerrors.Internal, "draft.LineByTitle: %v", err)
 	}
 	if ln != nil {
-		err = storeql.DeleteFromDB(ctx, db, ln)
-		if err != nil {
-			return nil, status.Errorf(xerrors.Internal, "storeql.DeleteFromDB: %v", err)
-		}
-		return draftToFirstResponse(draft), nil
+		return nil, status.Errorf(xerrors.Internal, "couldnt store >1 draft lines with same title: %v", in.GetTitle())
 	}
 
 	ln = firstRequestToDraftLine(in)

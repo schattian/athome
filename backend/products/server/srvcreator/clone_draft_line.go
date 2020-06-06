@@ -64,12 +64,11 @@ func (s *Server) cloneDraftLine(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		return nil, err
 	}
 
-	pbLn := draftLineToPbDraftLine(cpLn)
-	pbLn.Second.Attributes = atts
+	pbLn := draftLineToPbDraftLine(cpLn, atts)
 	return &pbproducts.CloneDraftLineResponse{DraftLine: pbLn}, nil
 }
 
-func draftLineToPbDraftLine(ln *ent.DraftLine) *pbproducts.DraftLine {
+func draftLineToPbDraftLine(ln *ent.DraftLine, atts []*pbproducts.AttributeData) *pbproducts.DraftLine {
 	return &pbproducts.DraftLine{
 		DraftLineId: ln.Id,
 
@@ -81,7 +80,7 @@ func draftLineToPbDraftLine(ln *ent.DraftLine) *pbproducts.DraftLine {
 		Second: &pbproducts.DraftLineSecond{
 			Price:      ln.Price.Float64(),
 			Stock:      ln.Stock,
-			Attributes: nil,
+			Attributes: atts,
 		},
 	}
 }

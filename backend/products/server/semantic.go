@@ -27,3 +27,10 @@ func PbSemanticToPbProductAttributes(att *pbsemantic.AttributeData) *pbproducts.
 		Values:   att.GetValues(),
 	}
 }
+
+func PbSemanticGetAttributesDataToPbProductAttributes(r *pbsemantic.GetAttributesDataResponse) (atts []*pbproducts.AttributeData) {
+	for _, att := range r.GetAttributes() {
+		atts = append(atts, PbSemanticToPbProductAttributes(att.Data))
+	}
+	return atts
+}

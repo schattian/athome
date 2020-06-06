@@ -4,7 +4,9 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/products/ent"
+	"github.com/athomecomar/athome/backend/products/ent/stage"
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
+	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/products/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -21,25 +23,39 @@ func (s *Server) FetchDraft(ctx context.Context, in *pbproducts.FetchDraftReques
 	if err != nil {
 		return nil, err
 	}
+	sem, semCloser, err := server.ConnSemantic(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer semCloser()
 
 	draft, err := server.FetchLatestDraft(ctx, db, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
-	return s.fetchDraft(ctx, db, draft)
+	return s.fetchDraft(ctx, db, sem, draft)
 }
 
-func (s *Server) fetchDraft(ctx context.Context, db *sqlx.DB, d *ent.Draft) (*pbproducts.FetchDraftResponse, error) {
+func (s *Server) fetchDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, d *ent.Draft) (*pbproducts.FetchDraftResponse, error) {
 	lns, err := d.Lines(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Lines: %v", err)
 	}
-	var pbLns []*pbproducts.DraftLine
-	for _, ln := range lns {
-		pbLns = append(pbLns, draftLineToPbDraftLine(ln))
-	}
+
 	resp := draftToPbDraft(d)
-	resp.Lines = pbLns
+
+	for _, ln := range lns {
+		var atts []*pbproducts.AttributeData
+		if d.Stage >= stage.Second {
+			semResp, err := sem.GetAttributesData(ctx, &pbsemantic.GetAttributesDataRequest{EntityId: ln.GetId(), EntityTable: ln.SQLTable()})
+			if err != nil {
+				return nil, err
+			}
+			atts = server.PbSemanticGetAttributesDataToPbProductAttributes(semResp)
+		}
+		resp.Lines = append(resp.Lines, draftLineToPbDraftLine(ln, atts))
+	}
+
 	return resp, nil
 }
 
