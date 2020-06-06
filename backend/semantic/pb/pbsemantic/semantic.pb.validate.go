@@ -194,10 +194,10 @@ var _ interface {
 	ErrorName() string
 } = AttributeSchemaValidationError{}
 
-// Validate checks the field values on GetCategoriesResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveCategoriesResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetCategoriesResponse) Validate() error {
+func (m *RetrieveCategoriesResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -207,7 +207,7 @@ func (m *GetCategoriesResponse) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GetCategoriesResponseValidationError{
+				return RetrieveCategoriesResponseValidationError{
 					field:  fmt.Sprintf("Categories[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -220,9 +220,9 @@ func (m *GetCategoriesResponse) Validate() error {
 	return nil
 }
 
-// GetCategoriesResponseValidationError is the validation error returned by
-// GetCategoriesResponse.Validate if the designated constraints aren't met.
-type GetCategoriesResponseValidationError struct {
+// RetrieveCategoriesResponseValidationError is the validation error returned
+// by RetrieveCategoriesResponse.Validate if the designated constraints aren't met.
+type RetrieveCategoriesResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -230,24 +230,24 @@ type GetCategoriesResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetCategoriesResponseValidationError) Field() string { return e.field }
+func (e RetrieveCategoriesResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetCategoriesResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveCategoriesResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetCategoriesResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveCategoriesResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetCategoriesResponseValidationError) Key() bool { return e.key }
+func (e RetrieveCategoriesResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetCategoriesResponseValidationError) ErrorName() string {
-	return "GetCategoriesResponseValidationError"
+func (e RetrieveCategoriesResponseValidationError) ErrorName() string {
+	return "RetrieveCategoriesResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetCategoriesResponseValidationError) Error() string {
+func (e RetrieveCategoriesResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -259,14 +259,14 @@ func (e GetCategoriesResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetCategoriesResponse.%s: %s%s",
+		"invalid %sRetrieveCategoriesResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetCategoriesResponseValidationError{}
+var _ error = RetrieveCategoriesResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -274,12 +274,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetCategoriesResponseValidationError{}
+} = RetrieveCategoriesResponseValidationError{}
 
-// Validate checks the field values on GetAttributesSchemaRequest with the
+// Validate checks the field values on RetrieveAttributesSchemaRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetAttributesSchemaRequest) Validate() error {
+func (m *RetrieveAttributesSchemaRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -289,9 +289,10 @@ func (m *GetAttributesSchemaRequest) Validate() error {
 	return nil
 }
 
-// GetAttributesSchemaRequestValidationError is the validation error returned
-// by GetAttributesSchemaRequest.Validate if the designated constraints aren't met.
-type GetAttributesSchemaRequestValidationError struct {
+// RetrieveAttributesSchemaRequestValidationError is the validation error
+// returned by RetrieveAttributesSchemaRequest.Validate if the designated
+// constraints aren't met.
+type RetrieveAttributesSchemaRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -299,24 +300,24 @@ type GetAttributesSchemaRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetAttributesSchemaRequestValidationError) Field() string { return e.field }
+func (e RetrieveAttributesSchemaRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetAttributesSchemaRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveAttributesSchemaRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetAttributesSchemaRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveAttributesSchemaRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetAttributesSchemaRequestValidationError) Key() bool { return e.key }
+func (e RetrieveAttributesSchemaRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetAttributesSchemaRequestValidationError) ErrorName() string {
-	return "GetAttributesSchemaRequestValidationError"
+func (e RetrieveAttributesSchemaRequestValidationError) ErrorName() string {
+	return "RetrieveAttributesSchemaRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetAttributesSchemaRequestValidationError) Error() string {
+func (e RetrieveAttributesSchemaRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -328,14 +329,14 @@ func (e GetAttributesSchemaRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetAttributesSchemaRequest.%s: %s%s",
+		"invalid %sRetrieveAttributesSchemaRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetAttributesSchemaRequestValidationError{}
+var _ error = RetrieveAttributesSchemaRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -343,12 +344,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetAttributesSchemaRequestValidationError{}
+} = RetrieveAttributesSchemaRequestValidationError{}
 
-// Validate checks the field values on GetAttributesDataRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveAttributesDataRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetAttributesDataRequest) Validate() error {
+func (m *RetrieveAttributesDataRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -360,9 +361,10 @@ func (m *GetAttributesDataRequest) Validate() error {
 	return nil
 }
 
-// GetAttributesDataRequestValidationError is the validation error returned by
-// GetAttributesDataRequest.Validate if the designated constraints aren't met.
-type GetAttributesDataRequestValidationError struct {
+// RetrieveAttributesDataRequestValidationError is the validation error
+// returned by RetrieveAttributesDataRequest.Validate if the designated
+// constraints aren't met.
+type RetrieveAttributesDataRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -370,24 +372,24 @@ type GetAttributesDataRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetAttributesDataRequestValidationError) Field() string { return e.field }
+func (e RetrieveAttributesDataRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetAttributesDataRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveAttributesDataRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetAttributesDataRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveAttributesDataRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetAttributesDataRequestValidationError) Key() bool { return e.key }
+func (e RetrieveAttributesDataRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetAttributesDataRequestValidationError) ErrorName() string {
-	return "GetAttributesDataRequestValidationError"
+func (e RetrieveAttributesDataRequestValidationError) ErrorName() string {
+	return "RetrieveAttributesDataRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetAttributesDataRequestValidationError) Error() string {
+func (e RetrieveAttributesDataRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -399,14 +401,14 @@ func (e GetAttributesDataRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetAttributesDataRequest.%s: %s%s",
+		"invalid %sRetrieveAttributesDataRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetAttributesDataRequestValidationError{}
+var _ error = RetrieveAttributesDataRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -414,12 +416,95 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetAttributesDataRequestValidationError{}
+} = RetrieveAttributesDataRequestValidationError{}
 
-// Validate checks the field values on GetAttributesSchemaResponse with the
+// Validate checks the field values on RetrieveAttributesSchemaResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *RetrieveAttributesSchemaResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetAttributes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RetrieveAttributesSchemaResponseValidationError{
+					field:  fmt.Sprintf("Attributes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// RetrieveAttributesSchemaResponseValidationError is the validation error
+// returned by RetrieveAttributesSchemaResponse.Validate if the designated
+// constraints aren't met.
+type RetrieveAttributesSchemaResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveAttributesSchemaResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveAttributesSchemaResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveAttributesSchemaResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveAttributesSchemaResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveAttributesSchemaResponseValidationError) ErrorName() string {
+	return "RetrieveAttributesSchemaResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveAttributesSchemaResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveAttributesSchemaResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveAttributesSchemaResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveAttributesSchemaResponseValidationError{}
+
+// Validate checks the field values on RetrieveAttributesDataResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetAttributesSchemaResponse) Validate() error {
+func (m *RetrieveAttributesDataResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -429,7 +514,7 @@ func (m *GetAttributesSchemaResponse) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GetAttributesSchemaResponseValidationError{
+				return RetrieveAttributesDataResponseValidationError{
 					field:  fmt.Sprintf("Attributes[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -442,10 +527,10 @@ func (m *GetAttributesSchemaResponse) Validate() error {
 	return nil
 }
 
-// GetAttributesSchemaResponseValidationError is the validation error returned
-// by GetAttributesSchemaResponse.Validate if the designated constraints
-// aren't met.
-type GetAttributesSchemaResponseValidationError struct {
+// RetrieveAttributesDataResponseValidationError is the validation error
+// returned by RetrieveAttributesDataResponse.Validate if the designated
+// constraints aren't met.
+type RetrieveAttributesDataResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -453,24 +538,24 @@ type GetAttributesSchemaResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetAttributesSchemaResponseValidationError) Field() string { return e.field }
+func (e RetrieveAttributesDataResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetAttributesSchemaResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveAttributesDataResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetAttributesSchemaResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveAttributesDataResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetAttributesSchemaResponseValidationError) Key() bool { return e.key }
+func (e RetrieveAttributesDataResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetAttributesSchemaResponseValidationError) ErrorName() string {
-	return "GetAttributesSchemaResponseValidationError"
+func (e RetrieveAttributesDataResponseValidationError) ErrorName() string {
+	return "RetrieveAttributesDataResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetAttributesSchemaResponseValidationError) Error() string {
+func (e RetrieveAttributesDataResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -482,14 +567,14 @@ func (e GetAttributesSchemaResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetAttributesSchemaResponse.%s: %s%s",
+		"invalid %sRetrieveAttributesDataResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetAttributesSchemaResponseValidationError{}
+var _ error = RetrieveAttributesDataResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -497,89 +582,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetAttributesSchemaResponseValidationError{}
-
-// Validate checks the field values on GetAttributesDataResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetAttributesDataResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	for idx, item := range m.GetAttributes() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetAttributesDataResponseValidationError{
-					field:  fmt.Sprintf("Attributes[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// GetAttributesDataResponseValidationError is the validation error returned by
-// GetAttributesDataResponse.Validate if the designated constraints aren't met.
-type GetAttributesDataResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetAttributesDataResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetAttributesDataResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetAttributesDataResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetAttributesDataResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetAttributesDataResponseValidationError) ErrorName() string {
-	return "GetAttributesDataResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetAttributesDataResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetAttributesDataResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetAttributesDataResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetAttributesDataResponseValidationError{}
+} = RetrieveAttributesDataResponseValidationError{}
 
 // Validate checks the field values on SetAttributesDataResponse with the rules
 // defined in the proto definition for this message. If any rules are

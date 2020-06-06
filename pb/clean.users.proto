@@ -23,9 +23,9 @@ service Sign {
 
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
-  rpc FetchOnboarding (FetchOnboardingRequest) returns (FetchOnboardingResponse) {}
+  rpc RetrieveOnboarding (RetrieveOnboardingRequest) returns (RetrieveOnboardingResponse) {}
 
-  rpc FetchSelectableCategories (FetchSelectableCategoriesRequest) returns (FetchSelectableCategoriesResponse) {}
+  rpc RetrieveSelectableCategories (RetrieveSelectableCategoriesRequest) returns (RetrieveSelectableCategoriesResponse) {}
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
@@ -72,11 +72,11 @@ message SignUpSelectCategoryRequest{
   string category_name = 2;
 }
 
-message FetchSelectableCategoriesRequest {
+message RetrieveSelectableCategoriesRequest {
   uint64 onboarding_id = 1;
 }
 
-message FetchSelectableCategoriesResponse {
+message RetrieveSelectableCategoriesResponse {
   repeated Category categories = 1;
 }
 
@@ -107,11 +107,11 @@ message ForgotPasswordRequest {
   string email = 1;
 }
 
-message FetchOnboardingRequest {
+message RetrieveOnboardingRequest {
   uint64 onboarding_id = 1;
 }
 
-message FetchOnboardingResponse{
+message RetrieveOnboardingResponse{
   string role = 1;
   string email = 2;
   string name = 3;

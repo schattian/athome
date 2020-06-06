@@ -235,10 +235,10 @@ var _ interface {
 	ErrorName() string
 } = SignUpSelectCategoryRequestValidationError{}
 
-// Validate checks the field values on FetchSelectableCategoriesRequest with
+// Validate checks the field values on RetrieveSelectableCategoriesRequest with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, an error is returned.
-func (m *FetchSelectableCategoriesRequest) Validate() error {
+func (m *RetrieveSelectableCategoriesRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -248,10 +248,10 @@ func (m *FetchSelectableCategoriesRequest) Validate() error {
 	return nil
 }
 
-// FetchSelectableCategoriesRequestValidationError is the validation error
-// returned by FetchSelectableCategoriesRequest.Validate if the designated
+// RetrieveSelectableCategoriesRequestValidationError is the validation error
+// returned by RetrieveSelectableCategoriesRequest.Validate if the designated
 // constraints aren't met.
-type FetchSelectableCategoriesRequestValidationError struct {
+type RetrieveSelectableCategoriesRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -259,24 +259,24 @@ type FetchSelectableCategoriesRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchSelectableCategoriesRequestValidationError) Field() string { return e.field }
+func (e RetrieveSelectableCategoriesRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchSelectableCategoriesRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveSelectableCategoriesRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchSelectableCategoriesRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveSelectableCategoriesRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchSelectableCategoriesRequestValidationError) Key() bool { return e.key }
+func (e RetrieveSelectableCategoriesRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchSelectableCategoriesRequestValidationError) ErrorName() string {
-	return "FetchSelectableCategoriesRequestValidationError"
+func (e RetrieveSelectableCategoriesRequestValidationError) ErrorName() string {
+	return "RetrieveSelectableCategoriesRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchSelectableCategoriesRequestValidationError) Error() string {
+func (e RetrieveSelectableCategoriesRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -288,14 +288,14 @@ func (e FetchSelectableCategoriesRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchSelectableCategoriesRequest.%s: %s%s",
+		"invalid %sRetrieveSelectableCategoriesRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchSelectableCategoriesRequestValidationError{}
+var _ error = RetrieveSelectableCategoriesRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -303,22 +303,22 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchSelectableCategoriesRequestValidationError{}
+} = RetrieveSelectableCategoriesRequestValidationError{}
 
-// Validate checks the field values on FetchSelectableCategoriesResponse with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
-func (m *FetchSelectableCategoriesResponse) Validate() error {
+// Validate checks the field values on RetrieveSelectableCategoriesResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *RetrieveSelectableCategoriesResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	for idx, item := range m.GetCategories() {
+	for idx, item := range m.RetrieveCategories() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return FetchSelectableCategoriesResponseValidationError{
+				return RetrieveSelectableCategoriesResponseValidationError{
 					field:  fmt.Sprintf("Categories[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -331,10 +331,10 @@ func (m *FetchSelectableCategoriesResponse) Validate() error {
 	return nil
 }
 
-// FetchSelectableCategoriesResponseValidationError is the validation error
-// returned by FetchSelectableCategoriesResponse.Validate if the designated
+// RetrieveSelectableCategoriesResponseValidationError is the validation error
+// returned by RetrieveSelectableCategoriesResponse.Validate if the designated
 // constraints aren't met.
-type FetchSelectableCategoriesResponseValidationError struct {
+type RetrieveSelectableCategoriesResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -342,24 +342,24 @@ type FetchSelectableCategoriesResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchSelectableCategoriesResponseValidationError) Field() string { return e.field }
+func (e RetrieveSelectableCategoriesResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchSelectableCategoriesResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveSelectableCategoriesResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchSelectableCategoriesResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveSelectableCategoriesResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchSelectableCategoriesResponseValidationError) Key() bool { return e.key }
+func (e RetrieveSelectableCategoriesResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchSelectableCategoriesResponseValidationError) ErrorName() string {
-	return "FetchSelectableCategoriesResponseValidationError"
+func (e RetrieveSelectableCategoriesResponseValidationError) ErrorName() string {
+	return "RetrieveSelectableCategoriesResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchSelectableCategoriesResponseValidationError) Error() string {
+func (e RetrieveSelectableCategoriesResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -371,14 +371,14 @@ func (e FetchSelectableCategoriesResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchSelectableCategoriesResponse.%s: %s%s",
+		"invalid %sRetrieveSelectableCategoriesResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchSelectableCategoriesResponseValidationError{}
+var _ error = RetrieveSelectableCategoriesResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -386,7 +386,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchSelectableCategoriesResponseValidationError{}
+} = RetrieveSelectableCategoriesResponseValidationError{}
 
 // Validate checks the field values on Category with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -825,10 +825,10 @@ var _ interface {
 	ErrorName() string
 } = ForgotPasswordRequestValidationError{}
 
-// Validate checks the field values on FetchOnboardingRequest with the rules
+// Validate checks the field values on RetrieveOnboardingRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *FetchOnboardingRequest) Validate() error {
+func (m *RetrieveOnboardingRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -838,9 +838,9 @@ func (m *FetchOnboardingRequest) Validate() error {
 	return nil
 }
 
-// FetchOnboardingRequestValidationError is the validation error returned by
-// FetchOnboardingRequest.Validate if the designated constraints aren't met.
-type FetchOnboardingRequestValidationError struct {
+// RetrieveOnboardingRequestValidationError is the validation error returned by
+// RetrieveOnboardingRequest.Validate if the designated constraints aren't met.
+type RetrieveOnboardingRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -848,24 +848,24 @@ type FetchOnboardingRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchOnboardingRequestValidationError) Field() string { return e.field }
+func (e RetrieveOnboardingRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchOnboardingRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveOnboardingRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchOnboardingRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveOnboardingRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchOnboardingRequestValidationError) Key() bool { return e.key }
+func (e RetrieveOnboardingRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchOnboardingRequestValidationError) ErrorName() string {
-	return "FetchOnboardingRequestValidationError"
+func (e RetrieveOnboardingRequestValidationError) ErrorName() string {
+	return "RetrieveOnboardingRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchOnboardingRequestValidationError) Error() string {
+func (e RetrieveOnboardingRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -877,14 +877,14 @@ func (e FetchOnboardingRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchOnboardingRequest.%s: %s%s",
+		"invalid %sRetrieveOnboardingRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchOnboardingRequestValidationError{}
+var _ error = RetrieveOnboardingRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -892,12 +892,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchOnboardingRequestValidationError{}
+} = RetrieveOnboardingRequestValidationError{}
 
-// Validate checks the field values on FetchOnboardingResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveOnboardingResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *FetchOnboardingResponse) Validate() error {
+func (m *RetrieveOnboardingResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -915,9 +915,9 @@ func (m *FetchOnboardingResponse) Validate() error {
 	return nil
 }
 
-// FetchOnboardingResponseValidationError is the validation error returned by
-// FetchOnboardingResponse.Validate if the designated constraints aren't met.
-type FetchOnboardingResponseValidationError struct {
+// RetrieveOnboardingResponseValidationError is the validation error returned
+// by RetrieveOnboardingResponse.Validate if the designated constraints aren't met.
+type RetrieveOnboardingResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -925,24 +925,24 @@ type FetchOnboardingResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchOnboardingResponseValidationError) Field() string { return e.field }
+func (e RetrieveOnboardingResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchOnboardingResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveOnboardingResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchOnboardingResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveOnboardingResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchOnboardingResponseValidationError) Key() bool { return e.key }
+func (e RetrieveOnboardingResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchOnboardingResponseValidationError) ErrorName() string {
-	return "FetchOnboardingResponseValidationError"
+func (e RetrieveOnboardingResponseValidationError) ErrorName() string {
+	return "RetrieveOnboardingResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchOnboardingResponseValidationError) Error() string {
+func (e RetrieveOnboardingResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -954,14 +954,14 @@ func (e FetchOnboardingResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchOnboardingResponse.%s: %s%s",
+		"invalid %sRetrieveOnboardingResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchOnboardingResponseValidationError{}
+var _ error = RetrieveOnboardingResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -969,7 +969,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchOnboardingResponseValidationError{}
+} = RetrieveOnboardingResponseValidationError{}
 
 // Validate checks the field values on SignUpStartRequest with the rules
 // defined in the proto definition for this message. If any rules are

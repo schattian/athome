@@ -11,7 +11,7 @@ func (sp *ProductAttributeSchema) SetId(id uint64) {
 }
 
 func (sp *ProductAttributeSchema) SQLTable() string {
-	return "product_attributes_schema"
+	return "product_attribute_schemas"
 }
 
 func (sp *ProductAttributeSchema) SQLMap() map[string]driver.Value {

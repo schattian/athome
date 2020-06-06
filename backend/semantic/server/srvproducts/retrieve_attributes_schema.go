@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) GetAttributesSchema(ctx context.Context, in *pbsemantic.GetAttributesSchemaRequest) (*pbsemantic.GetAttributesSchemaResponse, error) {
+func (s *Server) RetrieveAttributesSchema(ctx context.Context, in *pbsemantic.RetrieveAttributesSchemaRequest) (*pbsemantic.RetrieveAttributesSchemaResponse, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -24,13 +24,13 @@ func (s *Server) GetAttributesSchema(ctx context.Context, in *pbsemantic.GetAttr
 	return s.getAttributesSchema(ctx, db, in)
 }
 
-func (s *Server) getAttributesSchema(ctx context.Context, db *sqlx.DB, in *pbsemantic.GetAttributesSchemaRequest) (*pbsemantic.GetAttributesSchemaResponse, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_attributes_schema WHERE category_id = $1`, in.GetCategoryId())
+func (s *Server) getAttributesSchema(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributesSchemaRequest) (*pbsemantic.RetrieveAttributesSchemaResponse, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_attribute_schemas WHERE category_id = $1`, in.GetCategoryId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
 
-	atts := &pbsemantic.GetAttributesSchemaResponse{}
+	atts := &pbsemantic.RetrieveAttributesSchemaResponse{}
 	for rows.Next() {
 		att := &schema.ProductAttributeSchema{}
 		err = rows.StructScan(att)

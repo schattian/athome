@@ -32,7 +32,7 @@ func (s *Server) CloneDraftLine(ctx context.Context, in *pbproducts.CloneDraftLi
 	}
 	defer semCloser()
 
-	draft, err := server.FetchLatestDraft(ctx, db, in.GetAccessToken())
+	draft, err := server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

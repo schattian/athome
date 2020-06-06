@@ -42,13 +42,13 @@ func (s *Server) SignUpIdentification(ctx context.Context, in *pbusers.SignUpIde
 }
 
 func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbidentifier.IdentifierClient, in *pbusers.SignUpIdentificationRequest) (e *emptypb.Empty, err error) {
-	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
+	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
 		return
 	}
 	if err != nil {
-		err = status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
+		err = status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
 		return
 	}
 	onboarding := previous.Next()

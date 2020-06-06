@@ -11,13 +11,14 @@ func (sp *ProductAttributeData) SetId(id uint64) {
 }
 
 func (sp *ProductAttributeData) SQLTable() string {
-	return "product_attributes_schema"
+	return "product_attribute_datas"
 }
 
 func (sp *ProductAttributeData) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
 		"id":        sp.Id,
 		"schema_id": sp.SchemaId,
+		"user_id":   sp.UserId,
 
 		"bool_value":     sp.BoolValue,
 		"string_value":   sp.StringValue,

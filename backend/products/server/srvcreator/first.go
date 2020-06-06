@@ -50,7 +50,7 @@ func (s *Server) First(srv pbproducts.Creator_FirstServer) error {
 		}
 
 		if draft == nil { // first iteration
-			draft, err = server.FetchLatestDraft(ctx, db, in.GetAccessToken())
+			draft, err = server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
 			if err != nil {
 				return err
 			}

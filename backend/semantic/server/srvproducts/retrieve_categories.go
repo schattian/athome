@@ -12,7 +12,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) GetCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.GetCategoriesResponse, error) {
+func (s *Server) RetrieveCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.RetrieveCategoriesResponse, error) {
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
@@ -21,7 +21,7 @@ func (s *Server) GetCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemant
 	return s.getCategories(ctx, db)
 }
 
-func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.GetCategoriesResponse, error) {
+func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.RetrieveCategoriesResponse, error) {
 	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_categories ORDER BY parent_id`)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
@@ -41,5 +41,5 @@ func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.Ge
 		}
 	}
 
-	return server.CategoryTreeToGetCategoriesResponse(tree), nil
+	return server.CategoryTreeToRetrieveCategoriesResponse(tree), nil
 }

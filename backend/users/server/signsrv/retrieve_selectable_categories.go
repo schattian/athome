@@ -14,7 +14,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) FetchSelectableCategories(ctx context.Context, in *pbusers.FetchSelectableCategoriesRequest) (*pbusers.FetchSelectableCategoriesResponse, error) {
+func (s *Server) RetrieveSelectableCategories(ctx context.Context, in *pbusers.RetrieveSelectableCategoriesRequest) (*pbusers.RetrieveSelectableCategoriesResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -24,20 +24,20 @@ func (s *Server) FetchSelectableCategories(ctx context.Context, in *pbusers.Fetc
 	}
 	defer db.Close()
 
-	return s.fetchSelectableCategories(ctx, db, in)
+	return s.retrieveSelectableCategories(ctx, db, in)
 }
 
-func (s *Server) fetchSelectableCategories(
+func (s *Server) retrieveSelectableCategories(
 	ctx context.Context, db *sqlx.DB,
-	in *pbusers.FetchSelectableCategoriesRequest,
-) (out *pbusers.FetchSelectableCategoriesResponse, err error) {
-	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
+	in *pbusers.RetrieveSelectableCategoriesRequest,
+) (out *pbusers.RetrieveSelectableCategoriesResponse, err error) {
+	onboarding, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
 		return
 	}
 	if err != nil {
-		err = status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
+		err = status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
 		return
 	}
 
@@ -47,7 +47,7 @@ func (s *Server) fetchSelectableCategories(
 	}
 	defer semCloser()
 
-	categories, err := sem.GetCategories(ctx, &emptypb.Empty{})
+	categories, err := sem.RetrieveCategories(ctx, &emptypb.Empty{})
 	if err != nil {
 		return
 	}

@@ -28,9 +28,9 @@ func (s *Server) SignUpShared(ctx context.Context, in *pbusers.SignUpSharedReque
 }
 
 func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpSharedRequest) (*emptypb.Empty, error) {
-	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
+	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
 	}
 	if previous == nil {
 		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())

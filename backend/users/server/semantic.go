@@ -33,5 +33,5 @@ func ConnSemantic(ctx context.Context, role field.Role) (CategoriesClient, func(
 }
 
 type CategoriesClient interface {
-	GetCategories(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*pbsemantic.GetCategoriesResponse, error)
+	RetrieveCategories(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*pbsemantic.RetrieveCategoriesResponse, error)
 }

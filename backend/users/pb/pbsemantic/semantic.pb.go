@@ -152,85 +152,85 @@ func (m *AttributeSchema) GetValueType() string {
 	return ""
 }
 
-type GetCategoriesResponse struct {
+type RetrieveCategoriesResponse struct {
 	Categories           []*Category `protobuf:"bytes,1,rep,name=categories,proto3" json:"categories,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
 	XXX_sizecache        int32       `json:"-"`
 }
 
-func (m *GetCategoriesResponse) Reset()         { *m = GetCategoriesResponse{} }
-func (m *GetCategoriesResponse) String() string { return proto.CompactTextString(m) }
-func (*GetCategoriesResponse) ProtoMessage()    {}
-func (*GetCategoriesResponse) Descriptor() ([]byte, []int) {
+func (m *RetrieveCategoriesResponse) Reset()         { *m = RetrieveCategoriesResponse{} }
+func (m *RetrieveCategoriesResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveCategoriesResponse) ProtoMessage()    {}
+func (*RetrieveCategoriesResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{2}
 }
 
-func (m *GetCategoriesResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetCategoriesResponse.Unmarshal(m, b)
+func (m *RetrieveCategoriesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveCategoriesResponse.Unmarshal(m, b)
 }
-func (m *GetCategoriesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetCategoriesResponse.Marshal(b, m, deterministic)
+func (m *RetrieveCategoriesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveCategoriesResponse.Marshal(b, m, deterministic)
 }
-func (m *GetCategoriesResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetCategoriesResponse.Merge(m, src)
+func (m *RetrieveCategoriesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveCategoriesResponse.Merge(m, src)
 }
-func (m *GetCategoriesResponse) XXX_Size() int {
-	return xxx_messageInfo_GetCategoriesResponse.Size(m)
+func (m *RetrieveCategoriesResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveCategoriesResponse.Size(m)
 }
-func (m *GetCategoriesResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetCategoriesResponse.DiscardUnknown(m)
+func (m *RetrieveCategoriesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveCategoriesResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetCategoriesResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveCategoriesResponse proto.InternalMessageInfo
 
-func (m *GetCategoriesResponse) GetCategories() []*Category {
+func (m *RetrieveCategoriesResponse) RetrieveCategories() []*Category {
 	if m != nil {
 		return m.Categories
 	}
 	return nil
 }
 
-type GetAttributesSchemaRequest struct {
+type RetrieveAttributesSchemaRequest struct {
 	CategoryId           uint64   `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetAttributesSchemaRequest) Reset()         { *m = GetAttributesSchemaRequest{} }
-func (m *GetAttributesSchemaRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesSchemaRequest) ProtoMessage()    {}
-func (*GetAttributesSchemaRequest) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributesSchemaRequest) Reset()         { *m = RetrieveAttributesSchemaRequest{} }
+func (m *RetrieveAttributesSchemaRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributesSchemaRequest) ProtoMessage()    {}
+func (*RetrieveAttributesSchemaRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{3}
 }
 
-func (m *GetAttributesSchemaRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesSchemaRequest.Unmarshal(m, b)
+func (m *RetrieveAttributesSchemaRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Unmarshal(m, b)
 }
-func (m *GetAttributesSchemaRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesSchemaRequest.Marshal(b, m, deterministic)
+func (m *RetrieveAttributesSchemaRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesSchemaRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesSchemaRequest.Merge(m, src)
+func (m *RetrieveAttributesSchemaRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributesSchemaRequest.Merge(m, src)
 }
-func (m *GetAttributesSchemaRequest) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesSchemaRequest.Size(m)
+func (m *RetrieveAttributesSchemaRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Size(m)
 }
-func (m *GetAttributesSchemaRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesSchemaRequest.DiscardUnknown(m)
+func (m *RetrieveAttributesSchemaRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributesSchemaRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesSchemaRequest proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributesSchemaRequest proto.InternalMessageInfo
 
-func (m *GetAttributesSchemaRequest) GetCategoryId() uint64 {
+func (m *RetrieveAttributesSchemaRequest) GetCategoryId() uint64 {
 	if m != nil {
 		return m.CategoryId
 	}
 	return 0
 }
 
-type GetAttributesDataRequest struct {
+type RetrieveAttributesDataRequest struct {
 	EntityId             uint64   `protobuf:"varint,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
 	EntityTable          string   `protobuf:"bytes,2,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -238,117 +238,117 @@ type GetAttributesDataRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetAttributesDataRequest) Reset()         { *m = GetAttributesDataRequest{} }
-func (m *GetAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesDataRequest) ProtoMessage()    {}
-func (*GetAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributesDataRequest) Reset()         { *m = RetrieveAttributesDataRequest{} }
+func (m *RetrieveAttributesDataRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributesDataRequest) ProtoMessage()    {}
+func (*RetrieveAttributesDataRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{4}
 }
 
-func (m *GetAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesDataRequest.Unmarshal(m, b)
+func (m *RetrieveAttributesDataRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributesDataRequest.Unmarshal(m, b)
 }
-func (m *GetAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *RetrieveAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributesDataRequest.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesDataRequest.Merge(m, src)
+func (m *RetrieveAttributesDataRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributesDataRequest.Merge(m, src)
 }
-func (m *GetAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesDataRequest.Size(m)
+func (m *RetrieveAttributesDataRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributesDataRequest.Size(m)
 }
-func (m *GetAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesDataRequest.DiscardUnknown(m)
+func (m *RetrieveAttributesDataRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributesDataRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesDataRequest proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributesDataRequest proto.InternalMessageInfo
 
-func (m *GetAttributesDataRequest) GetEntityId() uint64 {
+func (m *RetrieveAttributesDataRequest) GetEntityId() uint64 {
 	if m != nil {
 		return m.EntityId
 	}
 	return 0
 }
 
-func (m *GetAttributesDataRequest) GetEntityTable() string {
+func (m *RetrieveAttributesDataRequest) GetEntityTable() string {
 	if m != nil {
 		return m.EntityTable
 	}
 	return ""
 }
 
-type GetAttributesSchemaResponse struct {
+type RetrieveAttributesSchemaResponse struct {
 	Attributes           []*AttributeSchema `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
 	XXX_unrecognized     []byte             `json:"-"`
 	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *GetAttributesSchemaResponse) Reset()         { *m = GetAttributesSchemaResponse{} }
-func (m *GetAttributesSchemaResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesSchemaResponse) ProtoMessage()    {}
-func (*GetAttributesSchemaResponse) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributesSchemaResponse) Reset()         { *m = RetrieveAttributesSchemaResponse{} }
+func (m *RetrieveAttributesSchemaResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributesSchemaResponse) ProtoMessage()    {}
+func (*RetrieveAttributesSchemaResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{5}
 }
 
-func (m *GetAttributesSchemaResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesSchemaResponse.Unmarshal(m, b)
+func (m *RetrieveAttributesSchemaResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Unmarshal(m, b)
 }
-func (m *GetAttributesSchemaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesSchemaResponse.Marshal(b, m, deterministic)
+func (m *RetrieveAttributesSchemaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesSchemaResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesSchemaResponse.Merge(m, src)
+func (m *RetrieveAttributesSchemaResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributesSchemaResponse.Merge(m, src)
 }
-func (m *GetAttributesSchemaResponse) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesSchemaResponse.Size(m)
+func (m *RetrieveAttributesSchemaResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Size(m)
 }
-func (m *GetAttributesSchemaResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesSchemaResponse.DiscardUnknown(m)
+func (m *RetrieveAttributesSchemaResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributesSchemaResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesSchemaResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributesSchemaResponse proto.InternalMessageInfo
 
-func (m *GetAttributesSchemaResponse) GetAttributes() []*AttributeSchema {
+func (m *RetrieveAttributesSchemaResponse) GetAttributes() []*AttributeSchema {
 	if m != nil {
 		return m.Attributes
 	}
 	return nil
 }
 
-type GetAttributesDataResponse struct {
+type RetrieveAttributesDataResponse struct {
 	Attributes           []*SetAttributesDataResponse `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                     `json:"-"`
 	XXX_unrecognized     []byte                       `json:"-"`
 	XXX_sizecache        int32                        `json:"-"`
 }
 
-func (m *GetAttributesDataResponse) Reset()         { *m = GetAttributesDataResponse{} }
-func (m *GetAttributesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAttributesDataResponse) ProtoMessage()    {}
-func (*GetAttributesDataResponse) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributesDataResponse) Reset()         { *m = RetrieveAttributesDataResponse{} }
+func (m *RetrieveAttributesDataResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributesDataResponse) ProtoMessage()    {}
+func (*RetrieveAttributesDataResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{6}
 }
 
-func (m *GetAttributesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAttributesDataResponse.Unmarshal(m, b)
+func (m *RetrieveAttributesDataResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributesDataResponse.Unmarshal(m, b)
 }
-func (m *GetAttributesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAttributesDataResponse.Marshal(b, m, deterministic)
+func (m *RetrieveAttributesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributesDataResponse.Marshal(b, m, deterministic)
 }
-func (m *GetAttributesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAttributesDataResponse.Merge(m, src)
+func (m *RetrieveAttributesDataResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributesDataResponse.Merge(m, src)
 }
-func (m *GetAttributesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_GetAttributesDataResponse.Size(m)
+func (m *RetrieveAttributesDataResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributesDataResponse.Size(m)
 }
-func (m *GetAttributesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAttributesDataResponse.DiscardUnknown(m)
+func (m *RetrieveAttributesDataResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributesDataResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAttributesDataResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributesDataResponse proto.InternalMessageInfo
 
-func (m *GetAttributesDataResponse) GetAttributes() []*SetAttributesDataResponse {
+func (m *RetrieveAttributesDataResponse) GetAttributes() []*SetAttributesDataResponse {
 	if m != nil {
 		return m.Attributes
 	}
@@ -777,11 +777,11 @@ func (m *PredictCategoryResponse) GetScore() float64 {
 func init() {
 	proto.RegisterType((*Category)(nil), "semantic.Category")
 	proto.RegisterType((*AttributeSchema)(nil), "semantic.AttributeSchema")
-	proto.RegisterType((*GetCategoriesResponse)(nil), "semantic.GetCategoriesResponse")
-	proto.RegisterType((*GetAttributesSchemaRequest)(nil), "semantic.GetAttributesSchemaRequest")
-	proto.RegisterType((*GetAttributesDataRequest)(nil), "semantic.GetAttributesDataRequest")
-	proto.RegisterType((*GetAttributesSchemaResponse)(nil), "semantic.GetAttributesSchemaResponse")
-	proto.RegisterType((*GetAttributesDataResponse)(nil), "semantic.GetAttributesDataResponse")
+	proto.RegisterType((*RetrieveCategoriesResponse)(nil), "semantic.RetrieveCategoriesResponse")
+	proto.RegisterType((*RetrieveAttributesSchemaRequest)(nil), "semantic.RetrieveAttributesSchemaRequest")
+	proto.RegisterType((*RetrieveAttributesDataRequest)(nil), "semantic.RetrieveAttributesDataRequest")
+	proto.RegisterType((*RetrieveAttributesSchemaResponse)(nil), "semantic.RetrieveAttributesSchemaResponse")
+	proto.RegisterType((*RetrieveAttributesDataResponse)(nil), "semantic.RetrieveAttributesDataResponse")
 	proto.RegisterType((*SetAttributesDataResponse)(nil), "semantic.SetAttributesDataResponse")
 	proto.RegisterType((*CloneAttributesDataResponse)(nil), "semantic.CloneAttributesDataResponse")
 	proto.RegisterType((*SetAttributesDataRequest)(nil), "semantic.SetAttributesDataRequest")
@@ -797,58 +797,58 @@ func init() {
 }
 
 var fileDescriptor_32e5db2b9bc8653e = []byte{
-	// 806 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0xdd, 0x6e, 0xf3, 0x44,
-	0x10, 0x8d, 0x93, 0x10, 0x25, 0x93, 0x9f, 0xd2, 0xfd, 0xa0, 0x75, 0x1d, 0xa1, 0x2f, 0x9f, 0x5b,
-	0xa4, 0xa8, 0x08, 0xa7, 0x0a, 0x57, 0x5c, 0x70, 0xd1, 0x3f, 0xb5, 0x01, 0x21, 0x55, 0x4e, 0x25,
-	0xaa, 0x0a, 0x35, 0x6c, 0xbc, 0xdb, 0x66, 0x45, 0x62, 0x1b, 0xef, 0x3a, 0x28, 0xbc, 0x0d, 0x2f,
-	0xc0, 0x53, 0xf0, 0x60, 0xc8, 0x5e, 0xdb, 0xb1, 0x13, 0x3b, 0xed, 0x45, 0xb9, 0xf3, 0xce, 0x9e,
-	0x39, 0x73, 0x66, 0x76, 0x7d, 0x16, 0x3a, 0x9c, 0x2e, 0xb0, 0x2d, 0x98, 0x65, 0xb8, 0x9e, 0x23,
-	0x1c, 0x54, 0x8f, 0xd7, 0xda, 0xe1, 0x12, 0xcf, 0x19, 0xc1, 0x82, 0x0e, 0xe2, 0x0f, 0x09, 0xd1,
-	0xba, 0x2f, 0x8e, 0xf3, 0x32, 0xa7, 0x83, 0x70, 0x35, 0xf5, 0x9f, 0x07, 0x74, 0xe1, 0x8a, 0x95,
-	0xdc, 0xd4, 0xff, 0x84, 0xfa, 0x25, 0x16, 0xf4, 0xc5, 0xf1, 0x56, 0xa8, 0x03, 0x65, 0x46, 0x54,
-	0xa5, 0xa7, 0xf4, 0xab, 0x66, 0x99, 0x11, 0x84, 0xa0, 0x6a, 0xe3, 0x05, 0x55, 0xcb, 0x3d, 0xa5,
-	0xdf, 0x30, 0xc3, 0x6f, 0xd4, 0x85, 0x86, 0x8b, 0x3d, 0x6a, 0x8b, 0x09, 0x23, 0x6a, 0x25, 0x84,
-	0xd6, 0x65, 0x60, 0x44, 0xd0, 0x29, 0xd4, 0xac, 0x19, 0x9b, 0x13, 0xae, 0x56, 0x7b, 0x95, 0x7e,
-	0x73, 0x88, 0x8c, 0x44, 0x6d, 0x5c, 0xc4, 0x8c, 0x10, 0xba, 0x0f, 0x7b, 0xe7, 0x42, 0x78, 0x6c,
-	0xea, 0x0b, 0x3a, 0xb6, 0x66, 0x74, 0x81, 0xb7, 0xea, 0x7f, 0x84, 0xa6, 0x15, 0xa5, 0x05, 0xd5,
-	0xca, 0xe1, 0x06, 0xc4, 0xa1, 0xd1, 0x5a, 0x60, 0x25, 0x25, 0xf0, 0x2b, 0x80, 0x25, 0x9e, 0xfb,
-	0x74, 0x22, 0x56, 0x2e, 0x55, 0xab, 0xe1, 0x4e, 0x23, 0x8c, 0xdc, 0xaf, 0x5c, 0xaa, 0xff, 0x04,
-	0x5f, 0xde, 0x50, 0x11, 0xa9, 0x61, 0x94, 0x9b, 0x94, 0xbb, 0x8e, 0xcd, 0x29, 0x1a, 0x42, 0xcc,
-	0xcc, 0x28, 0x57, 0x95, 0x42, 0xfd, 0x29, 0x94, 0xfe, 0x03, 0x68, 0x37, 0x54, 0x24, 0x6d, 0x70,
-	0xd9, 0x87, 0x49, 0xff, 0xf0, 0x29, 0x17, 0x9b, 0xf2, 0x95, 0x4d, 0xf9, 0xfa, 0x23, 0xa8, 0x99,
-	0xf4, 0x2b, 0x2c, 0x92, 0xe4, 0x2e, 0x34, 0xa8, 0x2d, 0x98, 0x48, 0xa5, 0xd6, 0x65, 0x60, 0x44,
-	0xd0, 0x27, 0x68, 0x45, 0x9b, 0x02, 0x4f, 0xe7, 0xf1, 0x01, 0x35, 0x65, 0xec, 0x3e, 0x08, 0xe9,
-	0x0f, 0xd0, 0xcd, 0x95, 0x16, 0x75, 0xfb, 0x3d, 0x00, 0x4e, 0xf6, 0xa2, 0x6e, 0x8f, 0xd6, 0xdd,
-	0x6e, 0x9c, 0x8c, 0x99, 0x02, 0xeb, 0xbf, 0xc1, 0x51, 0x8e, 0xea, 0x88, 0xf7, 0x32, 0x87, 0xf7,
-	0x78, 0xcd, 0x3b, 0x2e, 0x4a, 0xcc, 0x54, 0x10, 0x70, 0x54, 0x08, 0x44, 0xa7, 0xb0, 0x9f, 0x40,
-	0x27, 0x04, 0x0b, 0xbc, 0x1e, 0xd0, 0x5e, 0xb2, 0x11, 0x64, 0x8c, 0x08, 0xfa, 0x06, 0xaa, 0x01,
-	0x22, 0x9c, 0x4f, 0x73, 0x78, 0x98, 0xd3, 0x5f, 0x48, 0x1d, 0x82, 0xf4, 0x29, 0x74, 0x2f, 0xe7,
-	0x8e, 0x4d, 0xff, 0xcf, 0xce, 0xfe, 0x2e, 0x83, 0x3a, 0x2e, 0x3a, 0xf2, 0x07, 0x68, 0x63, 0x5f,
-	0xcc, 0x1c, 0x8f, 0xfd, 0x85, 0x05, 0x73, 0xec, 0xb0, 0xab, 0xe6, 0xf0, 0x6c, 0x67, 0x91, 0x30,
-	0xd5, 0x38, 0x4f, 0xe7, 0xdd, 0x96, 0xcc, 0x2c, 0x11, 0xfa, 0xf6, 0x4d, 0x73, 0xb8, 0x2d, 0xc9,
-	0x49, 0x68, 0x1e, 0xb4, 0x33, 0x84, 0xc1, 0x7d, 0xc3, 0x96, 0x45, 0x39, 0x9f, 0x08, 0xe7, 0x77,
-	0x2a, 0x85, 0x35, 0xcc, 0xa6, 0x8c, 0xdd, 0x07, 0xa1, 0xec, 0x7d, 0x2d, 0xbf, 0x72, 0x5f, 0x2b,
-	0x5b, 0xf7, 0xf5, 0xa2, 0x0e, 0x35, 0xcb, 0xf1, 0x5c, 0x9f, 0xeb, 0xff, 0x28, 0xa0, 0xe5, 0x1e,
-	0x84, 0x9c, 0xd2, 0x1b, 0xb4, 0x9c, 0x40, 0xe7, 0xd9, 0x73, 0x16, 0x93, 0x4d, 0x41, 0xad, 0x20,
-	0x7a, 0x1d, 0x8b, 0x3a, 0x81, 0x0e, 0xa1, 0x5c, 0xa4, 0x50, 0xd2, 0xce, 0x5a, 0x41, 0xf4, 0xba,
-	0x48, 0x7a, 0x75, 0xfb, 0x57, 0xbb, 0x82, 0x76, 0x66, 0x8e, 0xc1, 0x2c, 0x78, 0xf8, 0xdf, 0xa4,
-	0xfe, 0x5d, 0x19, 0x18, 0x11, 0x74, 0x00, 0xb5, 0xd0, 0x8d, 0xb8, 0x5a, 0xee, 0x55, 0xfa, 0x0d,
-	0x33, 0x5a, 0xe9, 0x06, 0x1c, 0xdc, 0x79, 0x94, 0x30, 0x4b, 0x24, 0x56, 0x13, 0x75, 0xfc, 0x05,
-	0x7c, 0x26, 0x98, 0x98, 0xd3, 0xa8, 0x55, 0xb9, 0xd0, 0x27, 0x70, 0xb8, 0x85, 0x8f, 0xae, 0xaa,
-	0x01, 0xf5, 0xd8, 0x65, 0xa2, 0x3b, 0x94, 0x67, 0x64, 0x09, 0x26, 0x28, 0xc0, 0x2d, 0xc7, 0x93,
-	0x3e, 0xa2, 0x98, 0x72, 0x31, 0x7c, 0x82, 0xcf, 0xc7, 0xd4, 0x5b, 0x32, 0x8b, 0xde, 0x79, 0xce,
-	0x92, 0x11, 0xea, 0x71, 0xf4, 0x23, 0xb4, 0x33, 0xee, 0x89, 0x0e, 0x0c, 0xf9, 0xb8, 0x18, 0xf1,
-	0xe3, 0x62, 0x5c, 0x07, 0x8f, 0x8b, 0xf6, 0x71, 0x5d, 0x30, 0xd7, 0x6e, 0xf5, 0xd2, 0xf0, 0x17,
-	0x68, 0xfc, 0x4c, 0x3d, 0x6b, 0x86, 0x6d, 0xf1, 0xbe, 0xc4, 0xff, 0x56, 0xa1, 0x7e, 0xe7, 0x39,
-	0xc4, 0xb7, 0x04, 0x47, 0xbf, 0xc2, 0xde, 0xc6, 0x98, 0x50, 0x6f, 0x4d, 0x91, 0x3f, 0x71, 0xed,
-	0xd3, 0x0e, 0x44, 0x5c, 0xa6, 0xaf, 0x9c, 0x29, 0xef, 0x29, 0x1b, 0x11, 0xf8, 0x90, 0xe3, 0xd8,
-	0xe8, 0x24, 0x93, 0x59, 0xf0, 0xd6, 0x68, 0x5f, 0xbf, 0x82, 0x4a, 0xaa, 0x3c, 0xc1, 0xfe, 0x96,
-	0x7b, 0x23, 0xbd, 0x20, 0x3b, 0xf5, 0xdf, 0x69, 0xc7, 0x3b, 0x31, 0x09, 0xff, 0x14, 0xf6, 0xc7,
-	0xbb, 0xf8, 0xc7, 0x6f, 0xe0, 0x1f, 0x17, 0xf3, 0x87, 0x53, 0x27, 0xf0, 0x21, 0xc7, 0x20, 0xd2,
-	0x93, 0x2a, 0xf6, 0x8f, 0xf4, 0xa4, 0x76, 0xd8, 0xbd, 0x5e, 0xba, 0xe8, 0x3c, 0xb6, 0x8c, 0x81,
-	0x3b, 0x8d, 0xd1, 0xd3, 0x5a, 0x78, 0xa4, 0xdf, 0xfd, 0x17, 0x00, 0x00, 0xff, 0xff, 0xdc, 0x36,
-	0xe8, 0x21, 0x82, 0x09, 0x00, 0x00,
+	// 807 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0xd1, 0x6e, 0xe2, 0x46,
+	0x14, 0x8d, 0x81, 0x46, 0x70, 0x21, 0xa4, 0x3b, 0xad, 0x88, 0xd7, 0x68, 0xbb, 0xac, 0x9b, 0xaa,
+	0x34, 0x55, 0xcd, 0x8a, 0x3e, 0xf5, 0x71, 0x93, 0x8d, 0xb4, 0x3c, 0x54, 0x42, 0x0e, 0x0f, 0x55,
+	0xd5, 0x0a, 0x0d, 0xf6, 0x4d, 0x18, 0x15, 0x6c, 0x77, 0x66, 0x4c, 0x45, 0xff, 0xa6, 0x3f, 0xd0,
+	0x2f, 0xeb, 0x47, 0x54, 0xf6, 0xd8, 0xc6, 0x60, 0x3b, 0xf0, 0x92, 0x37, 0xcf, 0x9d, 0x33, 0xe7,
+	0xde, 0x73, 0xef, 0xf8, 0x0c, 0x74, 0x05, 0xae, 0xa9, 0x27, 0x99, 0x63, 0x05, 0xdc, 0x97, 0x3e,
+	0x69, 0xa6, 0x6b, 0xe3, 0x6a, 0x43, 0x57, 0xcc, 0xa5, 0x12, 0x47, 0xe9, 0x87, 0x82, 0x18, 0xfd,
+	0x27, 0xdf, 0x7f, 0x5a, 0xe1, 0x28, 0x5e, 0x2d, 0xc2, 0xc7, 0x11, 0xae, 0x03, 0xb9, 0x55, 0x9b,
+	0xe6, 0x5f, 0xd0, 0xbc, 0xa3, 0x12, 0x9f, 0x7c, 0xbe, 0x25, 0x5d, 0xa8, 0x31, 0x57, 0xd7, 0x06,
+	0xda, 0xb0, 0x61, 0xd7, 0x98, 0x4b, 0x08, 0x34, 0x3c, 0xba, 0x46, 0xbd, 0x36, 0xd0, 0x86, 0x2d,
+	0x3b, 0xfe, 0x26, 0x7d, 0x68, 0x05, 0x94, 0xa3, 0x27, 0xe7, 0xcc, 0xd5, 0xeb, 0x31, 0xb4, 0xa9,
+	0x02, 0x13, 0x97, 0xdc, 0xc0, 0xb9, 0xb3, 0x64, 0x2b, 0x57, 0xe8, 0x8d, 0x41, 0x7d, 0xd8, 0x1e,
+	0x13, 0x2b, 0xab, 0x36, 0x4d, 0x62, 0x27, 0x08, 0x33, 0x84, 0xcb, 0x0f, 0x52, 0x72, 0xb6, 0x08,
+	0x25, 0x3e, 0x38, 0x4b, 0x5c, 0xd3, 0x42, 0xfe, 0xb7, 0xd0, 0x76, 0x92, 0x63, 0x51, 0xb6, 0x5a,
+	0xbc, 0x01, 0x69, 0x68, 0xb2, 0x2b, 0xb0, 0x9e, 0x2b, 0xf0, 0x0d, 0xc0, 0x86, 0xae, 0x42, 0x9c,
+	0xcb, 0x6d, 0x80, 0x7a, 0x23, 0xde, 0x69, 0xc5, 0x91, 0xd9, 0x36, 0x40, 0x73, 0x0a, 0x86, 0x8d,
+	0x92, 0x33, 0xdc, 0x60, 0x52, 0x12, 0x43, 0x61, 0xa3, 0x08, 0x7c, 0x4f, 0x20, 0x19, 0x43, 0x4a,
+	0xcf, 0x50, 0xe8, 0x5a, 0xa5, 0x88, 0x1c, 0xca, 0xbc, 0x85, 0xb7, 0x29, 0x63, 0x26, 0x48, 0x28,
+	0x45, 0x36, 0xfe, 0x19, 0xa2, 0x90, 0x87, 0x42, 0xb4, 0x43, 0x21, 0xe6, 0x1c, 0xde, 0x14, 0x39,
+	0x3e, 0x52, 0x99, 0x31, 0xf4, 0xa1, 0x85, 0x9e, 0x64, 0x32, 0x77, 0xbe, 0xa9, 0x02, 0x13, 0x97,
+	0xbc, 0x83, 0x4e, 0xb2, 0x29, 0xe9, 0x62, 0x95, 0xce, 0xab, 0xad, 0x62, 0xb3, 0x28, 0x64, 0xfe,
+	0x0e, 0x83, 0xea, 0x22, 0x13, 0xf1, 0x3f, 0x01, 0xd0, 0x6c, 0x2f, 0x11, 0xff, 0x7a, 0x27, 0xfe,
+	0x60, 0x5a, 0x76, 0x0e, 0x6c, 0x22, 0x7c, 0x55, 0x55, 0x7f, 0x42, 0x7e, 0x57, 0x42, 0xfe, 0xf5,
+	0x8e, 0xfc, 0x01, 0x65, 0xf9, 0xc1, 0xbd, 0x34, 0x12, 0x5e, 0x57, 0x02, 0xc9, 0x0d, 0xbc, 0xca,
+	0xa0, 0x73, 0x97, 0x4a, 0xba, 0x6b, 0xd5, 0x65, 0xb6, 0x11, 0x9d, 0x98, 0xb8, 0xe4, 0x7b, 0x68,
+	0x44, 0x88, 0xb8, 0x53, 0xed, 0xf1, 0x55, 0x89, 0xc8, 0x98, 0x3a, 0x06, 0x99, 0x0b, 0xe8, 0xdf,
+	0xad, 0x7c, 0xef, 0x45, 0x95, 0xfd, 0x53, 0x03, 0xbd, 0x04, 0xa9, 0x86, 0xff, 0x0b, 0x5c, 0xd0,
+	0x50, 0x2e, 0x7d, 0xce, 0xfe, 0xa6, 0x92, 0xf9, 0x5e, 0xac, 0xaa, 0x3d, 0x7e, 0xff, 0x6c, 0x92,
+	0xf8, 0xa8, 0xf5, 0x21, 0x7f, 0xee, 0xd3, 0x99, 0xbd, 0x4f, 0x44, 0x7e, 0x38, 0xa9, 0x0f, 0x9f,
+	0xce, 0x54, 0x27, 0x0c, 0x0e, 0x17, 0x7b, 0x84, 0xd1, 0xcd, 0xa3, 0x8e, 0x83, 0x42, 0xcc, 0xa5,
+	0xff, 0x07, 0xaa, 0xc2, 0x5a, 0x76, 0x5b, 0xc5, 0x66, 0x51, 0x68, 0xff, 0xe6, 0xd6, 0x8e, 0xdc,
+	0xdc, 0x7a, 0xe1, 0xe6, 0xde, 0x36, 0xe1, 0xdc, 0xf1, 0x79, 0x10, 0x0a, 0xf3, 0x5f, 0x0d, 0x8c,
+	0xd2, 0x41, 0xa8, 0x2e, 0x9d, 0x50, 0xcb, 0x35, 0x74, 0x1f, 0xb9, 0xbf, 0x9e, 0x1f, 0x16, 0xd4,
+	0x89, 0xa2, 0xf7, 0x69, 0x51, 0xd7, 0xd0, 0x75, 0x51, 0xc8, 0x1c, 0x4a, 0xf9, 0x5c, 0x27, 0x8a,
+	0xde, 0x57, 0x95, 0xde, 0x28, 0xfe, 0x74, 0x1f, 0xe1, 0x62, 0xaf, 0x8f, 0x51, 0x2f, 0x44, 0xfc,
+	0xf3, 0xe4, 0xfe, 0x62, 0x15, 0x98, 0xb8, 0xa4, 0x07, 0xe7, 0xb1, 0x4d, 0x09, 0xbd, 0x36, 0xa8,
+	0x0f, 0x5b, 0x76, 0xb2, 0x32, 0x2d, 0xe8, 0x4d, 0x39, 0xba, 0xcc, 0x91, 0x99, 0xfd, 0x24, 0x8a,
+	0xbf, 0x84, 0xcf, 0x24, 0x93, 0x2b, 0x4c, 0xa4, 0xaa, 0x85, 0x39, 0x87, 0xab, 0x02, 0x3e, 0xb9,
+	0xaa, 0x16, 0x34, 0x53, 0xd3, 0x49, 0xee, 0x50, 0x99, 0xb9, 0x65, 0x98, 0x28, 0x81, 0x70, 0x7c,
+	0xae, 0x1c, 0x45, 0xb3, 0xd5, 0x62, 0xbc, 0x84, 0xcf, 0x1f, 0x90, 0x6f, 0x98, 0x83, 0x53, 0xee,
+	0x6f, 0x98, 0x8b, 0x5c, 0x90, 0x19, 0x90, 0xa2, 0xad, 0x92, 0x9e, 0xa5, 0x9e, 0x1e, 0x2b, 0x7d,
+	0x7a, 0xac, 0xfb, 0xe8, 0xe9, 0x31, 0xae, 0x77, 0x59, 0xab, 0xcd, 0xd8, 0x3c, 0x1b, 0x53, 0x68,
+	0xfd, 0x8c, 0xdc, 0x59, 0x52, 0x4f, 0xbe, 0x54, 0x8a, 0xff, 0x1a, 0xd0, 0x9c, 0x72, 0xdf, 0x0d,
+	0x1d, 0x29, 0xc8, 0x6f, 0x70, 0x79, 0xd0, 0x3a, 0x32, 0xd8, 0xf1, 0x94, 0x4f, 0xc1, 0x78, 0xf7,
+	0x0c, 0x22, 0x4d, 0x33, 0xd4, 0xde, 0x6b, 0x2f, 0x23, 0x80, 0x08, 0xd0, 0xab, 0x9c, 0x9d, 0x7c,
+	0x57, 0xe4, 0xa8, 0x78, 0xa2, 0x8c, 0x9b, 0x53, 0xa0, 0x59, 0xd2, 0x35, 0xf4, 0xca, 0xfd, 0x9e,
+	0x7c, 0xfb, 0x1c, 0x4f, 0xee, 0x77, 0x35, 0x86, 0xc7, 0x81, 0x59, 0xba, 0x05, 0xbc, 0x2a, 0x38,
+	0x1c, 0x31, 0x8f, 0xdb, 0x9f, 0x71, 0x8a, 0x0f, 0x27, 0xd3, 0x71, 0xe1, 0x8b, 0x12, 0x73, 0x21,
+	0xb9, 0x31, 0x54, 0x7b, 0x8f, 0xf1, 0xcd, 0x11, 0x54, 0x9a, 0xe9, 0xb6, 0xfb, 0x6b, 0xc7, 0x1a,
+	0x05, 0x8b, 0x14, 0xbd, 0x38, 0x8f, 0xa7, 0xfe, 0xe3, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x17,
+	0x77, 0x18, 0x44, 0xd7, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -863,7 +863,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ServiceProvidersClient interface {
-	GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
+	RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error)
 }
 
 type serviceProvidersClient struct {
@@ -874,9 +874,9 @@ func NewServiceProvidersClient(cc grpc.ClientConnInterface) ServiceProvidersClie
 	return &serviceProvidersClient{cc}
 }
 
-func (c *serviceProvidersClient) GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error) {
-	out := new(GetCategoriesResponse)
-	err := c.cc.Invoke(ctx, "/semantic.ServiceProviders/GetCategories", in, out, opts...)
+func (c *serviceProvidersClient) RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error) {
+	out := new(RetrieveCategoriesResponse)
+	err := c.cc.Invoke(ctx, "/semantic.ServiceProviders/RetrieveCategories", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -885,35 +885,35 @@ func (c *serviceProvidersClient) GetCategories(ctx context.Context, in *empty.Em
 
 // ServiceProvidersServer is the server API for ServiceProviders service.
 type ServiceProvidersServer interface {
-	GetCategories(context.Context, *empty.Empty) (*GetCategoriesResponse, error)
+	RetrieveCategories(context.Context, *empty.Empty) (*RetrieveCategoriesResponse, error)
 }
 
 // UnimplementedServiceProvidersServer can be embedded to have forward compatible implementations.
 type UnimplementedServiceProvidersServer struct {
 }
 
-func (*UnimplementedServiceProvidersServer) GetCategories(ctx context.Context, req *empty.Empty) (*GetCategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategories not implemented")
+func (*UnimplementedServiceProvidersServer) RetrieveCategories(ctx context.Context, req *empty.Empty) (*RetrieveCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveCategories not implemented")
 }
 
 func RegisterServiceProvidersServer(s *grpc.Server, srv ServiceProvidersServer) {
 	s.RegisterService(&_ServiceProviders_serviceDesc, srv)
 }
 
-func _ServiceProviders_GetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ServiceProviders_RetrieveCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceProvidersServer).GetCategories(ctx, in)
+		return srv.(ServiceProvidersServer).RetrieveCategories(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.ServiceProviders/GetCategories",
+		FullMethod: "/semantic.ServiceProviders/RetrieveCategories",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProvidersServer).GetCategories(ctx, req.(*empty.Empty))
+		return srv.(ServiceProvidersServer).RetrieveCategories(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -923,8 +923,8 @@ var _ServiceProviders_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ServiceProvidersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCategories",
-			Handler:    _ServiceProviders_GetCategories_Handler,
+			MethodName: "RetrieveCategories",
+			Handler:    _ServiceProviders_RetrieveCategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -935,7 +935,7 @@ var _ServiceProviders_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MerchantsClient interface {
-	GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
+	RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error)
 }
 
 type merchantsClient struct {
@@ -946,9 +946,9 @@ func NewMerchantsClient(cc grpc.ClientConnInterface) MerchantsClient {
 	return &merchantsClient{cc}
 }
 
-func (c *merchantsClient) GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error) {
-	out := new(GetCategoriesResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Merchants/GetCategories", in, out, opts...)
+func (c *merchantsClient) RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error) {
+	out := new(RetrieveCategoriesResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Merchants/RetrieveCategories", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -957,35 +957,35 @@ func (c *merchantsClient) GetCategories(ctx context.Context, in *empty.Empty, op
 
 // MerchantsServer is the server API for Merchants service.
 type MerchantsServer interface {
-	GetCategories(context.Context, *empty.Empty) (*GetCategoriesResponse, error)
+	RetrieveCategories(context.Context, *empty.Empty) (*RetrieveCategoriesResponse, error)
 }
 
 // UnimplementedMerchantsServer can be embedded to have forward compatible implementations.
 type UnimplementedMerchantsServer struct {
 }
 
-func (*UnimplementedMerchantsServer) GetCategories(ctx context.Context, req *empty.Empty) (*GetCategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategories not implemented")
+func (*UnimplementedMerchantsServer) RetrieveCategories(ctx context.Context, req *empty.Empty) (*RetrieveCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveCategories not implemented")
 }
 
 func RegisterMerchantsServer(s *grpc.Server, srv MerchantsServer) {
 	s.RegisterService(&_Merchants_serviceDesc, srv)
 }
 
-func _Merchants_GetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Merchants_RetrieveCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MerchantsServer).GetCategories(ctx, in)
+		return srv.(MerchantsServer).RetrieveCategories(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Merchants/GetCategories",
+		FullMethod: "/semantic.Merchants/RetrieveCategories",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MerchantsServer).GetCategories(ctx, req.(*empty.Empty))
+		return srv.(MerchantsServer).RetrieveCategories(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -995,8 +995,8 @@ var _Merchants_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MerchantsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCategories",
-			Handler:    _Merchants_GetCategories_Handler,
+			MethodName: "RetrieveCategories",
+			Handler:    _Merchants_RetrieveCategories_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1008,9 +1008,9 @@ var _Merchants_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ProductsClient interface {
 	PredictCategory(ctx context.Context, opts ...grpc.CallOption) (Products_PredictCategoryClient, error)
-	GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
-	GetAttributesSchema(ctx context.Context, in *GetAttributesSchemaRequest, opts ...grpc.CallOption) (*GetAttributesSchemaResponse, error)
-	GetAttributesData(ctx context.Context, in *GetAttributesDataRequest, opts ...grpc.CallOption) (*GetAttributesDataResponse, error)
+	RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error)
+	RetrieveAttributesSchema(ctx context.Context, in *RetrieveAttributesSchemaRequest, opts ...grpc.CallOption) (*RetrieveAttributesSchemaResponse, error)
+	RetrieveAttributesData(ctx context.Context, in *RetrieveAttributesDataRequest, opts ...grpc.CallOption) (*RetrieveAttributesDataResponse, error)
 	SetAttributesData(ctx context.Context, opts ...grpc.CallOption) (Products_SetAttributesDataClient, error)
 	CloneAttributesData(ctx context.Context, in *CloneAttributesDataRequest, opts ...grpc.CallOption) (*CloneAttributesDataResponse, error)
 }
@@ -1054,27 +1054,27 @@ func (x *productsPredictCategoryClient) Recv() (*PredictCategoryResponse, error)
 	return m, nil
 }
 
-func (c *productsClient) GetCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*GetCategoriesResponse, error) {
-	out := new(GetCategoriesResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/GetCategories", in, out, opts...)
+func (c *productsClient) RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error) {
+	out := new(RetrieveCategoriesResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveCategories", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) GetAttributesSchema(ctx context.Context, in *GetAttributesSchemaRequest, opts ...grpc.CallOption) (*GetAttributesSchemaResponse, error) {
-	out := new(GetAttributesSchemaResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/GetAttributesSchema", in, out, opts...)
+func (c *productsClient) RetrieveAttributesSchema(ctx context.Context, in *RetrieveAttributesSchemaRequest, opts ...grpc.CallOption) (*RetrieveAttributesSchemaResponse, error) {
+	out := new(RetrieveAttributesSchemaResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributesSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) GetAttributesData(ctx context.Context, in *GetAttributesDataRequest, opts ...grpc.CallOption) (*GetAttributesDataResponse, error) {
-	out := new(GetAttributesDataResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/GetAttributesData", in, out, opts...)
+func (c *productsClient) RetrieveAttributesData(ctx context.Context, in *RetrieveAttributesDataRequest, opts ...grpc.CallOption) (*RetrieveAttributesDataResponse, error) {
+	out := new(RetrieveAttributesDataResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributesData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1124,9 +1124,9 @@ func (c *productsClient) CloneAttributesData(ctx context.Context, in *CloneAttri
 // ProductsServer is the server API for Products service.
 type ProductsServer interface {
 	PredictCategory(Products_PredictCategoryServer) error
-	GetCategories(context.Context, *empty.Empty) (*GetCategoriesResponse, error)
-	GetAttributesSchema(context.Context, *GetAttributesSchemaRequest) (*GetAttributesSchemaResponse, error)
-	GetAttributesData(context.Context, *GetAttributesDataRequest) (*GetAttributesDataResponse, error)
+	RetrieveCategories(context.Context, *empty.Empty) (*RetrieveCategoriesResponse, error)
+	RetrieveAttributesSchema(context.Context, *RetrieveAttributesSchemaRequest) (*RetrieveAttributesSchemaResponse, error)
+	RetrieveAttributesData(context.Context, *RetrieveAttributesDataRequest) (*RetrieveAttributesDataResponse, error)
 	SetAttributesData(Products_SetAttributesDataServer) error
 	CloneAttributesData(context.Context, *CloneAttributesDataRequest) (*CloneAttributesDataResponse, error)
 }
@@ -1138,14 +1138,14 @@ type UnimplementedProductsServer struct {
 func (*UnimplementedProductsServer) PredictCategory(srv Products_PredictCategoryServer) error {
 	return status.Errorf(codes.Unimplemented, "method PredictCategory not implemented")
 }
-func (*UnimplementedProductsServer) GetCategories(ctx context.Context, req *empty.Empty) (*GetCategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategories not implemented")
+func (*UnimplementedProductsServer) RetrieveCategories(ctx context.Context, req *empty.Empty) (*RetrieveCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveCategories not implemented")
 }
-func (*UnimplementedProductsServer) GetAttributesSchema(ctx context.Context, req *GetAttributesSchemaRequest) (*GetAttributesSchemaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAttributesSchema not implemented")
+func (*UnimplementedProductsServer) RetrieveAttributesSchema(ctx context.Context, req *RetrieveAttributesSchemaRequest) (*RetrieveAttributesSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributesSchema not implemented")
 }
-func (*UnimplementedProductsServer) GetAttributesData(ctx context.Context, req *GetAttributesDataRequest) (*GetAttributesDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAttributesData not implemented")
+func (*UnimplementedProductsServer) RetrieveAttributesData(ctx context.Context, req *RetrieveAttributesDataRequest) (*RetrieveAttributesDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributesData not implemented")
 }
 func (*UnimplementedProductsServer) SetAttributesData(srv Products_SetAttributesDataServer) error {
 	return status.Errorf(codes.Unimplemented, "method SetAttributesData not implemented")
@@ -1184,56 +1184,56 @@ func (x *productsPredictCategoryServer) Recv() (*PredictCategoryRequest, error) 
 	return m, nil
 }
 
-func _Products_GetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Products_RetrieveCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).GetCategories(ctx, in)
+		return srv.(ProductsServer).RetrieveCategories(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/GetCategories",
+		FullMethod: "/semantic.Products/RetrieveCategories",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetCategories(ctx, req.(*empty.Empty))
+		return srv.(ProductsServer).RetrieveCategories(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_GetAttributesSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAttributesSchemaRequest)
+func _Products_RetrieveAttributesSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveAttributesSchemaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).GetAttributesSchema(ctx, in)
+		return srv.(ProductsServer).RetrieveAttributesSchema(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/GetAttributesSchema",
+		FullMethod: "/semantic.Products/RetrieveAttributesSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetAttributesSchema(ctx, req.(*GetAttributesSchemaRequest))
+		return srv.(ProductsServer).RetrieveAttributesSchema(ctx, req.(*RetrieveAttributesSchemaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_GetAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAttributesDataRequest)
+func _Products_RetrieveAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveAttributesDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).GetAttributesData(ctx, in)
+		return srv.(ProductsServer).RetrieveAttributesData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/GetAttributesData",
+		FullMethod: "/semantic.Products/RetrieveAttributesData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetAttributesData(ctx, req.(*GetAttributesDataRequest))
+		return srv.(ProductsServer).RetrieveAttributesData(ctx, req.(*RetrieveAttributesDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1287,16 +1287,16 @@ var _Products_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ProductsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCategories",
-			Handler:    _Products_GetCategories_Handler,
+			MethodName: "RetrieveCategories",
+			Handler:    _Products_RetrieveCategories_Handler,
 		},
 		{
-			MethodName: "GetAttributesSchema",
-			Handler:    _Products_GetAttributesSchema_Handler,
+			MethodName: "RetrieveAttributesSchema",
+			Handler:    _Products_RetrieveAttributesSchema_Handler,
 		},
 		{
-			MethodName: "GetAttributesData",
-			Handler:    _Products_GetAttributesData_Handler,
+			MethodName: "RetrieveAttributesData",
+			Handler:    _Products_RetrieveAttributesData_Handler,
 		},
 		{
 			MethodName: "CloneAttributesData",

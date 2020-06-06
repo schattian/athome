@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS product_attributes_schema;
+DROP TABLE IF EXISTS product_attribute_schemas;

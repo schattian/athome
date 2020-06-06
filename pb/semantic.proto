@@ -8,19 +8,19 @@ option go_package = "./pbsemantic";
 package semantic;
 
 service ServiceProviders {
-  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
+  rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
 }
 
 service Merchants {
-  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
+  rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
 }
 
 service Products {
   rpc PredictCategory(stream PredictCategoryRequest) returns (stream PredictCategoryResponse) {}
 
-  rpc GetCategories (google.protobuf.Empty) returns (GetCategoriesResponse) {}
-  rpc GetAttributesSchema(GetAttributesSchemaRequest) returns (GetAttributesSchemaResponse) {}
-  rpc GetAttributesData(GetAttributesDataRequest) returns (GetAttributesDataResponse) {}
+  rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
+  rpc RetrieveAttributesSchema(RetrieveAttributesSchemaRequest) returns (RetrieveAttributesSchemaResponse) {}
+  rpc RetrieveAttributesData(RetrieveAttributesDataRequest) returns (RetrieveAttributesDataResponse) {}
 
   rpc SetAttributesData(stream SetAttributesDataRequest) returns (stream SetAttributesDataResponse) {}
   rpc CloneAttributesData(CloneAttributesDataRequest) returns (CloneAttributesDataResponse) {}
@@ -42,24 +42,24 @@ message AttributeSchema {
   string value_type = 4;
 }
 
-message GetCategoriesResponse {
+message RetrieveCategoriesResponse {
   repeated Category categories = 1;
 }
 
-message GetAttributesSchemaRequest {
+message RetrieveAttributesSchemaRequest {
   uint64 category_id = 1;
 }
 
-message GetAttributesDataRequest {
+message RetrieveAttributesDataRequest {
   uint64 entity_id = 1;
   string entity_table = 2;
 }
 
-message GetAttributesSchemaResponse {
+message RetrieveAttributesSchemaResponse {
   repeated AttributeSchema attributes = 1;
 }
 
-message GetAttributesDataResponse {
+message RetrieveAttributesDataResponse {
   repeated SetAttributesDataResponse attributes = 1;
 }
 

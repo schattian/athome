@@ -59,7 +59,7 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 
 		if draft == nil { // first iteration
 			access = in.GetAccessToken()
-			draft, err = server.FetchLatestDraft(ctx, db, access)
+			draft, err = server.RetrieveLatestDraft(ctx, db, access)
 			if err != nil {
 				return err
 			}

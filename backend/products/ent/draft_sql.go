@@ -16,7 +16,8 @@ func (u *Draft) SQLTable() string {
 
 func (u *Draft) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":    u.Id,
-		"stage": u.Stage,
+		"id":      u.Id,
+		"user_id": u.UserId,
+		"stage":   u.Stage,
 	}
 }

@@ -52,7 +52,7 @@ func (pc *ProductAttributeSchema) SetName(s string) {
 	pc.Name = s
 }
 
-func (pc *ProductAttributeSchema) GetCategoryId() uint64 {
+func (pc *ProductAttributeSchema) RetrieveCategoryId() uint64 {
 	return pc.CategoryId
 }
 

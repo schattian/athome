@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) FetchOnboarding(ctx context.Context, in *pbusers.FetchOnboardingRequest) (*pbusers.FetchOnboardingResponse, error) {
+func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest) (*pbusers.RetrieveOnboardingResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -23,22 +23,22 @@ func (s *Server) FetchOnboarding(ctx context.Context, in *pbusers.FetchOnboardin
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
-	return s.fetchOnboarding(ctx, db, in)
+	return s.retrieveOnboarding(ctx, db, in)
 }
 
-func (s *Server) fetchOnboarding(ctx context.Context, db *sqlx.DB, in *pbusers.FetchOnboardingRequest) (*pbusers.FetchOnboardingResponse, error) {
-	onboarding, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
+func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, in *pbusers.RetrieveOnboardingRequest) (*pbusers.RetrieveOnboardingResponse, error) {
+	onboarding, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
 	}
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
 	}
-	return onboardingToFetchOnboardingResponse(onboarding), nil
+	return onboardingToRetrieveOnboardingResponse(onboarding), nil
 }
 
-func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbusers.FetchOnboardingResponse {
-	return &pbusers.FetchOnboardingResponse{
+func onboardingToRetrieveOnboardingResponse(o *ent.Onboarding) *pbusers.RetrieveOnboardingResponse {
+	return &pbusers.RetrieveOnboardingResponse{
 		Email:   string(o.Email),
 		Name:    string(o.Name),
 		Role:    string(o.Role),
@@ -47,7 +47,7 @@ func onboardingToFetchOnboardingResponse(o *ent.Onboarding) *pbusers.FetchOnboar
 	}
 }
 
-func fetchOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*ent.Onboarding, error) {
+func retrieveOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*ent.Onboarding, error) {
 	o := &ent.Onboarding{}
 	row := db.QueryRowxContext(ctx, `SELECT * FROM onboardings WHERE id=$1`, token)
 	err := row.StructScan(o)

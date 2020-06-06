@@ -1,4 +1,4 @@
-package srvmerchants
+package srvproviders
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) GetCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.GetCategoriesResponse, error) {
+func (s *Server) RetrieveCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.RetrieveCategoriesResponse, error) {
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
@@ -21,15 +21,15 @@ func (s *Server) GetCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemant
 	return s.getCategories(ctx, db)
 }
 
-func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.GetCategoriesResponse, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM merchant_categories ORDER BY parent_id`)
+func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM service_provider_categories ORDER BY parent_id`)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
 
 	var tree schema.CategoryTree
 	for rows.Next() {
-		cat := &schema.MerchantCategory{}
+		cat := &schema.ServiceProviderCategory{}
 		err = rows.StructScan(cat)
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "StructScan: %v", err)
@@ -41,5 +41,5 @@ func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.Ge
 		}
 	}
 
-	return server.CategoryTreeToGetCategoriesResponse(tree), nil
+	return server.CategoryTreeToRetrieveCategoriesResponse(tree), nil
 }

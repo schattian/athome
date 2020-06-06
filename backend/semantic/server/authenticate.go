@@ -57,7 +57,7 @@ func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64
 	}
 	defer conn.Close()
 	c := pbproducts.NewCreatorClient(conn)
-	draft, err := c.FetchDraft(ctx, &pbproducts.FetchDraftRequest{AccessToken: access})
+	draft, err := c.RetrieveDraft(ctx, &pbproducts.RetrieveDraftRequest{AccessToken: access})
 	if err != nil {
 		return 0, err
 	}

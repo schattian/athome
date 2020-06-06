@@ -793,10 +793,10 @@ var _ interface {
 	ErrorName() string
 } = CloneDraftLineResponseValidationError{}
 
-// Validate checks the field values on FetchDraftRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *FetchDraftRequest) Validate() error {
+// Validate checks the field values on RetrieveDraftRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveDraftRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -806,9 +806,9 @@ func (m *FetchDraftRequest) Validate() error {
 	return nil
 }
 
-// FetchDraftRequestValidationError is the validation error returned by
-// FetchDraftRequest.Validate if the designated constraints aren't met.
-type FetchDraftRequestValidationError struct {
+// RetrieveDraftRequestValidationError is the validation error returned by
+// RetrieveDraftRequest.Validate if the designated constraints aren't met.
+type RetrieveDraftRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -816,24 +816,24 @@ type FetchDraftRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchDraftRequestValidationError) Field() string { return e.field }
+func (e RetrieveDraftRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchDraftRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveDraftRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchDraftRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveDraftRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchDraftRequestValidationError) Key() bool { return e.key }
+func (e RetrieveDraftRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchDraftRequestValidationError) ErrorName() string {
-	return "FetchDraftRequestValidationError"
+func (e RetrieveDraftRequestValidationError) ErrorName() string {
+	return "RetrieveDraftRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchDraftRequestValidationError) Error() string {
+func (e RetrieveDraftRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -845,14 +845,14 @@ func (e FetchDraftRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchDraftRequest.%s: %s%s",
+		"invalid %sRetrieveDraftRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchDraftRequestValidationError{}
+var _ error = RetrieveDraftRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -860,12 +860,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchDraftRequestValidationError{}
+} = RetrieveDraftRequestValidationError{}
 
-// Validate checks the field values on FetchDraftResponse with the rules
+// Validate checks the field values on RetrieveDraftResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *FetchDraftResponse) Validate() error {
+func (m *RetrieveDraftResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -881,7 +881,7 @@ func (m *FetchDraftResponse) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return FetchDraftResponseValidationError{
+				return RetrieveDraftResponseValidationError{
 					field:  fmt.Sprintf("Lines[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -894,9 +894,9 @@ func (m *FetchDraftResponse) Validate() error {
 	return nil
 }
 
-// FetchDraftResponseValidationError is the validation error returned by
-// FetchDraftResponse.Validate if the designated constraints aren't met.
-type FetchDraftResponseValidationError struct {
+// RetrieveDraftResponseValidationError is the validation error returned by
+// RetrieveDraftResponse.Validate if the designated constraints aren't met.
+type RetrieveDraftResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -904,24 +904,24 @@ type FetchDraftResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchDraftResponseValidationError) Field() string { return e.field }
+func (e RetrieveDraftResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchDraftResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveDraftResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchDraftResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveDraftResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchDraftResponseValidationError) Key() bool { return e.key }
+func (e RetrieveDraftResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchDraftResponseValidationError) ErrorName() string {
-	return "FetchDraftResponseValidationError"
+func (e RetrieveDraftResponseValidationError) ErrorName() string {
+	return "RetrieveDraftResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e FetchDraftResponseValidationError) Error() string {
+func (e RetrieveDraftResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -933,14 +933,14 @@ func (e FetchDraftResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchDraftResponse.%s: %s%s",
+		"invalid %sRetrieveDraftResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchDraftResponseValidationError{}
+var _ error = RetrieveDraftResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -948,7 +948,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchDraftResponseValidationError{}
+} = RetrieveDraftResponseValidationError{}
 
 // Validate checks the field values on SecondRequest_Body with the rules
 // defined in the proto definition for this message. If any rules are

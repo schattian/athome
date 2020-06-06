@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) FetchDraft(ctx context.Context, in *pbproducts.FetchDraftRequest) (*pbproducts.FetchDraftResponse, error) {
+func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraftRequest) (*pbproducts.RetrieveDraftResponse, error) {
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
@@ -29,14 +29,14 @@ func (s *Server) FetchDraft(ctx context.Context, in *pbproducts.FetchDraftReques
 	}
 	defer semCloser()
 
-	draft, err := server.FetchLatestDraft(ctx, db, in.GetAccessToken())
+	draft, err := server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
-	return s.fetchDraft(ctx, db, sem, draft)
+	return s.retrieveDraft(ctx, db, sem, draft)
 }
 
-func (s *Server) fetchDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, d *ent.Draft) (*pbproducts.FetchDraftResponse, error) {
+func (s *Server) retrieveDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, d *ent.Draft) (*pbproducts.RetrieveDraftResponse, error) {
 	lns, err := d.Lines(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Lines: %v", err)
@@ -47,11 +47,13 @@ func (s *Server) fetchDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.Pro
 	for _, ln := range lns {
 		var atts []*pbproducts.AttributeData
 		if d.Stage >= stage.Second {
-			semResp, err := sem.GetAttributesData(ctx, &pbsemantic.GetAttributesDataRequest{EntityId: ln.GetId(), EntityTable: ln.SQLTable()})
+			semResp, err := sem.RetrieveAttributesData(ctx,
+				&pbsemantic.RetrieveAttributesDataRequest{EntityId: ln.GetId(), EntityTable: ln.SQLTable()},
+			)
 			if err != nil {
 				return nil, err
 			}
-			atts = server.PbSemanticGetAttributesDataToPbProductAttributes(semResp)
+			atts = server.PbSemanticRetrieveAttributesDataToPbProductAttributes(semResp)
 		}
 		resp.Lines = append(resp.Lines, draftLineToPbDraftLine(ln, atts))
 	}
@@ -59,8 +61,8 @@ func (s *Server) fetchDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.Pro
 	return resp, nil
 }
 
-func draftToPbDraft(d *ent.Draft) *pbproducts.FetchDraftResponse {
-	return &pbproducts.FetchDraftResponse{
+func draftToPbDraft(d *ent.Draft) *pbproducts.RetrieveDraftResponse {
+	return &pbproducts.RetrieveDraftResponse{
 		DraftId: d.Id,
 		Stage:   uint64(d.Stage),
 	}

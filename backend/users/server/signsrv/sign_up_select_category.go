@@ -29,13 +29,13 @@ func (s *Server) SignUpSelectCategory(ctx context.Context, in *pbusers.SignUpSel
 }
 
 func (s *Server) signUpSelectCategory(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpSelectCategoryRequest) (e *emptypb.Empty, err error) {
-	previous, err := fetchOnboardingByToken(ctx, db, in.GetOnboardingId())
+	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
 	if errors.Is(err, sql.ErrNoRows) {
 		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
 		return
 	}
 	if err != nil {
-		err = status.Errorf(xerrors.Internal, "fetchOnboardingByToken: %v", err)
+		err = status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
 		return
 	}
 	onboarding := previous.Next()

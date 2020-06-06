@@ -15,9 +15,9 @@ service Creator {
 
 //  rpc Third (stream ThirdRequest) returns (google.protobuf.Empty) {}
 
-  // rpc RemoveDraftLine (RemoveDraftLineRequest) returns (google.protobuf.Empty) {}
+ // rpc DeleteDraftLine (RemoveDraftLineRequest) returns (google.protobuf.Empty) {}
 
-  rpc FetchDraft(FetchDraftRequest) returns (FetchDraftResponse) {}
+  rpc RetrieveDraft(RetrieveDraftRequest) returns (RetrieveDraftResponse) {}
 }
 
 message DraftLine {
@@ -81,11 +81,11 @@ message CloneDraftLineResponse {
   DraftLine draft_line = 1;
 }
 
-message FetchDraftRequest{
+message RetrieveDraftRequest{
   string access_token = 1;
 }
 
-message FetchDraftResponse{
+message RetrieveDraftResponse{
   uint64 draft_id = 1;
   uint64 stage = 2;
   uint64 user_id = 3;

@@ -9,5 +9,5 @@ import (
 
 func TestOnboardingIdentificationsSQL(t *testing.T) {
 	sqltest.SQL(t, &ent.Draft{}, "Draft")
-	// sqltest.SQL(t, &ent.ProductAttribute{}, "ProductCategory")
+	sqltest.SQL(t, &ent.DraftLine{}, "DraftLine")
 }

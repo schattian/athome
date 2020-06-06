@@ -15,7 +15,7 @@ type Attribute interface {
 	GetName() string
 	SetName(s string)
 
-	GetCategoryId() uint64
+	RetrieveCategoryId() uint64
 	SetCategoryId(p uint64)
 
 	NewData() (data.Attribute, error)

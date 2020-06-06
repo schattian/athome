@@ -5,8 +5,8 @@ import (
 	"github.com/athomecomar/athome/backend/semantic/schema"
 )
 
-func CategoryTreeToGetCategoriesResponse(t schema.CategoryTree) *pbsemantic.GetCategoriesResponse {
-	get := &pbsemantic.GetCategoriesResponse{}
+func CategoryTreeToRetrieveCategoriesResponse(t schema.CategoryTree) *pbsemantic.RetrieveCategoriesResponse {
+	get := &pbsemantic.RetrieveCategoriesResponse{}
 	for _, b := range t {
 		get.Categories = append(get.Categories, CategoryBranchToPbsemanticCategory(b))
 	}

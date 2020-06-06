@@ -11,7 +11,7 @@ func AttributeToPbsemanticAttribute(c schema.Attribute) *pbsemantic.AttributeSch
 		Name:       c.GetName(),
 		Id:         c.GetId(),
 		ValueType:  string(c.GetValueType()),
-		CategoryId: c.GetCategoryId(),
+		CategoryId: c.RetrieveCategoryId(),
 	}
 }
 

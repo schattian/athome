@@ -47,7 +47,7 @@ func NewProductAttributeData(t value.Type) (*ProductAttributeData, error) {
 }
 
 func FindProductAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*ProductAttributeData, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM product_attributes_data WHERE id=$1`, id)
+	row := db.QueryRowxContext(ctx, `SELECT * FROM product_attribute_datas WHERE id=$1`, id)
 	d := &ProductAttributeData{}
 	err := row.StructScan(d)
 	if err != nil {
@@ -68,7 +68,7 @@ func (d *ProductAttributeData) Clone() (*ProductAttributeData, error) {
 
 func FindProductAttributesDataByMatch(ctx context.Context, db *sqlx.DB, entityTable string, entityId uint64) ([]*ProductAttributeData, error) {
 	rows, err := db.QueryxContext(ctx,
-		`SELECT * FROM product_attributes_data WHERE entity_table=$1 AND entity_id=$2`,
+		`SELECT * FROM product_attribute_datas WHERE entity_table=$1 AND entity_id=$2`,
 		entityTable, entityId,
 	)
 	if err != nil {
@@ -88,7 +88,7 @@ func FindProductAttributesDataByMatch(ctx context.Context, db *sqlx.DB, entityTa
 
 func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entityTable string, entityId uint64) (*ProductAttributeData, error) {
 	row := db.QueryRowxContext(ctx,
-		`SELECT * FROM product_attributes_data WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
+		`SELECT * FROM product_attribute_datas WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
 		schemaId, entityTable, entityId,
 	)
 	d := &ProductAttributeData{}
