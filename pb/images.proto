@@ -10,8 +10,8 @@ package images;
 
 service Images {
   rpc CreateImage (stream CreateImageRequest) returns (CreateImageResponse) {}
-  rpc RetrieveImage (RetrieveImageRequest) returns (RetrieveImageResponse) {}
-  rpc DeleteImage (DeleteImageRequest) returns (google.protobuf.Empty) {}
+  rpc RetrieveImages (RetrieveImagesRequest) returns (RetrieveImagesResponse) {}
+  rpc DeleteImages (DeleteImagesRequest) returns (google.protobuf.Empty) {}
 }
 
 
@@ -29,18 +29,21 @@ message CreateImageResponse {
   uint64 user_id = 4;
 }
 
-message RetrieveImageRequest{
-  string id = 1;
+message RetrieveImagesRequest{
+  repeated string ids = 1;
 }
 
-message RetrieveImageResponse {
-  string uri = 1;
-  uint64 user_id = 2;
+message RetrieveImagesResponse {
+  message Data {
+    string uri = 1;
+    uint64 user_id = 2;
+  }
+  repeated Data images = 1;
 }
 
-message DeleteImageRequest{
+message DeleteImagesRequest{
   string access_token = 1;
-  string id = 2;
+  repeated string ids = 2;
 }
 
 message Metadata {

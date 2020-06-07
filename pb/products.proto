@@ -13,9 +13,9 @@ service Creator {
   rpc Second (stream SecondRequest) returns (google.protobuf.Empty) {}
   rpc CloneDraftLine (CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
 
-//  rpc Third (stream ThirdRequest) returns (google.protobuf.Empty) {}
+  rpc Third (stream ThirdRequest) returns (google.protobuf.Empty) {}
 
- // rpc DeleteDraftLine (RemoveDraftLineRequest) returns (google.protobuf.Empty) {}
+  rpc DeleteDraftLine (DeleteDraftLineRequest) returns (google.protobuf.Empty) {}
 
   rpc RetrieveDraft(RetrieveDraftRequest) returns (RetrieveDraftResponse) {}
 }
@@ -25,6 +25,7 @@ message DraftLine {
 
   DraftLineFirst first = 2;
   DraftLineSecond second = 3;
+  DraftLineThird third = 4;
 }
 
 message DraftLineFirst {
@@ -37,6 +38,23 @@ message DraftLineSecond {
   uint64 stock = 2;
   repeated AttributeData attributes = 3;
 }
+
+message DraftLineThird {
+  repeated string image_ids = 1;
+}
+
+message ThirdRequest {
+  message Body {
+    uint64 draft_line_id = 1;
+    DraftLineThird draft_line = 2;
+  }
+
+  oneof corpus{
+    string access_token = 1;
+    Body body = 2;
+  }
+}
+
 
 message AttributeData {
   uint64 schema_id = 1;
@@ -72,7 +90,13 @@ message FirstRequest{
 message FirstResponse{
   uint64 draft_id = 1;
 }
+
 message CloneDraftLineRequest {
+  string access_token = 1;
+  uint64 draft_line_id = 2;
+}
+
+message DeleteDraftLineRequest {
   string access_token = 1;
   uint64 draft_line_id = 2;
 }

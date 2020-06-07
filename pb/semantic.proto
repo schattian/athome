@@ -24,6 +24,7 @@ service Products {
 
   rpc SetAttributesData(stream SetAttributesDataRequest) returns (stream SetAttributesDataResponse) {}
   rpc CloneAttributesData(CloneAttributesDataRequest) returns (CloneAttributesDataResponse) {}
+  rpc DeleteAttributesData(DeleteAttributesDataRequest) returns (google.protobuf.Empty) {}
 }
 
 message Category {
@@ -53,6 +54,12 @@ message RetrieveAttributesSchemaRequest {
 message RetrieveAttributesDataRequest {
   uint64 entity_id = 1;
   string entity_table = 2;
+}
+
+message DeleteAttributesDataRequest {
+  string access_token = 1;
+  uint64 entity_id = 2;
+  string entity_table = 3;
 }
 
 message RetrieveAttributesSchemaResponse {
