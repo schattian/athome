@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, access string) (uint64, error) {
+func GetUserFromAccessToken(ctx context.Context, c pbauth.AuthClient, access string) (uint64, error) {
 	resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
 	if err != nil {
 		return 0, err
@@ -45,7 +45,7 @@ func RetrieveLatestDraft(ctx context.Context, db *sqlx.DB, accessToken string) (
 
 func retrieveLatestDraft(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authCloser func() error, accessToken string) (*ent.Draft, error) {
 	defer authCloser()
-	userId, err := GetUserFromAccessToken(ctx, db, auth, accessToken)
+	userId, err := GetUserFromAccessToken(ctx, auth, accessToken)
 	if err != nil {
 		return nil, err
 	}
