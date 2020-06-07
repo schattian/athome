@@ -19,6 +19,37 @@ services:
     depends_on:
       - users_db
 
+  products_db:
+    env_file: backend/products/build/db/dev.env
+    image: postgres:12
+    volumes:
+      - products_db:/var/lib/postgresql/data
+
+  products_svc:
+    env_file: backend/products/build/svc/dev.env
+    build:
+      context: backend/products
+      args:
+        svc_name: products
+    ports:
+      - "9992:9992"
+    volumes:
+      - ./backend/products/migrations:/products/migrations
+    depends_on:
+      - products_db
+
+  images_svc:
+    env_file: backend/images/build/svc/dev.env
+    build:
+      context: backend/images
+      args:
+        svc_name: images
+    volumes:
+      - ./backend/images/tmp:/images/tmp
+      - ./backend/images/tmp_:/tmp
+    ports:
+      - "9903:9903"
+
   semantic_db:
     env_file: backend/semantic/build/db/dev.env
     image: postgres:12
@@ -74,8 +105,11 @@ services:
       - auth_redis:/data
 
 volumes:
+  images_svc:
   users_svc:
   users_db:
+  products_svc:
+  products_db:
   auth_redis:
   semantic_svc:
   semantic_db:
