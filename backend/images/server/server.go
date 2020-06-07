@@ -1,3 +1,7 @@
 package server
 
-type Server struct{}
+import "github.com/athomecomar/athome/backend/images/store"
+
+type Server struct {
+	Store store.Store
+}
