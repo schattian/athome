@@ -6,13 +6,13 @@ Only internal:
  - **9900**: auth
  - **9901**: mailer 
  - **9902**: identifier
- - **9903**: images
 
 
 Exposed svcs:
  - **9990**: users
  - **9991**: semantic 
  - **9992**: products 
+ - **9993**: images
 
 ## Naming
 

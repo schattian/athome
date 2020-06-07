@@ -48,7 +48,7 @@ services:
       - ./backend/images/tmp:/images/tmp
       - ./backend/images/tmp_:/tmp
     ports:
-      - "9903:9903"
+      - "9993:9993"
 
   semantic_db:
     env_file: backend/semantic/build/db/dev.env

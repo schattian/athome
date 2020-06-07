@@ -23,7 +23,15 @@ func GetAUTH_ADDR() (addr string) {
 func GetSEMANTIC_ADDR() (addr string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
-		addr = "auth_svc:9991"
+		addr = "semantic_svc:9991"
+	}
+	return
+}
+
+func GetIMAGES_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "images_svc:9993"
 	}
 	return
 }
