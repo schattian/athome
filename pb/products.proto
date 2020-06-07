@@ -8,16 +8,26 @@ option go_package = "./pbproducts";
 package products;
 
 service Creator {
+  rpc Next (StageChangeRequest) returns (StageChangeResponse) {}
+  rpc Prev (StageChangeRequest) returns (StageChangeResponse) {}
+
   rpc First (stream FirstRequest) returns (FirstResponse) {}
-
   rpc Second (stream SecondRequest) returns (google.protobuf.Empty) {}
-  rpc CloneDraftLine (CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
-
   rpc Third (stream ThirdRequest) returns (google.protobuf.Empty) {}
 
+  rpc CloneDraftLine (CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
   rpc DeleteDraftLine (DeleteDraftLineRequest) returns (google.protobuf.Empty) {}
 
   rpc RetrieveDraft(RetrieveDraftRequest) returns (RetrieveDraftResponse) {}
+  rpc DeleteDraft (DeleteDraftRequest) returns (google.protobuf.Empty) {}
+}
+
+message StageChangeRequest{
+  string access_token = 1;
+}
+
+message StageChangeResponse{
+  uint64 size = 1;
 }
 
 message DraftLine {
@@ -43,22 +53,17 @@ message DraftLineThird {
   repeated string image_ids = 1;
 }
 
-message ThirdRequest {
-  message Body {
-    uint64 draft_line_id = 1;
-    DraftLineThird draft_line = 2;
-  }
-
+message FirstRequest{
   oneof corpus{
     string access_token = 1;
-    Body body = 2;
+
+    DraftLineFirst draft_line = 2; // consider that, if sending two eq titles, it'll
+    // return an err
   }
 }
 
-
-message AttributeData {
-  uint64 schema_id = 1;
-  repeated string values = 2;
+message FirstResponse{
+  uint64 draft_id = 1;
 }
 
 message SecondRequest{
@@ -73,30 +78,33 @@ message SecondRequest{
   }
 }
 
-message Page {
-  uint64 cursor = 1;
-  uint64 size = 2;
-}
+message ThirdRequest {
+  message Body {
+    uint64 draft_line_id = 1;
+    DraftLineThird draft_line = 2;
+  }
 
-message FirstRequest{
   oneof corpus{
     string access_token = 1;
-
-    DraftLineFirst draft_line = 2; // consider that, if sending two eq titles, it'll
-    // return an err
+    Body body = 2;
   }
 }
 
-message FirstResponse{
-  uint64 draft_id = 1;
+message AttributeData {
+  uint64 schema_id = 1;
+  repeated string values = 2;
 }
 
-message CloneDraftLineRequest {
+message DeleteDraftRequest {
+  string access_token = 1;
+}
+
+message DeleteDraftLineRequest {
   string access_token = 1;
   uint64 draft_line_id = 2;
 }
 
-message DeleteDraftLineRequest {
+message CloneDraftLineRequest {
   string access_token = 1;
   uint64 draft_line_id = 2;
 }
@@ -114,4 +122,9 @@ message RetrieveDraftResponse{
   uint64 stage = 2;
   uint64 user_id = 3;
   repeated DraftLine lines = 4;
+}
+
+message Page {
+  uint64 cursor = 1;
+  uint64 size = 2;
 }

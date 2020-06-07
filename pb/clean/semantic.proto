@@ -23,6 +23,7 @@ service Products {
   rpc RetrieveAttributesData(RetrieveAttributesDataRequest) returns (RetrieveAttributesDataResponse) {}
 
   rpc SetAttributesData(stream SetAttributesDataRequest) returns (stream SetAttributesDataResponse) {}
+  rpc ChangeEntityAttributesData(ChangeEntityAttributesDataRequest) returns (google.protobuf.Empty) {}
   rpc CloneAttributesData(CloneAttributesDataRequest) returns (CloneAttributesDataResponse) {}
   rpc DeleteAttributesData(DeleteAttributesDataRequest) returns (google.protobuf.Empty) {}
 }
@@ -90,6 +91,16 @@ message SetAttributesDataRequest {
     Authorization authorization = 1;
     AttributeData data = 2;
   }
+}
+
+message ChangeEntityAttributesDataRequest {
+  string access_token = 1;
+
+  uint64 from_entity_id = 2;
+  string from_entity_table = 3;
+
+  uint64 dest_entity_id = 4;
+  string dest_entity_table = 5;
 }
 
 message CloneAttributesDataRequest {
