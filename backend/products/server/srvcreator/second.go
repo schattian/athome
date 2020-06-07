@@ -47,7 +47,7 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 
 		in, err := srv.Recv()
 		if err == io.EOF {
-			return nil
+			return srv.SendAndClose(resp)
 		}
 		if err != nil {
 			return err
