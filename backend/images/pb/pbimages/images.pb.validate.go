@@ -197,22 +197,20 @@ var _ interface {
 	ErrorName() string
 } = CreateImageResponseValidationError{}
 
-// Validate checks the field values on RetrieveImageRequest with the rules
+// Validate checks the field values on RetrieveImagesRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RetrieveImageRequest) Validate() error {
+func (m *RetrieveImagesRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Id
-
 	return nil
 }
 
-// RetrieveImageRequestValidationError is the validation error returned by
-// RetrieveImageRequest.Validate if the designated constraints aren't met.
-type RetrieveImageRequestValidationError struct {
+// RetrieveImagesRequestValidationError is the validation error returned by
+// RetrieveImagesRequest.Validate if the designated constraints aren't met.
+type RetrieveImagesRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -220,24 +218,24 @@ type RetrieveImageRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveImageRequestValidationError) Field() string { return e.field }
+func (e RetrieveImagesRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveImageRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveImagesRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveImageRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveImagesRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveImageRequestValidationError) Key() bool { return e.key }
+func (e RetrieveImagesRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveImageRequestValidationError) ErrorName() string {
-	return "RetrieveImageRequestValidationError"
+func (e RetrieveImagesRequestValidationError) ErrorName() string {
+	return "RetrieveImagesRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RetrieveImageRequestValidationError) Error() string {
+func (e RetrieveImagesRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -249,14 +247,14 @@ func (e RetrieveImageRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveImageRequest.%s: %s%s",
+		"invalid %sRetrieveImagesRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveImageRequestValidationError{}
+var _ error = RetrieveImagesRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -264,26 +262,37 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveImageRequestValidationError{}
+} = RetrieveImagesRequestValidationError{}
 
-// Validate checks the field values on RetrieveImageResponse with the rules
+// Validate checks the field values on RetrieveImagesResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RetrieveImageResponse) Validate() error {
+func (m *RetrieveImagesResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Uri
+	for idx, item := range m.GetImages() {
+		_, _ = idx, item
 
-	// no validation rules for UserId
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RetrieveImagesResponseValidationError{
+					field:  fmt.Sprintf("Images[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	return nil
 }
 
-// RetrieveImageResponseValidationError is the validation error returned by
-// RetrieveImageResponse.Validate if the designated constraints aren't met.
-type RetrieveImageResponseValidationError struct {
+// RetrieveImagesResponseValidationError is the validation error returned by
+// RetrieveImagesResponse.Validate if the designated constraints aren't met.
+type RetrieveImagesResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -291,24 +300,24 @@ type RetrieveImageResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveImageResponseValidationError) Field() string { return e.field }
+func (e RetrieveImagesResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveImageResponseValidationError) Reason() string { return e.reason }
+func (e RetrieveImagesResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveImageResponseValidationError) Cause() error { return e.cause }
+func (e RetrieveImagesResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveImageResponseValidationError) Key() bool { return e.key }
+func (e RetrieveImagesResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveImageResponseValidationError) ErrorName() string {
-	return "RetrieveImageResponseValidationError"
+func (e RetrieveImagesResponseValidationError) ErrorName() string {
+	return "RetrieveImagesResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RetrieveImageResponseValidationError) Error() string {
+func (e RetrieveImagesResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -320,14 +329,14 @@ func (e RetrieveImageResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveImageResponse.%s: %s%s",
+		"invalid %sRetrieveImagesResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveImageResponseValidationError{}
+var _ error = RetrieveImagesResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -335,26 +344,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveImageResponseValidationError{}
+} = RetrieveImagesResponseValidationError{}
 
-// Validate checks the field values on DeleteImageRequest with the rules
+// Validate checks the field values on DeleteImagesRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *DeleteImageRequest) Validate() error {
+func (m *DeleteImagesRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	// no validation rules for AccessToken
 
-	// no validation rules for Id
-
 	return nil
 }
 
-// DeleteImageRequestValidationError is the validation error returned by
-// DeleteImageRequest.Validate if the designated constraints aren't met.
-type DeleteImageRequestValidationError struct {
+// DeleteImagesRequestValidationError is the validation error returned by
+// DeleteImagesRequest.Validate if the designated constraints aren't met.
+type DeleteImagesRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -362,24 +369,24 @@ type DeleteImageRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteImageRequestValidationError) Field() string { return e.field }
+func (e DeleteImagesRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteImageRequestValidationError) Reason() string { return e.reason }
+func (e DeleteImagesRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteImageRequestValidationError) Cause() error { return e.cause }
+func (e DeleteImagesRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteImageRequestValidationError) Key() bool { return e.key }
+func (e DeleteImagesRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteImageRequestValidationError) ErrorName() string {
-	return "DeleteImageRequestValidationError"
+func (e DeleteImagesRequestValidationError) ErrorName() string {
+	return "DeleteImagesRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeleteImageRequestValidationError) Error() string {
+func (e DeleteImagesRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -391,14 +398,14 @@ func (e DeleteImageRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteImageRequest.%s: %s%s",
+		"invalid %sDeleteImagesRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteImageRequestValidationError{}
+var _ error = DeleteImagesRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -406,7 +413,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteImageRequestValidationError{}
+} = DeleteImagesRequestValidationError{}
 
 // Validate checks the field values on Metadata with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -487,3 +494,75 @@ var _Metadata_Ext_InLookup = map[string]struct{}{
 	"jpeg": {},
 	"png":  {},
 }
+
+// Validate checks the field values on RetrieveImagesResponse_Data with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveImagesResponse_Data) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Uri
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// RetrieveImagesResponse_DataValidationError is the validation error returned
+// by RetrieveImagesResponse_Data.Validate if the designated constraints
+// aren't met.
+type RetrieveImagesResponse_DataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveImagesResponse_DataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveImagesResponse_DataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveImagesResponse_DataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveImagesResponse_DataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveImagesResponse_DataValidationError) ErrorName() string {
+	return "RetrieveImagesResponse_DataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveImagesResponse_DataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveImagesResponse_Data.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveImagesResponse_DataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveImagesResponse_DataValidationError{}

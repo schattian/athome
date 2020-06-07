@@ -169,46 +169,85 @@ func (m *CreateImageResponse) GetUserId() uint64 {
 	return 0
 }
 
-type RetrieveImageRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+type RetrieveImagesRequest struct {
+	Ids                  []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RetrieveImageRequest) Reset()         { *m = RetrieveImageRequest{} }
-func (m *RetrieveImageRequest) String() string { return proto.CompactTextString(m) }
-func (*RetrieveImageRequest) ProtoMessage()    {}
-func (*RetrieveImageRequest) Descriptor() ([]byte, []int) {
+func (m *RetrieveImagesRequest) Reset()         { *m = RetrieveImagesRequest{} }
+func (m *RetrieveImagesRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveImagesRequest) ProtoMessage()    {}
+func (*RetrieveImagesRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_77d46971e2a21737, []int{2}
 }
 
-func (m *RetrieveImageRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveImageRequest.Unmarshal(m, b)
+func (m *RetrieveImagesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveImagesRequest.Unmarshal(m, b)
 }
-func (m *RetrieveImageRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveImageRequest.Marshal(b, m, deterministic)
+func (m *RetrieveImagesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveImagesRequest.Marshal(b, m, deterministic)
 }
-func (m *RetrieveImageRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveImageRequest.Merge(m, src)
+func (m *RetrieveImagesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveImagesRequest.Merge(m, src)
 }
-func (m *RetrieveImageRequest) XXX_Size() int {
-	return xxx_messageInfo_RetrieveImageRequest.Size(m)
+func (m *RetrieveImagesRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveImagesRequest.Size(m)
 }
-func (m *RetrieveImageRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveImageRequest.DiscardUnknown(m)
+func (m *RetrieveImagesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveImagesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveImageRequest proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveImagesRequest proto.InternalMessageInfo
 
-func (m *RetrieveImageRequest) GetId() string {
+func (m *RetrieveImagesRequest) GetIds() []string {
 	if m != nil {
-		return m.Id
+		return m.Ids
 	}
-	return ""
+	return nil
 }
 
-type RetrieveImageResponse struct {
+type RetrieveImagesResponse struct {
+	Images               []*RetrieveImagesResponse_Data `protobuf:"bytes,1,rep,name=images,proto3" json:"images,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                       `json:"-"`
+	XXX_unrecognized     []byte                         `json:"-"`
+	XXX_sizecache        int32                          `json:"-"`
+}
+
+func (m *RetrieveImagesResponse) Reset()         { *m = RetrieveImagesResponse{} }
+func (m *RetrieveImagesResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveImagesResponse) ProtoMessage()    {}
+func (*RetrieveImagesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_77d46971e2a21737, []int{3}
+}
+
+func (m *RetrieveImagesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveImagesResponse.Unmarshal(m, b)
+}
+func (m *RetrieveImagesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveImagesResponse.Marshal(b, m, deterministic)
+}
+func (m *RetrieveImagesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveImagesResponse.Merge(m, src)
+}
+func (m *RetrieveImagesResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveImagesResponse.Size(m)
+}
+func (m *RetrieveImagesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveImagesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveImagesResponse proto.InternalMessageInfo
+
+func (m *RetrieveImagesResponse) GetImages() []*RetrieveImagesResponse_Data {
+	if m != nil {
+		return m.Images
+	}
+	return nil
+}
+
+type RetrieveImagesResponse_Data struct {
 	Uri                  string   `protobuf:"bytes,1,opt,name=uri,proto3" json:"uri,omitempty"`
 	UserId               uint64   `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -216,90 +255,90 @@ type RetrieveImageResponse struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RetrieveImageResponse) Reset()         { *m = RetrieveImageResponse{} }
-func (m *RetrieveImageResponse) String() string { return proto.CompactTextString(m) }
-func (*RetrieveImageResponse) ProtoMessage()    {}
-func (*RetrieveImageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{3}
+func (m *RetrieveImagesResponse_Data) Reset()         { *m = RetrieveImagesResponse_Data{} }
+func (m *RetrieveImagesResponse_Data) String() string { return proto.CompactTextString(m) }
+func (*RetrieveImagesResponse_Data) ProtoMessage()    {}
+func (*RetrieveImagesResponse_Data) Descriptor() ([]byte, []int) {
+	return fileDescriptor_77d46971e2a21737, []int{3, 0}
 }
 
-func (m *RetrieveImageResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveImageResponse.Unmarshal(m, b)
+func (m *RetrieveImagesResponse_Data) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveImagesResponse_Data.Unmarshal(m, b)
 }
-func (m *RetrieveImageResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveImageResponse.Marshal(b, m, deterministic)
+func (m *RetrieveImagesResponse_Data) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveImagesResponse_Data.Marshal(b, m, deterministic)
 }
-func (m *RetrieveImageResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveImageResponse.Merge(m, src)
+func (m *RetrieveImagesResponse_Data) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveImagesResponse_Data.Merge(m, src)
 }
-func (m *RetrieveImageResponse) XXX_Size() int {
-	return xxx_messageInfo_RetrieveImageResponse.Size(m)
+func (m *RetrieveImagesResponse_Data) XXX_Size() int {
+	return xxx_messageInfo_RetrieveImagesResponse_Data.Size(m)
 }
-func (m *RetrieveImageResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveImageResponse.DiscardUnknown(m)
+func (m *RetrieveImagesResponse_Data) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveImagesResponse_Data.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveImageResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveImagesResponse_Data proto.InternalMessageInfo
 
-func (m *RetrieveImageResponse) GetUri() string {
+func (m *RetrieveImagesResponse_Data) GetUri() string {
 	if m != nil {
 		return m.Uri
 	}
 	return ""
 }
 
-func (m *RetrieveImageResponse) GetUserId() uint64 {
+func (m *RetrieveImagesResponse_Data) GetUserId() uint64 {
 	if m != nil {
 		return m.UserId
 	}
 	return 0
 }
 
-type DeleteImageRequest struct {
+type DeleteImagesRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Ids                  []string `protobuf:"bytes,2,rep,name=ids,proto3" json:"ids,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DeleteImageRequest) Reset()         { *m = DeleteImageRequest{} }
-func (m *DeleteImageRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteImageRequest) ProtoMessage()    {}
-func (*DeleteImageRequest) Descriptor() ([]byte, []int) {
+func (m *DeleteImagesRequest) Reset()         { *m = DeleteImagesRequest{} }
+func (m *DeleteImagesRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteImagesRequest) ProtoMessage()    {}
+func (*DeleteImagesRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_77d46971e2a21737, []int{4}
 }
 
-func (m *DeleteImageRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteImageRequest.Unmarshal(m, b)
+func (m *DeleteImagesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteImagesRequest.Unmarshal(m, b)
 }
-func (m *DeleteImageRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteImageRequest.Marshal(b, m, deterministic)
+func (m *DeleteImagesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteImagesRequest.Marshal(b, m, deterministic)
 }
-func (m *DeleteImageRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteImageRequest.Merge(m, src)
+func (m *DeleteImagesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteImagesRequest.Merge(m, src)
 }
-func (m *DeleteImageRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteImageRequest.Size(m)
+func (m *DeleteImagesRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteImagesRequest.Size(m)
 }
-func (m *DeleteImageRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteImageRequest.DiscardUnknown(m)
+func (m *DeleteImagesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteImagesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DeleteImageRequest proto.InternalMessageInfo
+var xxx_messageInfo_DeleteImagesRequest proto.InternalMessageInfo
 
-func (m *DeleteImageRequest) GetAccessToken() string {
+func (m *DeleteImagesRequest) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
 	return ""
 }
 
-func (m *DeleteImageRequest) GetId() string {
+func (m *DeleteImagesRequest) GetIds() []string {
 	if m != nil {
-		return m.Id
+		return m.Ids
 	}
-	return ""
+	return nil
 }
 
 type Metadata struct {
@@ -352,9 +391,10 @@ func (m *Metadata) GetAccessToken() string {
 func init() {
 	proto.RegisterType((*CreateImageRequest)(nil), "images.CreateImageRequest")
 	proto.RegisterType((*CreateImageResponse)(nil), "images.CreateImageResponse")
-	proto.RegisterType((*RetrieveImageRequest)(nil), "images.RetrieveImageRequest")
-	proto.RegisterType((*RetrieveImageResponse)(nil), "images.RetrieveImageResponse")
-	proto.RegisterType((*DeleteImageRequest)(nil), "images.DeleteImageRequest")
+	proto.RegisterType((*RetrieveImagesRequest)(nil), "images.RetrieveImagesRequest")
+	proto.RegisterType((*RetrieveImagesResponse)(nil), "images.RetrieveImagesResponse")
+	proto.RegisterType((*RetrieveImagesResponse_Data)(nil), "images.RetrieveImagesResponse.Data")
+	proto.RegisterType((*DeleteImagesRequest)(nil), "images.DeleteImagesRequest")
 	proto.RegisterType((*Metadata)(nil), "images.Metadata")
 }
 
@@ -363,34 +403,36 @@ func init() {
 }
 
 var fileDescriptor_77d46971e2a21737 = []byte{
-	// 420 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x52, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x8d, 0xed, 0x60, 0xc2, 0x24, 0xa0, 0x6a, 0xa0, 0x8d, 0xe5, 0x82, 0x14, 0x7c, 0x40, 0x3e,
-	0x20, 0x5b, 0x2a, 0x7f, 0xe0, 0x82, 0x68, 0x91, 0xe0, 0xb0, 0xe2, 0x04, 0x87, 0x6a, 0x63, 0x4f,
-	0xcd, 0xb6, 0x89, 0xbd, 0x78, 0xd7, 0x11, 0xf0, 0xc7, 0xfc, 0x02, 0x27, 0x64, 0xaf, 0x5d, 0xea,
-	0x38, 0xdc, 0x76, 0x66, 0xde, 0xcc, 0x7b, 0xfb, 0x66, 0x60, 0x21, 0xb6, 0x3c, 0x27, 0x15, 0xc9,
-	0xaa, 0xd4, 0x25, 0xba, 0x26, 0xf2, 0x97, 0x3b, 0xbe, 0x11, 0x19, 0xd7, 0x14, 0xf7, 0x0f, 0x03,
-	0xf0, 0x4f, 0xf3, 0xb2, 0xcc, 0x37, 0x14, 0xb7, 0xd1, 0xba, 0xbe, 0x8e, 0x69, 0x2b, 0xf5, 0x4f,
-	0x53, 0x0c, 0xae, 0x01, 0xcf, 0x2b, 0xe2, 0x9a, 0x2e, 0x9b, 0x29, 0x8c, 0xbe, 0xd7, 0xa4, 0x34,
-	0x46, 0x30, 0xdb, 0x92, 0xe6, 0x19, 0xd7, 0xdc, 0xb3, 0x56, 0x56, 0x38, 0x3f, 0x3b, 0x8a, 0x3a,
-	0xd2, 0x8f, 0x5d, 0xfe, 0x62, 0xc2, 0xee, 0x30, 0x78, 0x02, 0x0f, 0xd2, 0x6f, 0x75, 0x71, 0xeb,
-	0xd9, 0x2b, 0x2b, 0x5c, 0x5c, 0x4c, 0x98, 0x09, 0x93, 0x19, 0xb8, 0x69, 0x59, 0xc9, 0x5a, 0x05,
-	0x19, 0x3c, 0x1d, 0xf0, 0x28, 0x59, 0x16, 0x8a, 0xf0, 0x09, 0xd8, 0x22, 0x6b, 0x29, 0x1e, 0x31,
-	0x5b, 0x64, 0x88, 0x30, 0x55, 0xe2, 0x17, 0xb5, 0x73, 0x1c, 0xd6, 0xbe, 0xf1, 0x08, 0x9c, 0xba,
-	0x12, 0x9e, 0xd3, 0x82, 0x9a, 0x27, 0x2e, 0xe1, 0x61, 0xad, 0xa8, 0xba, 0x12, 0x99, 0x37, 0x5d,
-	0x59, 0xe1, 0x94, 0xb9, 0x4d, 0x78, 0x99, 0x05, 0xaf, 0xe0, 0x19, 0x23, 0x5d, 0x09, 0xda, 0x0d,
-	0xff, 0xb3, 0x47, 0x13, 0x24, 0x70, 0xbc, 0x87, 0xeb, 0xf4, 0x74, 0x5c, 0xd6, 0x41, 0x2e, 0x7b,
-	0xc0, 0xf5, 0x1e, 0xf0, 0x2d, 0x6d, 0x68, 0xcf, 0xb9, 0x97, 0xb0, 0xe0, 0x69, 0x4a, 0x4a, 0x5d,
-	0xe9, 0xf2, 0x96, 0x8a, 0x6e, 0xd2, 0xdc, 0xe4, 0x3e, 0x37, 0xa9, 0x4e, 0x8c, 0x7d, 0x27, 0xe6,
-	0x2b, 0xcc, 0x7a, 0x53, 0xf1, 0x35, 0x38, 0xf4, 0x43, 0x9b, 0xae, 0xc4, 0xff, 0x93, 0x2c, 0xab,
-	0x63, 0xe6, 0xa8, 0x5d, 0xce, 0x9c, 0x1b, 0x99, 0xb3, 0xe9, 0x8d, 0xa4, 0x9c, 0x39, 0xb2, 0xc8,
-	0x59, 0x03, 0x1b, 0x91, 0xd9, 0x23, 0xb2, 0xb3, 0xdf, 0x16, 0xb8, 0xad, 0x40, 0x85, 0x1f, 0x60,
-	0x7e, 0x6f, 0x05, 0xe8, 0xf7, 0x1b, 0x1d, 0xef, 0xdf, 0x3f, 0x3d, 0x58, 0x33, 0x1e, 0x05, 0x93,
-	0xd0, 0xc2, 0x4f, 0xf0, 0x78, 0x60, 0x20, 0x3e, 0xef, 0x3b, 0x0e, 0xf9, 0xef, 0xbf, 0xf8, 0x4f,
-	0xb5, 0x9f, 0x88, 0xe7, 0x30, 0xbf, 0x67, 0xe6, 0x3f, 0x6d, 0x63, 0x87, 0xfd, 0x93, 0xc8, 0xdc,
-	0x73, 0xd4, 0xdf, 0x73, 0xf4, 0xae, 0xb9, 0xe7, 0x60, 0x92, 0x2c, 0xbe, 0x40, 0x14, 0xcb, 0xb5,
-	0x69, 0x5d, 0xbb, 0x6d, 0xfd, 0xcd, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x49, 0xc8, 0x31, 0x68,
-	0x2e, 0x03, 0x00, 0x00,
+	// 459 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x53, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0xf5, 0x7a, 0x8d, 0x29, 0x13, 0xab, 0x8a, 0xb6, 0x6a, 0x62, 0xb9, 0x02, 0x05, 0x73, 0x09,
+	0x12, 0x72, 0x44, 0x38, 0x72, 0x0b, 0xad, 0xd4, 0x56, 0xe2, 0xc0, 0x8a, 0x13, 0x1c, 0xaa, 0x4d,
+	0x76, 0x6a, 0xb6, 0x4d, 0x62, 0xe3, 0x5d, 0x47, 0xc0, 0x17, 0xf0, 0xb5, 0x7c, 0x00, 0x27, 0x64,
+	0xaf, 0xb7, 0x34, 0x4d, 0xe0, 0xb6, 0x33, 0xf3, 0x3c, 0xef, 0xcd, 0x1b, 0x0f, 0x44, 0x6a, 0x25,
+	0x72, 0xd4, 0x59, 0x59, 0x15, 0xa6, 0x60, 0xa1, 0x8d, 0x92, 0xe1, 0x46, 0x2c, 0x95, 0x14, 0x06,
+	0x27, 0xee, 0x61, 0x01, 0xc9, 0x49, 0x5e, 0x14, 0xf9, 0x12, 0x27, 0x6d, 0x34, 0xaf, 0xaf, 0x27,
+	0xb8, 0x2a, 0xcd, 0x77, 0x5b, 0x4c, 0xaf, 0x81, 0xbd, 0xab, 0x50, 0x18, 0xbc, 0x68, 0xba, 0x70,
+	0xfc, 0x5a, 0xa3, 0x36, 0x2c, 0x83, 0x83, 0x15, 0x1a, 0x21, 0x85, 0x11, 0x31, 0x19, 0x91, 0x71,
+	0x6f, 0xda, 0xcf, 0x3a, 0xd2, 0xf7, 0x5d, 0xfe, 0xdc, 0xe3, 0x77, 0x18, 0x36, 0x80, 0x47, 0x8b,
+	0x2f, 0xf5, 0xfa, 0x36, 0xf6, 0x47, 0x64, 0x1c, 0x9d, 0x7b, 0xdc, 0x86, 0xb3, 0x03, 0x08, 0x17,
+	0x45, 0x55, 0xd6, 0x3a, 0x95, 0x70, 0xb4, 0xc5, 0xa3, 0xcb, 0x62, 0xad, 0x91, 0x1d, 0x82, 0xaf,
+	0x64, 0x4b, 0xf1, 0x84, 0xfb, 0x4a, 0x32, 0x06, 0x81, 0x56, 0x3f, 0xb0, 0xed, 0x43, 0x79, 0xfb,
+	0x66, 0x7d, 0xa0, 0x75, 0xa5, 0x62, 0xda, 0x82, 0x9a, 0x27, 0x1b, 0xc2, 0xe3, 0x5a, 0x63, 0x75,
+	0xa5, 0x64, 0x1c, 0x8c, 0xc8, 0x38, 0xe0, 0x61, 0x13, 0x5e, 0xc8, 0xf4, 0x25, 0x1c, 0x73, 0x34,
+	0x95, 0xc2, 0x8d, 0xe5, 0xd1, 0x6e, 0xa0, 0x3e, 0x50, 0x25, 0x75, 0x4c, 0x46, 0xb4, 0xe9, 0xa1,
+	0xa4, 0x4e, 0x7f, 0x12, 0x18, 0x3c, 0xc4, 0x76, 0xa2, 0xde, 0x42, 0xe7, 0x69, 0x8b, 0xef, 0x4d,
+	0x5f, 0xb8, 0xd9, 0xf7, 0xe3, 0xb3, 0x53, 0x61, 0x04, 0x77, 0x6b, 0x78, 0x0d, 0x41, 0x13, 0x3b,
+	0xd5, 0x64, 0xaf, 0x6a, 0x7f, 0x4b, 0xf5, 0x25, 0x1c, 0x9d, 0xe2, 0x12, 0xcd, 0x03, 0xcd, 0xcf,
+	0x21, 0x12, 0x8b, 0x05, 0x6a, 0x7d, 0x65, 0x8a, 0x5b, 0x5c, 0x77, 0xad, 0x7a, 0x36, 0xf7, 0xb1,
+	0x49, 0xb9, 0xb1, 0xfc, 0xbf, 0x63, 0x7d, 0x86, 0x03, 0xb7, 0x21, 0xf6, 0x0a, 0x28, 0x7e, 0x33,
+	0xf6, 0xbb, 0x59, 0xf2, 0x7b, 0x36, 0xac, 0x8e, 0x39, 0xd5, 0x9b, 0x9c, 0xd3, 0x9b, 0x32, 0xe7,
+	0xc1, 0x4d, 0x89, 0x39, 0xa7, 0xe5, 0x3a, 0xe7, 0x0d, 0x6c, 0x87, 0xce, 0xdf, 0xa1, 0x9b, 0xfe,
+	0x22, 0x10, 0x5a, 0x8d, 0xec, 0x12, 0x7a, 0xf7, 0xf6, 0xc9, 0x12, 0x67, 0xd1, 0xee, 0xcf, 0x94,
+	0x9c, 0xec, 0xad, 0x59, 0xef, 0x52, 0x6f, 0x4c, 0xd8, 0x07, 0x38, 0xdc, 0x76, 0x96, 0x3d, 0xfd,
+	0x97, 0xe3, 0xb6, 0xe3, 0xb3, 0xff, 0x2f, 0x24, 0xf5, 0xd8, 0x19, 0x44, 0xf7, 0x2d, 0x65, 0x77,
+	0x1a, 0xf6, 0x18, 0x9d, 0x0c, 0x32, 0x7b, 0x21, 0x99, 0xbb, 0x90, 0xec, 0xac, 0xb9, 0x90, 0xd4,
+	0x9b, 0x45, 0x9f, 0x20, 0x9b, 0x94, 0x73, 0xfb, 0xed, 0x3c, 0x6c, 0xeb, 0x6f, 0xfe, 0x04, 0x00,
+	0x00, 0xff, 0xff, 0xbe, 0x7d, 0xd7, 0x20, 0x80, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -406,8 +448,8 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ImagesClient interface {
 	CreateImage(ctx context.Context, opts ...grpc.CallOption) (Images_CreateImageClient, error)
-	RetrieveImage(ctx context.Context, in *RetrieveImageRequest, opts ...grpc.CallOption) (*RetrieveImageResponse, error)
-	DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	RetrieveImages(ctx context.Context, in *RetrieveImagesRequest, opts ...grpc.CallOption) (*RetrieveImagesResponse, error)
+	DeleteImages(ctx context.Context, in *DeleteImagesRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type imagesClient struct {
@@ -452,18 +494,18 @@ func (x *imagesCreateImageClient) CloseAndRecv() (*CreateImageResponse, error) {
 	return m, nil
 }
 
-func (c *imagesClient) RetrieveImage(ctx context.Context, in *RetrieveImageRequest, opts ...grpc.CallOption) (*RetrieveImageResponse, error) {
-	out := new(RetrieveImageResponse)
-	err := c.cc.Invoke(ctx, "/images.Images/RetrieveImage", in, out, opts...)
+func (c *imagesClient) RetrieveImages(ctx context.Context, in *RetrieveImagesRequest, opts ...grpc.CallOption) (*RetrieveImagesResponse, error) {
+	out := new(RetrieveImagesResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/RetrieveImages", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *imagesClient) DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *imagesClient) DeleteImages(ctx context.Context, in *DeleteImagesRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/images.Images/DeleteImage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/images.Images/DeleteImages", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -473,8 +515,8 @@ func (c *imagesClient) DeleteImage(ctx context.Context, in *DeleteImageRequest, 
 // ImagesServer is the server API for Images service.
 type ImagesServer interface {
 	CreateImage(Images_CreateImageServer) error
-	RetrieveImage(context.Context, *RetrieveImageRequest) (*RetrieveImageResponse, error)
-	DeleteImage(context.Context, *DeleteImageRequest) (*empty.Empty, error)
+	RetrieveImages(context.Context, *RetrieveImagesRequest) (*RetrieveImagesResponse, error)
+	DeleteImages(context.Context, *DeleteImagesRequest) (*empty.Empty, error)
 }
 
 // UnimplementedImagesServer can be embedded to have forward compatible implementations.
@@ -484,11 +526,11 @@ type UnimplementedImagesServer struct {
 func (*UnimplementedImagesServer) CreateImage(srv Images_CreateImageServer) error {
 	return status.Errorf(codes.Unimplemented, "method CreateImage not implemented")
 }
-func (*UnimplementedImagesServer) RetrieveImage(ctx context.Context, req *RetrieveImageRequest) (*RetrieveImageResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RetrieveImage not implemented")
+func (*UnimplementedImagesServer) RetrieveImages(ctx context.Context, req *RetrieveImagesRequest) (*RetrieveImagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveImages not implemented")
 }
-func (*UnimplementedImagesServer) DeleteImage(ctx context.Context, req *DeleteImageRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteImage not implemented")
+func (*UnimplementedImagesServer) DeleteImages(ctx context.Context, req *DeleteImagesRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteImages not implemented")
 }
 
 func RegisterImagesServer(s *grpc.Server, srv ImagesServer) {
@@ -521,38 +563,38 @@ func (x *imagesCreateImageServer) Recv() (*CreateImageRequest, error) {
 	return m, nil
 }
 
-func _Images_RetrieveImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RetrieveImageRequest)
+func _Images_RetrieveImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveImagesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ImagesServer).RetrieveImage(ctx, in)
+		return srv.(ImagesServer).RetrieveImages(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/images.Images/RetrieveImage",
+		FullMethod: "/images.Images/RetrieveImages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImagesServer).RetrieveImage(ctx, req.(*RetrieveImageRequest))
+		return srv.(ImagesServer).RetrieveImages(ctx, req.(*RetrieveImagesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Images_DeleteImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteImageRequest)
+func _Images_DeleteImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteImagesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ImagesServer).DeleteImage(ctx, in)
+		return srv.(ImagesServer).DeleteImages(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/images.Images/DeleteImage",
+		FullMethod: "/images.Images/DeleteImages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImagesServer).DeleteImage(ctx, req.(*DeleteImageRequest))
+		return srv.(ImagesServer).DeleteImages(ctx, req.(*DeleteImagesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -562,12 +604,12 @@ var _Images_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ImagesServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RetrieveImage",
-			Handler:    _Images_RetrieveImage_Handler,
+			MethodName: "RetrieveImages",
+			Handler:    _Images_RetrieveImages_Handler,
 		},
 		{
-			MethodName: "DeleteImage",
-			Handler:    _Images_DeleteImage_Handler,
+			MethodName: "DeleteImages",
+			Handler:    _Images_DeleteImages_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

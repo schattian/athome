@@ -7,9 +7,9 @@ import (
 func GetPORT() (port string) {
 	switch envconf.GetENV() {
 	case envconf.Development:
-		port = ":9903"
+		port = ":9993"
 	case envconf.Staging, envconf.Production:
-		port = ":9903"
+		port = ":9993"
 	}
 	return
 }
