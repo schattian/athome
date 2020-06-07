@@ -9,9 +9,12 @@ import (
 )
 
 type ProductAttributeData struct {
-	Id       uint64
-	SchemaId uint64
-	UserId   uint64
+	Id       uint64 `json:"id,omitempty"`
+	SchemaId uint64 `json:"schema_id,omitempty"`
+	UserId   uint64 `json:"user_id,omitempty"`
+
+	EntityId    uint64 `json:"entity_id,omitempty"`
+	EntityTable string `json:"entity_table,omitempty"`
 
 	BoolValue    *value.Bool    `json:"bool_value,omitempty"`
 	StringValue  *value.String  `json:"string_value,omitempty"`

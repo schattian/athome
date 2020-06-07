@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/athomecomar/envconf v1.1.0
-	github.com/athomecomar/storeql v1.4.5
+	github.com/athomecomar/storeql v1.5.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.1.0
 	github.com/client9/misspell v0.3.4 // indirect
@@ -19,7 +19,7 @@ require (
 	github.com/mdempsky/unconvert v0.0.0-20200228143138-95ecdbfc0b5f // indirect
 	github.com/pkg/errors v0.9.1
 	go.opentelemetry.io/otel v0.6.0
-	golang.org/x/crypto v0.0.0-20200602180216-279210d13fed // indirect
+	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9 // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
 	google.golang.org/genproto v0.0.0-20200515170657-fc4c6c6a6587 // indirect

@@ -41,6 +41,8 @@ github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCP
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.4.5 h1:uPJv91XBq3KxiQagVyAw/ut2aYSzSjPhbma5C2ZF7RA=
 github.com/athomecomar/storeql v1.4.5/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
+github.com/athomecomar/storeql v1.5.0 h1:ZkkA/0MEvEQI3OyDgFjYZ4PEOrDIIWo2Uu3UChgoEN0=
+github.com/athomecomar/storeql v1.5.0/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=
 github.com/athomecomar/xerrors v1.2.1/go.mod h1:Ira4CbX2hG2tS0Fc9ShSV3Et1pgf/uqGgb2SgB507IE=
 github.com/athomecomar/xtest v0.1.0 h1:cF4/BEl/vEfZ5NMB+EhIFAcOagGCbocvioLjhfpfg70=
@@ -346,6 +348,8 @@ golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073/go.mod h1:LzIPMQfyMNhhGPh
 golang.org/x/crypto v0.0.0-20200311171314-f7b00557c8c4/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20200602180216-279210d13fed h1:g4KENRiCMEx58Q7/ecwfT0N2o8z35Fnbsjig/Alf2T4=
 golang.org/x/crypto v0.0.0-20200602180216-279210d13fed/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
+golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9 h1:vEg9joUBmeBcK9iSJftGNf3coIG4HqZElCPehJsfAYM=
+golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190306152737-a1d7652674e8/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190510132918-efd6b22b2522/go.mod h1:ZjyILWgesfNpC6sMxTJOJm9Kp84zZh5NQWvqDGG3Qr8=

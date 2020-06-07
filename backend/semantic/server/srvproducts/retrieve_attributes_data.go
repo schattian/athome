@@ -21,10 +21,10 @@ func (s *Server) RetrieveAttributesData(ctx context.Context, in *pbsemantic.Retr
 		return nil, err
 	}
 	defer db.Close()
-	return s.getAttributesData(ctx, db, in)
+	return s.retrieveAttributesData(ctx, db, in)
 }
 
-func (s *Server) getAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributesDataRequest) (*pbsemantic.RetrieveAttributesDataResponse, error) {
+func (s *Server) retrieveAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributesDataRequest) (*pbsemantic.RetrieveAttributesDataResponse, error) {
 	atts, err := data.FindProductAttributesDataByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesDataByMatch: %v", err)

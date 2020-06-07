@@ -20,6 +20,9 @@ func (sp *ProductAttributeData) SQLMap() map[string]driver.Value {
 		"schema_id": sp.SchemaId,
 		"user_id":   sp.UserId,
 
+		"entity_id":    sp.EntityId,
+		"entity_table": sp.EntityTable,
+
 		"bool_value":     sp.BoolValue,
 		"string_value":   sp.StringValue,
 		"int_64_value":   sp.Int64Value,

@@ -26,10 +26,89 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type StageChangeRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StageChangeRequest) Reset()         { *m = StageChangeRequest{} }
+func (m *StageChangeRequest) String() string { return proto.CompactTextString(m) }
+func (*StageChangeRequest) ProtoMessage()    {}
+func (*StageChangeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{0}
+}
+
+func (m *StageChangeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StageChangeRequest.Unmarshal(m, b)
+}
+func (m *StageChangeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StageChangeRequest.Marshal(b, m, deterministic)
+}
+func (m *StageChangeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StageChangeRequest.Merge(m, src)
+}
+func (m *StageChangeRequest) XXX_Size() int {
+	return xxx_messageInfo_StageChangeRequest.Size(m)
+}
+func (m *StageChangeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StageChangeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StageChangeRequest proto.InternalMessageInfo
+
+func (m *StageChangeRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+type StageChangeResponse struct {
+	Size                 uint64   `protobuf:"varint,1,opt,name=size,proto3" json:"size,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StageChangeResponse) Reset()         { *m = StageChangeResponse{} }
+func (m *StageChangeResponse) String() string { return proto.CompactTextString(m) }
+func (*StageChangeResponse) ProtoMessage()    {}
+func (*StageChangeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{1}
+}
+
+func (m *StageChangeResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StageChangeResponse.Unmarshal(m, b)
+}
+func (m *StageChangeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StageChangeResponse.Marshal(b, m, deterministic)
+}
+func (m *StageChangeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StageChangeResponse.Merge(m, src)
+}
+func (m *StageChangeResponse) XXX_Size() int {
+	return xxx_messageInfo_StageChangeResponse.Size(m)
+}
+func (m *StageChangeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_StageChangeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StageChangeResponse proto.InternalMessageInfo
+
+func (m *StageChangeResponse) GetSize() uint64 {
+	if m != nil {
+		return m.Size
+	}
+	return 0
+}
+
 type DraftLine struct {
 	DraftLineId          uint64           `protobuf:"varint,1,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
 	First                *DraftLineFirst  `protobuf:"bytes,2,opt,name=first,proto3" json:"first,omitempty"`
 	Second               *DraftLineSecond `protobuf:"bytes,3,opt,name=second,proto3" json:"second,omitempty"`
+	Third                *DraftLineThird  `protobuf:"bytes,4,opt,name=third,proto3" json:"third,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -39,7 +118,7 @@ func (m *DraftLine) Reset()         { *m = DraftLine{} }
 func (m *DraftLine) String() string { return proto.CompactTextString(m) }
 func (*DraftLine) ProtoMessage()    {}
 func (*DraftLine) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{0}
+	return fileDescriptor_8c6e54f42122eb82, []int{2}
 }
 
 func (m *DraftLine) XXX_Unmarshal(b []byte) error {
@@ -81,6 +160,13 @@ func (m *DraftLine) GetSecond() *DraftLineSecond {
 	return nil
 }
 
+func (m *DraftLine) GetThird() *DraftLineThird {
+	if m != nil {
+		return m.Third
+	}
+	return nil
+}
+
 type DraftLineFirst struct {
 	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	CategoryId           uint64   `protobuf:"varint,3,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
@@ -93,7 +179,7 @@ func (m *DraftLineFirst) Reset()         { *m = DraftLineFirst{} }
 func (m *DraftLineFirst) String() string { return proto.CompactTextString(m) }
 func (*DraftLineFirst) ProtoMessage()    {}
 func (*DraftLineFirst) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{1}
+	return fileDescriptor_8c6e54f42122eb82, []int{3}
 }
 
 func (m *DraftLineFirst) XXX_Unmarshal(b []byte) error {
@@ -141,7 +227,7 @@ func (m *DraftLineSecond) Reset()         { *m = DraftLineSecond{} }
 func (m *DraftLineSecond) String() string { return proto.CompactTextString(m) }
 func (*DraftLineSecond) ProtoMessage()    {}
 func (*DraftLineSecond) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{2}
+	return fileDescriptor_8c6e54f42122eb82, []int{4}
 }
 
 func (m *DraftLineSecond) XXX_Unmarshal(b []byte) error {
@@ -183,225 +269,43 @@ func (m *DraftLineSecond) GetAttributes() []*AttributeData {
 	return nil
 }
 
-type AttributeData struct {
-	SchemaId             uint64   `protobuf:"varint,1,opt,name=schema_id,json=schemaId,proto3" json:"schema_id,omitempty"`
-	Values               []string `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
+type DraftLineThird struct {
+	ImageIds             []string `protobuf:"bytes,1,rep,name=image_ids,json=imageIds,proto3" json:"image_ids,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AttributeData) Reset()         { *m = AttributeData{} }
-func (m *AttributeData) String() string { return proto.CompactTextString(m) }
-func (*AttributeData) ProtoMessage()    {}
-func (*AttributeData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{3}
-}
-
-func (m *AttributeData) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AttributeData.Unmarshal(m, b)
-}
-func (m *AttributeData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AttributeData.Marshal(b, m, deterministic)
-}
-func (m *AttributeData) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AttributeData.Merge(m, src)
-}
-func (m *AttributeData) XXX_Size() int {
-	return xxx_messageInfo_AttributeData.Size(m)
-}
-func (m *AttributeData) XXX_DiscardUnknown() {
-	xxx_messageInfo_AttributeData.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AttributeData proto.InternalMessageInfo
-
-func (m *AttributeData) GetSchemaId() uint64 {
-	if m != nil {
-		return m.SchemaId
-	}
-	return 0
-}
-
-func (m *AttributeData) GetValues() []string {
-	if m != nil {
-		return m.Values
-	}
-	return nil
-}
-
-type SecondRequest struct {
-	// Types that are valid to be assigned to Corpus:
-	//	*SecondRequest_AccessToken
-	//	*SecondRequest_Body_
-	Corpus               isSecondRequest_Corpus `protobuf_oneof:"corpus"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
-}
-
-func (m *SecondRequest) Reset()         { *m = SecondRequest{} }
-func (m *SecondRequest) String() string { return proto.CompactTextString(m) }
-func (*SecondRequest) ProtoMessage()    {}
-func (*SecondRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{4}
-}
-
-func (m *SecondRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SecondRequest.Unmarshal(m, b)
-}
-func (m *SecondRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SecondRequest.Marshal(b, m, deterministic)
-}
-func (m *SecondRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SecondRequest.Merge(m, src)
-}
-func (m *SecondRequest) XXX_Size() int {
-	return xxx_messageInfo_SecondRequest.Size(m)
-}
-func (m *SecondRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SecondRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SecondRequest proto.InternalMessageInfo
-
-type isSecondRequest_Corpus interface {
-	isSecondRequest_Corpus()
-}
-
-type SecondRequest_AccessToken struct {
-	AccessToken string `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3,oneof"`
-}
-
-type SecondRequest_Body_ struct {
-	Body *SecondRequest_Body `protobuf:"bytes,2,opt,name=body,proto3,oneof"`
-}
-
-func (*SecondRequest_AccessToken) isSecondRequest_Corpus() {}
-
-func (*SecondRequest_Body_) isSecondRequest_Corpus() {}
-
-func (m *SecondRequest) GetCorpus() isSecondRequest_Corpus {
-	if m != nil {
-		return m.Corpus
-	}
-	return nil
-}
-
-func (m *SecondRequest) GetAccessToken() string {
-	if x, ok := m.GetCorpus().(*SecondRequest_AccessToken); ok {
-		return x.AccessToken
-	}
-	return ""
-}
-
-func (m *SecondRequest) GetBody() *SecondRequest_Body {
-	if x, ok := m.GetCorpus().(*SecondRequest_Body_); ok {
-		return x.Body
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*SecondRequest) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*SecondRequest_AccessToken)(nil),
-		(*SecondRequest_Body_)(nil),
-	}
-}
-
-type SecondRequest_Body struct {
-	DraftLineId          uint64           `protobuf:"varint,1,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
-	DraftLine            *DraftLineSecond `protobuf:"bytes,2,opt,name=draft_line,json=draftLine,proto3" json:"draft_line,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
-}
-
-func (m *SecondRequest_Body) Reset()         { *m = SecondRequest_Body{} }
-func (m *SecondRequest_Body) String() string { return proto.CompactTextString(m) }
-func (*SecondRequest_Body) ProtoMessage()    {}
-func (*SecondRequest_Body) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{4, 0}
-}
-
-func (m *SecondRequest_Body) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SecondRequest_Body.Unmarshal(m, b)
-}
-func (m *SecondRequest_Body) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SecondRequest_Body.Marshal(b, m, deterministic)
-}
-func (m *SecondRequest_Body) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SecondRequest_Body.Merge(m, src)
-}
-func (m *SecondRequest_Body) XXX_Size() int {
-	return xxx_messageInfo_SecondRequest_Body.Size(m)
-}
-func (m *SecondRequest_Body) XXX_DiscardUnknown() {
-	xxx_messageInfo_SecondRequest_Body.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SecondRequest_Body proto.InternalMessageInfo
-
-func (m *SecondRequest_Body) GetDraftLineId() uint64 {
-	if m != nil {
-		return m.DraftLineId
-	}
-	return 0
-}
-
-func (m *SecondRequest_Body) GetDraftLine() *DraftLineSecond {
-	if m != nil {
-		return m.DraftLine
-	}
-	return nil
-}
-
-type Page struct {
-	Cursor               uint64   `protobuf:"varint,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
-	Size                 uint64   `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Page) Reset()         { *m = Page{} }
-func (m *Page) String() string { return proto.CompactTextString(m) }
-func (*Page) ProtoMessage()    {}
-func (*Page) Descriptor() ([]byte, []int) {
+func (m *DraftLineThird) Reset()         { *m = DraftLineThird{} }
+func (m *DraftLineThird) String() string { return proto.CompactTextString(m) }
+func (*DraftLineThird) ProtoMessage()    {}
+func (*DraftLineThird) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8c6e54f42122eb82, []int{5}
 }
 
-func (m *Page) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Page.Unmarshal(m, b)
+func (m *DraftLineThird) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DraftLineThird.Unmarshal(m, b)
 }
-func (m *Page) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Page.Marshal(b, m, deterministic)
+func (m *DraftLineThird) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DraftLineThird.Marshal(b, m, deterministic)
 }
-func (m *Page) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Page.Merge(m, src)
+func (m *DraftLineThird) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DraftLineThird.Merge(m, src)
 }
-func (m *Page) XXX_Size() int {
-	return xxx_messageInfo_Page.Size(m)
+func (m *DraftLineThird) XXX_Size() int {
+	return xxx_messageInfo_DraftLineThird.Size(m)
 }
-func (m *Page) XXX_DiscardUnknown() {
-	xxx_messageInfo_Page.DiscardUnknown(m)
+func (m *DraftLineThird) XXX_DiscardUnknown() {
+	xxx_messageInfo_DraftLineThird.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Page proto.InternalMessageInfo
+var xxx_messageInfo_DraftLineThird proto.InternalMessageInfo
 
-func (m *Page) GetCursor() uint64 {
+func (m *DraftLineThird) GetImageIds() []string {
 	if m != nil {
-		return m.Cursor
+		return m.ImageIds
 	}
-	return 0
-}
-
-func (m *Page) GetSize() uint64 {
-	if m != nil {
-		return m.Size
-	}
-	return 0
+	return nil
 }
 
 type FirstRequest struct {
@@ -523,6 +427,393 @@ func (m *FirstResponse) GetDraftId() uint64 {
 	return 0
 }
 
+type SecondRequest struct {
+	// Types that are valid to be assigned to Corpus:
+	//	*SecondRequest_AccessToken
+	//	*SecondRequest_Body_
+	Corpus               isSecondRequest_Corpus `protobuf_oneof:"corpus"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
+	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_sizecache        int32                  `json:"-"`
+}
+
+func (m *SecondRequest) Reset()         { *m = SecondRequest{} }
+func (m *SecondRequest) String() string { return proto.CompactTextString(m) }
+func (*SecondRequest) ProtoMessage()    {}
+func (*SecondRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{8}
+}
+
+func (m *SecondRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SecondRequest.Unmarshal(m, b)
+}
+func (m *SecondRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SecondRequest.Marshal(b, m, deterministic)
+}
+func (m *SecondRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SecondRequest.Merge(m, src)
+}
+func (m *SecondRequest) XXX_Size() int {
+	return xxx_messageInfo_SecondRequest.Size(m)
+}
+func (m *SecondRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SecondRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SecondRequest proto.InternalMessageInfo
+
+type isSecondRequest_Corpus interface {
+	isSecondRequest_Corpus()
+}
+
+type SecondRequest_AccessToken struct {
+	AccessToken string `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3,oneof"`
+}
+
+type SecondRequest_Body_ struct {
+	Body *SecondRequest_Body `protobuf:"bytes,2,opt,name=body,proto3,oneof"`
+}
+
+func (*SecondRequest_AccessToken) isSecondRequest_Corpus() {}
+
+func (*SecondRequest_Body_) isSecondRequest_Corpus() {}
+
+func (m *SecondRequest) GetCorpus() isSecondRequest_Corpus {
+	if m != nil {
+		return m.Corpus
+	}
+	return nil
+}
+
+func (m *SecondRequest) GetAccessToken() string {
+	if x, ok := m.GetCorpus().(*SecondRequest_AccessToken); ok {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (m *SecondRequest) GetBody() *SecondRequest_Body {
+	if x, ok := m.GetCorpus().(*SecondRequest_Body_); ok {
+		return x.Body
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*SecondRequest) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*SecondRequest_AccessToken)(nil),
+		(*SecondRequest_Body_)(nil),
+	}
+}
+
+type SecondRequest_Body struct {
+	DraftLineId          uint64           `protobuf:"varint,1,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
+	DraftLine            *DraftLineSecond `protobuf:"bytes,2,opt,name=draft_line,json=draftLine,proto3" json:"draft_line,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *SecondRequest_Body) Reset()         { *m = SecondRequest_Body{} }
+func (m *SecondRequest_Body) String() string { return proto.CompactTextString(m) }
+func (*SecondRequest_Body) ProtoMessage()    {}
+func (*SecondRequest_Body) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{8, 0}
+}
+
+func (m *SecondRequest_Body) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SecondRequest_Body.Unmarshal(m, b)
+}
+func (m *SecondRequest_Body) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SecondRequest_Body.Marshal(b, m, deterministic)
+}
+func (m *SecondRequest_Body) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SecondRequest_Body.Merge(m, src)
+}
+func (m *SecondRequest_Body) XXX_Size() int {
+	return xxx_messageInfo_SecondRequest_Body.Size(m)
+}
+func (m *SecondRequest_Body) XXX_DiscardUnknown() {
+	xxx_messageInfo_SecondRequest_Body.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SecondRequest_Body proto.InternalMessageInfo
+
+func (m *SecondRequest_Body) GetDraftLineId() uint64 {
+	if m != nil {
+		return m.DraftLineId
+	}
+	return 0
+}
+
+func (m *SecondRequest_Body) GetDraftLine() *DraftLineSecond {
+	if m != nil {
+		return m.DraftLine
+	}
+	return nil
+}
+
+type ThirdRequest struct {
+	// Types that are valid to be assigned to Corpus:
+	//	*ThirdRequest_AccessToken
+	//	*ThirdRequest_Body_
+	Corpus               isThirdRequest_Corpus `protobuf_oneof:"corpus"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
+}
+
+func (m *ThirdRequest) Reset()         { *m = ThirdRequest{} }
+func (m *ThirdRequest) String() string { return proto.CompactTextString(m) }
+func (*ThirdRequest) ProtoMessage()    {}
+func (*ThirdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{9}
+}
+
+func (m *ThirdRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ThirdRequest.Unmarshal(m, b)
+}
+func (m *ThirdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ThirdRequest.Marshal(b, m, deterministic)
+}
+func (m *ThirdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ThirdRequest.Merge(m, src)
+}
+func (m *ThirdRequest) XXX_Size() int {
+	return xxx_messageInfo_ThirdRequest.Size(m)
+}
+func (m *ThirdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ThirdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ThirdRequest proto.InternalMessageInfo
+
+type isThirdRequest_Corpus interface {
+	isThirdRequest_Corpus()
+}
+
+type ThirdRequest_AccessToken struct {
+	AccessToken string `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3,oneof"`
+}
+
+type ThirdRequest_Body_ struct {
+	Body *ThirdRequest_Body `protobuf:"bytes,2,opt,name=body,proto3,oneof"`
+}
+
+func (*ThirdRequest_AccessToken) isThirdRequest_Corpus() {}
+
+func (*ThirdRequest_Body_) isThirdRequest_Corpus() {}
+
+func (m *ThirdRequest) GetCorpus() isThirdRequest_Corpus {
+	if m != nil {
+		return m.Corpus
+	}
+	return nil
+}
+
+func (m *ThirdRequest) GetAccessToken() string {
+	if x, ok := m.GetCorpus().(*ThirdRequest_AccessToken); ok {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (m *ThirdRequest) GetBody() *ThirdRequest_Body {
+	if x, ok := m.GetCorpus().(*ThirdRequest_Body_); ok {
+		return x.Body
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*ThirdRequest) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*ThirdRequest_AccessToken)(nil),
+		(*ThirdRequest_Body_)(nil),
+	}
+}
+
+type ThirdRequest_Body struct {
+	DraftLineId          uint64          `protobuf:"varint,1,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
+	DraftLine            *DraftLineThird `protobuf:"bytes,2,opt,name=draft_line,json=draftLine,proto3" json:"draft_line,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *ThirdRequest_Body) Reset()         { *m = ThirdRequest_Body{} }
+func (m *ThirdRequest_Body) String() string { return proto.CompactTextString(m) }
+func (*ThirdRequest_Body) ProtoMessage()    {}
+func (*ThirdRequest_Body) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{9, 0}
+}
+
+func (m *ThirdRequest_Body) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ThirdRequest_Body.Unmarshal(m, b)
+}
+func (m *ThirdRequest_Body) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ThirdRequest_Body.Marshal(b, m, deterministic)
+}
+func (m *ThirdRequest_Body) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ThirdRequest_Body.Merge(m, src)
+}
+func (m *ThirdRequest_Body) XXX_Size() int {
+	return xxx_messageInfo_ThirdRequest_Body.Size(m)
+}
+func (m *ThirdRequest_Body) XXX_DiscardUnknown() {
+	xxx_messageInfo_ThirdRequest_Body.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ThirdRequest_Body proto.InternalMessageInfo
+
+func (m *ThirdRequest_Body) GetDraftLineId() uint64 {
+	if m != nil {
+		return m.DraftLineId
+	}
+	return 0
+}
+
+func (m *ThirdRequest_Body) GetDraftLine() *DraftLineThird {
+	if m != nil {
+		return m.DraftLine
+	}
+	return nil
+}
+
+type AttributeData struct {
+	SchemaId             uint64   `protobuf:"varint,1,opt,name=schema_id,json=schemaId,proto3" json:"schema_id,omitempty"`
+	Values               []string `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AttributeData) Reset()         { *m = AttributeData{} }
+func (m *AttributeData) String() string { return proto.CompactTextString(m) }
+func (*AttributeData) ProtoMessage()    {}
+func (*AttributeData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{10}
+}
+
+func (m *AttributeData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AttributeData.Unmarshal(m, b)
+}
+func (m *AttributeData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AttributeData.Marshal(b, m, deterministic)
+}
+func (m *AttributeData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AttributeData.Merge(m, src)
+}
+func (m *AttributeData) XXX_Size() int {
+	return xxx_messageInfo_AttributeData.Size(m)
+}
+func (m *AttributeData) XXX_DiscardUnknown() {
+	xxx_messageInfo_AttributeData.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AttributeData proto.InternalMessageInfo
+
+func (m *AttributeData) GetSchemaId() uint64 {
+	if m != nil {
+		return m.SchemaId
+	}
+	return 0
+}
+
+func (m *AttributeData) GetValues() []string {
+	if m != nil {
+		return m.Values
+	}
+	return nil
+}
+
+type DeleteDraftRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteDraftRequest) Reset()         { *m = DeleteDraftRequest{} }
+func (m *DeleteDraftRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteDraftRequest) ProtoMessage()    {}
+func (*DeleteDraftRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{11}
+}
+
+func (m *DeleteDraftRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteDraftRequest.Unmarshal(m, b)
+}
+func (m *DeleteDraftRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteDraftRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteDraftRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteDraftRequest.Merge(m, src)
+}
+func (m *DeleteDraftRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteDraftRequest.Size(m)
+}
+func (m *DeleteDraftRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteDraftRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteDraftRequest proto.InternalMessageInfo
+
+func (m *DeleteDraftRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+type DeleteDraftLineRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	DraftLineId          uint64   `protobuf:"varint,2,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteDraftLineRequest) Reset()         { *m = DeleteDraftLineRequest{} }
+func (m *DeleteDraftLineRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteDraftLineRequest) ProtoMessage()    {}
+func (*DeleteDraftLineRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{12}
+}
+
+func (m *DeleteDraftLineRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteDraftLineRequest.Unmarshal(m, b)
+}
+func (m *DeleteDraftLineRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteDraftLineRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteDraftLineRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteDraftLineRequest.Merge(m, src)
+}
+func (m *DeleteDraftLineRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteDraftLineRequest.Size(m)
+}
+func (m *DeleteDraftLineRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteDraftLineRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteDraftLineRequest proto.InternalMessageInfo
+
+func (m *DeleteDraftLineRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *DeleteDraftLineRequest) GetDraftLineId() uint64 {
+	if m != nil {
+		return m.DraftLineId
+	}
+	return 0
+}
+
 type CloneDraftLineRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	DraftLineId          uint64   `protobuf:"varint,2,opt,name=draft_line_id,json=draftLineId,proto3" json:"draft_line_id,omitempty"`
@@ -535,7 +826,7 @@ func (m *CloneDraftLineRequest) Reset()         { *m = CloneDraftLineRequest{} }
 func (m *CloneDraftLineRequest) String() string { return proto.CompactTextString(m) }
 func (*CloneDraftLineRequest) ProtoMessage()    {}
 func (*CloneDraftLineRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{8}
+	return fileDescriptor_8c6e54f42122eb82, []int{13}
 }
 
 func (m *CloneDraftLineRequest) XXX_Unmarshal(b []byte) error {
@@ -581,7 +872,7 @@ func (m *CloneDraftLineResponse) Reset()         { *m = CloneDraftLineResponse{}
 func (m *CloneDraftLineResponse) String() string { return proto.CompactTextString(m) }
 func (*CloneDraftLineResponse) ProtoMessage()    {}
 func (*CloneDraftLineResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{9}
+	return fileDescriptor_8c6e54f42122eb82, []int{14}
 }
 
 func (m *CloneDraftLineResponse) XXX_Unmarshal(b []byte) error {
@@ -620,7 +911,7 @@ func (m *RetrieveDraftRequest) Reset()         { *m = RetrieveDraftRequest{} }
 func (m *RetrieveDraftRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveDraftRequest) ProtoMessage()    {}
 func (*RetrieveDraftRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{10}
+	return fileDescriptor_8c6e54f42122eb82, []int{15}
 }
 
 func (m *RetrieveDraftRequest) XXX_Unmarshal(b []byte) error {
@@ -662,7 +953,7 @@ func (m *RetrieveDraftResponse) Reset()         { *m = RetrieveDraftResponse{} }
 func (m *RetrieveDraftResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveDraftResponse) ProtoMessage()    {}
 func (*RetrieveDraftResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8c6e54f42122eb82, []int{11}
+	return fileDescriptor_8c6e54f42122eb82, []int{16}
 }
 
 func (m *RetrieveDraftResponse) XXX_Unmarshal(b []byte) error {
@@ -711,20 +1002,74 @@ func (m *RetrieveDraftResponse) GetLines() []*DraftLine {
 	return nil
 }
 
+type Page struct {
+	Cursor               uint64   `protobuf:"varint,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	Size                 uint64   `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Page) Reset()         { *m = Page{} }
+func (m *Page) String() string { return proto.CompactTextString(m) }
+func (*Page) ProtoMessage()    {}
+func (*Page) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8c6e54f42122eb82, []int{17}
+}
+
+func (m *Page) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Page.Unmarshal(m, b)
+}
+func (m *Page) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Page.Marshal(b, m, deterministic)
+}
+func (m *Page) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Page.Merge(m, src)
+}
+func (m *Page) XXX_Size() int {
+	return xxx_messageInfo_Page.Size(m)
+}
+func (m *Page) XXX_DiscardUnknown() {
+	xxx_messageInfo_Page.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Page proto.InternalMessageInfo
+
+func (m *Page) GetCursor() uint64 {
+	if m != nil {
+		return m.Cursor
+	}
+	return 0
+}
+
+func (m *Page) GetSize() uint64 {
+	if m != nil {
+		return m.Size
+	}
+	return 0
+}
+
 func init() {
+	proto.RegisterType((*StageChangeRequest)(nil), "products.StageChangeRequest")
+	proto.RegisterType((*StageChangeResponse)(nil), "products.StageChangeResponse")
 	proto.RegisterType((*DraftLine)(nil), "products.DraftLine")
 	proto.RegisterType((*DraftLineFirst)(nil), "products.DraftLineFirst")
 	proto.RegisterType((*DraftLineSecond)(nil), "products.DraftLineSecond")
-	proto.RegisterType((*AttributeData)(nil), "products.AttributeData")
-	proto.RegisterType((*SecondRequest)(nil), "products.SecondRequest")
-	proto.RegisterType((*SecondRequest_Body)(nil), "products.SecondRequest.Body")
-	proto.RegisterType((*Page)(nil), "products.Page")
+	proto.RegisterType((*DraftLineThird)(nil), "products.DraftLineThird")
 	proto.RegisterType((*FirstRequest)(nil), "products.FirstRequest")
 	proto.RegisterType((*FirstResponse)(nil), "products.FirstResponse")
+	proto.RegisterType((*SecondRequest)(nil), "products.SecondRequest")
+	proto.RegisterType((*SecondRequest_Body)(nil), "products.SecondRequest.Body")
+	proto.RegisterType((*ThirdRequest)(nil), "products.ThirdRequest")
+	proto.RegisterType((*ThirdRequest_Body)(nil), "products.ThirdRequest.Body")
+	proto.RegisterType((*AttributeData)(nil), "products.AttributeData")
+	proto.RegisterType((*DeleteDraftRequest)(nil), "products.DeleteDraftRequest")
+	proto.RegisterType((*DeleteDraftLineRequest)(nil), "products.DeleteDraftLineRequest")
 	proto.RegisterType((*CloneDraftLineRequest)(nil), "products.CloneDraftLineRequest")
 	proto.RegisterType((*CloneDraftLineResponse)(nil), "products.CloneDraftLineResponse")
 	proto.RegisterType((*RetrieveDraftRequest)(nil), "products.RetrieveDraftRequest")
 	proto.RegisterType((*RetrieveDraftResponse)(nil), "products.RetrieveDraftResponse")
+	proto.RegisterType((*Page)(nil), "products.Page")
 }
 
 func init() {
@@ -732,49 +1077,60 @@ func init() {
 }
 
 var fileDescriptor_8c6e54f42122eb82 = []byte{
-	// 666 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xc1, 0x72, 0xd3, 0x3a,
-	0x14, 0x8d, 0x13, 0x27, 0x4d, 0x6e, 0x9a, 0xbc, 0x19, 0xbd, 0x36, 0x71, 0xdd, 0x37, 0xaf, 0x41,
-	0x6c, 0x02, 0x0b, 0x67, 0x08, 0x0b, 0xe8, 0x0c, 0x2c, 0x68, 0x0b, 0x34, 0x33, 0x5d, 0x30, 0x06,
-	0x36, 0x2c, 0xe8, 0x28, 0x96, 0x1a, 0x3c, 0x4d, 0x23, 0x23, 0xc9, 0x19, 0xc2, 0x37, 0xb0, 0xe2,
-	0x4f, 0xf8, 0x1b, 0x3e, 0x87, 0xb1, 0x64, 0xc7, 0x75, 0xeb, 0x40, 0xd9, 0xe9, 0x5c, 0x9d, 0x7b,
-	0x74, 0xee, 0xd5, 0x95, 0xa0, 0x1b, 0x09, 0x4e, 0xe3, 0x40, 0x49, 0x2f, 0x12, 0x5c, 0x71, 0xd4,
-	0xcc, 0xb0, 0xdb, 0x5f, 0x92, 0x79, 0x48, 0x89, 0x62, 0xa3, 0x6c, 0x61, 0x28, 0xee, 0xfe, 0x8c,
-	0xf3, 0xd9, 0x9c, 0x8d, 0x34, 0x9a, 0xc6, 0x17, 0x23, 0x76, 0x15, 0xa9, 0x95, 0xd9, 0xc4, 0xdf,
-	0x2d, 0x68, 0x9d, 0x08, 0x72, 0xa1, 0xce, 0xc2, 0x05, 0x43, 0x18, 0x3a, 0x34, 0x01, 0xe7, 0xf3,
-	0x70, 0xc1, 0xce, 0x43, 0xea, 0x58, 0x03, 0x6b, 0x68, 0xfb, 0x6d, 0x9a, 0x31, 0x26, 0x14, 0x79,
-	0x50, 0xbf, 0x08, 0x85, 0x54, 0x4e, 0x75, 0x60, 0x0d, 0xdb, 0x63, 0xc7, 0x5b, 0x3b, 0x5a, 0xeb,
-	0xbc, 0x4a, 0xf6, 0x7d, 0x43, 0x43, 0x8f, 0xa0, 0x21, 0x59, 0xc0, 0x17, 0xd4, 0xa9, 0xe9, 0x84,
-	0xbd, 0x92, 0x84, 0xb7, 0x9a, 0xe0, 0xa7, 0x44, 0xfc, 0x1a, 0xba, 0x45, 0x2d, 0xb4, 0x03, 0x75,
-	0x15, 0xaa, 0x39, 0xd3, 0x87, 0xb6, 0x7c, 0x03, 0xd0, 0x01, 0xb4, 0x03, 0xa2, 0xd8, 0x8c, 0x8b,
-	0x55, 0x62, 0xb6, 0xa6, 0xcd, 0x42, 0x16, 0x9a, 0x50, 0xbc, 0x84, 0x7f, 0x6e, 0x9c, 0x91, 0x28,
-	0x45, 0x22, 0x0c, 0x98, 0x2e, 0xcd, 0xf2, 0x0d, 0x48, 0xa2, 0x52, 0xf1, 0xe0, 0x52, 0xeb, 0xdb,
-	0xbe, 0x01, 0xe8, 0x09, 0x00, 0x51, 0x4a, 0x84, 0xd3, 0x58, 0x31, 0xe9, 0xd4, 0x06, 0xb5, 0x61,
-	0x7b, 0xdc, 0xcf, 0xed, 0xbf, 0xc8, 0xf6, 0x4e, 0x88, 0x22, 0xfe, 0x35, 0x2a, 0x3e, 0x81, 0x4e,
-	0x61, 0x13, 0xed, 0x43, 0x4b, 0x06, 0x9f, 0xd8, 0x15, 0xc9, 0x9b, 0xda, 0x34, 0x81, 0x09, 0x45,
-	0x3d, 0x68, 0x2c, 0xc9, 0x3c, 0x66, 0xd2, 0xa9, 0x0e, 0x6a, 0xc3, 0x96, 0x9f, 0x22, 0xfc, 0xd3,
-	0x82, 0x4e, 0xda, 0x19, 0xf6, 0x39, 0x66, 0x52, 0xa1, 0xfb, 0xb0, 0x4d, 0x82, 0x80, 0x49, 0x79,
-	0xae, 0xf8, 0x25, 0x5b, 0x68, 0xa5, 0xd6, 0x69, 0xc5, 0x6f, 0x9b, 0xe8, 0xbb, 0x24, 0x88, 0xc6,
-	0x60, 0x4f, 0x39, 0x5d, 0xa5, 0xf7, 0xf3, 0x5f, 0xee, 0xb7, 0xa0, 0xe5, 0x1d, 0x71, 0xba, 0x3a,
-	0xad, 0xf8, 0x9a, 0xeb, 0x52, 0xb0, 0x13, 0x7c, 0xa7, 0x01, 0x78, 0x0a, 0x90, 0x73, 0xd2, 0x53,
-	0x7e, 0x73, 0xa9, 0xad, 0x75, 0xee, 0x51, 0x13, 0x1a, 0x01, 0x17, 0x51, 0x2c, 0xf1, 0x18, 0xec,
-	0x37, 0x64, 0xc6, 0x92, 0xd2, 0x83, 0x58, 0x48, 0x2e, 0xd2, 0x83, 0x52, 0x84, 0x10, 0xd8, 0x32,
-	0xfc, 0xca, 0xd2, 0xeb, 0xd0, 0x6b, 0xfc, 0x05, 0xb6, 0xcd, 0x60, 0xfd, 0x4d, 0x33, 0x0e, 0x4b,
-	0xcc, 0x6e, 0x1c, 0xd9, 0xd3, 0x4a, 0xb9, 0xdb, 0x87, 0xd0, 0x49, 0x4f, 0x96, 0x11, 0x5f, 0x48,
-	0x86, 0xf6, 0xa0, 0x69, 0x54, 0xd7, 0x1d, 0xda, 0xd2, 0x78, 0x42, 0xf1, 0x47, 0xd8, 0x3d, 0x9e,
-	0xf3, 0x05, 0x5b, 0x2b, 0x67, 0x76, 0xef, 0x95, 0xd9, 0x2d, 0x9a, 0xbd, 0xd5, 0xfd, 0xea, 0xad,
-	0xee, 0xe3, 0x33, 0xe8, 0xdd, 0xd4, 0x4f, 0x4d, 0x8d, 0x0b, 0xa5, 0x5a, 0xba, 0xd4, 0x7f, 0x4b,
-	0x4a, 0xbd, 0x56, 0x23, 0x3e, 0x84, 0x1d, 0x9f, 0x29, 0x11, 0xb2, 0xa5, 0x11, 0xbc, 0xbb, 0x59,
-	0xfc, 0xcd, 0x82, 0xdd, 0x1b, 0xb9, 0x7f, 0xec, 0x8e, 0x79, 0x67, 0x64, 0xc6, 0xf2, 0x77, 0x96,
-	0x4c, 0x41, 0x1f, 0xb6, 0x62, 0xc9, 0x44, 0xfe, 0x86, 0x1b, 0x09, 0x9c, 0x50, 0xf4, 0x00, 0xea,
-	0x49, 0x31, 0xd2, 0xb1, 0xf5, 0xdb, 0x2b, 0xad, 0xc6, 0x30, 0xc6, 0x3f, 0xaa, 0xb0, 0x75, 0x2c,
-	0x18, 0x51, 0x5c, 0xa0, 0x67, 0x50, 0x37, 0xdf, 0x46, 0x2f, 0x4f, 0xb8, 0x3e, 0x3a, 0x6e, 0xff,
-	0x56, 0xdc, 0x58, 0xc7, 0x95, 0xa1, 0x85, 0x9e, 0x43, 0x23, 0xfd, 0x2b, 0xfa, 0x1b, 0xde, 0x8e,
-	0xdb, 0xf3, 0xcc, 0x9f, 0xea, 0x65, 0x7f, 0xaa, 0xf7, 0x32, 0xf9, 0x53, 0x75, 0xfa, 0x7b, 0xe8,
-	0x16, 0x2f, 0x08, 0x1d, 0xe4, 0x32, 0xa5, 0xa3, 0xe1, 0x0e, 0x36, 0x13, 0x32, 0x5f, 0xc8, 0x87,
-	0x4e, 0xa1, 0xdb, 0xe8, 0xff, 0x3c, 0xa9, 0xec, 0x0a, 0xdd, 0x83, 0x8d, 0xfb, 0x99, 0xe6, 0x51,
-	0xf7, 0xc3, 0xb6, 0x37, 0x8a, 0xa6, 0x19, 0x6f, 0xda, 0xd0, 0xe5, 0x3c, 0xfe, 0x15, 0x00, 0x00,
-	0xff, 0xff, 0x55, 0x98, 0x50, 0x9c, 0x65, 0x06, 0x00, 0x00,
+	// 848 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0x4f, 0x8f, 0xdb, 0x44,
+	0x14, 0x5f, 0x6f, 0x9c, 0x6c, 0xf2, 0xb2, 0xd9, 0x4a, 0xd3, 0x36, 0x71, 0xbd, 0xc0, 0x06, 0x73,
+	0x49, 0x91, 0xf0, 0xaa, 0xe1, 0xb0, 0x54, 0xc0, 0x81, 0xdd, 0x14, 0x36, 0x52, 0x41, 0x95, 0x5b,
+	0x2e, 0x1c, 0x88, 0x26, 0x9e, 0x59, 0xaf, 0xd5, 0x6c, 0x26, 0xcc, 0x8c, 0xa3, 0x86, 0xcf, 0xc0,
+	0x89, 0x8f, 0xc4, 0x77, 0x40, 0xe2, 0xe3, 0xa0, 0x99, 0xb1, 0x63, 0x3b, 0x71, 0xda, 0x8d, 0x10,
+	0x37, 0xbf, 0x37, 0xef, 0xdf, 0xef, 0xbd, 0xdf, 0xbc, 0x31, 0x9c, 0x2c, 0x38, 0x23, 0x49, 0x28,
+	0x85, 0xbf, 0xe0, 0x4c, 0x32, 0xd4, 0xcc, 0x64, 0xb7, 0xb7, 0xc4, 0xb3, 0x98, 0x60, 0x49, 0xcf,
+	0xb3, 0x0f, 0x63, 0xe2, 0x9e, 0x46, 0x8c, 0x45, 0x33, 0x7a, 0xae, 0xa5, 0x69, 0x72, 0x73, 0x4e,
+	0xef, 0x16, 0x72, 0x65, 0x0e, 0xbd, 0x0b, 0x40, 0xaf, 0x25, 0x8e, 0xe8, 0xd5, 0x2d, 0x9e, 0x47,
+	0x34, 0xa0, 0xbf, 0x25, 0x54, 0x48, 0xf4, 0x29, 0x1c, 0xe3, 0x30, 0xa4, 0x42, 0x4c, 0x24, 0x7b,
+	0x4b, 0xe7, 0x8e, 0xd5, 0xb7, 0x06, 0xad, 0xa0, 0x6d, 0x74, 0x6f, 0x94, 0xca, 0x7b, 0x0a, 0x0f,
+	0x4b, 0x8e, 0x62, 0xc1, 0xe6, 0x82, 0x22, 0x04, 0xb6, 0x88, 0x7f, 0xa7, 0xda, 0xc3, 0x0e, 0xf4,
+	0xb7, 0xf7, 0x97, 0x05, 0xad, 0x11, 0xc7, 0x37, 0xf2, 0x65, 0x3c, 0xa7, 0xc8, 0x83, 0x0e, 0x51,
+	0xc2, 0x64, 0x16, 0xcf, 0xe9, 0x24, 0x26, 0xa9, 0x69, 0x9b, 0x64, 0x16, 0x63, 0x82, 0x7c, 0xa8,
+	0xdf, 0xc4, 0x5c, 0x48, 0xe7, 0xb0, 0x6f, 0x0d, 0xda, 0x43, 0xc7, 0x5f, 0xa3, 0x5e, 0xc7, 0xf9,
+	0x5e, 0x9d, 0x07, 0xc6, 0x0c, 0x3d, 0x83, 0x86, 0xa0, 0x21, 0x9b, 0x13, 0xa7, 0xa6, 0x1d, 0x9e,
+	0x54, 0x38, 0xbc, 0xd6, 0x06, 0x41, 0x6a, 0xa8, 0x52, 0xc8, 0xdb, 0x98, 0x13, 0xc7, 0xde, 0x99,
+	0xe2, 0x8d, 0x3a, 0x0f, 0x8c, 0x99, 0xf7, 0x03, 0x9c, 0x94, 0x73, 0xa3, 0x47, 0x50, 0x97, 0xb1,
+	0x9c, 0x51, 0x5d, 0x64, 0x2b, 0x30, 0x02, 0x3a, 0x83, 0x76, 0x88, 0x25, 0x8d, 0x18, 0x5f, 0x29,
+	0x70, 0x35, 0x0d, 0x0e, 0x32, 0xd5, 0x98, 0x78, 0x4b, 0x78, 0xb0, 0x51, 0x93, 0x8a, 0xb4, 0xe0,
+	0x71, 0x68, 0xba, 0x66, 0x05, 0x46, 0x50, 0x5a, 0x21, 0x59, 0xf8, 0x56, 0xc7, 0xb7, 0x03, 0x23,
+	0xa0, 0x0b, 0x00, 0x2c, 0x25, 0x8f, 0xa7, 0x89, 0xa4, 0xc2, 0xa9, 0xf5, 0x6b, 0x83, 0xf6, 0xb0,
+	0x97, 0x17, 0xff, 0x5d, 0x76, 0x36, 0xc2, 0x12, 0x07, 0x05, 0x53, 0xef, 0x8b, 0x02, 0x00, 0x8d,
+	0x0c, 0x9d, 0x42, 0x2b, 0xbe, 0xc3, 0x91, 0x1a, 0x82, 0x70, 0xac, 0x7e, 0x6d, 0xd0, 0x0a, 0x9a,
+	0x5a, 0x31, 0x26, 0xc2, 0x7b, 0x07, 0xc7, 0xa6, 0xc5, 0x29, 0x25, 0x3e, 0xab, 0xa2, 0xc4, 0xf5,
+	0x41, 0x89, 0x14, 0xe8, 0x39, 0x40, 0x3e, 0xdb, 0x0f, 0x0d, 0xef, 0xfa, 0x20, 0x68, 0xad, 0x87,
+	0x7e, 0xd9, 0x84, 0x46, 0xc8, 0xf8, 0x22, 0x11, 0xde, 0xe7, 0xd0, 0x49, 0x33, 0xa7, 0x9c, 0x7a,
+	0x02, 0x4d, 0x13, 0x75, 0x4d, 0x96, 0x23, 0x2d, 0x8f, 0x89, 0xf7, 0x8f, 0x05, 0x9d, 0x74, 0xb0,
+	0xfb, 0xd4, 0x39, 0x04, 0x7b, 0xca, 0xc8, 0x2a, 0xad, 0xf0, 0xa3, 0xbc, 0xc2, 0x52, 0x2c, 0xff,
+	0x92, 0x91, 0xd5, 0xf5, 0x41, 0xa0, 0x6d, 0x5d, 0x02, 0xb6, 0x92, 0xef, 0xc5, 0xdf, 0xaf, 0x2a,
+	0xfa, 0xf0, 0x1e, 0x4e, 0x56, 0xb6, 0xe1, 0x6f, 0x0b, 0x8e, 0x0d, 0x03, 0xf7, 0x41, 0xf6, 0xac,
+	0x84, 0xec, 0x34, 0xcf, 0x59, 0x0c, 0x55, 0x06, 0x16, 0xee, 0x01, 0xec, 0xe2, 0x9e, 0x03, 0x36,
+	0xd9, 0x2a, 0x71, 0x8d, 0xa0, 0x53, 0x22, 0xa9, 0xa2, 0xa1, 0x08, 0x6f, 0xe9, 0x1d, 0xce, 0x73,
+	0x36, 0x8d, 0x62, 0x4c, 0x50, 0x17, 0x1a, 0x4b, 0x3c, 0x4b, 0xa8, 0x70, 0x0e, 0x35, 0x41, 0x53,
+	0x49, 0xed, 0xad, 0x11, 0x9d, 0x51, 0x49, 0x75, 0xca, 0x3d, 0xf6, 0xd6, 0x04, 0xba, 0x05, 0x47,
+	0x55, 0xdb, 0xfd, 0x9d, 0xb7, 0x5b, 0x74, 0xb8, 0xd5, 0x22, 0xef, 0x57, 0x78, 0x7c, 0x35, 0x63,
+	0xf3, 0xff, 0x2d, 0xfe, 0x4b, 0xe8, 0x6e, 0xc6, 0x4f, 0xef, 0xc9, 0xb0, 0x34, 0x1c, 0x4b, 0x0f,
+	0xe7, 0x61, 0xc5, 0x70, 0x0a, 0x73, 0xf1, 0x9e, 0xc3, 0xa3, 0x80, 0x4a, 0x1e, 0xd3, 0xe5, 0xde,
+	0x9d, 0xfc, 0xc3, 0x82, 0xc7, 0x1b, 0xbe, 0x1f, 0xbc, 0xb0, 0x66, 0xa9, 0xe1, 0x88, 0xe6, 0x4b,
+	0x0d, 0x47, 0x14, 0xf5, 0xe0, 0x28, 0x11, 0x94, 0xe7, 0x0b, 0xb3, 0xa1, 0xc4, 0x31, 0x41, 0x4f,
+	0xa1, 0xae, 0xc0, 0x08, 0xc7, 0xd6, 0x8b, 0xae, 0x12, 0x8d, 0xb1, 0xf0, 0x86, 0x60, 0xbf, 0x52,
+	0xb1, 0xba, 0xd0, 0x08, 0x13, 0x2e, 0x18, 0x4f, 0x53, 0xa7, 0xd2, 0xfa, 0x65, 0x3a, 0xcc, 0x5f,
+	0xa6, 0xe1, 0x9f, 0x75, 0x38, 0xba, 0xe2, 0x14, 0x4b, 0xc6, 0xd1, 0x0b, 0xb0, 0x7f, 0xa2, 0xef,
+	0x24, 0x2a, 0x6e, 0x83, 0xad, 0x97, 0xd1, 0xfd, 0x78, 0xc7, 0xa9, 0x41, 0xee, 0x1d, 0xa8, 0x30,
+	0xaf, 0x38, 0x5d, 0xfe, 0xd7, 0x30, 0xdf, 0x40, 0xdd, 0xbc, 0x32, 0xdd, 0xdc, 0xb2, 0xb8, 0x8f,
+	0xdd, 0xde, 0x96, 0x3e, 0xf3, 0x1d, 0x58, 0xe8, 0x5b, 0x68, 0xa4, 0x4f, 0x4b, 0x6f, 0xc7, 0x6e,
+	0x73, 0xbb, 0xbe, 0xf9, 0x2d, 0xf0, 0xb3, 0xdf, 0x02, 0xff, 0x85, 0xfa, 0x2d, 0xd0, 0xee, 0x5f,
+	0x43, 0xdd, 0xbc, 0x10, 0xdd, 0xea, 0xfd, 0xf1, 0x5e, 0xe7, 0x9f, 0xe1, 0xa4, 0xcc, 0x4f, 0x74,
+	0x96, 0x47, 0xa9, 0xbc, 0x19, 0x6e, 0x7f, 0xb7, 0xc1, 0xba, 0x21, 0x3f, 0xc2, 0x83, 0x8d, 0x7b,
+	0x8b, 0x0a, 0x6e, 0xd5, 0x57, 0x7a, 0x77, 0x9d, 0x28, 0x80, 0x4e, 0x89, 0xbb, 0xe8, 0x93, 0x3c,
+	0x58, 0xd5, 0x85, 0x70, 0xcf, 0x76, 0x9e, 0x17, 0x46, 0xdf, 0x2e, 0xd4, 0x51, 0x64, 0xc0, 0xf6,
+	0xaa, 0xda, 0x5d, 0xda, 0xe5, 0xc9, 0x2f, 0xc7, 0xfe, 0xf9, 0x62, 0x9a, 0x39, 0x4f, 0x1b, 0xda,
+	0xe2, 0xcb, 0x7f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x08, 0x7a, 0xa1, 0xd1, 0xfb, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -789,10 +1145,15 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CreatorClient interface {
+	Next(ctx context.Context, in *StageChangeRequest, opts ...grpc.CallOption) (*StageChangeResponse, error)
+	Prev(ctx context.Context, in *StageChangeRequest, opts ...grpc.CallOption) (*StageChangeResponse, error)
 	First(ctx context.Context, opts ...grpc.CallOption) (Creator_FirstClient, error)
 	Second(ctx context.Context, opts ...grpc.CallOption) (Creator_SecondClient, error)
+	Third(ctx context.Context, opts ...grpc.CallOption) (Creator_ThirdClient, error)
 	CloneDraftLine(ctx context.Context, in *CloneDraftLineRequest, opts ...grpc.CallOption) (*CloneDraftLineResponse, error)
+	DeleteDraftLine(ctx context.Context, in *DeleteDraftLineRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	RetrieveDraft(ctx context.Context, in *RetrieveDraftRequest, opts ...grpc.CallOption) (*RetrieveDraftResponse, error)
+	DeleteDraft(ctx context.Context, in *DeleteDraftRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type creatorClient struct {
@@ -801,6 +1162,24 @@ type creatorClient struct {
 
 func NewCreatorClient(cc grpc.ClientConnInterface) CreatorClient {
 	return &creatorClient{cc}
+}
+
+func (c *creatorClient) Next(ctx context.Context, in *StageChangeRequest, opts ...grpc.CallOption) (*StageChangeResponse, error) {
+	out := new(StageChangeResponse)
+	err := c.cc.Invoke(ctx, "/products.Creator/Next", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *creatorClient) Prev(ctx context.Context, in *StageChangeRequest, opts ...grpc.CallOption) (*StageChangeResponse, error) {
+	out := new(StageChangeResponse)
+	err := c.cc.Invoke(ctx, "/products.Creator/Prev", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *creatorClient) First(ctx context.Context, opts ...grpc.CallOption) (Creator_FirstClient, error) {
@@ -871,9 +1250,52 @@ func (x *creatorSecondClient) CloseAndRecv() (*empty.Empty, error) {
 	return m, nil
 }
 
+func (c *creatorClient) Third(ctx context.Context, opts ...grpc.CallOption) (Creator_ThirdClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Creator_serviceDesc.Streams[2], "/products.Creator/Third", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &creatorThirdClient{stream}
+	return x, nil
+}
+
+type Creator_ThirdClient interface {
+	Send(*ThirdRequest) error
+	CloseAndRecv() (*empty.Empty, error)
+	grpc.ClientStream
+}
+
+type creatorThirdClient struct {
+	grpc.ClientStream
+}
+
+func (x *creatorThirdClient) Send(m *ThirdRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *creatorThirdClient) CloseAndRecv() (*empty.Empty, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(empty.Empty)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *creatorClient) CloneDraftLine(ctx context.Context, in *CloneDraftLineRequest, opts ...grpc.CallOption) (*CloneDraftLineResponse, error) {
 	out := new(CloneDraftLineResponse)
 	err := c.cc.Invoke(ctx, "/products.Creator/CloneDraftLine", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *creatorClient) DeleteDraftLine(ctx context.Context, in *DeleteDraftLineRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/products.Creator/DeleteDraftLine", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -889,33 +1311,98 @@ func (c *creatorClient) RetrieveDraft(ctx context.Context, in *RetrieveDraftRequ
 	return out, nil
 }
 
+func (c *creatorClient) DeleteDraft(ctx context.Context, in *DeleteDraftRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/products.Creator/DeleteDraft", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CreatorServer is the server API for Creator service.
 type CreatorServer interface {
+	Next(context.Context, *StageChangeRequest) (*StageChangeResponse, error)
+	Prev(context.Context, *StageChangeRequest) (*StageChangeResponse, error)
 	First(Creator_FirstServer) error
 	Second(Creator_SecondServer) error
+	Third(Creator_ThirdServer) error
 	CloneDraftLine(context.Context, *CloneDraftLineRequest) (*CloneDraftLineResponse, error)
+	DeleteDraftLine(context.Context, *DeleteDraftLineRequest) (*empty.Empty, error)
 	RetrieveDraft(context.Context, *RetrieveDraftRequest) (*RetrieveDraftResponse, error)
+	DeleteDraft(context.Context, *DeleteDraftRequest) (*empty.Empty, error)
 }
 
 // UnimplementedCreatorServer can be embedded to have forward compatible implementations.
 type UnimplementedCreatorServer struct {
 }
 
+func (*UnimplementedCreatorServer) Next(ctx context.Context, req *StageChangeRequest) (*StageChangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
+}
+func (*UnimplementedCreatorServer) Prev(ctx context.Context, req *StageChangeRequest) (*StageChangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Prev not implemented")
+}
 func (*UnimplementedCreatorServer) First(srv Creator_FirstServer) error {
 	return status.Errorf(codes.Unimplemented, "method First not implemented")
 }
 func (*UnimplementedCreatorServer) Second(srv Creator_SecondServer) error {
 	return status.Errorf(codes.Unimplemented, "method Second not implemented")
 }
+func (*UnimplementedCreatorServer) Third(srv Creator_ThirdServer) error {
+	return status.Errorf(codes.Unimplemented, "method Third not implemented")
+}
 func (*UnimplementedCreatorServer) CloneDraftLine(ctx context.Context, req *CloneDraftLineRequest) (*CloneDraftLineResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloneDraftLine not implemented")
+}
+func (*UnimplementedCreatorServer) DeleteDraftLine(ctx context.Context, req *DeleteDraftLineRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDraftLine not implemented")
 }
 func (*UnimplementedCreatorServer) RetrieveDraft(ctx context.Context, req *RetrieveDraftRequest) (*RetrieveDraftResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RetrieveDraft not implemented")
 }
+func (*UnimplementedCreatorServer) DeleteDraft(ctx context.Context, req *DeleteDraftRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDraft not implemented")
+}
 
 func RegisterCreatorServer(s *grpc.Server, srv CreatorServer) {
 	s.RegisterService(&_Creator_serviceDesc, srv)
+}
+
+func _Creator_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StageChangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CreatorServer).Next(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/products.Creator/Next",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CreatorServer).Next(ctx, req.(*StageChangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Creator_Prev_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StageChangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CreatorServer).Prev(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/products.Creator/Prev",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CreatorServer).Prev(ctx, req.(*StageChangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Creator_First_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -970,6 +1457,32 @@ func (x *creatorSecondServer) Recv() (*SecondRequest, error) {
 	return m, nil
 }
 
+func _Creator_Third_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CreatorServer).Third(&creatorThirdServer{stream})
+}
+
+type Creator_ThirdServer interface {
+	SendAndClose(*empty.Empty) error
+	Recv() (*ThirdRequest, error)
+	grpc.ServerStream
+}
+
+type creatorThirdServer struct {
+	grpc.ServerStream
+}
+
+func (x *creatorThirdServer) SendAndClose(m *empty.Empty) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *creatorThirdServer) Recv() (*ThirdRequest, error) {
+	m := new(ThirdRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func _Creator_CloneDraftLine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CloneDraftLineRequest)
 	if err := dec(in); err != nil {
@@ -984,6 +1497,24 @@ func _Creator_CloneDraftLine_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CreatorServer).CloneDraftLine(ctx, req.(*CloneDraftLineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Creator_DeleteDraftLine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDraftLineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CreatorServer).DeleteDraftLine(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/products.Creator/DeleteDraftLine",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CreatorServer).DeleteDraftLine(ctx, req.(*DeleteDraftLineRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1006,17 +1537,51 @@ func _Creator_RetrieveDraft_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Creator_DeleteDraft_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDraftRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CreatorServer).DeleteDraft(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/products.Creator/DeleteDraft",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CreatorServer).DeleteDraft(ctx, req.(*DeleteDraftRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Creator_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "products.Creator",
 	HandlerType: (*CreatorServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Next",
+			Handler:    _Creator_Next_Handler,
+		},
+		{
+			MethodName: "Prev",
+			Handler:    _Creator_Prev_Handler,
+		},
+		{
 			MethodName: "CloneDraftLine",
 			Handler:    _Creator_CloneDraftLine_Handler,
 		},
 		{
+			MethodName: "DeleteDraftLine",
+			Handler:    _Creator_DeleteDraftLine_Handler,
+		},
+		{
 			MethodName: "RetrieveDraft",
 			Handler:    _Creator_RetrieveDraft_Handler,
+		},
+		{
+			MethodName: "DeleteDraft",
+			Handler:    _Creator_DeleteDraft_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
@@ -1028,6 +1593,11 @@ var _Creator_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "Second",
 			Handler:       _Creator_Second_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Third",
+			Handler:       _Creator_Third_Handler,
 			ClientStreams: true,
 		},
 	},

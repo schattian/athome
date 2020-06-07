@@ -36,6 +36,144 @@ var (
 // define the regex for a UUID once up-front
 var _products_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on StageChangeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *StageChangeRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// StageChangeRequestValidationError is the validation error returned by
+// StageChangeRequest.Validate if the designated constraints aren't met.
+type StageChangeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StageChangeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StageChangeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StageChangeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StageChangeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StageChangeRequestValidationError) ErrorName() string {
+	return "StageChangeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StageChangeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStageChangeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StageChangeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StageChangeRequestValidationError{}
+
+// Validate checks the field values on StageChangeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *StageChangeResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Size
+
+	return nil
+}
+
+// StageChangeResponseValidationError is the validation error returned by
+// StageChangeResponse.Validate if the designated constraints aren't met.
+type StageChangeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StageChangeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StageChangeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StageChangeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StageChangeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StageChangeResponseValidationError) ErrorName() string {
+	return "StageChangeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StageChangeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStageChangeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StageChangeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StageChangeResponseValidationError{}
+
 // Validate checks the field values on DraftLine with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *DraftLine) Validate() error {
@@ -59,6 +197,16 @@ func (m *DraftLine) Validate() error {
 		if err := v.Validate(); err != nil {
 			return DraftLineValidationError{
 				field:  "Second",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetThird()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DraftLineValidationError{
+				field:  "Third",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -275,22 +423,20 @@ var _ interface {
 	ErrorName() string
 } = DraftLineSecondValidationError{}
 
-// Validate checks the field values on AttributeData with the rules defined in
+// Validate checks the field values on DraftLineThird with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
-func (m *AttributeData) Validate() error {
+func (m *DraftLineThird) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for SchemaId
-
 	return nil
 }
 
-// AttributeDataValidationError is the validation error returned by
-// AttributeData.Validate if the designated constraints aren't met.
-type AttributeDataValidationError struct {
+// DraftLineThirdValidationError is the validation error returned by
+// DraftLineThird.Validate if the designated constraints aren't met.
+type DraftLineThirdValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -298,22 +444,22 @@ type AttributeDataValidationError struct {
 }
 
 // Field function returns field value.
-func (e AttributeDataValidationError) Field() string { return e.field }
+func (e DraftLineThirdValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AttributeDataValidationError) Reason() string { return e.reason }
+func (e DraftLineThirdValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AttributeDataValidationError) Cause() error { return e.cause }
+func (e DraftLineThirdValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AttributeDataValidationError) Key() bool { return e.key }
+func (e DraftLineThirdValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AttributeDataValidationError) ErrorName() string { return "AttributeDataValidationError" }
+func (e DraftLineThirdValidationError) ErrorName() string { return "DraftLineThirdValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AttributeDataValidationError) Error() string {
+func (e DraftLineThirdValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -325,14 +471,14 @@ func (e AttributeDataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAttributeData.%s: %s%s",
+		"invalid %sDraftLineThird.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AttributeDataValidationError{}
+var _ error = DraftLineThirdValidationError{}
 
 var _ interface {
 	Field() string
@@ -340,159 +486,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AttributeDataValidationError{}
-
-// Validate checks the field values on SecondRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *SecondRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	switch m.Corpus.(type) {
-
-	case *SecondRequest_AccessToken:
-		// no validation rules for AccessToken
-
-	case *SecondRequest_Body_:
-
-		if v, ok := interface{}(m.GetBody()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SecondRequestValidationError{
-					field:  "Body",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// SecondRequestValidationError is the validation error returned by
-// SecondRequest.Validate if the designated constraints aren't met.
-type SecondRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SecondRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SecondRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SecondRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SecondRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SecondRequestValidationError) ErrorName() string { return "SecondRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e SecondRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSecondRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SecondRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SecondRequestValidationError{}
-
-// Validate checks the field values on Page with the rules defined in the proto
-// definition for this message. If any rules are violated, an error is returned.
-func (m *Page) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Cursor
-
-	// no validation rules for Size
-
-	return nil
-}
-
-// PageValidationError is the validation error returned by Page.Validate if the
-// designated constraints aren't met.
-type PageValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e PageValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e PageValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e PageValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e PageValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e PageValidationError) ErrorName() string { return "PageValidationError" }
-
-// Error satisfies the builtin error interface
-func (e PageValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sPage.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = PageValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = PageValidationError{}
+} = DraftLineThirdValidationError{}
 
 // Validate checks the field values on FirstRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -644,6 +638,381 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FirstResponseValidationError{}
+
+// Validate checks the field values on SecondRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SecondRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	switch m.Corpus.(type) {
+
+	case *SecondRequest_AccessToken:
+		// no validation rules for AccessToken
+
+	case *SecondRequest_Body_:
+
+		if v, ok := interface{}(m.GetBody()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SecondRequestValidationError{
+					field:  "Body",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// SecondRequestValidationError is the validation error returned by
+// SecondRequest.Validate if the designated constraints aren't met.
+type SecondRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecondRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecondRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecondRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecondRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecondRequestValidationError) ErrorName() string { return "SecondRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SecondRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecondRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecondRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecondRequestValidationError{}
+
+// Validate checks the field values on ThirdRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *ThirdRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	switch m.Corpus.(type) {
+
+	case *ThirdRequest_AccessToken:
+		// no validation rules for AccessToken
+
+	case *ThirdRequest_Body_:
+
+		if v, ok := interface{}(m.GetBody()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ThirdRequestValidationError{
+					field:  "Body",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ThirdRequestValidationError is the validation error returned by
+// ThirdRequest.Validate if the designated constraints aren't met.
+type ThirdRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ThirdRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ThirdRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ThirdRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ThirdRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ThirdRequestValidationError) ErrorName() string { return "ThirdRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ThirdRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sThirdRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ThirdRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ThirdRequestValidationError{}
+
+// Validate checks the field values on AttributeData with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *AttributeData) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for SchemaId
+
+	return nil
+}
+
+// AttributeDataValidationError is the validation error returned by
+// AttributeData.Validate if the designated constraints aren't met.
+type AttributeDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AttributeDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AttributeDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AttributeDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AttributeDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AttributeDataValidationError) ErrorName() string { return "AttributeDataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AttributeDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAttributeData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AttributeDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AttributeDataValidationError{}
+
+// Validate checks the field values on DeleteDraftRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteDraftRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// DeleteDraftRequestValidationError is the validation error returned by
+// DeleteDraftRequest.Validate if the designated constraints aren't met.
+type DeleteDraftRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteDraftRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteDraftRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteDraftRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteDraftRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteDraftRequestValidationError) ErrorName() string {
+	return "DeleteDraftRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteDraftRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteDraftRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteDraftRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteDraftRequestValidationError{}
+
+// Validate checks the field values on DeleteDraftLineRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteDraftLineRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for DraftLineId
+
+	return nil
+}
+
+// DeleteDraftLineRequestValidationError is the validation error returned by
+// DeleteDraftLineRequest.Validate if the designated constraints aren't met.
+type DeleteDraftLineRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteDraftLineRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteDraftLineRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteDraftLineRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteDraftLineRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteDraftLineRequestValidationError) ErrorName() string {
+	return "DeleteDraftLineRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteDraftLineRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteDraftLineRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteDraftLineRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteDraftLineRequestValidationError{}
 
 // Validate checks the field values on CloneDraftLineRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -950,6 +1319,74 @@ var _ interface {
 	ErrorName() string
 } = RetrieveDraftResponseValidationError{}
 
+// Validate checks the field values on Page with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *Page) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Cursor
+
+	// no validation rules for Size
+
+	return nil
+}
+
+// PageValidationError is the validation error returned by Page.Validate if the
+// designated constraints aren't met.
+type PageValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageValidationError) ErrorName() string { return "PageValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PageValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPage.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageValidationError{}
+
 // Validate checks the field values on SecondRequest_Body with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1028,3 +1465,82 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SecondRequest_BodyValidationError{}
+
+// Validate checks the field values on ThirdRequest_Body with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *ThirdRequest_Body) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for DraftLineId
+
+	if v, ok := interface{}(m.GetDraftLine()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ThirdRequest_BodyValidationError{
+				field:  "DraftLine",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// ThirdRequest_BodyValidationError is the validation error returned by
+// ThirdRequest_Body.Validate if the designated constraints aren't met.
+type ThirdRequest_BodyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ThirdRequest_BodyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ThirdRequest_BodyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ThirdRequest_BodyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ThirdRequest_BodyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ThirdRequest_BodyValidationError) ErrorName() string {
+	return "ThirdRequest_BodyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ThirdRequest_BodyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sThirdRequest_Body.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ThirdRequest_BodyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ThirdRequest_BodyValidationError{}
