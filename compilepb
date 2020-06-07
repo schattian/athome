@@ -13,7 +13,7 @@ protoc \
   --validate_out="lang=go:../backend/$1/pb/" \
   $1.proto
 
-../cleanpb ./$1.proto > ./clean.$1.proto
+../cleanpb ./$1.proto > ./clean/$1.proto
 }
 
 pbpropague()
@@ -33,9 +33,14 @@ pbcompile mailer
 
 pbcompile products
 
+pbcompile images
+
+
 pbpropague auth users
 
 pbpropague auth products
+
+pbpropague auth images
 
 pbpropague identifier users
 
