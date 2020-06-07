@@ -456,7 +456,7 @@ func (m *RetrieveSelectableCategoriesResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RetrieveSelectableCategoriesResponse proto.InternalMessageInfo
 
-func (m *RetrieveSelectableCategoriesResponse) RetrieveCategories() []*Category {
+func (m *RetrieveSelectableCategoriesResponse) GetCategories() []*Category {
 	if m != nil {
 		return m.Categories
 	}

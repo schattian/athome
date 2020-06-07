@@ -184,7 +184,7 @@ func (m *RetrieveCategoriesResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RetrieveCategoriesResponse proto.InternalMessageInfo
 
-func (m *RetrieveCategoriesResponse) RetrieveCategories() []*Category {
+func (m *RetrieveCategoriesResponse) GetCategories() []*Category {
 	if m != nil {
 		return m.Categories
 	}

@@ -202,7 +202,7 @@ func (m *RetrieveCategoriesResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.RetrieveCategories() {
+	for idx, item := range m.GetCategories() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
