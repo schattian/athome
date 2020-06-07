@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./pbimages";
+
+package images;
+
+
+service Images {
+  rpc CreateImage (stream CreateImageRequest) returns (CreateImageResponse) {}
+  rpc RetrieveImage (RetrieveImageRequest) returns (RetrieveImageResponse) {}
+  rpc DeleteImage (DeleteImageRequest) returns (google.protobuf.Empty) {}
+}
+
+
+message CreateImageRequest{
+  oneof corpus{
+    Metadata metadata = 1;
+    bytes chunk = 2;
+  }
+}
+
+message CreateImageResponse {
+  string id = 1;
+  int64 size = 2;
+  string uri = 3;
+  uint64 user_id = 4;
+}
+
+message RetrieveImageRequest{
+  string id = 1;
+}
+
+message RetrieveImageResponse {
+  string uri = 1;
+  uint64 user_id = 2;
+}
+
+message DeleteImageRequest{
+  string access_token = 1;
+  string id = 2;
+}
+
+message Metadata {
+  string ext = 1;
+  string access_token = 2;
+}
+
