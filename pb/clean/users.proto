@@ -7,6 +7,19 @@ option go_package = "./pbusers";
 
 package users;
 
+service Viewer {
+  rpc ViewUser (ViewUserRequest) returns (ViewUserResponse) {}
+}
+
+message ViewUserRequest {
+  uint64 user_id = 1;
+}
+
+message ViewUserResponse {
+  string name = 1;
+  string surname = 2;
+}
+
 service Sign {
   rpc Sign (SignRequest) returns (SignResponse) {}
 
