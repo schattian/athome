@@ -36,6 +36,142 @@ var (
 // define the regex for a UUID once up-front
 var _users_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on ViewUserRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *ViewUserRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// ViewUserRequestValidationError is the validation error returned by
+// ViewUserRequest.Validate if the designated constraints aren't met.
+type ViewUserRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ViewUserRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ViewUserRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ViewUserRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ViewUserRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ViewUserRequestValidationError) ErrorName() string { return "ViewUserRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ViewUserRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sViewUserRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ViewUserRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ViewUserRequestValidationError{}
+
+// Validate checks the field values on ViewUserResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *ViewUserResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	return nil
+}
+
+// ViewUserResponseValidationError is the validation error returned by
+// ViewUserResponse.Validate if the designated constraints aren't met.
+type ViewUserResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ViewUserResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ViewUserResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ViewUserResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ViewUserResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ViewUserResponseValidationError) ErrorName() string { return "ViewUserResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ViewUserResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sViewUserResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ViewUserResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ViewUserResponseValidationError{}
+
 // Validate checks the field values on SignUpIdentificationRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

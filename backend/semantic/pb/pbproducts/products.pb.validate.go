@@ -36,6 +36,319 @@ var (
 // define the regex for a UUID once up-front
 var _products_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on RetrieveProductRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveProductRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ProductId
+
+	return nil
+}
+
+// RetrieveProductRequestValidationError is the validation error returned by
+// RetrieveProductRequest.Validate if the designated constraints aren't met.
+type RetrieveProductRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveProductRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveProductRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveProductRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveProductRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveProductRequestValidationError) ErrorName() string {
+	return "RetrieveProductRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveProductRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveProductRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveProductRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveProductRequestValidationError{}
+
+// Validate checks the field values on RetrieveProductDetailResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveProductDetailResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Title
+
+	// no validation rules for CategoryId
+
+	// no validation rules for Price
+
+	// no validation rules for Stock
+
+	for idx, item := range m.GetAttributes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RetrieveProductDetailResponseValidationError{
+					field:  fmt.Sprintf("Attributes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveProductDetailResponseValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// RetrieveProductDetailResponseValidationError is the validation error
+// returned by RetrieveProductDetailResponse.Validate if the designated
+// constraints aren't met.
+type RetrieveProductDetailResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveProductDetailResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveProductDetailResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveProductDetailResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveProductDetailResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveProductDetailResponseValidationError) ErrorName() string {
+	return "RetrieveProductDetailResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveProductDetailResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveProductDetailResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveProductDetailResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveProductDetailResponseValidationError{}
+
+// Validate checks the field values on User with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *User) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	return nil
+}
+
+// UserValidationError is the validation error returned by User.Validate if the
+// designated constraints aren't met.
+type UserValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserValidationError) ErrorName() string { return "UserValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUser.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserValidationError{}
+
+// Validate checks the field values on ViewableAttributeData with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ViewableAttributeData) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for SchemaId
+
+	// no validation rules for ValueType
+
+	return nil
+}
+
+// ViewableAttributeDataValidationError is the validation error returned by
+// ViewableAttributeData.Validate if the designated constraints aren't met.
+type ViewableAttributeDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ViewableAttributeDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ViewableAttributeDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ViewableAttributeDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ViewableAttributeDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ViewableAttributeDataValidationError) ErrorName() string {
+	return "ViewableAttributeDataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ViewableAttributeDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sViewableAttributeData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ViewableAttributeDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ViewableAttributeDataValidationError{}
+
 // Validate checks the field values on StageChangeRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

@@ -40,6 +40,8 @@ pbpropague auth users
 
 pbpropague auth products
 
+pbpropague images products
+
 pbpropague auth images
 
 pbpropague identifier users
@@ -47,6 +49,8 @@ pbpropague identifier users
 pbpropague auth semantic
 
 pbpropague products semantic
+
+pbpropague users products
 
 pbpropague semantic products
 
