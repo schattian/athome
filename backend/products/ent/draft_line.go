@@ -3,24 +3,59 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/currency"
+	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
 
 type DraftLine struct {
-	Id      uint64
-	DraftId uint64
+	Id      uint64 `json:"id,omitempty"`
+	DraftId uint64 `json:"draft_id,omitempty"`
 
 	// First
-	Title      string
-	CategoryId uint64
+	Title      string `json:"title,omitempty"`
+	CategoryId uint64 `json:"category_id,omitempty"`
 
 	// Second
-	Price currency.ARS
-	Stock uint64
+	Price currency.ARS `json:"price,omitempty"`
+	Stock uint64       `json:"stock,omitempty"`
 
 	// Third
+	ImageIds []string `json:"image_ids,omitempty"`
+}
+
+func (ln *DraftLine) toProduct(ctx context.Context) *Product {
+	return &Product{
+		CategoryId: ln.CategoryId,
+		Title:      ln.Title,
+		Price:      ln.Price,
+		Stock:      ln.Stock,
+		ImageIds:   ln.ImageIds,
+	}
+}
+
+func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, userId uint64, access string) (*Product, error) {
+	prod := ln.toProduct(ctx)
+	prod.UserId = userId
+
+	err := storeql.InsertIntoDB(ctx, db, prod)
+	if err != nil {
+		return nil, errors.Wrap(err, "InsertIntoDB")
+	}
+
+	_, err = sem.ChangeEntityAttributesData(ctx, &pbsemantic.ChangeEntityAttributesDataRequest{
+		AccessToken:     access,
+		FromEntityTable: ln.SQLTable(),
+		FromEntityId:    ln.Id,
+		DestEntityTable: prod.SQLTable(),
+		DestEntityId:    prod.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return prod, nil
 }
 
 func (ln *DraftLine) Draft(ctx context.Context, db *sqlx.DB) (*Draft, error) {

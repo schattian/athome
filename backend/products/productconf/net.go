@@ -35,3 +35,11 @@ func GetIMAGES_ADDR() (addr string) {
 	}
 	return
 }
+
+func GetUSERS_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "users_svc:9990"
+	}
+	return
+}

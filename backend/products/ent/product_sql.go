@@ -2,22 +2,22 @@ package ent
 
 import "database/sql/driver"
 
-func (u *DraftLine) GetId() uint64 {
+func (u *Product) GetId() uint64 {
 	return u.Id
 }
 
-func (u *DraftLine) SetId(id uint64) {
+func (u *Product) SetId(id uint64) {
 	u.Id = id
 }
 
-func (u *DraftLine) SQLTable() string {
-	return "draft_lines"
+func (u *Product) SQLTable() string {
+	return "products"
 }
 
-func (u *DraftLine) SQLMap() map[string]driver.Value {
+func (u *Product) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":       u.Id,
-		"draft_id": u.DraftId,
+		"id":      u.Id,
+		"user_id": u.UserId,
 
 		"category_id": u.CategoryId,
 		"title":       u.Title,

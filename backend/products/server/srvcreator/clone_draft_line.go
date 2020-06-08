@@ -38,7 +38,7 @@ func (s *Server) CloneDraftLine(ctx context.Context, in *pbproducts.CloneDraftLi
 	}
 
 	if draft.Stage != stage.Second {
-		return nil, status.Errorf(xerrors.InvalidArgument, "stage expected %v, got %v", stage.Second, draft.Stage)
+		return nil, status.Errorf(xerrors.InvalidArgument, "stage expected < %v, got %v", stage.Second, draft.Stage)
 	}
 
 	return s.cloneDraftLine(ctx, db, sem, in, draft)
@@ -81,6 +81,10 @@ func draftLineToPbDraftLine(ln *ent.DraftLine, atts []*pbproducts.AttributeData)
 			Price:      ln.Price.Float64(),
 			Stock:      ln.Stock,
 			Attributes: atts,
+		},
+
+		Third: &pbproducts.DraftLineThird{
+			ImageIds: ln.ImageIds,
 		},
 	}
 }

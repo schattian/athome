@@ -14,25 +14,27 @@ import (
 )
 
 func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraftRequest) (*pbproducts.RetrieveDraftResponse, error) {
+	err := in.Validate()
+	if err != nil {
+		return nil, err
+	}
+
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
 	}
 
-	err = in.Validate()
+	draft, err := server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
+
 	sem, semCloser, err := server.ConnSemantic(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer semCloser()
 
-	draft, err := server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
 	return s.retrieveDraft(ctx, db, sem, draft)
 }
 

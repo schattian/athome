@@ -7,7 +7,8 @@ import (
 	"github.com/athomecomar/storeql/test/sqltest"
 )
 
-func TestOnboardingIdentificationsSQL(t *testing.T) {
+func TestSQL(t *testing.T) {
+	sqltest.SQL(t, &ent.Product{}, "Product")
 	sqltest.SQL(t, &ent.Draft{}, "Draft")
 	sqltest.SQL(t, &ent.DraftLine{}, "DraftLine")
 }

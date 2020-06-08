@@ -7,6 +7,7 @@ import (
 	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/productconf"
 	"github.com/athomecomar/athome/backend/products/server/srvcreator"
+	"github.com/athomecomar/athome/backend/products/server/srvviewer"
 	"google.golang.org/grpc"
 )
 
@@ -19,6 +20,7 @@ func main() {
 	s := grpc.NewServer()
 	log.Println("listening on port " + port)
 
+	pbproducts.RegisterViewerServer(s, &srvviewer.Server{})
 	pbproducts.RegisterCreatorServer(s, &srvcreator.Server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
