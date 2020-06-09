@@ -9,26 +9,49 @@ package services;
 
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
+  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarData) {}
+  rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 }
 
 service Register{
-  rpc RetireveRegistry (RetrieveRegistryRequest) returns (RetrieveRegistryResponse) {}
+  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (RetrieveRegistryResponse) {}
 
   rpc First (FirstRequest) returns (FirstResponse) {}
   rpc Second (SecondRequest) returns (google.protobuf.Empty) {}
-  rpc Third (ThirdRequest) returns (google.protobuf.Empty) {}
+  rpc Third (ThirdRequest) returns (ThirdResponse) {}
+}
+
+message RetrieveCalendarRequest {
+  uint64 calendar_id = 1;
+}
+
+message RetrieveMyCalendarsRequest {
+  string access_token = 1;
+}
+
+message RetrieveMyCalendarsResponse {
+  map<uint64, CalendarData> calendars = 1;
 }
 
 message RetrieveRegistryRequest {
   string access_token = 1;
-  FirstRequest.Body first = 2;
-  SecondRequest.Body second = 3;
-  ThirdRequest.Body third = 4;
 }
 
 message RetrieveRegistryResponse {
   uint64 registry_id = 1;
   uint64 stage = 2;
+  FirstRequest.Body first = 3;
+  SecondRequest.Body second = 4;
+  ThirdRequest.Body third = 5;
+}
+
+message ServiceData {
+  uint64 address_id = 1;
+  string name = 2;
+  uint64 duration_in_minutes = 3;
+  Price price = 4;
+  uint64 calendar_id = 5;
+  uint64 user_id = 6;
 }
 
 message FirstRequest {
@@ -62,19 +85,25 @@ message ThirdRequest {
   Body body = 2;
 }
 
+message ThirdResponse {
+  uint64 service_id = 1;
+  ServiceData data = 2;
+}
+
 message CreateCalendarRequest {
   string access_token = 1;
-  string name = 2;
-  uint64 group_id = 3;
-  repeated CreateAvailability availabilities = 4;
+  CalendarData body = 2;
+}
+
+message CalendarData {
+  string name = 1;
+  uint64 group_id = 2;
+  repeated AvailabilityData availabilities = 3;
 }
 
 message CreateCalendarResponse {
   uint64 calendar_id = 1;
-  string name = 2;
-  uint64 group_id = 3;
-  uint64 user_id = 4;
-  repeated RetrieveAvailability availabilities = 5;
+  CalendarData data = 2;
 }
 
 // 24 hour format
@@ -83,16 +112,7 @@ message TimeOfDay {
   int64 minute = 2;
 }
 
-message CreateAvailability {
-  string dow = 1 [(validate.rules).string = {in:
-    ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-  }];
-  TimeOfDay start = 2;
-  TimeOfDay end = 3;
-}
-
-message RetrieveAvailability {
-  uint64 availability_id = 1;
+message AvailabilityData {
   string dow = 2 [(validate.rules).string = {in:
     ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   }];
