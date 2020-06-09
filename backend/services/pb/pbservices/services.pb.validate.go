@@ -649,6 +649,75 @@ var _ interface {
 	ErrorName() string
 } = RetrieveRegistryRequestValidationError{}
 
+// Validate checks the field values on DeleteRegistryRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteRegistryRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// DeleteRegistryRequestValidationError is the validation error returned by
+// DeleteRegistryRequest.Validate if the designated constraints aren't met.
+type DeleteRegistryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRegistryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRegistryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRegistryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRegistryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRegistryRequestValidationError) ErrorName() string {
+	return "DeleteRegistryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRegistryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRegistryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRegistryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRegistryRequestValidationError{}
+
 // Validate checks the field values on RetrieveRegistryResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -834,6 +903,73 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ServiceDataValidationError{}
+
+// Validate checks the field values on PrevRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PrevRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// PrevRequestValidationError is the validation error returned by
+// PrevRequest.Validate if the designated constraints aren't met.
+type PrevRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PrevRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PrevRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PrevRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PrevRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PrevRequestValidationError) ErrorName() string { return "PrevRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PrevRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPrevRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PrevRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PrevRequestValidationError{}
 
 // Validate checks the field values on FirstRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
