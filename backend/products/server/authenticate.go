@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/pb/pbauth"
 	"github.com/athomecomar/athome/backend/products/productconf"
+	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc"
@@ -40,6 +41,7 @@ func RetrieveLatestDraft(ctx context.Context, db *sqlx.DB, accessToken string) (
 	if err != nil {
 		return nil, err
 	}
+
 	return draft, nil
 }
 
@@ -54,5 +56,13 @@ func retrieveLatestDraft(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClien
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindOrCreateDraft: %v", err)
 	}
+	if draft.Id > 0 {
+		return draft, nil
+	}
+	err = storeql.InsertIntoDB(ctx, db, draft)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB: %v", err)
+	}
+
 	return draft, nil
 }
