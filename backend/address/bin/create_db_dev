@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T address_db psql -U postgres -c "create database address_dev"
