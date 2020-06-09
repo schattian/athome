@@ -17,6 +17,7 @@ func (s *Server) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRe
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	auth, authCloser, err := server.ConnAuth(ctx)
 	if err != nil {
 		return nil, err

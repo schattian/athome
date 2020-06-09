@@ -23,6 +23,7 @@ func (s *Server) Second(ctx context.Context, in *pbservices.SecondRequest) (*emp
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	auth, authCloser, err := server.ConnAuth(ctx)
 	if err != nil {
 		return nil, err

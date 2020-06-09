@@ -16,3 +16,9 @@ func ServiceToPbServiceData(s *ent.Service) *pbservices.ServiceData {
 		Price:             &pbservices.Price{Min: s.PriceMin.Float64(), Max: s.PriceMax.Float64()},
 	}
 }
+func CalendarToPbCalendarData(c *ent.Calendar) *pbservices.CalendarData {
+	return &pbservices.CalendarData{
+		Name:    c.Name,
+		GroupId: c.GroupId,
+	}
+}

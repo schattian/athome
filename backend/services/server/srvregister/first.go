@@ -24,6 +24,7 @@ func (s *Server) First(ctx context.Context, in *pbservices.FirstRequest) (*pbser
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	auth, authCloser, err := server.ConnAuth(ctx)
 	if err != nil {
 		return nil, err

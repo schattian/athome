@@ -42,6 +42,7 @@ func (r *Registry) ToService() *Service {
 func NewRegistry(userId uint64) *Registry {
 	return &Registry{UserId: userId, Stage: stage.First}
 }
+
 func FindRegistry(ctx context.Context, db *sqlx.DB, id uint64) (*Registry, error) {
 	row := db.QueryRowxContext(ctx, `SELECT * FROM registries WHERE id=$1`, id)
 	prod := &Registry{}

@@ -36,6 +36,327 @@ var (
 // define the regex for a UUID once up-front
 var _services_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on RetrieveServiceDetailRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveServiceDetailRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ServiceId
+
+	return nil
+}
+
+// RetrieveServiceDetailRequestValidationError is the validation error returned
+// by RetrieveServiceDetailRequest.Validate if the designated constraints
+// aren't met.
+type RetrieveServiceDetailRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveServiceDetailRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveServiceDetailRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveServiceDetailRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveServiceDetailRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveServiceDetailRequestValidationError) ErrorName() string {
+	return "RetrieveServiceDetailRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveServiceDetailRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveServiceDetailRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveServiceDetailRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveServiceDetailRequestValidationError{}
+
+// Validate checks the field values on RetrieveServiceDetailResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveServiceDetailResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveServiceDetailResponseValidationError{
+				field:  "Service",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveServiceDetailResponseValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveServiceDetailResponseValidationError{
+				field:  "Address",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveServiceDetailResponseValidationError{
+				field:  "Calendar",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// RetrieveServiceDetailResponseValidationError is the validation error
+// returned by RetrieveServiceDetailResponse.Validate if the designated
+// constraints aren't met.
+type RetrieveServiceDetailResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveServiceDetailResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveServiceDetailResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveServiceDetailResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveServiceDetailResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveServiceDetailResponseValidationError) ErrorName() string {
+	return "RetrieveServiceDetailResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveServiceDetailResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveServiceDetailResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveServiceDetailResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveServiceDetailResponseValidationError{}
+
+// Validate checks the field values on UserData with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *UserData) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	return nil
+}
+
+// UserDataValidationError is the validation error returned by
+// UserData.Validate if the designated constraints aren't met.
+type UserDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserDataValidationError) ErrorName() string { return "UserDataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserDataValidationError{}
+
+// Validate checks the field values on AddressData with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *AddressData) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Zipcode
+
+	// no validation rules for Street
+
+	// no validation rules for Number
+
+	// no validation rules for Floor
+
+	// no validation rules for Department
+
+	return nil
+}
+
+// AddressDataValidationError is the validation error returned by
+// AddressData.Validate if the designated constraints aren't met.
+type AddressDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddressDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddressDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddressDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddressDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddressDataValidationError) ErrorName() string { return "AddressDataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AddressDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddressData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddressDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddressDataValidationError{}
+
 // Validate checks the field values on RetrieveCalendarRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

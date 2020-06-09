@@ -57,7 +57,7 @@ func (s *Server) retrieveMyCalendars(
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "Availabilities: %v", err)
 		}
-		cData := calendarToPbCalendarData(c)
+		cData := server.CalendarToPbCalendarData(c)
 		for _, av := range avs {
 			cData.Availabilities = append(cData.Availabilities, availabilityToPbAvailabilityData(av))
 		}

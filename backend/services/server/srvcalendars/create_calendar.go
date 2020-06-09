@@ -120,10 +120,3 @@ func pbCalendarDataToCalendar(in *pbservices.CalendarData, uid uint64) *ent.Cale
 		UserId:  uid,
 	}
 }
-
-func calendarToPbCalendarData(c *ent.Calendar) *pbservices.CalendarData {
-	return &pbservices.CalendarData{
-		Name:    c.Name,
-		GroupId: c.GroupId,
-	}
-}

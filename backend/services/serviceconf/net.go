@@ -43,3 +43,11 @@ func GetUSERS_ADDR() (addr string) {
 	}
 	return
 }
+
+func GetADDRESS_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "address_svc:9995"
+	}
+	return
+}

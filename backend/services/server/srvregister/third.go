@@ -21,6 +21,7 @@ func (s *Server) Third(ctx context.Context, in *pbservices.ThirdRequest) (*pbser
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	auth, authCloser, err := server.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
