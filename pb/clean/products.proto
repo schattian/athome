@@ -154,7 +154,6 @@ message RetrieveDraftRequest{
 message RetrieveDraftResponse{
   uint64 draft_id = 1;
   uint64 stage = 2;
-  uint64 user_id = 3;
   repeated DraftLine lines = 4;
 }
 

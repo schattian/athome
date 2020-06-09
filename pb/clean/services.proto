@@ -7,26 +7,97 @@ option go_package = "./pbservices";
 
 package services;
 
-service Creator{
-  rpc CreateCalendar (CreateCalendarRequest) returns (google.protobuf.Empty) {}
+service Calendars{
+  rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
+}
+
+service Register{
+  rpc RetireveRegistry (RetrieveRegistryRequest) returns (RetrieveRegistryResponse) {}
+
+  rpc First (FirstRequest) returns (FirstResponse) {}
+  rpc Second (SecondRequest) returns (google.protobuf.Empty) {}
+  rpc Third (ThirdRequest) returns (google.protobuf.Empty) {}
+}
+
+message RetrieveRegistryRequest {
+  string access_token = 1;
+  FirstRequest.Body first = 2;
+  SecondRequest.Body second = 3;
+  ThirdRequest.Body third = 4;
+}
+
+message RetrieveRegistryResponse {
+  uint64 registry_id = 1;
+  uint64 stage = 2;
+}
+
+message FirstRequest {
+  message Body {
+    uint64 address_id = 1;
+  }
+  string access_token = 1;
+  Body body = 2;
+}
+
+message FirstResponse {
+  uint64 registry_id = 1;
+}
+
+message SecondRequest {
+  message Body {
+    string name = 1;
+    uint64 duration_in_minutes = 2;
+    Price price = 3;
+  }
+  string access_token = 1;
+  Body body = 2;
+}
+
+message ThirdRequest {
+  message Body {
+    uint64 calendar_id = 1;
+  }
+
+  string access_token = 1;
+  Body body = 2;
 }
 
 message CreateCalendarRequest {
   string access_token = 1;
   string name = 2;
   uint64 group_id = 3;
-  repeated Availability availabilities = 4;
+  repeated CreateAvailability availabilities = 4;
+}
+
+message CreateCalendarResponse {
+  uint64 calendar_id = 1;
+  string name = 2;
+  uint64 group_id = 3;
+  uint64 user_id = 4;
+  repeated RetrieveAvailability availabilities = 5;
 }
 
 // 24 hour format
 message TimeOfDay {
-  uint64 hour = 1;
-  uint64 minute = 2;
+  int64 hour = 1;
+  int64 minute = 2;
 }
 
-message Availability {
+message CreateAvailability {
   string dow = 1;
   TimeOfDay start = 2;
   TimeOfDay end = 3;
+}
+
+message RetrieveAvailability {
+  uint64 availability_id = 1;
+  string dow = 2;
+  TimeOfDay start = 3;
+  TimeOfDay end = 4;
+}
+
+message Price {
+  double min = 1;
+  double max = 2;
 }
 

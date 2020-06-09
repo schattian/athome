@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+option go_package = "./pbaddress";
+
+package address;
+
+service Address{
+  rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse) {}
+  rpc RetrieveAddress (RetrieveAddressRequest) returns (AddressData) {}
+  rpc RetrieveMyAddresses (RetrieveMyAddressesRequest) returns (RetrieveMyAddressesResponse) {}
+}
+
+message AddressData {
+  string country = 1;
+  string province = 2;
+  string zipcode = 3;
+  string street = 4;
+  uint64 number = 5;
+  uint64 floor = 6;
+  uint64 department = 7;
+  uint64 latitude = 8;
+  uint64 longitude = 9;
+  string alias = 10;
+}
+
+message CreateAddressRequest {
+  string access_token = 1;
+  AddressData body = 2;
+}
+
+message CreateAddressResponse {
+  uint64 address_id = 1;
+  AddressData metadata = 2;
+}
+
+message RetrieveAddressRequest {
+  uint64 address_id = 1;
+}
+
+message RetrieveMyAddressesRequest{
+  string access_token = 1;
+}
+
+message RetrieveMyAddressesResponse {
+  map<uint64, AddressData> addresses = 1;
+}

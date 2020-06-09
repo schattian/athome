@@ -25,6 +25,8 @@ pbcompile users
 
 pbcompile semantic
 
+pbcompile address
+
 pbcompile identifier
 
 pbcompile auth
@@ -35,14 +37,20 @@ pbcompile products
 
 pbcompile images
 
+pbcompile services
+
 
 pbpropague auth users
 
 pbpropague auth products
 
+pbpropague auth address
+
 pbpropague images products
 
 pbpropague auth images
+
+pbpropague auth services
 
 pbpropague identifier users
 
@@ -57,6 +65,7 @@ pbpropague semantic products
 pbpropague semantic users
 
 pbpropague mailer users
+
 
 
 echo "Done"
