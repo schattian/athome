@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T services_svc ./migrate $1 $2
