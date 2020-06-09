@@ -13,6 +13,8 @@ Exposed svcs:
  - **9991**: semantic 
  - **9992**: products 
  - **9993**: images
+ - **9994**: services 
+ - **9995**: address
 
 ## Naming
 
