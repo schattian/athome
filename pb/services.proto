@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./pbservices";
+
+package services;
+
+service Creator{
+  rpc CreateCalendar (CreateCalendarRequest) returns (google.protobuf.Empty) {}
+}
+
+message CreateCalendarRequest {
+  string access_token = 1;
+  string name = 2;
+  uint64 group_id = 3;
+  repeated Availability availabilities = 4;
+}
+
+// 24 hour format
+message TimeOfDay {
+  uint64 hour = 1;
+  uint64 minute = 2;
+}
+
+message Availability {
+  string dow = 1 [(validate.rules).string = {in:
+    ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  }];
+  TimeOfDay start = 2;
+  TimeOfDay end = 3;
+}
