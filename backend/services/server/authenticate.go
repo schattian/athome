@@ -19,6 +19,8 @@ func GetUserFromAccessToken(ctx context.Context, c pbauth.AuthClient, access str
 	return resp.GetUserId(), nil
 }
 
+type AuthFunc func(ctx context.Context, c pbauth.AuthClient, access string) (uint64, error)
+
 func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 	conn, err := grpc.Dial(serviceconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
 

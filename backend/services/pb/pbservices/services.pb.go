@@ -26,21 +26,135 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type RetrieveCalendarRequest struct {
+	CalendarId           uint64   `protobuf:"varint,1,opt,name=calendar_id,json=calendarId,proto3" json:"calendar_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RetrieveCalendarRequest) Reset()         { *m = RetrieveCalendarRequest{} }
+func (m *RetrieveCalendarRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveCalendarRequest) ProtoMessage()    {}
+func (*RetrieveCalendarRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{0}
+}
+
+func (m *RetrieveCalendarRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveCalendarRequest.Unmarshal(m, b)
+}
+func (m *RetrieveCalendarRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveCalendarRequest.Marshal(b, m, deterministic)
+}
+func (m *RetrieveCalendarRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveCalendarRequest.Merge(m, src)
+}
+func (m *RetrieveCalendarRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveCalendarRequest.Size(m)
+}
+func (m *RetrieveCalendarRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveCalendarRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveCalendarRequest proto.InternalMessageInfo
+
+func (m *RetrieveCalendarRequest) GetCalendarId() uint64 {
+	if m != nil {
+		return m.CalendarId
+	}
+	return 0
+}
+
+type RetrieveMyCalendarsRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RetrieveMyCalendarsRequest) Reset()         { *m = RetrieveMyCalendarsRequest{} }
+func (m *RetrieveMyCalendarsRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveMyCalendarsRequest) ProtoMessage()    {}
+func (*RetrieveMyCalendarsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{1}
+}
+
+func (m *RetrieveMyCalendarsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveMyCalendarsRequest.Unmarshal(m, b)
+}
+func (m *RetrieveMyCalendarsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveMyCalendarsRequest.Marshal(b, m, deterministic)
+}
+func (m *RetrieveMyCalendarsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveMyCalendarsRequest.Merge(m, src)
+}
+func (m *RetrieveMyCalendarsRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveMyCalendarsRequest.Size(m)
+}
+func (m *RetrieveMyCalendarsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveMyCalendarsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveMyCalendarsRequest proto.InternalMessageInfo
+
+func (m *RetrieveMyCalendarsRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+type RetrieveMyCalendarsResponse struct {
+	Calendars            map[uint64]*CalendarData `protobuf:"bytes,1,rep,name=calendars,proto3" json:"calendars,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
+	XXX_unrecognized     []byte                   `json:"-"`
+	XXX_sizecache        int32                    `json:"-"`
+}
+
+func (m *RetrieveMyCalendarsResponse) Reset()         { *m = RetrieveMyCalendarsResponse{} }
+func (m *RetrieveMyCalendarsResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveMyCalendarsResponse) ProtoMessage()    {}
+func (*RetrieveMyCalendarsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{2}
+}
+
+func (m *RetrieveMyCalendarsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveMyCalendarsResponse.Unmarshal(m, b)
+}
+func (m *RetrieveMyCalendarsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveMyCalendarsResponse.Marshal(b, m, deterministic)
+}
+func (m *RetrieveMyCalendarsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveMyCalendarsResponse.Merge(m, src)
+}
+func (m *RetrieveMyCalendarsResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveMyCalendarsResponse.Size(m)
+}
+func (m *RetrieveMyCalendarsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveMyCalendarsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveMyCalendarsResponse proto.InternalMessageInfo
+
+func (m *RetrieveMyCalendarsResponse) GetCalendars() map[uint64]*CalendarData {
+	if m != nil {
+		return m.Calendars
+	}
+	return nil
+}
+
 type RetrieveRegistryRequest struct {
-	AccessToken          string              `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	First                *FirstRequest_Body  `protobuf:"bytes,2,opt,name=first,proto3" json:"first,omitempty"`
-	Second               *SecondRequest_Body `protobuf:"bytes,3,opt,name=second,proto3" json:"second,omitempty"`
-	Third                *ThirdRequest_Body  `protobuf:"bytes,4,opt,name=third,proto3" json:"third,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
-	XXX_unrecognized     []byte              `json:"-"`
-	XXX_sizecache        int32               `json:"-"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *RetrieveRegistryRequest) Reset()         { *m = RetrieveRegistryRequest{} }
 func (m *RetrieveRegistryRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveRegistryRequest) ProtoMessage()    {}
 func (*RetrieveRegistryRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{0}
+	return fileDescriptor_8e16ccb8c5307b32, []int{3}
 }
 
 func (m *RetrieveRegistryRequest) XXX_Unmarshal(b []byte) error {
@@ -68,40 +182,22 @@ func (m *RetrieveRegistryRequest) GetAccessToken() string {
 	return ""
 }
 
-func (m *RetrieveRegistryRequest) GetFirst() *FirstRequest_Body {
-	if m != nil {
-		return m.First
-	}
-	return nil
-}
-
-func (m *RetrieveRegistryRequest) GetSecond() *SecondRequest_Body {
-	if m != nil {
-		return m.Second
-	}
-	return nil
-}
-
-func (m *RetrieveRegistryRequest) GetThird() *ThirdRequest_Body {
-	if m != nil {
-		return m.Third
-	}
-	return nil
-}
-
 type RetrieveRegistryResponse struct {
-	RegistryId           uint64   `protobuf:"varint,1,opt,name=registry_id,json=registryId,proto3" json:"registry_id,omitempty"`
-	Stage                uint64   `protobuf:"varint,2,opt,name=stage,proto3" json:"stage,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RegistryId           uint64              `protobuf:"varint,1,opt,name=registry_id,json=registryId,proto3" json:"registry_id,omitempty"`
+	Stage                uint64              `protobuf:"varint,2,opt,name=stage,proto3" json:"stage,omitempty"`
+	First                *FirstRequest_Body  `protobuf:"bytes,3,opt,name=first,proto3" json:"first,omitempty"`
+	Second               *SecondRequest_Body `protobuf:"bytes,4,opt,name=second,proto3" json:"second,omitempty"`
+	Third                *ThirdRequest_Body  `protobuf:"bytes,5,opt,name=third,proto3" json:"third,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
 func (m *RetrieveRegistryResponse) Reset()         { *m = RetrieveRegistryResponse{} }
 func (m *RetrieveRegistryResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveRegistryResponse) ProtoMessage()    {}
 func (*RetrieveRegistryResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{1}
+	return fileDescriptor_8e16ccb8c5307b32, []int{4}
 }
 
 func (m *RetrieveRegistryResponse) XXX_Unmarshal(b []byte) error {
@@ -136,6 +232,106 @@ func (m *RetrieveRegistryResponse) GetStage() uint64 {
 	return 0
 }
 
+func (m *RetrieveRegistryResponse) GetFirst() *FirstRequest_Body {
+	if m != nil {
+		return m.First
+	}
+	return nil
+}
+
+func (m *RetrieveRegistryResponse) GetSecond() *SecondRequest_Body {
+	if m != nil {
+		return m.Second
+	}
+	return nil
+}
+
+func (m *RetrieveRegistryResponse) GetThird() *ThirdRequest_Body {
+	if m != nil {
+		return m.Third
+	}
+	return nil
+}
+
+type ServiceData struct {
+	AddressId            uint64   `protobuf:"varint,1,opt,name=address_id,json=addressId,proto3" json:"address_id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	DurationInMinutes    uint64   `protobuf:"varint,3,opt,name=duration_in_minutes,json=durationInMinutes,proto3" json:"duration_in_minutes,omitempty"`
+	Price                *Price   `protobuf:"bytes,4,opt,name=price,proto3" json:"price,omitempty"`
+	CalendarId           uint64   `protobuf:"varint,5,opt,name=calendar_id,json=calendarId,proto3" json:"calendar_id,omitempty"`
+	UserId               uint64   `protobuf:"varint,6,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ServiceData) Reset()         { *m = ServiceData{} }
+func (m *ServiceData) String() string { return proto.CompactTextString(m) }
+func (*ServiceData) ProtoMessage()    {}
+func (*ServiceData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{5}
+}
+
+func (m *ServiceData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServiceData.Unmarshal(m, b)
+}
+func (m *ServiceData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServiceData.Marshal(b, m, deterministic)
+}
+func (m *ServiceData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServiceData.Merge(m, src)
+}
+func (m *ServiceData) XXX_Size() int {
+	return xxx_messageInfo_ServiceData.Size(m)
+}
+func (m *ServiceData) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServiceData.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ServiceData proto.InternalMessageInfo
+
+func (m *ServiceData) GetAddressId() uint64 {
+	if m != nil {
+		return m.AddressId
+	}
+	return 0
+}
+
+func (m *ServiceData) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *ServiceData) GetDurationInMinutes() uint64 {
+	if m != nil {
+		return m.DurationInMinutes
+	}
+	return 0
+}
+
+func (m *ServiceData) GetPrice() *Price {
+	if m != nil {
+		return m.Price
+	}
+	return nil
+}
+
+func (m *ServiceData) GetCalendarId() uint64 {
+	if m != nil {
+		return m.CalendarId
+	}
+	return 0
+}
+
+func (m *ServiceData) GetUserId() uint64 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
 type FirstRequest struct {
 	AccessToken          string             `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	Body                 *FirstRequest_Body `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
@@ -148,7 +344,7 @@ func (m *FirstRequest) Reset()         { *m = FirstRequest{} }
 func (m *FirstRequest) String() string { return proto.CompactTextString(m) }
 func (*FirstRequest) ProtoMessage()    {}
 func (*FirstRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{2}
+	return fileDescriptor_8e16ccb8c5307b32, []int{6}
 }
 
 func (m *FirstRequest) XXX_Unmarshal(b []byte) error {
@@ -194,7 +390,7 @@ func (m *FirstRequest_Body) Reset()         { *m = FirstRequest_Body{} }
 func (m *FirstRequest_Body) String() string { return proto.CompactTextString(m) }
 func (*FirstRequest_Body) ProtoMessage()    {}
 func (*FirstRequest_Body) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{2, 0}
+	return fileDescriptor_8e16ccb8c5307b32, []int{6, 0}
 }
 
 func (m *FirstRequest_Body) XXX_Unmarshal(b []byte) error {
@@ -233,7 +429,7 @@ func (m *FirstResponse) Reset()         { *m = FirstResponse{} }
 func (m *FirstResponse) String() string { return proto.CompactTextString(m) }
 func (*FirstResponse) ProtoMessage()    {}
 func (*FirstResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{3}
+	return fileDescriptor_8e16ccb8c5307b32, []int{7}
 }
 
 func (m *FirstResponse) XXX_Unmarshal(b []byte) error {
@@ -273,7 +469,7 @@ func (m *SecondRequest) Reset()         { *m = SecondRequest{} }
 func (m *SecondRequest) String() string { return proto.CompactTextString(m) }
 func (*SecondRequest) ProtoMessage()    {}
 func (*SecondRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{4}
+	return fileDescriptor_8e16ccb8c5307b32, []int{8}
 }
 
 func (m *SecondRequest) XXX_Unmarshal(b []byte) error {
@@ -321,7 +517,7 @@ func (m *SecondRequest_Body) Reset()         { *m = SecondRequest_Body{} }
 func (m *SecondRequest_Body) String() string { return proto.CompactTextString(m) }
 func (*SecondRequest_Body) ProtoMessage()    {}
 func (*SecondRequest_Body) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{4, 0}
+	return fileDescriptor_8e16ccb8c5307b32, []int{8, 0}
 }
 
 func (m *SecondRequest_Body) XXX_Unmarshal(b []byte) error {
@@ -375,7 +571,7 @@ func (m *ThirdRequest) Reset()         { *m = ThirdRequest{} }
 func (m *ThirdRequest) String() string { return proto.CompactTextString(m) }
 func (*ThirdRequest) ProtoMessage()    {}
 func (*ThirdRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{5}
+	return fileDescriptor_8e16ccb8c5307b32, []int{9}
 }
 
 func (m *ThirdRequest) XXX_Unmarshal(b []byte) error {
@@ -421,7 +617,7 @@ func (m *ThirdRequest_Body) Reset()         { *m = ThirdRequest_Body{} }
 func (m *ThirdRequest_Body) String() string { return proto.CompactTextString(m) }
 func (*ThirdRequest_Body) ProtoMessage()    {}
 func (*ThirdRequest_Body) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{5, 0}
+	return fileDescriptor_8e16ccb8c5307b32, []int{9, 0}
 }
 
 func (m *ThirdRequest_Body) XXX_Unmarshal(b []byte) error {
@@ -449,21 +645,66 @@ func (m *ThirdRequest_Body) GetCalendarId() uint64 {
 	return 0
 }
 
+type ThirdResponse struct {
+	ServiceId            uint64       `protobuf:"varint,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	Data                 *ServiceData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *ThirdResponse) Reset()         { *m = ThirdResponse{} }
+func (m *ThirdResponse) String() string { return proto.CompactTextString(m) }
+func (*ThirdResponse) ProtoMessage()    {}
+func (*ThirdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{10}
+}
+
+func (m *ThirdResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ThirdResponse.Unmarshal(m, b)
+}
+func (m *ThirdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ThirdResponse.Marshal(b, m, deterministic)
+}
+func (m *ThirdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ThirdResponse.Merge(m, src)
+}
+func (m *ThirdResponse) XXX_Size() int {
+	return xxx_messageInfo_ThirdResponse.Size(m)
+}
+func (m *ThirdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ThirdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ThirdResponse proto.InternalMessageInfo
+
+func (m *ThirdResponse) GetServiceId() uint64 {
+	if m != nil {
+		return m.ServiceId
+	}
+	return 0
+}
+
+func (m *ThirdResponse) GetData() *ServiceData {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
 type CreateCalendarRequest struct {
-	AccessToken          string                `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	Name                 string                `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	GroupId              uint64                `protobuf:"varint,3,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	Availabilities       []*CreateAvailability `protobuf:"bytes,4,rep,name=availabilities,proto3" json:"availabilities,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
-	XXX_unrecognized     []byte                `json:"-"`
-	XXX_sizecache        int32                 `json:"-"`
+	AccessToken          string        `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	Body                 *CalendarData `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
 }
 
 func (m *CreateCalendarRequest) Reset()         { *m = CreateCalendarRequest{} }
 func (m *CreateCalendarRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCalendarRequest) ProtoMessage()    {}
 func (*CreateCalendarRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{6}
+	return fileDescriptor_8e16ccb8c5307b32, []int{11}
 }
 
 func (m *CreateCalendarRequest) XXX_Unmarshal(b []byte) error {
@@ -491,21 +732,62 @@ func (m *CreateCalendarRequest) GetAccessToken() string {
 	return ""
 }
 
-func (m *CreateCalendarRequest) GetName() string {
+func (m *CreateCalendarRequest) GetBody() *CalendarData {
+	if m != nil {
+		return m.Body
+	}
+	return nil
+}
+
+type CalendarData struct {
+	Name                 string              `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	GroupId              uint64              `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Availabilities       []*AvailabilityData `protobuf:"bytes,3,rep,name=availabilities,proto3" json:"availabilities,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
+}
+
+func (m *CalendarData) Reset()         { *m = CalendarData{} }
+func (m *CalendarData) String() string { return proto.CompactTextString(m) }
+func (*CalendarData) ProtoMessage()    {}
+func (*CalendarData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{12}
+}
+
+func (m *CalendarData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CalendarData.Unmarshal(m, b)
+}
+func (m *CalendarData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CalendarData.Marshal(b, m, deterministic)
+}
+func (m *CalendarData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CalendarData.Merge(m, src)
+}
+func (m *CalendarData) XXX_Size() int {
+	return xxx_messageInfo_CalendarData.Size(m)
+}
+func (m *CalendarData) XXX_DiscardUnknown() {
+	xxx_messageInfo_CalendarData.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CalendarData proto.InternalMessageInfo
+
+func (m *CalendarData) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *CreateCalendarRequest) GetGroupId() uint64 {
+func (m *CalendarData) GetGroupId() uint64 {
 	if m != nil {
 		return m.GroupId
 	}
 	return 0
 }
 
-func (m *CreateCalendarRequest) GetAvailabilities() []*CreateAvailability {
+func (m *CalendarData) GetAvailabilities() []*AvailabilityData {
 	if m != nil {
 		return m.Availabilities
 	}
@@ -513,21 +795,18 @@ func (m *CreateCalendarRequest) GetAvailabilities() []*CreateAvailability {
 }
 
 type CreateCalendarResponse struct {
-	CalendarId           uint64                  `protobuf:"varint,1,opt,name=calendar_id,json=calendarId,proto3" json:"calendar_id,omitempty"`
-	Name                 string                  `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	GroupId              uint64                  `protobuf:"varint,3,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	UserId               uint64                  `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Availabilities       []*RetrieveAvailability `protobuf:"bytes,5,rep,name=availabilities,proto3" json:"availabilities,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
-	XXX_unrecognized     []byte                  `json:"-"`
-	XXX_sizecache        int32                   `json:"-"`
+	CalendarId           uint64        `protobuf:"varint,1,opt,name=calendar_id,json=calendarId,proto3" json:"calendar_id,omitempty"`
+	Data                 *CalendarData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
 }
 
 func (m *CreateCalendarResponse) Reset()         { *m = CreateCalendarResponse{} }
 func (m *CreateCalendarResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCalendarResponse) ProtoMessage()    {}
 func (*CreateCalendarResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{7}
+	return fileDescriptor_8e16ccb8c5307b32, []int{13}
 }
 
 func (m *CreateCalendarResponse) XXX_Unmarshal(b []byte) error {
@@ -555,30 +834,9 @@ func (m *CreateCalendarResponse) GetCalendarId() uint64 {
 	return 0
 }
 
-func (m *CreateCalendarResponse) GetName() string {
+func (m *CreateCalendarResponse) GetData() *CalendarData {
 	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *CreateCalendarResponse) GetGroupId() uint64 {
-	if m != nil {
-		return m.GroupId
-	}
-	return 0
-}
-
-func (m *CreateCalendarResponse) GetUserId() uint64 {
-	if m != nil {
-		return m.UserId
-	}
-	return 0
-}
-
-func (m *CreateCalendarResponse) GetAvailabilities() []*RetrieveAvailability {
-	if m != nil {
-		return m.Availabilities
+		return m.Data
 	}
 	return nil
 }
@@ -596,7 +854,7 @@ func (m *TimeOfDay) Reset()         { *m = TimeOfDay{} }
 func (m *TimeOfDay) String() string { return proto.CompactTextString(m) }
 func (*TimeOfDay) ProtoMessage()    {}
 func (*TimeOfDay) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{8}
+	return fileDescriptor_8e16ccb8c5307b32, []int{14}
 }
 
 func (m *TimeOfDay) XXX_Unmarshal(b []byte) error {
@@ -631,63 +889,7 @@ func (m *TimeOfDay) GetMinute() int64 {
 	return 0
 }
 
-type CreateAvailability struct {
-	Dow                  string     `protobuf:"bytes,1,opt,name=dow,proto3" json:"dow,omitempty"`
-	Start                *TimeOfDay `protobuf:"bytes,2,opt,name=start,proto3" json:"start,omitempty"`
-	End                  *TimeOfDay `protobuf:"bytes,3,opt,name=end,proto3" json:"end,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *CreateAvailability) Reset()         { *m = CreateAvailability{} }
-func (m *CreateAvailability) String() string { return proto.CompactTextString(m) }
-func (*CreateAvailability) ProtoMessage()    {}
-func (*CreateAvailability) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{9}
-}
-
-func (m *CreateAvailability) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateAvailability.Unmarshal(m, b)
-}
-func (m *CreateAvailability) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateAvailability.Marshal(b, m, deterministic)
-}
-func (m *CreateAvailability) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateAvailability.Merge(m, src)
-}
-func (m *CreateAvailability) XXX_Size() int {
-	return xxx_messageInfo_CreateAvailability.Size(m)
-}
-func (m *CreateAvailability) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateAvailability.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateAvailability proto.InternalMessageInfo
-
-func (m *CreateAvailability) GetDow() string {
-	if m != nil {
-		return m.Dow
-	}
-	return ""
-}
-
-func (m *CreateAvailability) GetStart() *TimeOfDay {
-	if m != nil {
-		return m.Start
-	}
-	return nil
-}
-
-func (m *CreateAvailability) GetEnd() *TimeOfDay {
-	if m != nil {
-		return m.End
-	}
-	return nil
-}
-
-type RetrieveAvailability struct {
-	AvailabilityId       uint64     `protobuf:"varint,1,opt,name=availability_id,json=availabilityId,proto3" json:"availability_id,omitempty"`
+type AvailabilityData struct {
 	Dow                  string     `protobuf:"bytes,2,opt,name=dow,proto3" json:"dow,omitempty"`
 	Start                *TimeOfDay `protobuf:"bytes,3,opt,name=start,proto3" json:"start,omitempty"`
 	End                  *TimeOfDay `protobuf:"bytes,4,opt,name=end,proto3" json:"end,omitempty"`
@@ -696,53 +898,46 @@ type RetrieveAvailability struct {
 	XXX_sizecache        int32      `json:"-"`
 }
 
-func (m *RetrieveAvailability) Reset()         { *m = RetrieveAvailability{} }
-func (m *RetrieveAvailability) String() string { return proto.CompactTextString(m) }
-func (*RetrieveAvailability) ProtoMessage()    {}
-func (*RetrieveAvailability) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{10}
+func (m *AvailabilityData) Reset()         { *m = AvailabilityData{} }
+func (m *AvailabilityData) String() string { return proto.CompactTextString(m) }
+func (*AvailabilityData) ProtoMessage()    {}
+func (*AvailabilityData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e16ccb8c5307b32, []int{15}
 }
 
-func (m *RetrieveAvailability) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveAvailability.Unmarshal(m, b)
+func (m *AvailabilityData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AvailabilityData.Unmarshal(m, b)
 }
-func (m *RetrieveAvailability) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveAvailability.Marshal(b, m, deterministic)
+func (m *AvailabilityData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AvailabilityData.Marshal(b, m, deterministic)
 }
-func (m *RetrieveAvailability) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveAvailability.Merge(m, src)
+func (m *AvailabilityData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AvailabilityData.Merge(m, src)
 }
-func (m *RetrieveAvailability) XXX_Size() int {
-	return xxx_messageInfo_RetrieveAvailability.Size(m)
+func (m *AvailabilityData) XXX_Size() int {
+	return xxx_messageInfo_AvailabilityData.Size(m)
 }
-func (m *RetrieveAvailability) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveAvailability.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RetrieveAvailability proto.InternalMessageInfo
-
-func (m *RetrieveAvailability) GetAvailabilityId() uint64 {
-	if m != nil {
-		return m.AvailabilityId
-	}
-	return 0
+func (m *AvailabilityData) XXX_DiscardUnknown() {
+	xxx_messageInfo_AvailabilityData.DiscardUnknown(m)
 }
 
-func (m *RetrieveAvailability) GetDow() string {
+var xxx_messageInfo_AvailabilityData proto.InternalMessageInfo
+
+func (m *AvailabilityData) GetDow() string {
 	if m != nil {
 		return m.Dow
 	}
 	return ""
 }
 
-func (m *RetrieveAvailability) GetStart() *TimeOfDay {
+func (m *AvailabilityData) GetStart() *TimeOfDay {
 	if m != nil {
 		return m.Start
 	}
 	return nil
 }
 
-func (m *RetrieveAvailability) GetEnd() *TimeOfDay {
+func (m *AvailabilityData) GetEnd() *TimeOfDay {
 	if m != nil {
 		return m.End
 	}
@@ -761,7 +956,7 @@ func (m *Price) Reset()         { *m = Price{} }
 func (m *Price) String() string { return proto.CompactTextString(m) }
 func (*Price) ProtoMessage()    {}
 func (*Price) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e16ccb8c5307b32, []int{11}
+	return fileDescriptor_8e16ccb8c5307b32, []int{16}
 }
 
 func (m *Price) XXX_Unmarshal(b []byte) error {
@@ -797,8 +992,13 @@ func (m *Price) GetMax() float64 {
 }
 
 func init() {
+	proto.RegisterType((*RetrieveCalendarRequest)(nil), "services.RetrieveCalendarRequest")
+	proto.RegisterType((*RetrieveMyCalendarsRequest)(nil), "services.RetrieveMyCalendarsRequest")
+	proto.RegisterType((*RetrieveMyCalendarsResponse)(nil), "services.RetrieveMyCalendarsResponse")
+	proto.RegisterMapType((map[uint64]*CalendarData)(nil), "services.RetrieveMyCalendarsResponse.CalendarsEntry")
 	proto.RegisterType((*RetrieveRegistryRequest)(nil), "services.RetrieveRegistryRequest")
 	proto.RegisterType((*RetrieveRegistryResponse)(nil), "services.RetrieveRegistryResponse")
+	proto.RegisterType((*ServiceData)(nil), "services.ServiceData")
 	proto.RegisterType((*FirstRequest)(nil), "services.FirstRequest")
 	proto.RegisterType((*FirstRequest_Body)(nil), "services.FirstRequest.Body")
 	proto.RegisterType((*FirstResponse)(nil), "services.FirstResponse")
@@ -806,11 +1006,12 @@ func init() {
 	proto.RegisterType((*SecondRequest_Body)(nil), "services.SecondRequest.Body")
 	proto.RegisterType((*ThirdRequest)(nil), "services.ThirdRequest")
 	proto.RegisterType((*ThirdRequest_Body)(nil), "services.ThirdRequest.Body")
+	proto.RegisterType((*ThirdResponse)(nil), "services.ThirdResponse")
 	proto.RegisterType((*CreateCalendarRequest)(nil), "services.CreateCalendarRequest")
+	proto.RegisterType((*CalendarData)(nil), "services.CalendarData")
 	proto.RegisterType((*CreateCalendarResponse)(nil), "services.CreateCalendarResponse")
 	proto.RegisterType((*TimeOfDay)(nil), "services.TimeOfDay")
-	proto.RegisterType((*CreateAvailability)(nil), "services.CreateAvailability")
-	proto.RegisterType((*RetrieveAvailability)(nil), "services.RetrieveAvailability")
+	proto.RegisterType((*AvailabilityData)(nil), "services.AvailabilityData")
 	proto.RegisterType((*Price)(nil), "services.Price")
 }
 
@@ -819,59 +1020,69 @@ func init() {
 }
 
 var fileDescriptor_8e16ccb8c5307b32 = []byte{
-	// 824 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0xdd, 0x6e, 0x2b, 0x35,
-	0x10, 0x3e, 0x9b, 0xdd, 0xa4, 0xc9, 0x24, 0x27, 0xe7, 0xe0, 0x73, 0x48, 0x42, 0x0e, 0xd0, 0x74,
-	0xa5, 0xaa, 0x45, 0x48, 0x9b, 0x52, 0x90, 0x10, 0x70, 0x03, 0xe9, 0x8f, 0x94, 0x0b, 0x04, 0x98,
-	0x22, 0x24, 0xb8, 0x88, 0x9c, 0xd8, 0x49, 0x2d, 0x92, 0xdd, 0xd4, 0xf6, 0xa6, 0xcd, 0x23, 0x20,
-	0x1e, 0x81, 0x87, 0xe0, 0x11, 0xb8, 0xe6, 0x09, 0xe0, 0x19, 0x78, 0x04, 0xae, 0x90, 0xed, 0xdd,
-	0x64, 0x93, 0xb4, 0x21, 0x15, 0x3a, 0x77, 0x33, 0x9f, 0x67, 0x3c, 0xf3, 0x8d, 0xc7, 0x63, 0x43,
-	0x55, 0x32, 0x31, 0xe3, 0x03, 0x26, 0x83, 0xa9, 0x88, 0x54, 0x84, 0x8a, 0xa9, 0xde, 0xac, 0xcf,
-	0xc8, 0x98, 0x53, 0xa2, 0x58, 0x3b, 0x15, 0xac, 0x49, 0xf3, 0xd5, 0x28, 0x8a, 0x46, 0x63, 0xd6,
-	0x36, 0x5a, 0x3f, 0x1e, 0xb6, 0xd9, 0x64, 0xaa, 0xe6, 0x76, 0xd1, 0xff, 0xcb, 0x81, 0x3a, 0x66,
-	0x4a, 0x70, 0x36, 0x63, 0x98, 0x8d, 0xb8, 0x54, 0x62, 0x8e, 0xd9, 0x4d, 0xcc, 0xa4, 0x42, 0x07,
-	0x50, 0x21, 0x83, 0x01, 0x93, 0xb2, 0xa7, 0xa2, 0x9f, 0x58, 0xd8, 0x70, 0x5a, 0xce, 0x71, 0x09,
-	0x97, 0x2d, 0x76, 0xa5, 0x21, 0xf4, 0x01, 0xe4, 0x87, 0x5c, 0x48, 0xd5, 0xc8, 0xb5, 0x9c, 0xe3,
-	0xf2, 0xe9, 0xab, 0x60, 0x91, 0xde, 0xa5, 0x86, 0x93, 0x9d, 0x82, 0x4e, 0x44, 0xe7, 0xd8, 0x5a,
-	0xa2, 0x8f, 0xa0, 0x20, 0xd9, 0x20, 0x0a, 0x69, 0xc3, 0x35, 0x3e, 0x6f, 0x2f, 0x7d, 0xbe, 0x35,
-	0xf8, 0x8a, 0x53, 0x62, 0xab, 0x03, 0xa9, 0x6b, 0x2e, 0x68, 0xc3, 0x5b, 0x0f, 0x74, 0xa5, 0xe1,
-	0xd5, 0x40, 0xc6, 0xd2, 0xff, 0x06, 0x1a, 0x9b, 0xcc, 0xe4, 0x34, 0x0a, 0x25, 0x43, 0xfb, 0x50,
-	0x16, 0x09, 0xd6, 0xe3, 0xd4, 0x30, 0xf3, 0x30, 0xa4, 0x50, 0x97, 0xa2, 0x97, 0x90, 0x97, 0x8a,
-	0x8c, 0x98, 0x21, 0xe6, 0x61, 0xab, 0xf8, 0x3f, 0x3b, 0x50, 0xc9, 0x12, 0xdb, 0xa5, 0x44, 0x6d,
-	0xf0, 0xfa, 0x11, 0x9d, 0xef, 0x52, 0x21, 0x63, 0xd8, 0x3c, 0x04, 0x4f, 0x6b, 0xe8, 0x1d, 0x00,
-	0x42, 0xa9, 0xd0, 0x9b, 0x2f, 0x52, 0x2c, 0x25, 0x48, 0x97, 0xfa, 0x27, 0xf0, 0x34, 0xd9, 0x61,
-	0x47, 0x4e, 0xfe, 0x9f, 0x0e, 0x3c, 0x5d, 0x29, 0xf1, 0x2e, 0xe9, 0x9f, 0xac, 0xa4, 0xbf, 0xfd,
-	0xb0, 0x6c, 0xfe, 0x37, 0x49, 0xfe, 0x08, 0xbc, 0x90, 0x4c, 0x58, 0xb2, 0xa9, 0x91, 0x51, 0x00,
-	0x2f, 0x68, 0x2c, 0x88, 0xe2, 0x51, 0xd8, 0xe3, 0x61, 0x6f, 0xc2, 0xc3, 0x58, 0x31, 0x99, 0x14,
-	0xf9, 0x8d, 0x74, 0xa9, 0x1b, 0x7e, 0x69, 0x17, 0xd0, 0x21, 0xe4, 0xa7, 0x82, 0x0f, 0x58, 0xd2,
-	0x2b, 0xcf, 0x96, 0xe1, 0xbf, 0xd6, 0x30, 0xb6, 0xab, 0xfe, 0x2f, 0x0e, 0x54, 0xb2, 0x7d, 0xf0,
-	0xbf, 0xce, 0x65, 0xb3, 0xa1, 0x2c, 0xaf, 0xa3, 0x84, 0xd7, 0x3e, 0x94, 0x07, 0x64, 0xcc, 0x42,
-	0x4a, 0x44, 0xa6, 0xce, 0x29, 0xd4, 0xa5, 0xfe, 0x6f, 0x0e, 0xbc, 0x79, 0x26, 0x18, 0x51, 0xec,
-	0x2c, 0x01, 0x1f, 0x91, 0x56, 0x5a, 0xb5, 0x5c, 0xa6, 0x6a, 0x6f, 0x41, 0x71, 0x24, 0xa2, 0x78,
-	0xaa, 0xc3, 0xb9, 0x26, 0xdc, 0x9e, 0xd1, 0xbb, 0x14, 0x9d, 0x43, 0x95, 0xcc, 0x08, 0x1f, 0x93,
-	0x3e, 0x1f, 0x73, 0xc5, 0x99, 0x6c, 0x78, 0x2d, 0x77, 0xf5, 0xa0, 0x6c, 0x2a, 0x5f, 0x2c, 0xad,
-	0xe6, 0x78, 0xcd, 0xc7, 0xff, 0xc3, 0x81, 0xda, 0x7a, 0xc6, 0xcb, 0xae, 0xda, 0xca, 0xf6, 0xb1,
-	0x09, 0xd7, 0x61, 0x2f, 0x96, 0xcc, 0xec, 0xe5, 0x99, 0x95, 0x82, 0x56, 0xbb, 0x14, 0x5d, 0x6e,
-	0x30, 0xc9, 0x1b, 0x26, 0xef, 0x2e, 0x99, 0xa4, 0xd7, 0x79, 0x2b, 0x97, 0x8f, 0xa1, 0x74, 0xc5,
-	0x27, 0xec, 0xab, 0xe1, 0x39, 0x31, 0x3d, 0x78, 0x1d, 0xc5, 0xc2, 0xa4, 0xed, 0x62, 0x23, 0xa3,
-	0x1a, 0x14, 0x6c, 0xdf, 0x99, 0x94, 0x5d, 0x9c, 0x68, 0xfe, 0xef, 0x0e, 0xa0, 0xcd, 0x5a, 0xa1,
-	0xef, 0xc1, 0xa5, 0xd1, 0xad, 0x3d, 0xaa, 0xce, 0xc5, 0x3f, 0x9d, 0x8e, 0xf8, 0x1c, 0x17, 0x26,
-	0x51, 0x48, 0xc9, 0x1c, 0xef, 0xa9, 0x98, 0x49, 0x2d, 0x94, 0x6e, 0x19, 0x0d, 0xad, 0x58, 0x54,
-	0xd7, 0xb1, 0x30, 0x52, 0x61, 0x28, 0xb8, 0x41, 0x24, 0x51, 0xb1, 0x30, 0x88, 0x8c, 0x8d, 0x9f,
-	0xde, 0x11, 0xbd, 0x67, 0x46, 0x8c, 0x48, 0x67, 0xe7, 0x8b, 0x4c, 0x07, 0xa6, 0xf9, 0x63, 0x6b,
-	0x81, 0x0e, 0xc1, 0x65, 0x8b, 0x81, 0x79, 0xaf, 0xa1, 0x5e, 0xf7, 0xff, 0x76, 0xe0, 0xe5, 0x7d,
-	0x35, 0x42, 0x47, 0xf0, 0x2c, 0x53, 0xa5, 0xcc, 0x78, 0xc8, 0x16, 0x4f, 0x8f, 0xbd, 0x84, 0x6c,
-	0xee, 0xf5, 0x91, 0x75, 0x77, 0x25, 0xeb, 0xfd, 0x07, 0xd9, 0xf7, 0x21, 0x6f, 0x66, 0x00, 0x7a,
-	0x0e, 0xee, 0x84, 0xdb, 0xbb, 0xe4, 0x60, 0x2d, 0x1a, 0x84, 0xdc, 0x19, 0x16, 0x1a, 0x21, 0x77,
-	0xa7, 0x7d, 0x28, 0xa5, 0x9d, 0x2d, 0xd1, 0x77, 0x50, 0x5d, 0x6d, 0x76, 0xb4, 0xbf, 0x7e, 0x5b,
-	0xd6, 0x2e, 0x6e, 0xb3, 0xf5, 0xb0, 0x81, 0xbd, 0x27, 0xfe, 0x93, 0xd3, 0x5f, 0x73, 0x50, 0xb4,
-	0x0f, 0x0d, 0x13, 0xe8, 0x47, 0x78, 0x8e, 0x99, 0xe2, 0x22, 0xf3, 0xf8, 0xa0, 0x83, 0xcd, 0x4e,
-	0x5e, 0x7b, 0x72, 0x9b, 0xfe, 0x36, 0x93, 0x34, 0x12, 0xfa, 0x14, 0xf2, 0x66, 0xf4, 0xa3, 0xda,
-	0xfd, 0xaf, 0x49, 0xb3, 0xbe, 0x81, 0x2f, 0x7c, 0x3f, 0x83, 0x82, 0x9d, 0xdc, 0xa8, 0xfe, 0xc0,
-	0x2c, 0x6f, 0xd6, 0x02, 0xfb, 0x63, 0x08, 0xd2, 0x1f, 0x43, 0x70, 0xa1, 0x7f, 0x0c, 0xfe, 0x13,
-	0xf4, 0x09, 0xe4, 0xcd, 0x74, 0xcc, 0x06, 0xce, 0x8e, 0xcb, 0x87, 0x5d, 0x3b, 0xd5, 0x1f, 0x2a,
-	0x41, 0x7b, 0xda, 0x4f, 0xdd, 0xfa, 0x05, 0x63, 0xf1, 0xe1, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0xf5, 0x12, 0x1a, 0x3c, 0xd1, 0x08, 0x00, 0x00,
+	// 984 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x56, 0xcb, 0x6e, 0x23, 0x45,
+	0x17, 0x4e, 0xfb, 0x96, 0xf8, 0xd8, 0xf1, 0x9f, 0xbf, 0xc2, 0xd8, 0xa6, 0xc3, 0x28, 0x99, 0x12,
+	0x11, 0x19, 0x40, 0xf6, 0x10, 0x46, 0x02, 0x05, 0x24, 0xc0, 0x33, 0x41, 0xf2, 0x62, 0x34, 0xa8,
+	0x26, 0x08, 0x01, 0x8b, 0xa8, 0xec, 0x2a, 0x3b, 0xad, 0xb1, 0xbb, 0x3d, 0xd5, 0xd5, 0x9e, 0xf1,
+	0x92, 0x25, 0xe2, 0x09, 0x90, 0x78, 0x15, 0xd6, 0xac, 0x59, 0xf1, 0x14, 0xbc, 0x00, 0x2b, 0x54,
+	0x97, 0x76, 0xb7, 0xdb, 0x57, 0x89, 0x5d, 0xd5, 0x77, 0x6e, 0xf5, 0x9d, 0x73, 0xfa, 0xf4, 0x81,
+	0x5a, 0xc8, 0xc5, 0xd4, 0xeb, 0xf3, 0xb0, 0x35, 0x11, 0x81, 0x0c, 0xd0, 0x41, 0x7c, 0x77, 0x1b,
+	0x53, 0x3a, 0xf2, 0x18, 0x95, 0xbc, 0x1d, 0x1f, 0x8c, 0x8a, 0x7b, 0x32, 0x0c, 0x82, 0xe1, 0x88,
+	0xb7, 0xf5, 0xad, 0x17, 0x0d, 0xda, 0x7c, 0x3c, 0x91, 0x33, 0x23, 0xc4, 0x57, 0xd0, 0x20, 0x5c,
+	0x0a, 0x8f, 0x4f, 0xf9, 0x13, 0x3a, 0xe2, 0x3e, 0xa3, 0x82, 0xf0, 0x57, 0x11, 0x0f, 0x25, 0x3a,
+	0x85, 0x4a, 0xdf, 0x42, 0xb7, 0x1e, 0x6b, 0x3a, 0x67, 0xce, 0x45, 0x81, 0x40, 0x0c, 0x75, 0x19,
+	0xfe, 0x02, 0xdc, 0xd8, 0xf6, 0xd9, 0x2c, 0xb6, 0x0e, 0x63, 0xf3, 0x07, 0x50, 0xa5, 0xfd, 0x3e,
+	0x0f, 0xc3, 0x5b, 0x19, 0xbc, 0xe4, 0xbe, 0xb6, 0x2f, 0x93, 0x8a, 0xc1, 0x6e, 0x14, 0x84, 0xff,
+	0x70, 0xe0, 0x64, 0xa5, 0x87, 0x70, 0x12, 0xf8, 0x21, 0x47, 0x04, 0xca, 0x71, 0xb8, 0xb0, 0xe9,
+	0x9c, 0xe5, 0x2f, 0x2a, 0x97, 0x8f, 0x5b, 0xf3, 0x04, 0x6c, 0xb0, 0x6c, 0xcd, 0x91, 0x6b, 0x5f,
+	0x8a, 0x19, 0x49, 0xdc, 0xb8, 0x37, 0x50, 0x5b, 0x14, 0xa2, 0x23, 0xc8, 0xbf, 0xe4, 0x33, 0xcb,
+	0x4f, 0x1d, 0xd1, 0x87, 0x50, 0x9c, 0xd2, 0x51, 0xc4, 0x9b, 0xb9, 0x33, 0xe7, 0xa2, 0x72, 0x59,
+	0x4f, 0x62, 0xc6, 0xa6, 0x4f, 0xa9, 0xa4, 0xc4, 0x28, 0x5d, 0xe5, 0x3e, 0x75, 0xf0, 0xe7, 0x49,
+	0x1a, 0x09, 0x1f, 0x7a, 0xa1, 0x0a, 0xba, 0x7b, 0x1e, 0xfe, 0x76, 0xa0, 0xb9, 0x6c, 0x6e, 0x93,
+	0x70, 0x0a, 0x15, 0x61, 0xb1, 0x54, 0x19, 0x62, 0xa8, 0xcb, 0xd0, 0x5b, 0x50, 0x0c, 0x25, 0x1d,
+	0x9a, 0xd7, 0x16, 0x88, 0xb9, 0xa0, 0x8f, 0xa0, 0x38, 0xf0, 0x44, 0x28, 0x9b, 0x79, 0xcd, 0xe1,
+	0x24, 0xe1, 0xf0, 0xb5, 0x82, 0xed, 0xeb, 0x5a, 0x9d, 0x80, 0xcd, 0x88, 0xd1, 0x44, 0x8f, 0xa1,
+	0x14, 0xf2, 0x7e, 0xe0, 0xb3, 0x66, 0x41, 0xdb, 0xbc, 0x93, 0xd8, 0xbc, 0xd0, 0xf8, 0x82, 0x91,
+	0xd5, 0x55, 0x81, 0xe4, 0x9d, 0x27, 0x58, 0xb3, 0x98, 0x0d, 0x74, 0xa3, 0xe0, 0xc5, 0x40, 0x5a,
+	0x13, 0xff, 0xe9, 0x40, 0xe5, 0x85, 0xd1, 0x52, 0x89, 0x44, 0xf7, 0x01, 0x28, 0x63, 0x42, 0xe5,
+	0x68, 0xce, 0xb0, 0x6c, 0x91, 0x2e, 0x43, 0x08, 0x0a, 0x3e, 0x1d, 0x1b, 0x7e, 0x65, 0xa2, 0xcf,
+	0xa8, 0x05, 0xc7, 0x2c, 0x12, 0x54, 0x7a, 0x81, 0x7f, 0xeb, 0xf9, 0xb7, 0x63, 0xcf, 0x8f, 0x24,
+	0x0f, 0x35, 0xd9, 0x02, 0xf9, 0x7f, 0x2c, 0xea, 0xfa, 0xcf, 0x8c, 0x00, 0x9d, 0x43, 0x71, 0x22,
+	0xbc, 0x3e, 0xb7, 0xd4, 0xfe, 0x97, 0xbc, 0xf2, 0x1b, 0x05, 0x13, 0x23, 0xcd, 0xf6, 0x7c, 0x31,
+	0xdb, 0xf3, 0xa8, 0x01, 0xfb, 0x51, 0xc8, 0xb5, 0xb0, 0xa4, 0x85, 0x25, 0x75, 0xed, 0x32, 0xfc,
+	0xb3, 0x03, 0xd5, 0x74, 0x66, 0x77, 0xa8, 0x3b, 0x6a, 0x43, 0xa1, 0x17, 0xb0, 0x99, 0x6d, 0xb3,
+	0x8d, 0x25, 0xd2, 0x8a, 0xee, 0x39, 0x14, 0xd4, 0x6d, 0x4b, 0xc2, 0xf0, 0x23, 0x38, 0xb4, 0x1e,
+	0x76, 0xec, 0x21, 0xfc, 0x97, 0x03, 0x87, 0x0b, 0x35, 0xde, 0xe5, 0xf9, 0x8f, 0x16, 0x9e, 0xbf,
+	0xb9, 0x5b, 0xcc, 0xfb, 0x5f, 0xd9, 0xf7, 0xc7, 0x15, 0x75, 0xb6, 0x57, 0x34, 0xb7, 0xb5, 0xa2,
+	0xf9, 0x4d, 0x15, 0xc5, 0xbf, 0x38, 0x50, 0x4d, 0x37, 0xe2, 0x7f, 0xaa, 0xcb, 0x72, 0x47, 0x1b,
+	0x5e, 0xef, 0x59, 0x5e, 0x5b, 0x47, 0xe6, 0xf7, 0x70, 0x68, 0x7d, 0xd8, 0xca, 0xdc, 0x07, 0xb0,
+	0xde, 0x53, 0x95, 0xb4, 0x48, 0x97, 0xa1, 0x87, 0x50, 0x60, 0x54, 0x52, 0xfb, 0x92, 0x7b, 0xe9,
+	0x14, 0xcf, 0x3f, 0x1f, 0xa2, 0x55, 0xf0, 0x00, 0xee, 0x3d, 0x11, 0x9c, 0xca, 0xa5, 0x39, 0xbe,
+	0x03, 0xe1, 0xf7, 0x17, 0x08, 0xaf, 0x9b, 0x77, 0x5a, 0x07, 0xff, 0xe4, 0x40, 0x35, 0x0d, 0xaf,
+	0x2c, 0xe6, 0xdb, 0x70, 0x30, 0x14, 0x41, 0x34, 0x51, 0xa4, 0x4c, 0x05, 0xf7, 0xf5, 0xbd, 0xcb,
+	0x50, 0x07, 0x6a, 0x74, 0x4a, 0xbd, 0x11, 0xed, 0x79, 0x23, 0x4f, 0x7a, 0xfa, 0xa3, 0x55, 0x93,
+	0xdd, 0x4d, 0xa2, 0x7e, 0x95, 0xc8, 0x67, 0x3a, 0x72, 0xc6, 0x02, 0x73, 0xa8, 0x67, 0xb9, 0x26,
+	0x9d, 0xbe, 0xb1, 0x02, 0x8a, 0x6a, 0x2a, 0xa3, 0x6b, 0xa9, 0xea, 0x94, 0x7e, 0x02, 0xe5, 0x1b,
+	0x6f, 0xcc, 0x9f, 0x0f, 0x9e, 0x52, 0xdd, 0xb3, 0x77, 0x41, 0x24, 0xb4, 0xcb, 0x3c, 0xd1, 0x67,
+	0x54, 0x87, 0x92, 0xe9, 0x53, 0xed, 0x2e, 0x4f, 0xec, 0x0d, 0xff, 0xee, 0xc0, 0x51, 0x96, 0x04,
+	0xfa, 0x0e, 0xf2, 0x2c, 0x78, 0x6d, 0xa6, 0x58, 0xe7, 0xfa, 0x9f, 0x4e, 0x47, 0x7c, 0x49, 0x4a,
+	0xe3, 0xc0, 0x67, 0x74, 0x46, 0xf6, 0x65, 0xc4, 0x43, 0x75, 0x28, 0xbf, 0xe6, 0xcc, 0x37, 0xc7,
+	0x03, 0x79, 0x17, 0x09, 0x7d, 0x2a, 0x0d, 0x84, 0xa7, 0x91, 0x90, 0xca, 0x48, 0x68, 0x24, 0x8c,
+	0xb4, 0x9d, 0xf2, 0x88, 0x1e, 0xea, 0x1f, 0x80, 0x88, 0x47, 0xfd, 0x71, 0xaa, 0x5f, 0xe3, 0xd7,
+	0x13, 0xa3, 0x81, 0xce, 0x21, 0xcf, 0xe7, 0xf3, 0x7d, 0xa5, 0xa2, 0x92, 0xe3, 0x0f, 0xa0, 0xa8,
+	0x3f, 0x22, 0xf5, 0x6f, 0x1c, 0x7b, 0xa6, 0x65, 0x1c, 0xa2, 0x8e, 0x1a, 0xa1, 0x6f, 0x34, 0x0b,
+	0x85, 0xd0, 0x37, 0x97, 0xbf, 0xe6, 0xa0, 0x3c, 0xff, 0xa5, 0xa2, 0x6f, 0xa1, 0xb6, 0x58, 0x1a,
+	0x74, 0x9a, 0xca, 0xf1, 0xaa, 0x06, 0x75, 0xcf, 0xd6, 0x2b, 0x98, 0xaa, 0xe2, 0x3d, 0xf4, 0x1c,
+	0x8e, 0xb2, 0x7b, 0x0a, 0x7a, 0xb0, 0xbc, 0x0b, 0x64, 0x5d, 0xaf, 0xa9, 0x2f, 0xde, 0x43, 0x0c,
+	0x8e, 0x57, 0x2c, 0x10, 0xe8, 0xdd, 0x2d, 0xfb, 0x85, 0x71, 0x7b, 0xbe, 0xd3, 0x16, 0x82, 0xf7,
+	0x2e, 0x7f, 0xcb, 0xc1, 0x81, 0xf9, 0xa3, 0x73, 0x81, 0x7e, 0x4c, 0x38, 0xc4, 0x7f, 0xf9, 0x55,
+	0x1c, 0x32, 0x0b, 0x84, 0x8b, 0x37, 0xa9, 0xcc, 0x13, 0x74, 0x05, 0x45, 0x3d, 0xf3, 0x51, 0x7d,
+	0xf5, 0x6f, 0xc4, 0x6d, 0x2c, 0xe1, 0x73, 0xdb, 0xcf, 0xa0, 0x64, 0x46, 0x36, 0x6a, 0xac, 0x19,
+	0xe2, 0x6e, 0xbd, 0x65, 0xb6, 0xc8, 0x56, 0xbc, 0x45, 0xb6, 0xae, 0xd5, 0x16, 0x69, 0x02, 0xeb,
+	0x91, 0x96, 0x0e, 0x9c, 0x9e, 0x93, 0xe9, 0xc0, 0x0b, 0xb3, 0x0f, 0xef, 0x75, 0x6a, 0x3f, 0x54,
+	0x5b, 0xed, 0x49, 0x2f, 0x96, 0xf7, 0x4a, 0xda, 0xfb, 0xc7, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff,
+	0x33, 0x3d, 0x1d, 0x97, 0xe6, 0x0a, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -887,6 +1098,8 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CalendarsClient interface {
 	CreateCalendar(ctx context.Context, in *CreateCalendarRequest, opts ...grpc.CallOption) (*CreateCalendarResponse, error)
+	RetrieveCalendar(ctx context.Context, in *RetrieveCalendarRequest, opts ...grpc.CallOption) (*CalendarData, error)
+	RetrieveMyCalendars(ctx context.Context, in *RetrieveMyCalendarsRequest, opts ...grpc.CallOption) (*RetrieveMyCalendarsResponse, error)
 }
 
 type calendarsClient struct {
@@ -906,9 +1119,29 @@ func (c *calendarsClient) CreateCalendar(ctx context.Context, in *CreateCalendar
 	return out, nil
 }
 
+func (c *calendarsClient) RetrieveCalendar(ctx context.Context, in *RetrieveCalendarRequest, opts ...grpc.CallOption) (*CalendarData, error) {
+	out := new(CalendarData)
+	err := c.cc.Invoke(ctx, "/services.Calendars/RetrieveCalendar", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *calendarsClient) RetrieveMyCalendars(ctx context.Context, in *RetrieveMyCalendarsRequest, opts ...grpc.CallOption) (*RetrieveMyCalendarsResponse, error) {
+	out := new(RetrieveMyCalendarsResponse)
+	err := c.cc.Invoke(ctx, "/services.Calendars/RetrieveMyCalendars", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CalendarsServer is the server API for Calendars service.
 type CalendarsServer interface {
 	CreateCalendar(context.Context, *CreateCalendarRequest) (*CreateCalendarResponse, error)
+	RetrieveCalendar(context.Context, *RetrieveCalendarRequest) (*CalendarData, error)
+	RetrieveMyCalendars(context.Context, *RetrieveMyCalendarsRequest) (*RetrieveMyCalendarsResponse, error)
 }
 
 // UnimplementedCalendarsServer can be embedded to have forward compatible implementations.
@@ -917,6 +1150,12 @@ type UnimplementedCalendarsServer struct {
 
 func (*UnimplementedCalendarsServer) CreateCalendar(ctx context.Context, req *CreateCalendarRequest) (*CreateCalendarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCalendar not implemented")
+}
+func (*UnimplementedCalendarsServer) RetrieveCalendar(ctx context.Context, req *RetrieveCalendarRequest) (*CalendarData, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveCalendar not implemented")
+}
+func (*UnimplementedCalendarsServer) RetrieveMyCalendars(ctx context.Context, req *RetrieveMyCalendarsRequest) (*RetrieveMyCalendarsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveMyCalendars not implemented")
 }
 
 func RegisterCalendarsServer(s *grpc.Server, srv CalendarsServer) {
@@ -941,6 +1180,42 @@ func _Calendars_CreateCalendar_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Calendars_RetrieveCalendar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveCalendarRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalendarsServer).RetrieveCalendar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.Calendars/RetrieveCalendar",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalendarsServer).RetrieveCalendar(ctx, req.(*RetrieveCalendarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Calendars_RetrieveMyCalendars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveMyCalendarsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalendarsServer).RetrieveMyCalendars(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.Calendars/RetrieveMyCalendars",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalendarsServer).RetrieveMyCalendars(ctx, req.(*RetrieveMyCalendarsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Calendars_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "services.Calendars",
 	HandlerType: (*CalendarsServer)(nil),
@@ -948,6 +1223,14 @@ var _Calendars_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateCalendar",
 			Handler:    _Calendars_CreateCalendar_Handler,
+		},
+		{
+			MethodName: "RetrieveCalendar",
+			Handler:    _Calendars_RetrieveCalendar_Handler,
+		},
+		{
+			MethodName: "RetrieveMyCalendars",
+			Handler:    _Calendars_RetrieveMyCalendars_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -958,10 +1241,10 @@ var _Calendars_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RegisterClient interface {
-	RetireveRegistry(ctx context.Context, in *RetrieveRegistryRequest, opts ...grpc.CallOption) (*RetrieveRegistryResponse, error)
+	RetrieveRegistry(ctx context.Context, in *RetrieveRegistryRequest, opts ...grpc.CallOption) (*RetrieveRegistryResponse, error)
 	First(ctx context.Context, in *FirstRequest, opts ...grpc.CallOption) (*FirstResponse, error)
 	Second(ctx context.Context, in *SecondRequest, opts ...grpc.CallOption) (*empty.Empty, error)
-	Third(ctx context.Context, in *ThirdRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	Third(ctx context.Context, in *ThirdRequest, opts ...grpc.CallOption) (*ThirdResponse, error)
 }
 
 type registerClient struct {
@@ -972,9 +1255,9 @@ func NewRegisterClient(cc grpc.ClientConnInterface) RegisterClient {
 	return &registerClient{cc}
 }
 
-func (c *registerClient) RetireveRegistry(ctx context.Context, in *RetrieveRegistryRequest, opts ...grpc.CallOption) (*RetrieveRegistryResponse, error) {
+func (c *registerClient) RetrieveRegistry(ctx context.Context, in *RetrieveRegistryRequest, opts ...grpc.CallOption) (*RetrieveRegistryResponse, error) {
 	out := new(RetrieveRegistryResponse)
-	err := c.cc.Invoke(ctx, "/services.Register/RetireveRegistry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/services.Register/RetrieveRegistry", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -999,8 +1282,8 @@ func (c *registerClient) Second(ctx context.Context, in *SecondRequest, opts ...
 	return out, nil
 }
 
-func (c *registerClient) Third(ctx context.Context, in *ThirdRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *registerClient) Third(ctx context.Context, in *ThirdRequest, opts ...grpc.CallOption) (*ThirdResponse, error) {
+	out := new(ThirdResponse)
 	err := c.cc.Invoke(ctx, "/services.Register/Third", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -1010,18 +1293,18 @@ func (c *registerClient) Third(ctx context.Context, in *ThirdRequest, opts ...gr
 
 // RegisterServer is the server API for Register service.
 type RegisterServer interface {
-	RetireveRegistry(context.Context, *RetrieveRegistryRequest) (*RetrieveRegistryResponse, error)
+	RetrieveRegistry(context.Context, *RetrieveRegistryRequest) (*RetrieveRegistryResponse, error)
 	First(context.Context, *FirstRequest) (*FirstResponse, error)
 	Second(context.Context, *SecondRequest) (*empty.Empty, error)
-	Third(context.Context, *ThirdRequest) (*empty.Empty, error)
+	Third(context.Context, *ThirdRequest) (*ThirdResponse, error)
 }
 
 // UnimplementedRegisterServer can be embedded to have forward compatible implementations.
 type UnimplementedRegisterServer struct {
 }
 
-func (*UnimplementedRegisterServer) RetireveRegistry(ctx context.Context, req *RetrieveRegistryRequest) (*RetrieveRegistryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RetireveRegistry not implemented")
+func (*UnimplementedRegisterServer) RetrieveRegistry(ctx context.Context, req *RetrieveRegistryRequest) (*RetrieveRegistryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveRegistry not implemented")
 }
 func (*UnimplementedRegisterServer) First(ctx context.Context, req *FirstRequest) (*FirstResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method First not implemented")
@@ -1029,7 +1312,7 @@ func (*UnimplementedRegisterServer) First(ctx context.Context, req *FirstRequest
 func (*UnimplementedRegisterServer) Second(ctx context.Context, req *SecondRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Second not implemented")
 }
-func (*UnimplementedRegisterServer) Third(ctx context.Context, req *ThirdRequest) (*empty.Empty, error) {
+func (*UnimplementedRegisterServer) Third(ctx context.Context, req *ThirdRequest) (*ThirdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Third not implemented")
 }
 
@@ -1037,20 +1320,20 @@ func RegisterRegisterServer(s *grpc.Server, srv RegisterServer) {
 	s.RegisterService(&_Register_serviceDesc, srv)
 }
 
-func _Register_RetireveRegistry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Register_RetrieveRegistry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RetrieveRegistryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RegisterServer).RetireveRegistry(ctx, in)
+		return srv.(RegisterServer).RetrieveRegistry(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.Register/RetireveRegistry",
+		FullMethod: "/services.Register/RetrieveRegistry",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RegisterServer).RetireveRegistry(ctx, req.(*RetrieveRegistryRequest))
+		return srv.(RegisterServer).RetrieveRegistry(ctx, req.(*RetrieveRegistryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1114,8 +1397,8 @@ var _Register_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*RegisterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RetireveRegistry",
-			Handler:    _Register_RetireveRegistry_Handler,
+			MethodName: "RetrieveRegistry",
+			Handler:    _Register_RetrieveRegistry_Handler,
 		},
 		{
 			MethodName: "First",

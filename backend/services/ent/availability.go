@@ -15,10 +15,10 @@ type Availability struct {
 	CalendarId uint64 `json:"calendar_id,omitempty"`
 
 	DayOfWeek   time.Weekday `json:"day_of_week,omitempty"`
-	StartHour   int64
-	EndHour     int64
-	StartMinute int64
-	EndMinute   int64
+	StartHour   int64        `json:"start_hour,omitempty"`
+	EndHour     int64        `json:"end_hour,omitempty"`
+	StartMinute int64        `json:"start_minute,omitempty"`
+	EndMinute   int64        `json:"end_minute,omitempty"`
 }
 
 var days = [...]time.Weekday{

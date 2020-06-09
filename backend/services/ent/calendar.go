@@ -12,7 +12,25 @@ type Calendar struct {
 	UserId  uint64 `json:"user_id,omitempty"`
 	GroupId uint64 `json:"group_id,omitempty"`
 
-	Name string
+	Name string `json:"name,omitempty"`
+}
+
+func CalendarsByUserId(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Calendar, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM calendars WHERE user_id=$1`, uid)
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var cs []*Calendar
+	for rows.Next() {
+		c := &Calendar{}
+		err := rows.StructScan(c)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		cs = append(cs, c)
+	}
+	return cs, nil
 }
 
 func FindCalendar(ctx context.Context, db *sqlx.DB, id uint64) (*Calendar, error) {

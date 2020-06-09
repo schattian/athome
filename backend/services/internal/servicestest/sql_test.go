@@ -9,4 +9,7 @@ import (
 
 func TestSQL(t *testing.T) {
 	sqltest.SQL(t, &ent.Calendar{}, "Calendar")
+	sqltest.SQL(t, &ent.Registry{}, "Registry")
+	sqltest.SQL(t, &ent.Service{}, "Service")
+	sqltest.SQL(t, &ent.Availability{}, "Availability")
 }

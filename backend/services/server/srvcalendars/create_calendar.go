@@ -22,24 +22,25 @@ func (s *Server) CreateCalendar(ctx context.Context, in *pbservices.CreateCalend
 	if err != nil {
 		return nil, err
 	}
+	defer db.Close()
 	auth, authCloser, err := server.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer authCloser()
 
-	return s.createCalendar(ctx, db, auth, in)
+	return s.createCalendar(ctx, db, auth, server.GetUserFromAccessToken, in)
 }
 
-func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, in *pbservices.CreateCalendarRequest) (*pbservices.CreateCalendarResponse, error) {
-	userId, err := server.GetUserFromAccessToken(ctx, auth, in.GetAccessToken())
+func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authFn server.AuthFunc, in *pbservices.CreateCalendarRequest) (*pbservices.CreateCalendarResponse, error) {
+	userId, err := authFn(ctx, auth, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
-
+	body := in.GetBody()
 	var availabilities []*ent.Availability
-	for _, av := range in.GetAvailabilities() {
-		availability, err := pbCreateAvailabilityToAvailability(av)
+	for _, av := range body.GetAvailabilities() {
+		availability, err := pbAvailabilityDataToAvailability(av)
 		if err != nil {
 			return nil, err
 		}
@@ -49,7 +50,7 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 		return nil, status.Errorf(xerrors.InvalidArgument, "trying to perform a self-overlapping of availabilities")
 	}
 
-	avs, err := ent.AvailabilitiesByUserGroup(ctx, db, userId, in.GetGroupId())
+	avs, err := ent.AvailabilitiesByUserGroup(ctx, db, userId, body.GetGroupId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "AvailabilitiesByUser: %v", err)
 	}
@@ -59,7 +60,7 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 		}
 	}
 
-	calendar := createCalendarRequestToCalendar(in, userId)
+	calendar := pbCalendarDataToCalendar(body, userId)
 	err = storeql.InsertIntoDB(ctx, db, calendar)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "calendar InsertIntoDB: %v", err)
@@ -75,27 +76,27 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 	}
 
 	resp := &pbservices.CreateCalendarResponse{
-		UserId:     calendar.UserId,
-		GroupId:    calendar.GroupId,
-		Name:       calendar.Name,
 		CalendarId: calendar.Id,
+		Data: &pbservices.CalendarData{
+			GroupId: calendar.GroupId,
+			Name:    calendar.Name,
+		},
 	}
 	for _, av := range availabilities {
-		resp.Availabilities = append(resp.Availabilities, availabilityToPbRetrieveAvailability(av))
+		resp.Data.Availabilities = append(resp.Data.Availabilities, availabilityToPbAvailabilityData(av))
 	}
 	return resp, nil
 }
 
-func availabilityToPbRetrieveAvailability(av *ent.Availability) *pbservices.RetrieveAvailability {
-	return &pbservices.RetrieveAvailability{
-		AvailabilityId: av.Id,
-		Dow:            strings.ToLower(av.DayOfWeek.String()),
-		Start:          &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
-		End:            &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
+func availabilityToPbAvailabilityData(av *ent.Availability) *pbservices.AvailabilityData {
+	return &pbservices.AvailabilityData{
+		Dow:   strings.ToLower(av.DayOfWeek.String()),
+		Start: &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
+		End:   &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
 	}
 }
 
-func pbCreateAvailabilityToAvailability(in *pbservices.CreateAvailability) (*ent.Availability, error) {
+func pbAvailabilityDataToAvailability(in *pbservices.AvailabilityData) (*ent.Availability, error) {
 	in.GetDow()
 
 	dow, err := ent.DayOfWeekByName(in.GetDow())
@@ -112,10 +113,17 @@ func pbCreateAvailabilityToAvailability(in *pbservices.CreateAvailability) (*ent
 	}, nil
 }
 
-func createCalendarRequestToCalendar(in *pbservices.CreateCalendarRequest, uid uint64) *ent.Calendar {
+func pbCalendarDataToCalendar(in *pbservices.CalendarData, uid uint64) *ent.Calendar {
 	return &ent.Calendar{
 		Name:    in.GetName(),
 		GroupId: in.GetGroupId(),
 		UserId:  uid,
+	}
+}
+
+func calendarToPbCalendarData(c *ent.Calendar) *pbservices.CalendarData {
+	return &pbservices.CalendarData{
+		Name:    c.Name,
+		GroupId: c.GroupId,
 	}
 }
