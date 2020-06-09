@@ -7,6 +7,10 @@ option go_package = "./pbservices";
 
 package services;
 
+service Viewer{
+  rpc RetrieveServiceDetail (RetrieveServiceDetailRequest) returns (RetrieveServiceDetailResponse){}
+}
+
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
   rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarData) {}
@@ -19,6 +23,30 @@ service Register{
   rpc First (FirstRequest) returns (FirstResponse) {}
   rpc Second (SecondRequest) returns (google.protobuf.Empty) {}
   rpc Third (ThirdRequest) returns (ThirdResponse) {}
+}
+
+message RetrieveServiceDetailRequest {
+  uint64 service_id = 1;
+}
+
+message RetrieveServiceDetailResponse {
+  ServiceData service = 1;
+  UserData user = 2;
+  AddressData address = 3;
+  CalendarData calendar = 4;
+}
+
+message UserData {
+  string name = 1;
+  string surname = 2;
+}
+
+message AddressData {
+  string zipcode = 1;
+  string street = 2;
+  uint64 number = 3;
+  uint64 floor = 4;
+  uint64 department = 5;
 }
 
 message RetrieveCalendarRequest {
