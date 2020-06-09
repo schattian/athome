@@ -50,6 +50,44 @@ services:
     ports:
       - "9993:9993"
 
+  address_svc:
+    env_file: backend/address/build/svc/dev.env
+    build:
+      context: backend/address
+      args:
+        svc_name: address
+    ports:
+      - "9995:9995"
+    volumes:
+      - ./backend/address/migrations:/address/migrations
+    depends_on:
+      - address_db
+
+  services_svc:
+    env_file: backend/services/build/svc/dev.env
+    build:
+      context: backend/services
+      args:
+        svc_name: services
+    ports:
+      - "9994:9994"
+    volumes:
+      - ./backend/services/migrations:/services/migrations
+    depends_on:
+      - services_db
+
+  services_db:
+    env_file: backend/services/build/db/dev.env
+    image: postgres:12
+    volumes:
+      - services_db:/var/lib/postgresql/data
+
+  address_db:
+    env_file: backend/address/build/db/dev.env
+    image: postgres:12
+    volumes:
+      - address_db:/var/lib/postgresql/data
+
   semantic_db:
     env_file: backend/semantic/build/db/dev.env
     image: postgres:12
@@ -113,3 +151,7 @@ volumes:
   auth_redis:
   semantic_svc:
   semantic_db:
+  address_svc:
+  address_db:
+  services_svc:
+  services_db:
