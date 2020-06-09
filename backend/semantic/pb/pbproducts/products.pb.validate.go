@@ -1556,8 +1556,6 @@ func (m *RetrieveDraftResponse) Validate() error {
 
 	// no validation rules for Stage
 
-	// no validation rules for UserId
-
 	for idx, item := range m.GetLines() {
 		_, _ = idx, item
 
