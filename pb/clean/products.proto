@@ -11,10 +11,10 @@ service Viewer {
 //  rpc SearchProducts (stream SearchProductsRequest) returns (search SearchProductsResponse){}
 //  rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
 
-  rpc RetrieveProductDetail (RetrieveProductRequest) returns (RetrieveProductDetailResponse){}
+  rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (RetrieveProductDetailResponse){}
 }
 
-message RetrieveProductRequest {
+message RetrieveProductDetailRequest {
   uint64 product_id = 1;
 }
 

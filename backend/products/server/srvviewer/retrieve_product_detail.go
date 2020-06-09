@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.RetrieveProductRequest) (*pbproducts.RetrieveProductDetailResponse, error) {
+func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.RetrieveProductDetailRequest) (*pbproducts.RetrieveProductDetailResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.Retri
 
 func (s *Server) retrieveProductDetail(ctx context.Context, db *sqlx.DB,
 	users pbusers.ViewerClient, sem pbsemantic.ProductsClient, img pbimages.ImagesClient,
-	in *pbproducts.RetrieveProductRequest,
+	in *pbproducts.RetrieveProductDetailRequest,
 ) (*pbproducts.RetrieveProductDetailResponse, error) {
 	prod, err := ent.FindProduct(ctx, db, in.GetProductId())
 	if errors.Is(err, sql.ErrNoRows) {

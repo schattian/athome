@@ -36,10 +36,10 @@ var (
 // define the regex for a UUID once up-front
 var _products_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on RetrieveProductRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RetrieveProductDetailRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RetrieveProductRequest) Validate() error {
+func (m *RetrieveProductDetailRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -49,9 +49,10 @@ func (m *RetrieveProductRequest) Validate() error {
 	return nil
 }
 
-// RetrieveProductRequestValidationError is the validation error returned by
-// RetrieveProductRequest.Validate if the designated constraints aren't met.
-type RetrieveProductRequestValidationError struct {
+// RetrieveProductDetailRequestValidationError is the validation error returned
+// by RetrieveProductDetailRequest.Validate if the designated constraints
+// aren't met.
+type RetrieveProductDetailRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -59,24 +60,24 @@ type RetrieveProductRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveProductRequestValidationError) Field() string { return e.field }
+func (e RetrieveProductDetailRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveProductRequestValidationError) Reason() string { return e.reason }
+func (e RetrieveProductDetailRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveProductRequestValidationError) Cause() error { return e.cause }
+func (e RetrieveProductDetailRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveProductRequestValidationError) Key() bool { return e.key }
+func (e RetrieveProductDetailRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveProductRequestValidationError) ErrorName() string {
-	return "RetrieveProductRequestValidationError"
+func (e RetrieveProductDetailRequestValidationError) ErrorName() string {
+	return "RetrieveProductDetailRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RetrieveProductRequestValidationError) Error() string {
+func (e RetrieveProductDetailRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -88,14 +89,14 @@ func (e RetrieveProductRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveProductRequest.%s: %s%s",
+		"invalid %sRetrieveProductDetailRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveProductRequestValidationError{}
+var _ error = RetrieveProductDetailRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -103,7 +104,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveProductRequestValidationError{}
+} = RetrieveProductDetailRequestValidationError{}
 
 // Validate checks the field values on RetrieveProductDetailResponse with the
 // rules defined in the proto definition for this message. If any rules are
