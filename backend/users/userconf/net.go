@@ -20,6 +20,14 @@ func GetAUTH_ADDR() (addr string) {
 	return
 }
 
+func GetIDENTIFIER_ADDR() (addr string) {
+	switch envconf.GetENV() {
+	case envconf.Development:
+		addr = "identifier_svc:9902"
+	}
+	return
+}
+
 func GetMAILER_ADDR() (addr string) {
 	switch envconf.GetENV() {
 	case envconf.Development:

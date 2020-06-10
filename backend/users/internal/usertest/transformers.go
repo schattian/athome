@@ -19,9 +19,10 @@ func OnboardingToSignUpStartRequest(o *ent.Onboarding) *pbusers.SignUpStartReque
 	return &pbusers.SignUpStartRequest{Role: string(o.Role)}
 }
 
-func SetStage(o *ent.Onboarding, s field.Stage) *ent.Onboarding {
-	o.Stage = s
-	return o
+func SetStage(t *testing.T, o *ent.Onboarding, s field.Stage) *ent.Onboarding {
+	cp := CopyOnboarding(t, o)
+	cp.Stage = s
+	return cp
 }
 
 func OnboardingToSignUpEndRequest(o *ent.Onboarding, pwd string) *pbusers.SignUpEndRequest {
@@ -31,18 +32,16 @@ func OnboardingToSignUpEndRequest(o *ent.Onboarding, pwd string) *pbusers.SignUp
 	}
 }
 
-func UserToSignInUserUnsafe(t *testing.T, user *ent.User) *pbusers.SignInUser {
+func UserToSignInUser(t *testing.T, user *ent.User) *pbusers.SignInUser {
 	t.Helper()
 	token, err := userjwt.CreateSignToken(user.Id)
 	if err != nil {
 		t.Fatalf(errors.Wrap(err, "CreateSignToken").Error())
 	}
+
 	return &pbusers.SignInUser{
 		Id:        user.Id,
 		SignToken: token,
-		Email:     string(user.Email),
-		Role:      string(user.Role),
-		Name:      string(user.Name),
-		Surname:   string(user.Surname),
+		User:      user.ToPb(),
 	}
 }

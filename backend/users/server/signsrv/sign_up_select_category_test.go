@@ -5,11 +5,12 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/pbsemantictest"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
+	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
-	"github.com/athomecomar/semantic/semprov"
-	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
 	"github.com/athomecomar/xerrors"
@@ -19,8 +20,10 @@ import (
 
 func TestServer_signUpSelectCategory(t *testing.T) {
 	type args struct {
-		ctx context.Context
-		in  *pbusers.SignUpSelectCategoryRequest
+		ctx      context.Context
+		in       *pbusers.SignUpSelectCategoryRequest
+		sem      xpbsemantic.CategoriesClient
+		previous *ent.Onboarding
 	}
 	tests := []struct {
 		name       string
@@ -32,28 +35,20 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 		{
 			name: "oor service-provider",
 			args: args{
-				ctx: context.Background(),
-				in:  &pbusers.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
-			},
-			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.SelectCategory))...),
-				},
+				ctx:      context.Background(),
+				in:       &pbusers.SignUpSelectCategoryRequest{CategoryId: 3, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
+				previous: usertest.SetStage(t, gOnboardings.ServiceProviders.Medic.Foo, field.SelectCategory),
+				sem:      pbsemantictest.Client{},
 			},
 			wantStatus: xerrors.OutOfRange,
 		},
 		{
 			name: "basic service-provider",
 			args: args{
-				ctx: context.Background(),
-				in:  &pbusers.SignUpSelectCategoryRequest{CategoryName: semprov.Medic.Name, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
-			},
-			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.ServiceProviders.Medic.Foo, field.Shared))...),
-				},
+				ctx:      context.Background(),
+				in:       &pbusers.SignUpSelectCategoryRequest{CategoryId: 3, OnboardingId: gOnboardings.ServiceProviders.Medic.Foo.Id},
+				previous: usertest.SetStage(t, gOnboardings.ServiceProviders.Medic.Foo, field.Shared),
+				sem:      pbsemantictest.Client{},
 			},
 			execStubs: []*sqlassist.ExecStubber{
 				{Expect: "UPDATE onboardings SET", Result: sqlmock.NewResult(1, 1)},
@@ -73,7 +68,7 @@ func TestServer_signUpSelectCategory(t *testing.T) {
 				stub.Stub(mock)
 			}
 			s := &Server{}
-			_, err := s.signUpSelectCategory(tt.args.ctx, db, tt.args.in)
+			_, err := s.signUpSelectCategory(tt.args.ctx, db, tt.args.sem, tt.args.in, tt.args.previous)
 			if status.Code(err) != tt.wantStatus {
 				t.Fatalf("Server.signUpSelectCategory() error = %v, status: %v;  wantStatus %v", err, status.Code(err), tt.wantStatus)
 			}

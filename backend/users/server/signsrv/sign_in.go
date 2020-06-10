@@ -75,9 +75,6 @@ func userToSignInUser(user *ent.User) (*pbusers.SignInUser, error) {
 	return &pbusers.SignInUser{
 		Id:        user.Id,
 		SignToken: token,
-		Email:     string(user.Email),
-		Role:      string(user.Role),
-		Name:      string(user.Name),
-		Surname:   string(user.Surname),
+		User:      user.ToPb(),
 	}, nil
 }

@@ -10,6 +10,9 @@ import (
 	"google.golang.org/grpc/codes"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
+	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/semantic/semerr"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/storeql"
@@ -17,17 +20,38 @@ import (
 )
 
 type Onboarding struct {
-	Id       uint64        `json:"id,omitempty"`
-	Email    field.Email   `json:"email,omitempty"`
-	Role     field.Role    `json:"role,omitempty"`
-	Stage    field.Stage   `json:"stage"`
-	Name     field.Name    `json:"name,omitempty"`
-	Surname  field.Surname `json:"surname,omitempty"`
-	Category string        `json:"category,omitempty"`
+	Id         uint64        `json:"id,omitempty"`
+	Email      field.Email   `json:"email,omitempty"`
+	Role       field.Role    `json:"role,omitempty"`
+	Stage      field.Stage   `json:"stage"`
+	Name       field.Name    `json:"name,omitempty"`
+	Surname    field.Surname `json:"surname,omitempty"`
+	CategoryId uint64        `json:"category_id,omitempty"`
+}
+
+func (o *Onboarding) Category(ctx context.Context, sem xpbsemantic.CategoriesClient) (*pbsemantic.Category, error) {
+	if o.CategoryId == 0 {
+		return nil, nil
+	}
+	cat, err := sem.RetrieveCategory(ctx, &pbsemantic.RetrieveCategoryRequest{CategoryId: o.CategoryId})
+	if err != nil {
+		return nil, err
+	}
+	return cat, nil
+}
+
+func (o *Onboarding) ToPb() *pbusers.Onboarding {
+	return &pbusers.Onboarding{
+		Email:   string(o.Email),
+		Name:    string(o.Name),
+		Role:    string(o.Role),
+		Surname: string(o.Surname),
+		Stage:   int64(o.Stage),
+	}
 }
 
 func (o *Onboarding) Identification(ctx context.Context, db *sqlx.DB) (*OnboardingIdentification, error) {
-	if o.Category == "" { // TODO: Add "if onboarding should passed the step X" <field.Identificaton>
+	if o.CategoryId == 0 { // TODO: Add "if onboarding should passed the step X" <field.Identificaton>
 		return nil, nil
 	}
 	row := db.QueryRowxContext(ctx, `SELECT * FROM onboarding_identifications WHERE onboarding_id=?`, o.Id)
@@ -41,11 +65,6 @@ func (o *Onboarding) Identification(ctx context.Context, db *sqlx.DB) (*Onboardi
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return oi, nil
-}
-
-func (o *Onboarding) Next() *Onboarding {
-	o.Stage = o.Stage.Next(o.Role)
-	return o
 }
 
 func (o *Onboarding) String() string {
@@ -118,7 +137,7 @@ func (o *Onboarding) Close(ctx context.Context, db *sqlx.DB, pwd string) (*User,
 }
 
 func (o *Onboarding) ToUser() *User {
-	return &User{Email: o.Email, Role: o.Role, Name: o.Name, Surname: o.Surname}
+	return &User{Email: o.Email, Role: o.Role, Name: o.Name, Surname: o.Surname, CategoryId: o.CategoryId}
 }
 
 func (o *Onboarding) ValidateByStage(ctx context.Context, db *sqlx.DB) (code codes.Code, err error) {
@@ -129,11 +148,11 @@ func (o *Onboarding) ValidateByStage(ctx context.Context, db *sqlx.DB) (code cod
 	return
 }
 
-func (o *Onboarding) MustStage(s field.Stage) (code codes.Code, err error) {
+func (o *Onboarding) MustStage(s field.Stage) error {
 	if o.Stage != s {
-		return codes.OutOfRange, fmt.Errorf("invalid stage %v", o.Stage)
+		return fmt.Errorf("invalid stage %v", o.Stage)
 	}
-	return
+	return nil
 }
 
 func (o *Onboarding) ValidateShared(ctx context.Context, db *sqlx.DB) (code codes.Code, err error) {

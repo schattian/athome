@@ -5,6 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
+	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
@@ -14,7 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest) (*pbusers.RetrieveOnboardingResponse, error) {
+func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest) (*pbusers.OnboardingDetail, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -23,28 +24,34 @@ func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnb
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
-	return s.retrieveOnboarding(ctx, db, in)
-}
-
-func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, in *pbusers.RetrieveOnboardingRequest) (*pbusers.RetrieveOnboardingResponse, error) {
-	onboarding, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
-	if errors.Is(err, sql.ErrNoRows) {
-		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
-	}
+	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
+		return nil, err
 	}
-	return onboardingToRetrieveOnboardingResponse(onboarding), nil
+
+	sem, semCloser, err := server.ConnCategories(ctx, o.Role)
+	if err != nil {
+		return nil, err
+	}
+	defer semCloser()
+
+	return s.retrieveOnboarding(ctx, db, sem, in, o)
 }
 
-func onboardingToRetrieveOnboardingResponse(o *ent.Onboarding) *pbusers.RetrieveOnboardingResponse {
-	return &pbusers.RetrieveOnboardingResponse{
-		Email:   string(o.Email),
-		Name:    string(o.Name),
-		Role:    string(o.Role),
-		Surname: string(o.Surname),
-		Stage:   int64(o.Stage),
+func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, in *pbusers.RetrieveOnboardingRequest, onboarding *ent.Onboarding) (*pbusers.OnboardingDetail, error) {
+	cat, err := onboarding.Category(ctx, sem)
+	if err != nil {
+		return nil, err
 	}
+	iden, err := onboarding.Identification(ctx, db)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "Identification: %v", err)
+	}
+	return &pbusers.OnboardingDetail{
+		Onboarding:     onboarding.ToPb(),
+		Category:       server.PbSemanticCategoryToPbUserCategory(cat),
+		Identification: iden.ToPb(),
+	}, nil
 }
 
 func retrieveOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*ent.Onboarding, error) {

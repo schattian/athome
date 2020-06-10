@@ -3,6 +3,7 @@ package signsrv
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
@@ -21,26 +22,23 @@ func (s *Server) SignUpEnd(ctx context.Context, in *pbusers.SignUpEndRequest) (*
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
-	return s.signUpEnd(ctx, db, in)
+	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
+	if err != nil {
+		return nil, err
+	}
+
+	return s.signUpEnd(ctx, db, in, o)
 }
 
-func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpEndRequest) (*pbusers.SignUpEndResponse, error) {
-	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
+func (s *Server) signUpEnd(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpEndRequest, onboarding *ent.Onboarding) (*pbusers.SignUpEndResponse, error) {
+	onboarding.Stage = onboarding.Stage.Next(onboarding.Role)
+
+	err := onboarding.MustStage(field.End)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
-	}
-	if previous == nil {
-		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
+		return nil, status.Errorf(xerrors.OutOfRange, "MustStage: %v", err)
 	}
 
-	onboarding := previous.Next()
-
-	code, err := onboarding.MustStage(field.End)
-	if err != nil {
-		return nil, status.Errorf(code, "MustStage: %v", err)
-	}
-
-	code, err = onboarding.ValidateByStage(ctx, db)
+	code, err := onboarding.ValidateByStage(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(code, "ValidateByStage: %v", err)
 	}

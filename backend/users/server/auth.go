@@ -2,6 +2,8 @@ package server
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/pb/pbauth"
@@ -21,6 +23,17 @@ func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, c pbauth.AuthClien
 	err = row.StructScan(user)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "oldUser row.StructScan: %v", err)
+	}
+	return user, nil
+}
+
+func FindUser(ctx context.Context, db *sqlx.DB, uid uint64) (*ent.User, error) {
+	user, err := ent.FindUser(ctx, db, uid)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, status.Errorf(xerrors.NotFound, "cant find user by id: %v", uid)
+	}
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "FindUser: %v", err)
 	}
 	return user, nil
 }

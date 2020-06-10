@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -24,6 +25,18 @@ type OnboardingIdentification struct {
 	Folio   uint64 `json:"folio,omitempty"`
 
 	CUE uint64 `json:"cue,omitempty"`
+}
+
+func (oi *OnboardingIdentification) ToPb() *pbusers.Identification {
+	return &pbusers.Identification{
+		Dni:     uint64(oi.DNI),
+		Name:    string(oi.Name),
+		Surname: string(oi.Surname),
+		License: oi.License,
+		Tome:    oi.Tome,
+		Folio:   oi.Folio,
+		Cue:     oi.CUE,
+	}
 }
 
 func (oi *OnboardingIdentification) Close(ctx context.Context, db *sqlx.DB, userId uint64) (*Identification, error) {

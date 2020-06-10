@@ -26,7 +26,7 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbusers.SwitchRoleRequest) 
 
 	db, err := server.ConnDB()
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
+		return nil, err
 	}
 	defer db.Close()
 
@@ -47,7 +47,6 @@ func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClien
 	if err != nil {
 		return nil, err
 	}
-
 	row := db.QueryRowxContext(ctx, `SELECT * FROM users WHERE email=$1 AND role=$2`, oldUser.Email, in.GetRole())
 	user := &ent.User{}
 	err = row.StructScan(user)

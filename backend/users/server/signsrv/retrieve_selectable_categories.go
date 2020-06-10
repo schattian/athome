@@ -2,14 +2,12 @@ package signsrv
 
 import (
 	"context"
-	"database/sql"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
+	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -23,25 +21,21 @@ func (s *Server) RetrieveSelectableCategories(ctx context.Context, in *pbusers.R
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
+	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
+	if err != nil {
+		return nil, err
+	}
 
-	return s.retrieveSelectableCategories(ctx, db, in)
+	return s.retrieveSelectableCategories(ctx, db, in, o)
 }
 
 func (s *Server) retrieveSelectableCategories(
 	ctx context.Context, db *sqlx.DB,
 	in *pbusers.RetrieveSelectableCategoriesRequest,
+	onboarding *ent.Onboarding,
 ) (out *pbusers.RetrieveSelectableCategoriesResponse, err error) {
-	onboarding, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
-	if errors.Is(err, sql.ErrNoRows) {
-		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
-		return
-	}
-	if err != nil {
-		err = status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
-		return
-	}
 
-	sem, semCloser, err := server.ConnSemantic(ctx, onboarding.Role)
+	sem, semCloser, err := server.ConnCategories(ctx, onboarding.Role)
 	if err != nil {
 		return
 	}
@@ -52,16 +46,10 @@ func (s *Server) retrieveSelectableCategories(
 		return
 	}
 
-	for _, cat := range categories.Categories {
-		out.Categories = append(out.Categories, pbSemanticCategoryToPbUserCategory(cat))
+	out = &pbusers.RetrieveSelectableCategoriesResponse{}
+	out.Categories = make(map[uint64]*pbusers.Category)
+	for id, cat := range categories.Categories {
+		out.Categories[id] = server.PbSemanticCategoryToPbUserCategory(cat)
 	}
 	return
-}
-
-func pbSemanticCategoryToPbUserCategory(c *pbsemantic.Category) *pbusers.Category {
-	var childs []*pbusers.Category
-	for _, child := range c.GetChilds() {
-		childs = append(childs, pbSemanticCategoryToPbUserCategory(child))
-	}
-	return &pbusers.Category{Name: c.GetName(), Childs: childs, Id: c.GetId(), ParentId: c.GetParentId()}
 }

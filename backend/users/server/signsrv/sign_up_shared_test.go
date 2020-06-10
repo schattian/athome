@@ -2,14 +2,13 @@ package signsrv
 
 import (
 	"context"
-	"database/sql"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
-	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
 	"github.com/athomecomar/xerrors"
@@ -19,8 +18,9 @@ import (
 
 func TestServer_signUpShared(t *testing.T) {
 	type args struct {
-		ctx context.Context
-		in  *pbusers.SignUpSharedRequest
+		ctx      context.Context
+		in       *pbusers.SignUpSharedRequest
+		previous *ent.Onboarding
 	}
 	tests := []struct {
 		name       string
@@ -32,14 +32,11 @@ func TestServer_signUpShared(t *testing.T) {
 		{
 			name: "basic consumer",
 			args: args{
-				ctx: context.Background(),
-				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				ctx:      context.Background(),
+				in:       usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				previous: usertest.SetStage(t, gOnboardings.Consumers.Foo, field.Start),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Start))...),
-				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
 					Rows:   sqlmock.NewRows([]string{"COUNT(id)"}).AddRow(0),
@@ -53,14 +50,11 @@ func TestServer_signUpShared(t *testing.T) {
 		{
 			name: "already exists basic consumer",
 			args: args{
-				ctx: context.Background(),
-				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				ctx:      context.Background(),
+				in:       usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				previous: usertest.SetStage(t, gOnboardings.Consumers.Foo, field.Start),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Start))...),
-				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
 					Rows:   sqlmock.NewRows([]string{"COUNT(id)"}).AddRow(1),
@@ -74,14 +68,11 @@ func TestServer_signUpShared(t *testing.T) {
 		{
 			name: "invalid stage basic consumer",
 			args: args{
-				ctx: context.Background(),
-				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				ctx:      context.Background(),
+				in:       usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
+				previous: usertest.SetStage(t, gOnboardings.Consumers.Foo, field.Shared),
 			},
 			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Rows:   sqlmock.NewRows(storeql.SQLColumns(gOnboardings.Consumers.Foo)).AddRow(storeql.SQLValues(usertest.SetStage(gOnboardings.Consumers.Foo, field.Shared))...),
-				},
 				{
 					Expect: "SELECT COUNT(id) FROM users",
 					Rows:   sqlmock.NewRows([]string{"COUNT(id)"}).AddRow(0),
@@ -91,20 +82,6 @@ func TestServer_signUpShared(t *testing.T) {
 				Expect: "UPDATE onboardings SET", Result: sqlmock.NewResult(1, 1),
 			},
 			wantStatus: xerrors.OutOfRange,
-		},
-		{
-			name: "unexistant onboarding",
-			args: args{
-				ctx: context.Background(),
-				in:  usertest.OnboardingToSignUpSharedRequest(gOnboardings.Consumers.Foo),
-			},
-			queryStubs: []*sqlassist.QueryStubber{
-				{
-					Expect: "SELECT * FROM onboardings",
-					Err:    sql.ErrNoRows,
-				},
-			},
-			wantStatus: xerrors.NotFound,
 		},
 	}
 	for _, tt := range tests {
@@ -119,7 +96,7 @@ func TestServer_signUpShared(t *testing.T) {
 				tt.execStub.Stub(mock)
 			}
 			s := &Server{}
-			_, err := s.signUpShared(tt.args.ctx, db, tt.args.in)
+			_, err := s.signUpShared(tt.args.ctx, db, tt.args.in, tt.args.previous)
 			if status.Code(err) != tt.wantStatus {
 				t.Fatalf("Server.signUpShared() error = %v, status: %v;  wantStatus %v", err, status.Code(err), tt.wantStatus)
 			}

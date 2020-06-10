@@ -2,21 +2,18 @@ package signsrv
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
 	"github.com/athomecomar/athome/backend/users/pb/pbidentifier"
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/semantic/semerr"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -31,33 +28,44 @@ func (s *Server) SignUpIdentification(ctx context.Context, in *pbusers.SignUpIde
 	}
 	defer db.Close()
 
-	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
+		return nil, err
 	}
 
-	c := pbidentifier.NewIdentifierClient(conn)
-	defer conn.Close()
-	return s.signUpIdentification(ctx, db, c, in)
+	iden, idenCloser, err := server.ConnIdentifier(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer idenCloser()
+	sem, semCloser, err := server.ConnCategories(ctx, o.Role)
+	if err != nil {
+		return nil, err
+	}
+	defer semCloser()
+
+	return s.signUpIdentification(ctx, db, sem, iden, in, o)
 }
 
-func (s *Server) signUpIdentification(ctx context.Context, db *sqlx.DB, c pbidentifier.IdentifierClient, in *pbusers.SignUpIdentificationRequest) (e *emptypb.Empty, err error) {
-	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
-	if errors.Is(err, sql.ErrNoRows) {
-		err = status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
-		return
-	}
+func (s *Server) signUpIdentification(
+	ctx context.Context,
+	db *sqlx.DB,
+	sem xpbsemantic.CategoriesClient,
+	iden pbidentifier.IdentifierClient,
+	in *pbusers.SignUpIdentificationRequest,
+	onboarding *ent.Onboarding,
+) (e *emptypb.Empty, err error) {
+	onboarding.Stage = onboarding.Stage.Next(onboarding.Role)
+	cat, err := onboarding.Category(ctx, sem)
 	if err != nil {
-		err = status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
-		return
+		return nil, err
 	}
-	onboarding := previous.Next()
 
 	var oi *ent.OnboardingIdentification
 	switch onboarding.Role {
 	case field.Merchant:
 	case field.ServiceProvider:
-		oi, err = signUpIdentificationServiceProvider(ctx, c, in, onboarding)
+		oi, err = signUpIdentificationServiceProvider(ctx, iden, in, cat.GetIdentificationTemplate())
 	}
 	if err != nil {
 		return
@@ -79,9 +87,9 @@ func signUpIdentificationServiceProvider(
 	ctx context.Context,
 	c pbidentifier.IdentifierClient,
 	in *pbusers.SignUpIdentificationRequest,
-	o *ent.Onboarding,
+	identificationTemplate string,
 ) (oi *ent.OnboardingIdentification, err error) {
-	switch o.Category {
+	switch identificationTemplate {
 	case semprov.Medic.Name:
 		oi, err = signUpIdentificationMedic(ctx, c, in.GetMedic())
 	case semprov.Attorney.Name:

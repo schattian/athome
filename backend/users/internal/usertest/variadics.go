@@ -9,7 +9,7 @@ type variadicTokens struct {
 
 type variadicUsers struct {
 	Foo *ent.User `json:"foo,omitempty"`
-	Bar *ent.User `json:"bar,omitempty"`
+	// Bar *ent.User `json:"bar,omitempty"`
 }
 
 type variadicOnboardings struct {

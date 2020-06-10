@@ -23,14 +23,12 @@
       local role = 'service-provider',
       medic:
         {
-          foo: $.base.foo { id: 241, role: role, category: 'medic' },
-          bar: {},
+          foo: $.base.foo { id: 241, role: role, category_id: 4 },
         },
 
       lawyer:
         {
-          foo: $.base.foo { id: 341, role: role, category: 'lawyer' },
-          bar: {},
+          foo: $.base.foo { id: 341, role: role, category_id: 5 },
         },
     },
 }

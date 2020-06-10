@@ -24,25 +24,24 @@ func (s *Server) SignUpShared(ctx context.Context, in *pbusers.SignUpSharedReque
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
 	defer db.Close()
-	return s.signUpShared(ctx, db, in)
+	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
+	if err != nil {
+		return nil, err
+	}
+
+	return s.signUpShared(ctx, db, in, o)
 }
 
-func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpSharedRequest) (*emptypb.Empty, error) {
-	previous, err := retrieveOnboardingByToken(ctx, db, in.GetOnboardingId())
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "retrieveOnboardingByToken: %v", err)
-	}
-	if previous == nil {
-		return nil, status.Errorf(xerrors.NotFound, "onboarding with id %v not found", in.GetOnboardingId())
-	}
-	onboarding := signUpSharedRequestToOnboarding(previous, in).Next()
+func (s *Server) signUpShared(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpSharedRequest, previous *ent.Onboarding) (*emptypb.Empty, error) {
+	onboarding := signUpSharedRequestToOnboarding(previous, in)
+	onboarding.Stage = onboarding.Stage.Next(onboarding.Role)
 
-	code, err := onboarding.MustStage(field.Shared)
+	err := onboarding.MustStage(field.Shared)
 	if err != nil {
-		return nil, status.Errorf(code, "MustStage: %v", err)
+		return nil, status.Errorf(xerrors.OutOfRange, "MustStage: %v", err)
 	}
 
-	code, err = onboarding.ValidateByStage(ctx, db)
+	code, err := onboarding.ValidateByStage(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(code, "ValidateByStage: %v", err)
 	}

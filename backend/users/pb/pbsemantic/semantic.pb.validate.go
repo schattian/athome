@@ -36,6 +36,75 @@ var (
 // define the regex for a UUID once up-front
 var _semantic_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on RetrieveCategoryRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveCategoryRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for CategoryId
+
+	return nil
+}
+
+// RetrieveCategoryRequestValidationError is the validation error returned by
+// RetrieveCategoryRequest.Validate if the designated constraints aren't met.
+type RetrieveCategoryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveCategoryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveCategoryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveCategoryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveCategoryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveCategoryRequestValidationError) ErrorName() string {
+	return "RetrieveCategoryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveCategoryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveCategoryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveCategoryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveCategoryRequestValidationError{}
+
 // Validate checks the field values on Category with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Category) Validate() error {
@@ -43,19 +112,19 @@ func (m *Category) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
-
 	// no validation rules for Name
 
 	// no validation rules for ParentId
 
-	for idx, item := range m.GetChilds() {
-		_, _ = idx, item
+	for key, val := range m.GetChilds() {
+		_ = val
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		// no validation rules for Childs[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CategoryValidationError{
-					field:  fmt.Sprintf("Childs[%v]", idx),
+					field:  fmt.Sprintf("Childs[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -63,6 +132,8 @@ func (m *Category) Validate() error {
 		}
 
 	}
+
+	// no validation rules for IdentificationTemplate
 
 	return nil
 }
@@ -128,8 +199,6 @@ func (m *AttributeSchema) Validate() error {
 	if m == nil {
 		return nil
 	}
-
-	// no validation rules for Id
 
 	// no validation rules for CategoryId
 
@@ -202,13 +271,15 @@ func (m *RetrieveCategoriesResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetCategories() {
-		_, _ = idx, item
+	for key, val := range m.GetCategories() {
+		_ = val
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		// no validation rules for Categories[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RetrieveCategoriesResponseValidationError{
-					field:  fmt.Sprintf("Categories[%v]", idx),
+					field:  fmt.Sprintf("Categories[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1212,6 +1283,8 @@ func (m *PredictCategoryResponse) Validate() error {
 		return nil
 	}
 
+	// no validation rules for CategoryId
+
 	if v, ok := interface{}(m.GetCategory()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return PredictCategoryResponseValidationError{
@@ -1282,6 +1355,87 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PredictCategoryResponseValidationError{}
+
+// Validate checks the field values on RetrieveCategoriesByRoleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveCategoriesByRoleRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if _, ok := _RetrieveCategoriesByRoleRequest_Role_InLookup[m.GetRole()]; !ok {
+		return RetrieveCategoriesByRoleRequestValidationError{
+			field:  "Role",
+			reason: "value must be in list [service-provider consumer merchant]",
+		}
+	}
+
+	return nil
+}
+
+// RetrieveCategoriesByRoleRequestValidationError is the validation error
+// returned by RetrieveCategoriesByRoleRequest.Validate if the designated
+// constraints aren't met.
+type RetrieveCategoriesByRoleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveCategoriesByRoleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveCategoriesByRoleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveCategoriesByRoleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveCategoriesByRoleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveCategoriesByRoleRequestValidationError) ErrorName() string {
+	return "RetrieveCategoriesByRoleRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveCategoriesByRoleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveCategoriesByRoleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveCategoriesByRoleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveCategoriesByRoleRequestValidationError{}
+
+var _RetrieveCategoriesByRoleRequest_Role_InLookup = map[string]struct{}{
+	"service-provider": {},
+	"consumer":         {},
+	"merchant":         {},
+}
 
 // Validate checks the field values on SetAttributesDataRequest_Authorization
 // with the rules defined in the proto definition for this message. If any

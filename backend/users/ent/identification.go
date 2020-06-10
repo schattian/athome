@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
+	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 )
 
 type Identification struct {
@@ -21,6 +22,20 @@ type Identification struct {
 	Folio   uint64 `json:"folio,omitempty"`
 
 	CUE uint64 `json:"cue,omitempty"`
+}
+
+func (i *Identification) ToPb() *pbusers.Identification {
+	return &pbusers.Identification{
+		Verified: i.Verified,
+		UserId:   i.UserId,
+		Dni:      uint64(i.DNI),
+		Name:     string(i.Name),
+		Surname:  string(i.Surname),
+		License:  i.License,
+		Tome:     i.Tome,
+		Folio:    i.Folio,
+		Cue:      i.CUE,
+	}
 }
 
 func (i *Identification) String() string {

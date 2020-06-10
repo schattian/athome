@@ -28,7 +28,9 @@ func (s *Server) SignUpStart(ctx context.Context, in *pbusers.SignUpStartRequest
 }
 
 func (s *Server) signUpStart(ctx context.Context, db *sqlx.DB, in *pbusers.SignUpStartRequest) (*pbusers.SignUpStartResponse, error) {
-	onboarding := signUpStartRequestToOnboarding(in).Next()
+	onboarding := signUpStartRequestToOnboarding(in)
+	onboarding.Stage = onboarding.Stage.Next(onboarding.Role)
+
 	code, err := onboarding.ValidateByStage(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(code, "ValidateByStage: %v", err)

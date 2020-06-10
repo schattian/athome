@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
   surname varchar(30) not null,
   password_hash    char(60) not null,
 
-  category varchar(30)
+  category_id integer
 );
 
 ALTER TABLE ONLY users ADD CONSTRAINT uq_users UNIQUE(email, role);
