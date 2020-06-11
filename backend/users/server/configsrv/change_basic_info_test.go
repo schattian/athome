@@ -34,7 +34,7 @@ func TestServer_changeBasicInfo(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				in: &pbusers.ChangeBasicInfoRequest{
-					Name: string(gUsers.Consumers.Bar.Name), Surname: string(gUsers.Consumers.Bar.Surname),
+					Name: "buzz", Surname: "lightyear",
 				},
 			},
 			c: pbauthtest.Client{Retrieve: &pbauth.RetrieveAuthenticationResponse{UserId: gUsers.Consumers.Foo.Id}},
