@@ -1,0 +1,66 @@
+#!/bin/bash
+DIR=$(dirname "$0")
+cd $DIR/pb
+
+export DIR=$(pwd)
+export BACKEND_DIR=$DIR/../../backend
+svcs="users semantic address identifier auth mailer products images services"
+
+#  --js_out="library=pb_$1,binary:js" \
+pbcompile()
+{
+protoc \
+  -I . \
+  -I ${GOPATH}/src \
+  -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
+  --go_out="plugins=grpc:../" \
+  --go_out="plugins=grpc:../" \
+  $1.proto
+
+../cleanpb ./$1.proto > ./clean/$1.proto
+}
+
+pbadd()
+{
+	git add ../pb$1
+	git commit -m "pb/pb$1: Bump to latest version"
+}
+
+pbpropague()
+{
+	if [ $TAG = "" ]
+	then
+		echo "nil tag cant be propagated"
+		exit 3
+	fi
+	cd $BACKEND_DIR
+	go get -u github.com/athomecomar/athome/pb@$2
+	go mod tidy
+	cd $DIR
+}
+
+pbrelease()
+{
+	echo release tag:
+	read TAG
+	git tag ${TAG} || (echo "TAG ${TAG} ALREADY EXISTS" && exit 3)
+	git push origin ${TAG}
+}
+
+for svc in $svcs
+do
+	pbcompile $svc
+    pbadd $svc
+done
+
+pbrelease
+
+for svc in $svcs
+do
+	pbpropague $svcs
+done
+
+
+echo "Done"
+
+
