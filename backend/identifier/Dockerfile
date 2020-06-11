@@ -2,6 +2,19 @@ FROM golang:alpine AS builder
 
 ARG svc_name 
 
+# Keys to fetch private deps of pb repo 
+ARG github_user 
+ENV github_user=$github_user
+ARG github_token
+ENV github_token=$github_token
+RUN apk add git
+RUN git config \
+    --global \
+    url."https://${github_user}:${github_token}@github.com".insteadOf \
+    "https://github.com"
+RUN go env -w GOPRIVATE=github.com/athomecomar/athome
+
+
 LABEL maintainer="Sebastián Chamena <sebachamena@gmail.com>"
 
 WORKDIR /${svc_name}

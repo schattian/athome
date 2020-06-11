@@ -11,5 +11,16 @@ if [ $build = "y" ]
 then
     docker-compose build --parallel $1
 fi
-
+export GITHUB_USER=$(cat .github_user)
+export GITHUB_TOKEN=$(cat .github_token)
+if [ $GITHUB_USER = "" ]
+then
+	echo "nil gh user"
+	exit 2
+fi
+if [ $GITHUB_TOKEN = "" ]
+then
+	echo "nil gh token"
+	exit 3
+fi
 docker-compose up $1 $2

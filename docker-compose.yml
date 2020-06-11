@@ -11,6 +11,8 @@ services:
     build:
       context: backend/users
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: users
     ports:
       - "9990:9990"
@@ -30,6 +32,8 @@ services:
     build:
       context: backend/products
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: products
     ports:
       - "9992:9992"
@@ -43,6 +47,8 @@ services:
     build:
       context: backend/images
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: images
     volumes:
       - ./backend/images/tmp:/images/tmp
@@ -55,6 +61,8 @@ services:
     build:
       context: backend/address
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: address
     ports:
       - "9995:9995"
@@ -68,6 +76,8 @@ services:
     build:
       context: backend/services
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: services
     ports:
       - "9994:9994"
@@ -99,6 +109,8 @@ services:
     build:
       context: backend/semantic
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: semantic
     ports:
       - "9991:9991"
@@ -112,6 +124,8 @@ services:
     build:
       context: backend/mailer
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: mailer
     ports:
       - "9901:9901"
@@ -121,6 +135,8 @@ services:
     build:
       context: backend/identifier
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: identifier
     ports:
       - "9902:9902"
@@ -130,6 +146,8 @@ services:
     build:
       context: backend/auth
       args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
         svc_name: auth
     ports:
       - "9900:9900"

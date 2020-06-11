@@ -4,10 +4,9 @@ go 1.14
 
 require (
 	github.com/alicebob/miniredis v2.5.0+incompatible // indirect
-	github.com/athomecomar/athome/pb v0.0.0-20200611210535-894bd35b4bd6 // indirect
+	github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee
 	github.com/athomecomar/currency v0.1.0 // indirect
 	github.com/athomecomar/envconf v1.1.0
-	github.com/athomecomar/pb v0.0.0-20200611195403-f906817bf6d2 // indirect
 	github.com/athomecomar/storeql v1.4.5
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/client9/misspell v0.3.4 // indirect
