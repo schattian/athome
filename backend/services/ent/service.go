@@ -33,14 +33,14 @@ func FindService(ctx context.Context, db *sqlx.DB, id uint64) (*Service, error) 
 	return svc, nil
 }
 
-func (s *Service) User(ctx context.Context, user pbusers.ViewerClient) (*pbservices.UserData, error) {
-	resp, err := user.ViewUser(ctx, &pbusers.ViewUserRequest{UserId: s.UserId})
+func (s *Service) User(ctx context.Context, user pbusers.ViewerClient) (*pbservices.User, error) {
+	resp, err := user.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: s.UserId})
 	if err != nil {
 		return nil, errors.Wrap(err, "user.ViewUser")
 	}
-	return &pbservices.UserData{
-		Name:    resp.GetName(),
-		Surname: resp.GetSurname(),
+	return &pbservices.User{
+		Name:    resp.GetUser().GetName(),
+		Surname: resp.GetUser().GetSurname(),
 	}, nil
 }
 func (s *Service) Calendar(ctx context.Context, db *sqlx.DB) (*Calendar, error) {
@@ -51,16 +51,28 @@ func (s *Service) Calendar(ctx context.Context, db *sqlx.DB) (*Calendar, error) 
 	return c, nil
 }
 
-func (s *Service) Address(ctx context.Context, addr pbaddress.AddressClient) (*pbservices.AddressData, error) {
+func (s *Service) Address(ctx context.Context, addr pbaddress.AddressesClient) (*pbservices.Address, error) {
 	resp, err := addr.RetrieveAddress(ctx, &pbaddress.RetrieveAddressRequest{AddressId: s.AddressId})
 	if err != nil {
 		return nil, errors.Wrap(err, "addr.RetrieveAddress")
 	}
-	return &pbservices.AddressData{
+	return &pbservices.Address{
 		Zipcode:    resp.GetZipcode(),
 		Street:     resp.GetStreet(),
 		Number:     resp.GetNumber(),
 		Floor:      resp.GetFloor(),
 		Department: resp.GetDepartment(),
 	}, nil
+}
+
+func (s *Service) ToPb() *pbservices.Service {
+	return &pbservices.Service{
+		Name:       s.Name,
+		UserId:     s.UserId,
+		AddressId:  s.AddressId,
+		CalendarId: s.CalendarId,
+
+		DurationInMinutes: s.DurationInMinutes,
+		Price:             &pbservices.Price{Min: s.PriceMin.Float64(), Max: s.PriceMax.Float64()},
+	}
 }

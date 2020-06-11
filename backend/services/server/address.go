@@ -10,11 +10,11 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func ConnAddress(ctx context.Context) (pbaddress.AddressClient, func() error, error) {
+func ConnAddress(ctx context.Context) (pbaddress.AddressesClient, func() error, error) {
 	conn, err := grpc.Dial(serviceconf.GetADDRESS_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		return nil, nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, serviceconf.GetADDRESS_ADDR())
 	}
-	c := pbaddress.NewAddressClient(conn)
+	c := pbaddress.NewAddressesClient(conn)
 	return c, conn.Close, nil
 }

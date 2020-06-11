@@ -6,8 +6,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/athomecomar/athome/backend/services/pb/pbservices"
+	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+	"google.golang.org/grpc/status"
 )
 
 type Availability struct {
@@ -19,6 +22,31 @@ type Availability struct {
 	EndHour     int64        `json:"end_hour,omitempty"`
 	StartMinute int64        `json:"start_minute,omitempty"`
 	EndMinute   int64        `json:"end_minute,omitempty"`
+}
+
+func AvailabilityFromPb(in *pbservices.Availability) (*Availability, error) {
+	in.GetDow()
+
+	dow, err := DayOfWeekByName(in.GetDow())
+	if err != nil {
+		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)
+	}
+	return &Availability{
+		DayOfWeek: dow,
+
+		StartHour:   in.GetStart().GetHour(),
+		StartMinute: in.GetStart().GetMinute(),
+		EndHour:     in.GetEnd().GetHour(),
+		EndMinute:   in.GetEnd().GetMinute(),
+	}, nil
+}
+
+func (av *Availability) ToPb() *pbservices.Availability {
+	return &pbservices.Availability{
+		Dow:   strings.ToLower(av.DayOfWeek.String()),
+		Start: &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
+		End:   &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
+	}
 }
 
 var days = [...]time.Weekday{

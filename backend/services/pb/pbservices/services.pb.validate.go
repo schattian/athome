@@ -813,10 +813,10 @@ var _ interface {
 	ErrorName() string
 } = RegistryValidationError{}
 
-// Validate checks the field values on RetrieveRegistryResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *RetrieveRegistryResponse) Validate() error {
+// Validate checks the field values on RegistryDetail with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *RegistryDetail) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -825,7 +825,7 @@ func (m *RetrieveRegistryResponse) Validate() error {
 
 	if v, ok := interface{}(m.GetRegistry()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RetrieveRegistryResponseValidationError{
+			return RegistryDetailValidationError{
 				field:  "Registry",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -833,12 +833,39 @@ func (m *RetrieveRegistryResponse) Validate() error {
 		}
 	}
 
+	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RegistryDetailValidationError{
+				field:  "Calendar",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for key, val := range m.GetAvailabilities() {
+		_ = val
+
+		// no validation rules for Availabilities[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RegistryDetailValidationError{
+					field:  fmt.Sprintf("Availabilities[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	return nil
 }
 
-// RetrieveRegistryResponseValidationError is the validation error returned by
-// RetrieveRegistryResponse.Validate if the designated constraints aren't met.
-type RetrieveRegistryResponseValidationError struct {
+// RegistryDetailValidationError is the validation error returned by
+// RegistryDetail.Validate if the designated constraints aren't met.
+type RegistryDetailValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -846,24 +873,22 @@ type RetrieveRegistryResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveRegistryResponseValidationError) Field() string { return e.field }
+func (e RegistryDetailValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveRegistryResponseValidationError) Reason() string { return e.reason }
+func (e RegistryDetailValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveRegistryResponseValidationError) Cause() error { return e.cause }
+func (e RegistryDetailValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveRegistryResponseValidationError) Key() bool { return e.key }
+func (e RegistryDetailValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveRegistryResponseValidationError) ErrorName() string {
-	return "RetrieveRegistryResponseValidationError"
-}
+func (e RegistryDetailValidationError) ErrorName() string { return "RegistryDetailValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RetrieveRegistryResponseValidationError) Error() string {
+func (e RegistryDetailValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -875,14 +900,14 @@ func (e RetrieveRegistryResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveRegistryResponse.%s: %s%s",
+		"invalid %sRegistryDetail.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveRegistryResponseValidationError{}
+var _ error = RegistryDetailValidationError{}
 
 var _ interface {
 	Field() string
@@ -890,7 +915,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveRegistryResponseValidationError{}
+} = RegistryDetailValidationError{}
 
 // Validate checks the field values on Service with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -1428,14 +1453,29 @@ func (m *CreateCalendarRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	if v, ok := interface{}(m.GetBody()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreateCalendarRequestValidationError{
-				field:  "Body",
+				field:  "Calendar",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
+	}
+
+	for idx, item := range m.GetAvailabilities() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateCalendarRequestValidationError{
+					field:  fmt.Sprintf("Availabilities[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
@@ -1508,22 +1548,7 @@ func (m *Calendar) Validate() error {
 
 	// no validation rules for GroupId
 
-	for key, val := range m.GetAvailabilities() {
-		_ = val
-
-		// no validation rules for Availabilities[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return CalendarValidationError{
-					field:  fmt.Sprintf("Availabilities[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
+	// no validation rules for UserId
 
 	return nil
 }
@@ -1582,6 +1607,98 @@ var _ interface {
 	ErrorName() string
 } = CalendarValidationError{}
 
+// Validate checks the field values on CalendarDetail with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *CalendarDetail) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CalendarDetailValidationError{
+				field:  "Calendar",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for key, val := range m.GetAvailabilities() {
+		_ = val
+
+		// no validation rules for Availabilities[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CalendarDetailValidationError{
+					field:  fmt.Sprintf("Availabilities[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// CalendarDetailValidationError is the validation error returned by
+// CalendarDetail.Validate if the designated constraints aren't met.
+type CalendarDetailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CalendarDetailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CalendarDetailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CalendarDetailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CalendarDetailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CalendarDetailValidationError) ErrorName() string { return "CalendarDetailValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CalendarDetailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCalendarDetail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CalendarDetailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CalendarDetailValidationError{}
+
 // Validate checks the field values on CreateCalendarResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1600,6 +1717,23 @@ func (m *CreateCalendarResponse) Validate() error {
 				cause:  err,
 			}
 		}
+	}
+
+	for key, val := range m.GetAvailabilities() {
+		_ = val
+
+		// no validation rules for Availabilities[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateCalendarResponseValidationError{
+					field:  fmt.Sprintf("Availabilities[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil

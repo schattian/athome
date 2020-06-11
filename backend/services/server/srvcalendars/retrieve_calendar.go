@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest) (*pbservices.CalendarData, error) {
+func (s *Server) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest) (*pbservices.CalendarDetail, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func (s *Server) retrieveCalendar(
 	ctx context.Context,
 	db *sqlx.DB,
 	in *pbservices.RetrieveCalendarRequest,
-) (*pbservices.CalendarData, error) {
+) (*pbservices.CalendarDetail, error) {
 	c, err := ent.FindCalendar(ctx, db, in.GetCalendarId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "can't find calendar with id: %v", in.GetCalendarId())
@@ -41,10 +41,10 @@ func (s *Server) retrieveCalendar(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Availabilities: %v", err)
 	}
-
-	resp := server.CalendarToPbCalendarData(c)
+	resp := &pbservices.CalendarDetail{Calendar: c.ToPb()}
+	resp.Availabilities = make(map[uint64]*pbservices.Availability)
 	for _, av := range avs {
-		resp.Availabilities = append(resp.Availabilities, availabilityToPbAvailabilityData(av))
+		resp.Availabilities[av.Id] = av.ToPb()
 	}
 	return resp, nil
 }

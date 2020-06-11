@@ -51,17 +51,18 @@ func (s *Server) retrieveMyCalendars(
 		return nil, status.Errorf(xerrors.Internal, "FindCalendar: %v", err)
 	}
 	resp := &pbservices.RetrieveMyCalendarsResponse{}
-	resp.Calendars = make(map[uint64]*pbservices.CalendarData)
+	resp.Calendars = make(map[uint64]*pbservices.CalendarDetail)
 	for _, c := range cs {
 		avs, err := c.Availabilities(ctx, db)
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "Availabilities: %v", err)
 		}
-		cData := server.CalendarToPbCalendarData(c)
+		calDetail := &pbservices.CalendarDetail{Calendar: c.ToPb()}
+		calDetail.Availabilities = make(map[uint64]*pbservices.Availability)
 		for _, av := range avs {
-			cData.Availabilities = append(cData.Availabilities, availabilityToPbAvailabilityData(av))
+			calDetail.Availabilities[av.Id] = av.ToPb()
 		}
-		resp.Calendars[c.Id] = cData
+		resp.Calendars[c.Id] = calDetail
 	}
 	return resp, nil
 }

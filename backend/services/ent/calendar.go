@@ -3,6 +3,7 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -31,6 +32,22 @@ func CalendarsByUserId(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Calenda
 		cs = append(cs, c)
 	}
 	return cs, nil
+}
+
+func CalendarFromPb(c *pbservices.Calendar, uid uint64) *Calendar {
+	return &Calendar{
+		Name:    c.Name,
+		UserId:  uid,
+		GroupId: c.GroupId,
+	}
+}
+
+func (c *Calendar) ToPb() *pbservices.Calendar {
+	return &pbservices.Calendar{
+		Name:    c.Name,
+		GroupId: c.GroupId,
+		UserId:  c.UserId,
+	}
 }
 
 func FindCalendar(ctx context.Context, db *sqlx.DB, id uint64) (*Calendar, error) {

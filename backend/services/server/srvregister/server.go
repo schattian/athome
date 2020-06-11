@@ -8,7 +8,6 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/stage"
 	"github.com/athomecomar/athome/backend/services/pb/pbauth"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -37,28 +36,4 @@ func retrieveRegistryByUser(ctx context.Context, db *sqlx.DB, c pbauth.AuthClien
 		return nil, status.Errorf(xerrors.Internal, "FindRegistryByUserId: %v", err)
 	}
 	return reg, nil
-}
-
-func registryToPbRetrieveRegistry(r *ent.Registry) *pbservices.RetrieveRegistryResponse {
-	return &pbservices.RetrieveRegistryResponse{
-		RegistryId: r.Id,
-		Stage:      uint64(r.Stage),
-
-		First: &pbservices.FirstRequest_Body{
-			AddressId: r.AddressId,
-		},
-
-		Second: &pbservices.SecondRequest_Body{
-			Name:              r.Name,
-			DurationInMinutes: r.DurationInMinutes,
-			Price: &pbservices.Price{
-				Max: r.PriceMax.Float64(),
-				Min: r.PriceMin.Float64(),
-			},
-		},
-
-		Third: &pbservices.ThirdRequest_Body{
-			CalendarId: r.CalendarId,
-		},
-	}
 }

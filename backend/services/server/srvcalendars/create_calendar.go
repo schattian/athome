@@ -2,7 +2,6 @@ package srvcalendars
 
 import (
 	"context"
-	"strings"
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/pb/pbauth"
@@ -37,10 +36,9 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 	if err != nil {
 		return nil, err
 	}
-	body := in.GetBody()
 	var availabilities []*ent.Availability
-	for _, av := range body.GetAvailabilities() {
-		availability, err := pbAvailabilityDataToAvailability(av)
+	for _, av := range in.GetAvailabilities() {
+		availability, err := ent.AvailabilityFromPb(av)
 		if err != nil {
 			return nil, err
 		}
@@ -49,8 +47,8 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 	if ent.CheckOverlappingPairwise(availabilities) {
 		return nil, status.Errorf(xerrors.InvalidArgument, "trying to perform a self-overlapping of availabilities")
 	}
-
-	avs, err := ent.AvailabilitiesByUserGroup(ctx, db, userId, body.GetGroupId())
+	pbCalendar := in.GetCalendar()
+	avs, err := ent.AvailabilitiesByUserGroup(ctx, db, userId, pbCalendar.GetGroupId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "AvailabilitiesByUser: %v", err)
 	}
@@ -59,8 +57,8 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 			return nil, status.Errorf(xerrors.InvalidArgument, "tried to overlap availability")
 		}
 	}
+	calendar := ent.CalendarFromPb(pbCalendar, userId)
 
-	calendar := pbCalendarDataToCalendar(body, userId)
 	err = storeql.InsertIntoDB(ctx, db, calendar)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "calendar InsertIntoDB: %v", err)
@@ -77,46 +75,11 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 
 	resp := &pbservices.CreateCalendarResponse{
 		CalendarId: calendar.Id,
-		Data: &pbservices.CalendarData{
-			GroupId: calendar.GroupId,
-			Name:    calendar.Name,
-		},
+		Calendar:   calendar.ToPb(),
 	}
+	resp.Availabilities = make(map[uint64]*pbservices.Availability)
 	for _, av := range availabilities {
-		resp.Data.Availabilities = append(resp.Data.Availabilities, availabilityToPbAvailabilityData(av))
+		resp.Availabilities[av.Id] = av.ToPb()
 	}
 	return resp, nil
-}
-
-func availabilityToPbAvailabilityData(av *ent.Availability) *pbservices.AvailabilityData {
-	return &pbservices.AvailabilityData{
-		Dow:   strings.ToLower(av.DayOfWeek.String()),
-		Start: &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
-		End:   &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
-	}
-}
-
-func pbAvailabilityDataToAvailability(in *pbservices.AvailabilityData) (*ent.Availability, error) {
-	in.GetDow()
-
-	dow, err := ent.DayOfWeekByName(in.GetDow())
-	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)
-	}
-	return &ent.Availability{
-		DayOfWeek: dow,
-
-		StartHour:   in.GetStart().GetHour(),
-		StartMinute: in.GetStart().GetMinute(),
-		EndHour:     in.GetEnd().GetHour(),
-		EndMinute:   in.GetEnd().GetMinute(),
-	}, nil
-}
-
-func pbCalendarDataToCalendar(in *pbservices.CalendarData, uid uint64) *ent.Calendar {
-	return &ent.Calendar{
-		Name:    in.GetName(),
-		GroupId: in.GetGroupId(),
-		UserId:  uid,
-	}
 }

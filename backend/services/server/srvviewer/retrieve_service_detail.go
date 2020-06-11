@@ -40,7 +40,7 @@ func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.Retri
 func (s *Server) retrieveServiceDetail(
 	ctx context.Context,
 	db *sqlx.DB,
-	addr pbaddress.AddressClient,
+	addr pbaddress.AddressesClient,
 	users pbusers.ViewerClient,
 	in *pbservices.RetrieveServiceDetailRequest,
 ) (*pbservices.RetrieveServiceDetailResponse, error) {
@@ -64,10 +64,10 @@ func (s *Server) retrieveServiceDetail(
 		return nil, status.Errorf(xerrors.Internal, "svc.Calendar: %v", err)
 	}
 	resp := &pbservices.RetrieveServiceDetailResponse{
-		Service:  server.ServiceToPbServiceData(svc),
+		Service:  svc.ToPb(),
 		Address:  address,
 		User:     user,
-		Calendar: server.CalendarToPbCalendarData(calendar),
+		Calendar: calendar.ToPb(),
 	}
 	return resp, nil
 }

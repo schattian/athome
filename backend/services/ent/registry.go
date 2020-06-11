@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/services/ent/stage"
+	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/currency"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -41,6 +42,29 @@ func (r *Registry) ToService() *Service {
 
 func NewRegistry(userId uint64) *Registry {
 	return &Registry{UserId: userId, Stage: stage.First}
+}
+
+func (r *Registry) ToPb() *pbservices.Registry {
+	return &pbservices.Registry{
+		Stage: uint64(r.Stage),
+
+		First: &pbservices.FirstRequest_Body{
+			AddressId: r.AddressId,
+		},
+
+		Second: &pbservices.SecondRequest_Body{
+			Name:              r.Name,
+			DurationInMinutes: r.DurationInMinutes,
+			Price: &pbservices.Price{
+				Max: r.PriceMax.Float64(),
+				Min: r.PriceMin.Float64(),
+			},
+		},
+
+		Third: &pbservices.ThirdRequest_Body{
+			CalendarId: r.CalendarId,
+		},
+	}
 }
 
 func FindRegistry(ctx context.Context, db *sqlx.DB, id uint64) (*Registry, error) {

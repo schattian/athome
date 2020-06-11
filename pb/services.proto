@@ -13,12 +13,12 @@ service Viewer{
 
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
-  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (Calendar) {}
+  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarDetail) {}
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 }
 
 service Register{
-  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (RetrieveRegistryResponse) {}
+  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (RegistryDetail) {}
   rpc DeleteRegistry (DeleteRegistryRequest) returns (google.protobuf.Empty) {}
 
   rpc Prev (PrevRequest) returns (google.protobuf.Empty) {}
@@ -61,7 +61,7 @@ message RetrieveMyCalendarsRequest {
 }
 
 message RetrieveMyCalendarsResponse {
-  map<uint64, Calendar> calendars = 1;
+  map<uint64, CalendarDetail> calendars = 1;
 }
 
 message RetrieveRegistryRequest {
@@ -79,9 +79,11 @@ message Registry{
   ThirdRequest.Body third = 4;
 }
 
-message RetrieveRegistryResponse {
+message RegistryDetail {
   uint64 registry_id = 1;
   Registry registry = 2;
+  Calendar calendar = 3;
+  map<uint64, Availability> availabilities = 4;
 }
 
 message Service {
@@ -135,18 +137,25 @@ message ThirdResponse {
 
 message CreateCalendarRequest {
   string access_token = 1;
-  Calendar body = 2;
+  Calendar calendar = 2;
+  repeated Availability availabilities = 3;
 }
 
 message Calendar {
   string name = 1;
   uint64 group_id = 2;
-  map<uint64,Availability> availabilities = 3;
+  uint64 user_id = 3;
+}
+
+message CalendarDetail{
+  Calendar calendar = 1;
+  map<uint64,Availability> availabilities = 2;
 }
 
 message CreateCalendarResponse {
   uint64 calendar_id = 1;
   Calendar calendar = 2;
+  map<uint64,Availability> availabilities = 3;
 }
 
 // 24 hour format

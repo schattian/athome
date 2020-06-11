@@ -62,7 +62,7 @@ func (s *Server) third(ctx context.Context, db *sqlx.DB, in *pbservices.ThirdReq
 	}
 
 	return &pbservices.ThirdResponse{
-		Data:      server.ServiceToPbServiceData(svc),
+		Service:   svc.ToPb(),
 		ServiceId: svc.Id,
 	}, nil
 }
