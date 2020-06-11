@@ -13,7 +13,7 @@ service Viewer{
 
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
-  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarData) {}
+  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (Calendar) {}
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 }
 
@@ -33,18 +33,18 @@ message RetrieveServiceDetailRequest {
 }
 
 message RetrieveServiceDetailResponse {
-  ServiceData service = 1;
-  UserData user = 2;
-  AddressData address = 3;
-  CalendarData calendar = 4;
+  Service service = 1;
+  User user = 2;
+  Address address = 3;
+  Calendar calendar = 4;
 }
 
-message UserData {
+message User {
   string name = 1;
   string surname = 2;
 }
 
-message AddressData {
+message Address {
   string zipcode = 1;
   string street = 2;
   uint64 number = 3;
@@ -61,7 +61,7 @@ message RetrieveMyCalendarsRequest {
 }
 
 message RetrieveMyCalendarsResponse {
-  map<uint64, CalendarData> calendars = 1;
+  map<uint64, Calendar> calendars = 1;
 }
 
 message RetrieveRegistryRequest {
@@ -72,15 +72,19 @@ message DeleteRegistryRequest {
   string access_token = 1;
 }
 
-message RetrieveRegistryResponse {
-  uint64 registry_id = 1;
-  uint64 stage = 2;
-  FirstRequest.Body first = 3;
-  SecondRequest.Body second = 4;
-  ThirdRequest.Body third = 5;
+message Registry{
+  uint64 stage = 1;
+  FirstRequest.Body first = 2;
+  SecondRequest.Body second = 3;
+  ThirdRequest.Body third = 4;
 }
 
-message ServiceData {
+message RetrieveRegistryResponse {
+  uint64 registry_id = 1;
+  Registry registry = 2;
+}
+
+message Service {
   uint64 address_id = 1;
   string name = 2;
   uint64 duration_in_minutes = 3;
@@ -126,23 +130,23 @@ message ThirdRequest {
 
 message ThirdResponse {
   uint64 service_id = 1;
-  ServiceData data = 2;
+  Service service = 2;
 }
 
 message CreateCalendarRequest {
   string access_token = 1;
-  CalendarData body = 2;
+  Calendar body = 2;
 }
 
-message CalendarData {
+message Calendar {
   string name = 1;
   uint64 group_id = 2;
-  repeated AvailabilityData availabilities = 3;
+  map<uint64,Availability> availabilities = 3;
 }
 
 message CreateCalendarResponse {
   uint64 calendar_id = 1;
-  CalendarData data = 2;
+  Calendar calendar = 2;
 }
 
 // 24 hour format
@@ -151,7 +155,7 @@ message TimeOfDay {
   int64 minute = 2;
 }
 
-message AvailabilityData {
+message Availability {
   string dow = 2;
   TimeOfDay start = 3;
   TimeOfDay end = 4;

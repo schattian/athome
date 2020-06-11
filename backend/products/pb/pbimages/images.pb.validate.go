@@ -46,7 +46,7 @@ func (m *CreateImageRequest) Validate() error {
 
 	switch m.Corpus.(type) {
 
-	case *CreateImageRequest_Metadata:
+	case *CreateImageRequest_Metadata_:
 
 		if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
@@ -122,6 +122,76 @@ var _ interface {
 	ErrorName() string
 } = CreateImageRequestValidationError{}
 
+// Validate checks the field values on Image with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Image) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Size
+
+	// no validation rules for Uri
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// ImageValidationError is the validation error returned by Image.Validate if
+// the designated constraints aren't met.
+type ImageValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ImageValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ImageValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ImageValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ImageValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ImageValidationError) ErrorName() string { return "ImageValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ImageValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sImage.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ImageValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ImageValidationError{}
+
 // Validate checks the field values on CreateImageResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -130,13 +200,17 @@ func (m *CreateImageResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	// no validation rules for ImageId
 
-	// no validation rules for Size
-
-	// no validation rules for Uri
-
-	// no validation rules for UserId
+	if v, ok := interface{}(m.GetImage()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateImageResponseValidationError{
+				field:  "Image",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -272,13 +346,15 @@ func (m *RetrieveImagesResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetImages() {
-		_, _ = idx, item
+	for key, val := range m.GetImages() {
+		_ = val
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		// no validation rules for Images[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RetrieveImagesResponseValidationError{
-					field:  fmt.Sprintf("Images[%v]", idx),
+					field:  fmt.Sprintf("Images[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -415,15 +491,16 @@ var _ interface {
 	ErrorName() string
 } = DeleteImagesRequestValidationError{}
 
-// Validate checks the field values on Metadata with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Metadata) Validate() error {
+// Validate checks the field values on CreateImageRequest_Metadata with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateImageRequest_Metadata) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if _, ok := _Metadata_Ext_InLookup[m.GetExt()]; !ok {
-		return MetadataValidationError{
+	if _, ok := _CreateImageRequest_Metadata_Ext_InLookup[m.GetExt()]; !ok {
+		return CreateImageRequest_MetadataValidationError{
 			field:  "Ext",
 			reason: "value must be in list [svg jpg jpeg png]",
 		}
@@ -434,9 +511,10 @@ func (m *Metadata) Validate() error {
 	return nil
 }
 
-// MetadataValidationError is the validation error returned by
-// Metadata.Validate if the designated constraints aren't met.
-type MetadataValidationError struct {
+// CreateImageRequest_MetadataValidationError is the validation error returned
+// by CreateImageRequest_Metadata.Validate if the designated constraints
+// aren't met.
+type CreateImageRequest_MetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -444,22 +522,24 @@ type MetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e MetadataValidationError) Field() string { return e.field }
+func (e CreateImageRequest_MetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e MetadataValidationError) Reason() string { return e.reason }
+func (e CreateImageRequest_MetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e MetadataValidationError) Cause() error { return e.cause }
+func (e CreateImageRequest_MetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e MetadataValidationError) Key() bool { return e.key }
+func (e CreateImageRequest_MetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e MetadataValidationError) ErrorName() string { return "MetadataValidationError" }
+func (e CreateImageRequest_MetadataValidationError) ErrorName() string {
+	return "CreateImageRequest_MetadataValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e MetadataValidationError) Error() string {
+func (e CreateImageRequest_MetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -471,14 +551,14 @@ func (e MetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sMetadata.%s: %s%s",
+		"invalid %sCreateImageRequest_Metadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = MetadataValidationError{}
+var _ error = CreateImageRequest_MetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -486,83 +566,11 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = MetadataValidationError{}
+} = CreateImageRequest_MetadataValidationError{}
 
-var _Metadata_Ext_InLookup = map[string]struct{}{
+var _CreateImageRequest_Metadata_Ext_InLookup = map[string]struct{}{
 	"svg":  {},
 	"jpg":  {},
 	"jpeg": {},
 	"png":  {},
 }
-
-// Validate checks the field values on RetrieveImagesResponse_Data with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *RetrieveImagesResponse_Data) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uri
-
-	// no validation rules for UserId
-
-	return nil
-}
-
-// RetrieveImagesResponse_DataValidationError is the validation error returned
-// by RetrieveImagesResponse_Data.Validate if the designated constraints
-// aren't met.
-type RetrieveImagesResponse_DataValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e RetrieveImagesResponse_DataValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e RetrieveImagesResponse_DataValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e RetrieveImagesResponse_DataValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e RetrieveImagesResponse_DataValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e RetrieveImagesResponse_DataValidationError) ErrorName() string {
-	return "RetrieveImagesResponse_DataValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e RetrieveImagesResponse_DataValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRetrieveImagesResponse_Data.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = RetrieveImagesResponse_DataValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = RetrieveImagesResponse_DataValidationError{}

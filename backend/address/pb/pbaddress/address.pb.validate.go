@@ -36,10 +36,9 @@ var (
 // define the regex for a UUID once up-front
 var _address_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on AddressData with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *AddressData) Validate() error {
+// Validate checks the field values on Address with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Address) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -64,12 +63,14 @@ func (m *AddressData) Validate() error {
 
 	// no validation rules for Alias
 
+	// no validation rules for UserId
+
 	return nil
 }
 
-// AddressDataValidationError is the validation error returned by
-// AddressData.Validate if the designated constraints aren't met.
-type AddressDataValidationError struct {
+// AddressValidationError is the validation error returned by Address.Validate
+// if the designated constraints aren't met.
+type AddressValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -77,22 +78,22 @@ type AddressDataValidationError struct {
 }
 
 // Field function returns field value.
-func (e AddressDataValidationError) Field() string { return e.field }
+func (e AddressValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AddressDataValidationError) Reason() string { return e.reason }
+func (e AddressValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AddressDataValidationError) Cause() error { return e.cause }
+func (e AddressValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AddressDataValidationError) Key() bool { return e.key }
+func (e AddressValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AddressDataValidationError) ErrorName() string { return "AddressDataValidationError" }
+func (e AddressValidationError) ErrorName() string { return "AddressValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AddressDataValidationError) Error() string {
+func (e AddressValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -104,14 +105,14 @@ func (e AddressDataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAddressData.%s: %s%s",
+		"invalid %sAddress.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AddressDataValidationError{}
+var _ error = AddressValidationError{}
 
 var _ interface {
 	Field() string
@@ -119,7 +120,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AddressDataValidationError{}
+} = AddressValidationError{}
 
 // Validate checks the field values on CreateAddressRequest with the rules
 // defined in the proto definition for this message. If any rules are

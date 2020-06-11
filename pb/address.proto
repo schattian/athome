@@ -6,13 +6,13 @@ option go_package = "./pbaddress";
 
 package address;
 
-service Address{
+service Addresses{
   rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse) {}
-  rpc RetrieveAddress (RetrieveAddressRequest) returns (AddressData) {}
+  rpc RetrieveAddress (RetrieveAddressRequest) returns (Address) {}
   rpc RetrieveMyAddresses (RetrieveMyAddressesRequest) returns (RetrieveMyAddressesResponse) {}
 }
 
-message AddressData {
+message Address {
   string country = 1;
   string province = 2;
   string zipcode = 3;
@@ -23,16 +23,17 @@ message AddressData {
   uint64 latitude = 8;
   uint64 longitude = 9;
   string alias = 10;
+  uint64 user_id = 11;
 }
 
 message CreateAddressRequest {
   string access_token = 1;
-  AddressData body = 2;
+  Address body = 2;
 }
 
 message CreateAddressResponse {
   uint64 address_id = 1;
-  AddressData metadata = 2;
+  Address metadata = 2;
 }
 
 message RetrieveAddressRequest {
@@ -44,5 +45,5 @@ message RetrieveMyAddressesRequest{
 }
 
 message RetrieveMyAddressesResponse {
-  map<uint64, AddressData> addresses = 1;
+  map<uint64, Address> addresses = 1;
 }

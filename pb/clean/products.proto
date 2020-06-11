@@ -11,30 +11,41 @@ service Viewer {
 //  rpc SearchProducts (stream SearchProductsRequest) returns (search SearchProductsResponse){}
 //  rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
 
-  rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (RetrieveProductDetailResponse){}
+  rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (ProductDetail){}
 }
 
 message RetrieveProductDetailRequest {
   uint64 product_id = 1;
 }
 
-message RetrieveProductDetailResponse {
+
+message Product {
   string title = 1;
   uint64 category_id = 2;
   double price = 3;
   uint64 stock = 4;
-  repeated ViewableAttributeData attributes = 5;
-  repeated string image_uris = 6;
-  User user = 7;
+  repeated string image_ids = 5;
+  uint64 user_id = 6;
+}
+
+message Image {
+  string uri = 1;
+}
+
+
+message ProductDetail {
+  Product product = 1;
+  User user = 2;
+  map<uint64, Attribute> attributes = 3;
+  map<string, Image> images = 4;
 }
 
 message User {
-  uint64 user_id = 1;
   string name = 2;
   string surname = 3;
 }
 
-message ViewableAttributeData {
+message Attribute {
   string name = 1;
   uint64 schema_id = 2;
   string value_type = 3;
@@ -52,7 +63,7 @@ service Creator {
   rpc CloneDraftLine (CloneDraftLineRequest) returns (CloneDraftLineResponse) {}
   rpc DeleteDraftLine (DeleteDraftLineRequest) returns (google.protobuf.Empty) {}
 
-  rpc RetrieveDraft(RetrieveDraftRequest) returns (RetrieveDraftResponse) {}
+  rpc RetrieveDraft(RetrieveDraftRequest) returns (DraftDetail) {}
   rpc DeleteDraft (DeleteDraftRequest) returns (google.protobuf.Empty) {}
 }
 
@@ -66,7 +77,6 @@ message StageChangeResponse{
 
 message DraftLine {
   uint64 draft_line_id = 1;
-
   DraftLineFirst first = 2;
   DraftLineSecond second = 3;
   DraftLineThird third = 4;
@@ -151,10 +161,15 @@ message RetrieveDraftRequest{
   string access_token = 1;
 }
 
-message RetrieveDraftResponse{
+message Draft {
+  uint64 stage = 1;
+  uint64 user_id = 2;
+}
+
+message DraftDetail{
   uint64 draft_id = 1;
-  uint64 stage = 2;
-  repeated DraftLine lines = 4;
+  Draft draft = 2;
+  map<uint64, DraftLine> lines = 3;
 }
 
 message Page {

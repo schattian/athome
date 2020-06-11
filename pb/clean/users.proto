@@ -8,16 +8,7 @@ option go_package = "./pbusers";
 package users;
 
 service Viewer {
-  rpc ViewUser (ViewUserRequest) returns (ViewUserResponse) {}
-}
-
-message ViewUserRequest {
-  uint64 user_id = 1;
-}
-
-message ViewUserResponse {
-  string name = 1;
-  string surname = 2;
+  rpc RetrieveUser (RetrieveUserRequest) returns (UserDetail) {}
 }
 
 service Sign {
@@ -36,24 +27,33 @@ service Sign {
 
   rpc SignUpEnd (SignUpEndRequest) returns (SignUpEndResponse) {}
 
-  rpc RetrieveOnboarding (RetrieveOnboardingRequest) returns (RetrieveOnboardingResponse) {}
-
   rpc RetrieveSelectableCategories (RetrieveSelectableCategoriesRequest) returns (RetrieveSelectableCategoriesResponse) {}
+
+  rpc RetrieveOnboarding (RetrieveOnboardingRequest) returns (OnboardingDetail) {}
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
 
+}
+message RetrieveSelectableCategoriesRequest{
+  uint64 onboarding_id = 1;
+}
+
+message RetrieveSelectableCategoriesResponse{
+  map<uint64, Category> categories = 1;
 }
 
 message SignUpIdentificationRequest {
   uint64 onboarding_id = 1;
   uint64 dni = 2;
 
-  Medic medic = 3;
-  Psychologist psychologist = 4;
-  Lawyer lawyer = 5;
-  Attorney attorney = 6;
-  EducationalInstitution educational_institution = 7;
+  oneof category{
+    Medic medic = 3;
+    Psychologist psychologist = 4;
+    Lawyer lawyer = 5;
+    Attorney attorney = 6;
+    EducationalInstitution educational_institution = 7;
+  }
 
   message Medic {
     string name = 1;
@@ -79,26 +79,16 @@ message SignUpIdentificationRequest {
   }
 }
 
-
 message SignUpSelectCategoryRequest{
   uint64 onboarding_id = 1;
-  string category_name = 2;
+  uint64 category_id = 2;
 }
 
-message RetrieveSelectableCategoriesRequest {
-  uint64 onboarding_id = 1;
-}
-
-message RetrieveSelectableCategoriesResponse {
-  repeated Category categories = 1;
-}
-
-message Category {
-  uint64 id = 1;
-  string name = 2;
-
-  uint64 parent_id = 3;
-  repeated Category childs = 4;
+message Category{
+  string name = 1;
+  uint64 parent_id = 2;
+  map<uint64, Category> childs = 3;
+  string identification_template = 4;
 }
 
 message SwitchRoleRequest {
@@ -120,11 +110,39 @@ message ForgotPasswordRequest {
   string email = 1;
 }
 
+message RetrieveUserRequest {
+  uint64 user_id = 1;
+}
+
+message UserDetail{
+  User user = 1;
+  Category category = 2;
+  Identification identification = 3;
+}
+
+message OnboardingDetail{
+  Onboarding onboarding = 1;
+  Category category = 2;
+  Identification identification = 3;
+}
+
+message Identification {
+  uint64 user_id = 1;
+  uint64 dni = 2;
+  bool   verified = 3;
+  string name = 4;
+  string surname = 5;
+  uint64 license = 6;
+  uint64 tome = 7;
+  uint64 folio = 8;
+  uint64 cue = 9;
+}
+
 message RetrieveOnboardingRequest {
   uint64 onboarding_id = 1;
 }
 
-message RetrieveOnboardingResponse{
+message Onboarding {
   string role = 1;
   string email = 2;
   string name = 3;
@@ -170,10 +188,15 @@ message SignInResponse {
 message SignInUser {
   uint64 id = 1;
   string sign_token = 2;
-  string role = 3;
-  string name = 4;
-  string surname = 5;
-  string email = 6;
+  User user = 3;
+}
+
+message User{
+  string role = 1;
+  string name = 2;
+  string surname = 3;
+  string email = 4;
+  uint64 category_id = 5;
 }
 
 message SignRequest {
@@ -202,6 +225,7 @@ message ChangePasswordRequest {
 
 message ChangeBasicInfoRequest {
   string access_token = 1;
+
   string name = 2;
   string surname = 3;
 }

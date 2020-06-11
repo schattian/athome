@@ -222,46 +222,46 @@ func (m *RetrieveCategoriesResponse) GetCategories() map[uint64]*Category {
 	return nil
 }
 
-type RetrieveAttributesSchemaRequest struct {
+type RetrieveAttributeSchemasRequest struct {
 	CategoryId           uint64   `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RetrieveAttributesSchemaRequest) Reset()         { *m = RetrieveAttributesSchemaRequest{} }
-func (m *RetrieveAttributesSchemaRequest) String() string { return proto.CompactTextString(m) }
-func (*RetrieveAttributesSchemaRequest) ProtoMessage()    {}
-func (*RetrieveAttributesSchemaRequest) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributeSchemasRequest) Reset()         { *m = RetrieveAttributeSchemasRequest{} }
+func (m *RetrieveAttributeSchemasRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributeSchemasRequest) ProtoMessage()    {}
+func (*RetrieveAttributeSchemasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{4}
 }
 
-func (m *RetrieveAttributesSchemaRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Unmarshal(m, b)
+func (m *RetrieveAttributeSchemasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributeSchemasRequest.Unmarshal(m, b)
 }
-func (m *RetrieveAttributesSchemaRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Marshal(b, m, deterministic)
+func (m *RetrieveAttributeSchemasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributeSchemasRequest.Marshal(b, m, deterministic)
 }
-func (m *RetrieveAttributesSchemaRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveAttributesSchemaRequest.Merge(m, src)
+func (m *RetrieveAttributeSchemasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributeSchemasRequest.Merge(m, src)
 }
-func (m *RetrieveAttributesSchemaRequest) XXX_Size() int {
-	return xxx_messageInfo_RetrieveAttributesSchemaRequest.Size(m)
+func (m *RetrieveAttributeSchemasRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributeSchemasRequest.Size(m)
 }
-func (m *RetrieveAttributesSchemaRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveAttributesSchemaRequest.DiscardUnknown(m)
+func (m *RetrieveAttributeSchemasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributeSchemasRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveAttributesSchemaRequest proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributeSchemasRequest proto.InternalMessageInfo
 
-func (m *RetrieveAttributesSchemaRequest) GetCategoryId() uint64 {
+func (m *RetrieveAttributeSchemasRequest) GetCategoryId() uint64 {
 	if m != nil {
 		return m.CategoryId
 	}
 	return 0
 }
 
-type RetrieveAttributesDataRequest struct {
+type RetrieveAttributeDatasRequest struct {
 	EntityId             uint64   `protobuf:"varint,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
 	EntityTable          string   `protobuf:"bytes,2,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -269,46 +269,46 @@ type RetrieveAttributesDataRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RetrieveAttributesDataRequest) Reset()         { *m = RetrieveAttributesDataRequest{} }
-func (m *RetrieveAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*RetrieveAttributesDataRequest) ProtoMessage()    {}
-func (*RetrieveAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributeDatasRequest) Reset()         { *m = RetrieveAttributeDatasRequest{} }
+func (m *RetrieveAttributeDatasRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributeDatasRequest) ProtoMessage()    {}
+func (*RetrieveAttributeDatasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{5}
 }
 
-func (m *RetrieveAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveAttributesDataRequest.Unmarshal(m, b)
+func (m *RetrieveAttributeDatasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributeDatasRequest.Unmarshal(m, b)
 }
-func (m *RetrieveAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *RetrieveAttributeDatasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributeDatasRequest.Marshal(b, m, deterministic)
 }
-func (m *RetrieveAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveAttributesDataRequest.Merge(m, src)
+func (m *RetrieveAttributeDatasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributeDatasRequest.Merge(m, src)
 }
-func (m *RetrieveAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_RetrieveAttributesDataRequest.Size(m)
+func (m *RetrieveAttributeDatasRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributeDatasRequest.Size(m)
 }
-func (m *RetrieveAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveAttributesDataRequest.DiscardUnknown(m)
+func (m *RetrieveAttributeDatasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributeDatasRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveAttributesDataRequest proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributeDatasRequest proto.InternalMessageInfo
 
-func (m *RetrieveAttributesDataRequest) GetEntityId() uint64 {
+func (m *RetrieveAttributeDatasRequest) GetEntityId() uint64 {
 	if m != nil {
 		return m.EntityId
 	}
 	return 0
 }
 
-func (m *RetrieveAttributesDataRequest) GetEntityTable() string {
+func (m *RetrieveAttributeDatasRequest) GetEntityTable() string {
 	if m != nil {
 		return m.EntityTable
 	}
 	return ""
 }
 
-type DeleteAttributesDataRequest struct {
+type DeleteAttributeDatasRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	EntityId             uint64   `protobuf:"varint,2,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
 	EntityTable          string   `protobuf:"bytes,3,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
@@ -317,131 +317,131 @@ type DeleteAttributesDataRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DeleteAttributesDataRequest) Reset()         { *m = DeleteAttributesDataRequest{} }
-func (m *DeleteAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteAttributesDataRequest) ProtoMessage()    {}
-func (*DeleteAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *DeleteAttributeDatasRequest) Reset()         { *m = DeleteAttributeDatasRequest{} }
+func (m *DeleteAttributeDatasRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteAttributeDatasRequest) ProtoMessage()    {}
+func (*DeleteAttributeDatasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{6}
 }
 
-func (m *DeleteAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteAttributesDataRequest.Unmarshal(m, b)
+func (m *DeleteAttributeDatasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteAttributeDatasRequest.Unmarshal(m, b)
 }
-func (m *DeleteAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *DeleteAttributeDatasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteAttributeDatasRequest.Marshal(b, m, deterministic)
 }
-func (m *DeleteAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteAttributesDataRequest.Merge(m, src)
+func (m *DeleteAttributeDatasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteAttributeDatasRequest.Merge(m, src)
 }
-func (m *DeleteAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteAttributesDataRequest.Size(m)
+func (m *DeleteAttributeDatasRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteAttributeDatasRequest.Size(m)
 }
-func (m *DeleteAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteAttributesDataRequest.DiscardUnknown(m)
+func (m *DeleteAttributeDatasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteAttributeDatasRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DeleteAttributesDataRequest proto.InternalMessageInfo
+var xxx_messageInfo_DeleteAttributeDatasRequest proto.InternalMessageInfo
 
-func (m *DeleteAttributesDataRequest) GetAccessToken() string {
+func (m *DeleteAttributeDatasRequest) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
 	return ""
 }
 
-func (m *DeleteAttributesDataRequest) GetEntityId() uint64 {
+func (m *DeleteAttributeDatasRequest) GetEntityId() uint64 {
 	if m != nil {
 		return m.EntityId
 	}
 	return 0
 }
 
-func (m *DeleteAttributesDataRequest) GetEntityTable() string {
+func (m *DeleteAttributeDatasRequest) GetEntityTable() string {
 	if m != nil {
 		return m.EntityTable
 	}
 	return ""
 }
 
-type RetrieveAttributesSchemaResponse struct {
-	Attributes           []*AttributeSchema `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
+type RetrieveAttributeSchemasResponse struct {
+	Attributes           map[uint64]*AttributeSchema `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                    `json:"-"`
+	XXX_unrecognized     []byte                      `json:"-"`
+	XXX_sizecache        int32                       `json:"-"`
 }
 
-func (m *RetrieveAttributesSchemaResponse) Reset()         { *m = RetrieveAttributesSchemaResponse{} }
-func (m *RetrieveAttributesSchemaResponse) String() string { return proto.CompactTextString(m) }
-func (*RetrieveAttributesSchemaResponse) ProtoMessage()    {}
-func (*RetrieveAttributesSchemaResponse) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributeSchemasResponse) Reset()         { *m = RetrieveAttributeSchemasResponse{} }
+func (m *RetrieveAttributeSchemasResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributeSchemasResponse) ProtoMessage()    {}
+func (*RetrieveAttributeSchemasResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{7}
 }
 
-func (m *RetrieveAttributesSchemaResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Unmarshal(m, b)
+func (m *RetrieveAttributeSchemasResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributeSchemasResponse.Unmarshal(m, b)
 }
-func (m *RetrieveAttributesSchemaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Marshal(b, m, deterministic)
+func (m *RetrieveAttributeSchemasResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributeSchemasResponse.Marshal(b, m, deterministic)
 }
-func (m *RetrieveAttributesSchemaResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveAttributesSchemaResponse.Merge(m, src)
+func (m *RetrieveAttributeSchemasResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributeSchemasResponse.Merge(m, src)
 }
-func (m *RetrieveAttributesSchemaResponse) XXX_Size() int {
-	return xxx_messageInfo_RetrieveAttributesSchemaResponse.Size(m)
+func (m *RetrieveAttributeSchemasResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributeSchemasResponse.Size(m)
 }
-func (m *RetrieveAttributesSchemaResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveAttributesSchemaResponse.DiscardUnknown(m)
+func (m *RetrieveAttributeSchemasResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributeSchemasResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveAttributesSchemaResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributeSchemasResponse proto.InternalMessageInfo
 
-func (m *RetrieveAttributesSchemaResponse) GetAttributes() []*AttributeSchema {
+func (m *RetrieveAttributeSchemasResponse) GetAttributes() map[uint64]*AttributeSchema {
 	if m != nil {
 		return m.Attributes
 	}
 	return nil
 }
 
-type RetrieveAttributesDataResponse struct {
-	Attributes           []*SetAttributesDataResponse `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                     `json:"-"`
-	XXX_unrecognized     []byte                       `json:"-"`
-	XXX_sizecache        int32                        `json:"-"`
+type RetrieveAttributeDatasResponse struct {
+	Attributes           map[uint64]*AttributeData `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
+	XXX_unrecognized     []byte                    `json:"-"`
+	XXX_sizecache        int32                     `json:"-"`
 }
 
-func (m *RetrieveAttributesDataResponse) Reset()         { *m = RetrieveAttributesDataResponse{} }
-func (m *RetrieveAttributesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*RetrieveAttributesDataResponse) ProtoMessage()    {}
-func (*RetrieveAttributesDataResponse) Descriptor() ([]byte, []int) {
+func (m *RetrieveAttributeDatasResponse) Reset()         { *m = RetrieveAttributeDatasResponse{} }
+func (m *RetrieveAttributeDatasResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveAttributeDatasResponse) ProtoMessage()    {}
+func (*RetrieveAttributeDatasResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{8}
 }
 
-func (m *RetrieveAttributesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RetrieveAttributesDataResponse.Unmarshal(m, b)
+func (m *RetrieveAttributeDatasResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveAttributeDatasResponse.Unmarshal(m, b)
 }
-func (m *RetrieveAttributesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RetrieveAttributesDataResponse.Marshal(b, m, deterministic)
+func (m *RetrieveAttributeDatasResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveAttributeDatasResponse.Marshal(b, m, deterministic)
 }
-func (m *RetrieveAttributesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RetrieveAttributesDataResponse.Merge(m, src)
+func (m *RetrieveAttributeDatasResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveAttributeDatasResponse.Merge(m, src)
 }
-func (m *RetrieveAttributesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_RetrieveAttributesDataResponse.Size(m)
+func (m *RetrieveAttributeDatasResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveAttributeDatasResponse.Size(m)
 }
-func (m *RetrieveAttributesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RetrieveAttributesDataResponse.DiscardUnknown(m)
+func (m *RetrieveAttributeDatasResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveAttributeDatasResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RetrieveAttributesDataResponse proto.InternalMessageInfo
+var xxx_messageInfo_RetrieveAttributeDatasResponse proto.InternalMessageInfo
 
-func (m *RetrieveAttributesDataResponse) GetAttributes() []*SetAttributesDataResponse {
+func (m *RetrieveAttributeDatasResponse) GetAttributes() map[uint64]*AttributeData {
 	if m != nil {
 		return m.Attributes
 	}
 	return nil
 }
 
-type SetAttributesDataResponse struct {
+type SetAttributeDatasResponse struct {
 	AttributeDataId      uint64         `protobuf:"varint,1,opt,name=attribute_data_id,json=attributeDataId,proto3" json:"attribute_data_id,omitempty"`
 	Data                 *AttributeData `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
@@ -449,165 +449,165 @@ type SetAttributesDataResponse struct {
 	XXX_sizecache        int32          `json:"-"`
 }
 
-func (m *SetAttributesDataResponse) Reset()         { *m = SetAttributesDataResponse{} }
-func (m *SetAttributesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*SetAttributesDataResponse) ProtoMessage()    {}
-func (*SetAttributesDataResponse) Descriptor() ([]byte, []int) {
+func (m *SetAttributeDatasResponse) Reset()         { *m = SetAttributeDatasResponse{} }
+func (m *SetAttributeDatasResponse) String() string { return proto.CompactTextString(m) }
+func (*SetAttributeDatasResponse) ProtoMessage()    {}
+func (*SetAttributeDatasResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{9}
 }
 
-func (m *SetAttributesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SetAttributesDataResponse.Unmarshal(m, b)
+func (m *SetAttributeDatasResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SetAttributeDatasResponse.Unmarshal(m, b)
 }
-func (m *SetAttributesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SetAttributesDataResponse.Marshal(b, m, deterministic)
+func (m *SetAttributeDatasResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SetAttributeDatasResponse.Marshal(b, m, deterministic)
 }
-func (m *SetAttributesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SetAttributesDataResponse.Merge(m, src)
+func (m *SetAttributeDatasResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SetAttributeDatasResponse.Merge(m, src)
 }
-func (m *SetAttributesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_SetAttributesDataResponse.Size(m)
+func (m *SetAttributeDatasResponse) XXX_Size() int {
+	return xxx_messageInfo_SetAttributeDatasResponse.Size(m)
 }
-func (m *SetAttributesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SetAttributesDataResponse.DiscardUnknown(m)
+func (m *SetAttributeDatasResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SetAttributeDatasResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SetAttributesDataResponse proto.InternalMessageInfo
+var xxx_messageInfo_SetAttributeDatasResponse proto.InternalMessageInfo
 
-func (m *SetAttributesDataResponse) GetAttributeDataId() uint64 {
+func (m *SetAttributeDatasResponse) GetAttributeDataId() uint64 {
 	if m != nil {
 		return m.AttributeDataId
 	}
 	return 0
 }
 
-func (m *SetAttributesDataResponse) GetData() *AttributeData {
+func (m *SetAttributeDatasResponse) GetData() *AttributeData {
 	if m != nil {
 		return m.Data
 	}
 	return nil
 }
 
-type CloneAttributesDataResponse struct {
-	Attributes           []*SetAttributesDataResponse `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                     `json:"-"`
-	XXX_unrecognized     []byte                       `json:"-"`
-	XXX_sizecache        int32                        `json:"-"`
+type CloneAttributeDatasResponse struct {
+	Attributes           map[uint64]*AttributeData `protobuf:"bytes,1,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
+	XXX_unrecognized     []byte                    `json:"-"`
+	XXX_sizecache        int32                     `json:"-"`
 }
 
-func (m *CloneAttributesDataResponse) Reset()         { *m = CloneAttributesDataResponse{} }
-func (m *CloneAttributesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*CloneAttributesDataResponse) ProtoMessage()    {}
-func (*CloneAttributesDataResponse) Descriptor() ([]byte, []int) {
+func (m *CloneAttributeDatasResponse) Reset()         { *m = CloneAttributeDatasResponse{} }
+func (m *CloneAttributeDatasResponse) String() string { return proto.CompactTextString(m) }
+func (*CloneAttributeDatasResponse) ProtoMessage()    {}
+func (*CloneAttributeDatasResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{10}
 }
 
-func (m *CloneAttributesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CloneAttributesDataResponse.Unmarshal(m, b)
+func (m *CloneAttributeDatasResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloneAttributeDatasResponse.Unmarshal(m, b)
 }
-func (m *CloneAttributesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CloneAttributesDataResponse.Marshal(b, m, deterministic)
+func (m *CloneAttributeDatasResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloneAttributeDatasResponse.Marshal(b, m, deterministic)
 }
-func (m *CloneAttributesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CloneAttributesDataResponse.Merge(m, src)
+func (m *CloneAttributeDatasResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloneAttributeDatasResponse.Merge(m, src)
 }
-func (m *CloneAttributesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_CloneAttributesDataResponse.Size(m)
+func (m *CloneAttributeDatasResponse) XXX_Size() int {
+	return xxx_messageInfo_CloneAttributeDatasResponse.Size(m)
 }
-func (m *CloneAttributesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CloneAttributesDataResponse.DiscardUnknown(m)
+func (m *CloneAttributeDatasResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloneAttributeDatasResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CloneAttributesDataResponse proto.InternalMessageInfo
+var xxx_messageInfo_CloneAttributeDatasResponse proto.InternalMessageInfo
 
-func (m *CloneAttributesDataResponse) GetAttributes() []*SetAttributesDataResponse {
+func (m *CloneAttributeDatasResponse) GetAttributes() map[uint64]*AttributeData {
 	if m != nil {
 		return m.Attributes
 	}
 	return nil
 }
 
-type SetAttributesDataRequest struct {
+type SetAttributeDatasRequest struct {
 	// Types that are valid to be assigned to Corpus:
-	//	*SetAttributesDataRequest_Authorization_
-	//	*SetAttributesDataRequest_Data
-	Corpus               isSetAttributesDataRequest_Corpus `protobuf_oneof:"corpus"`
+	//	*SetAttributeDatasRequest_Authorization_
+	//	*SetAttributeDatasRequest_Data
+	Corpus               isSetAttributeDatasRequest_Corpus `protobuf_oneof:"corpus"`
 	XXX_NoUnkeyedLiteral struct{}                          `json:"-"`
 	XXX_unrecognized     []byte                            `json:"-"`
 	XXX_sizecache        int32                             `json:"-"`
 }
 
-func (m *SetAttributesDataRequest) Reset()         { *m = SetAttributesDataRequest{} }
-func (m *SetAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*SetAttributesDataRequest) ProtoMessage()    {}
-func (*SetAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *SetAttributeDatasRequest) Reset()         { *m = SetAttributeDatasRequest{} }
+func (m *SetAttributeDatasRequest) String() string { return proto.CompactTextString(m) }
+func (*SetAttributeDatasRequest) ProtoMessage()    {}
+func (*SetAttributeDatasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{11}
 }
 
-func (m *SetAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SetAttributesDataRequest.Unmarshal(m, b)
+func (m *SetAttributeDatasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SetAttributeDatasRequest.Unmarshal(m, b)
 }
-func (m *SetAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SetAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *SetAttributeDatasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SetAttributeDatasRequest.Marshal(b, m, deterministic)
 }
-func (m *SetAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SetAttributesDataRequest.Merge(m, src)
+func (m *SetAttributeDatasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SetAttributeDatasRequest.Merge(m, src)
 }
-func (m *SetAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_SetAttributesDataRequest.Size(m)
+func (m *SetAttributeDatasRequest) XXX_Size() int {
+	return xxx_messageInfo_SetAttributeDatasRequest.Size(m)
 }
-func (m *SetAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SetAttributesDataRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SetAttributesDataRequest proto.InternalMessageInfo
-
-type isSetAttributesDataRequest_Corpus interface {
-	isSetAttributesDataRequest_Corpus()
+func (m *SetAttributeDatasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SetAttributeDatasRequest.DiscardUnknown(m)
 }
 
-type SetAttributesDataRequest_Authorization_ struct {
-	Authorization *SetAttributesDataRequest_Authorization `protobuf:"bytes,1,opt,name=authorization,proto3,oneof"`
+var xxx_messageInfo_SetAttributeDatasRequest proto.InternalMessageInfo
+
+type isSetAttributeDatasRequest_Corpus interface {
+	isSetAttributeDatasRequest_Corpus()
 }
 
-type SetAttributesDataRequest_Data struct {
+type SetAttributeDatasRequest_Authorization_ struct {
+	Authorization *SetAttributeDatasRequest_Authorization `protobuf:"bytes,1,opt,name=authorization,proto3,oneof"`
+}
+
+type SetAttributeDatasRequest_Data struct {
 	Data *AttributeData `protobuf:"bytes,2,opt,name=data,proto3,oneof"`
 }
 
-func (*SetAttributesDataRequest_Authorization_) isSetAttributesDataRequest_Corpus() {}
+func (*SetAttributeDatasRequest_Authorization_) isSetAttributeDatasRequest_Corpus() {}
 
-func (*SetAttributesDataRequest_Data) isSetAttributesDataRequest_Corpus() {}
+func (*SetAttributeDatasRequest_Data) isSetAttributeDatasRequest_Corpus() {}
 
-func (m *SetAttributesDataRequest) GetCorpus() isSetAttributesDataRequest_Corpus {
+func (m *SetAttributeDatasRequest) GetCorpus() isSetAttributeDatasRequest_Corpus {
 	if m != nil {
 		return m.Corpus
 	}
 	return nil
 }
 
-func (m *SetAttributesDataRequest) GetAuthorization() *SetAttributesDataRequest_Authorization {
-	if x, ok := m.GetCorpus().(*SetAttributesDataRequest_Authorization_); ok {
+func (m *SetAttributeDatasRequest) GetAuthorization() *SetAttributeDatasRequest_Authorization {
+	if x, ok := m.GetCorpus().(*SetAttributeDatasRequest_Authorization_); ok {
 		return x.Authorization
 	}
 	return nil
 }
 
-func (m *SetAttributesDataRequest) GetData() *AttributeData {
-	if x, ok := m.GetCorpus().(*SetAttributesDataRequest_Data); ok {
+func (m *SetAttributeDatasRequest) GetData() *AttributeData {
+	if x, ok := m.GetCorpus().(*SetAttributeDatasRequest_Data); ok {
 		return x.Data
 	}
 	return nil
 }
 
 // XXX_OneofWrappers is for the internal use of the proto package.
-func (*SetAttributesDataRequest) XXX_OneofWrappers() []interface{} {
+func (*SetAttributeDatasRequest) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
-		(*SetAttributesDataRequest_Authorization_)(nil),
-		(*SetAttributesDataRequest_Data)(nil),
+		(*SetAttributeDatasRequest_Authorization_)(nil),
+		(*SetAttributeDatasRequest_Data)(nil),
 	}
 }
 
-type SetAttributesDataRequest_Authorization struct {
+type SetAttributeDatasRequest_Authorization struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	EntityId             uint64   `protobuf:"varint,2,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
 	EntityTable          string   `protobuf:"bytes,3,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
@@ -616,55 +616,55 @@ type SetAttributesDataRequest_Authorization struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SetAttributesDataRequest_Authorization) Reset() {
-	*m = SetAttributesDataRequest_Authorization{}
+func (m *SetAttributeDatasRequest_Authorization) Reset() {
+	*m = SetAttributeDatasRequest_Authorization{}
 }
-func (m *SetAttributesDataRequest_Authorization) String() string { return proto.CompactTextString(m) }
-func (*SetAttributesDataRequest_Authorization) ProtoMessage()    {}
-func (*SetAttributesDataRequest_Authorization) Descriptor() ([]byte, []int) {
+func (m *SetAttributeDatasRequest_Authorization) String() string { return proto.CompactTextString(m) }
+func (*SetAttributeDatasRequest_Authorization) ProtoMessage()    {}
+func (*SetAttributeDatasRequest_Authorization) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{11, 0}
 }
 
-func (m *SetAttributesDataRequest_Authorization) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SetAttributesDataRequest_Authorization.Unmarshal(m, b)
+func (m *SetAttributeDatasRequest_Authorization) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SetAttributeDatasRequest_Authorization.Unmarshal(m, b)
 }
-func (m *SetAttributesDataRequest_Authorization) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SetAttributesDataRequest_Authorization.Marshal(b, m, deterministic)
+func (m *SetAttributeDatasRequest_Authorization) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SetAttributeDatasRequest_Authorization.Marshal(b, m, deterministic)
 }
-func (m *SetAttributesDataRequest_Authorization) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SetAttributesDataRequest_Authorization.Merge(m, src)
+func (m *SetAttributeDatasRequest_Authorization) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SetAttributeDatasRequest_Authorization.Merge(m, src)
 }
-func (m *SetAttributesDataRequest_Authorization) XXX_Size() int {
-	return xxx_messageInfo_SetAttributesDataRequest_Authorization.Size(m)
+func (m *SetAttributeDatasRequest_Authorization) XXX_Size() int {
+	return xxx_messageInfo_SetAttributeDatasRequest_Authorization.Size(m)
 }
-func (m *SetAttributesDataRequest_Authorization) XXX_DiscardUnknown() {
-	xxx_messageInfo_SetAttributesDataRequest_Authorization.DiscardUnknown(m)
+func (m *SetAttributeDatasRequest_Authorization) XXX_DiscardUnknown() {
+	xxx_messageInfo_SetAttributeDatasRequest_Authorization.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SetAttributesDataRequest_Authorization proto.InternalMessageInfo
+var xxx_messageInfo_SetAttributeDatasRequest_Authorization proto.InternalMessageInfo
 
-func (m *SetAttributesDataRequest_Authorization) GetAccessToken() string {
+func (m *SetAttributeDatasRequest_Authorization) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
 	return ""
 }
 
-func (m *SetAttributesDataRequest_Authorization) GetEntityId() uint64 {
+func (m *SetAttributeDatasRequest_Authorization) GetEntityId() uint64 {
 	if m != nil {
 		return m.EntityId
 	}
 	return 0
 }
 
-func (m *SetAttributesDataRequest_Authorization) GetEntityTable() string {
+func (m *SetAttributeDatasRequest_Authorization) GetEntityTable() string {
 	if m != nil {
 		return m.EntityTable
 	}
 	return ""
 }
 
-type ChangeEntityAttributesDataRequest struct {
+type ChangeEntityAttributeDatasRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	FromEntityId         uint64   `protobuf:"varint,2,opt,name=from_entity_id,json=fromEntityId,proto3" json:"from_entity_id,omitempty"`
 	FromEntityTable      string   `protobuf:"bytes,3,opt,name=from_entity_table,json=fromEntityTable,proto3" json:"from_entity_table,omitempty"`
@@ -675,67 +675,67 @@ type ChangeEntityAttributesDataRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ChangeEntityAttributesDataRequest) Reset()         { *m = ChangeEntityAttributesDataRequest{} }
-func (m *ChangeEntityAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*ChangeEntityAttributesDataRequest) ProtoMessage()    {}
-func (*ChangeEntityAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *ChangeEntityAttributeDatasRequest) Reset()         { *m = ChangeEntityAttributeDatasRequest{} }
+func (m *ChangeEntityAttributeDatasRequest) String() string { return proto.CompactTextString(m) }
+func (*ChangeEntityAttributeDatasRequest) ProtoMessage()    {}
+func (*ChangeEntityAttributeDatasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{12}
 }
 
-func (m *ChangeEntityAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ChangeEntityAttributesDataRequest.Unmarshal(m, b)
+func (m *ChangeEntityAttributeDatasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChangeEntityAttributeDatasRequest.Unmarshal(m, b)
 }
-func (m *ChangeEntityAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ChangeEntityAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *ChangeEntityAttributeDatasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChangeEntityAttributeDatasRequest.Marshal(b, m, deterministic)
 }
-func (m *ChangeEntityAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ChangeEntityAttributesDataRequest.Merge(m, src)
+func (m *ChangeEntityAttributeDatasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChangeEntityAttributeDatasRequest.Merge(m, src)
 }
-func (m *ChangeEntityAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_ChangeEntityAttributesDataRequest.Size(m)
+func (m *ChangeEntityAttributeDatasRequest) XXX_Size() int {
+	return xxx_messageInfo_ChangeEntityAttributeDatasRequest.Size(m)
 }
-func (m *ChangeEntityAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ChangeEntityAttributesDataRequest.DiscardUnknown(m)
+func (m *ChangeEntityAttributeDatasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChangeEntityAttributeDatasRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ChangeEntityAttributesDataRequest proto.InternalMessageInfo
+var xxx_messageInfo_ChangeEntityAttributeDatasRequest proto.InternalMessageInfo
 
-func (m *ChangeEntityAttributesDataRequest) GetAccessToken() string {
+func (m *ChangeEntityAttributeDatasRequest) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
 	return ""
 }
 
-func (m *ChangeEntityAttributesDataRequest) GetFromEntityId() uint64 {
+func (m *ChangeEntityAttributeDatasRequest) GetFromEntityId() uint64 {
 	if m != nil {
 		return m.FromEntityId
 	}
 	return 0
 }
 
-func (m *ChangeEntityAttributesDataRequest) GetFromEntityTable() string {
+func (m *ChangeEntityAttributeDatasRequest) GetFromEntityTable() string {
 	if m != nil {
 		return m.FromEntityTable
 	}
 	return ""
 }
 
-func (m *ChangeEntityAttributesDataRequest) GetDestEntityId() uint64 {
+func (m *ChangeEntityAttributeDatasRequest) GetDestEntityId() uint64 {
 	if m != nil {
 		return m.DestEntityId
 	}
 	return 0
 }
 
-func (m *ChangeEntityAttributesDataRequest) GetDestEntityTable() string {
+func (m *ChangeEntityAttributeDatasRequest) GetDestEntityTable() string {
 	if m != nil {
 		return m.DestEntityTable
 	}
 	return ""
 }
 
-type CloneAttributesDataRequest struct {
+type CloneAttributeDatasRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	FromEntityId         uint64   `protobuf:"varint,2,opt,name=from_entity_id,json=fromEntityId,proto3" json:"from_entity_id,omitempty"`
 	DestEntityId         uint64   `protobuf:"varint,3,opt,name=dest_entity_id,json=destEntityId,proto3" json:"dest_entity_id,omitempty"`
@@ -745,53 +745,53 @@ type CloneAttributesDataRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CloneAttributesDataRequest) Reset()         { *m = CloneAttributesDataRequest{} }
-func (m *CloneAttributesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*CloneAttributesDataRequest) ProtoMessage()    {}
-func (*CloneAttributesDataRequest) Descriptor() ([]byte, []int) {
+func (m *CloneAttributeDatasRequest) Reset()         { *m = CloneAttributeDatasRequest{} }
+func (m *CloneAttributeDatasRequest) String() string { return proto.CompactTextString(m) }
+func (*CloneAttributeDatasRequest) ProtoMessage()    {}
+func (*CloneAttributeDatasRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_32e5db2b9bc8653e, []int{13}
 }
 
-func (m *CloneAttributesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CloneAttributesDataRequest.Unmarshal(m, b)
+func (m *CloneAttributeDatasRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloneAttributeDatasRequest.Unmarshal(m, b)
 }
-func (m *CloneAttributesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CloneAttributesDataRequest.Marshal(b, m, deterministic)
+func (m *CloneAttributeDatasRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloneAttributeDatasRequest.Marshal(b, m, deterministic)
 }
-func (m *CloneAttributesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CloneAttributesDataRequest.Merge(m, src)
+func (m *CloneAttributeDatasRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloneAttributeDatasRequest.Merge(m, src)
 }
-func (m *CloneAttributesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_CloneAttributesDataRequest.Size(m)
+func (m *CloneAttributeDatasRequest) XXX_Size() int {
+	return xxx_messageInfo_CloneAttributeDatasRequest.Size(m)
 }
-func (m *CloneAttributesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CloneAttributesDataRequest.DiscardUnknown(m)
+func (m *CloneAttributeDatasRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloneAttributeDatasRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CloneAttributesDataRequest proto.InternalMessageInfo
+var xxx_messageInfo_CloneAttributeDatasRequest proto.InternalMessageInfo
 
-func (m *CloneAttributesDataRequest) GetAccessToken() string {
+func (m *CloneAttributeDatasRequest) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
 	return ""
 }
 
-func (m *CloneAttributesDataRequest) GetFromEntityId() uint64 {
+func (m *CloneAttributeDatasRequest) GetFromEntityId() uint64 {
 	if m != nil {
 		return m.FromEntityId
 	}
 	return 0
 }
 
-func (m *CloneAttributesDataRequest) GetDestEntityId() uint64 {
+func (m *CloneAttributeDatasRequest) GetDestEntityId() uint64 {
 	if m != nil {
 		return m.DestEntityId
 	}
 	return 0
 }
 
-func (m *CloneAttributesDataRequest) GetEntityTable() string {
+func (m *CloneAttributeDatasRequest) GetEntityTable() string {
 	if m != nil {
 		return m.EntityTable
 	}
@@ -985,17 +985,20 @@ func init() {
 	proto.RegisterType((*AttributeSchema)(nil), "semantic.AttributeSchema")
 	proto.RegisterType((*RetrieveCategoriesResponse)(nil), "semantic.RetrieveCategoriesResponse")
 	proto.RegisterMapType((map[uint64]*Category)(nil), "semantic.RetrieveCategoriesResponse.CategoriesEntry")
-	proto.RegisterType((*RetrieveAttributesSchemaRequest)(nil), "semantic.RetrieveAttributesSchemaRequest")
-	proto.RegisterType((*RetrieveAttributesDataRequest)(nil), "semantic.RetrieveAttributesDataRequest")
-	proto.RegisterType((*DeleteAttributesDataRequest)(nil), "semantic.DeleteAttributesDataRequest")
-	proto.RegisterType((*RetrieveAttributesSchemaResponse)(nil), "semantic.RetrieveAttributesSchemaResponse")
-	proto.RegisterType((*RetrieveAttributesDataResponse)(nil), "semantic.RetrieveAttributesDataResponse")
-	proto.RegisterType((*SetAttributesDataResponse)(nil), "semantic.SetAttributesDataResponse")
-	proto.RegisterType((*CloneAttributesDataResponse)(nil), "semantic.CloneAttributesDataResponse")
-	proto.RegisterType((*SetAttributesDataRequest)(nil), "semantic.SetAttributesDataRequest")
-	proto.RegisterType((*SetAttributesDataRequest_Authorization)(nil), "semantic.SetAttributesDataRequest.Authorization")
-	proto.RegisterType((*ChangeEntityAttributesDataRequest)(nil), "semantic.ChangeEntityAttributesDataRequest")
-	proto.RegisterType((*CloneAttributesDataRequest)(nil), "semantic.CloneAttributesDataRequest")
+	proto.RegisterType((*RetrieveAttributeSchemasRequest)(nil), "semantic.RetrieveAttributeSchemasRequest")
+	proto.RegisterType((*RetrieveAttributeDatasRequest)(nil), "semantic.RetrieveAttributeDatasRequest")
+	proto.RegisterType((*DeleteAttributeDatasRequest)(nil), "semantic.DeleteAttributeDatasRequest")
+	proto.RegisterType((*RetrieveAttributeSchemasResponse)(nil), "semantic.RetrieveAttributeSchemasResponse")
+	proto.RegisterMapType((map[uint64]*AttributeSchema)(nil), "semantic.RetrieveAttributeSchemasResponse.AttributesEntry")
+	proto.RegisterType((*RetrieveAttributeDatasResponse)(nil), "semantic.RetrieveAttributeDatasResponse")
+	proto.RegisterMapType((map[uint64]*AttributeData)(nil), "semantic.RetrieveAttributeDatasResponse.AttributesEntry")
+	proto.RegisterType((*SetAttributeDatasResponse)(nil), "semantic.SetAttributeDatasResponse")
+	proto.RegisterType((*CloneAttributeDatasResponse)(nil), "semantic.CloneAttributeDatasResponse")
+	proto.RegisterMapType((map[uint64]*AttributeData)(nil), "semantic.CloneAttributeDatasResponse.AttributesEntry")
+	proto.RegisterType((*SetAttributeDatasRequest)(nil), "semantic.SetAttributeDatasRequest")
+	proto.RegisterType((*SetAttributeDatasRequest_Authorization)(nil), "semantic.SetAttributeDatasRequest.Authorization")
+	proto.RegisterType((*ChangeEntityAttributeDatasRequest)(nil), "semantic.ChangeEntityAttributeDatasRequest")
+	proto.RegisterType((*CloneAttributeDatasRequest)(nil), "semantic.CloneAttributeDatasRequest")
 	proto.RegisterType((*AttributeData)(nil), "semantic.AttributeData")
 	proto.RegisterType((*PredictCategoryRequest)(nil), "semantic.PredictCategoryRequest")
 	proto.RegisterType((*PredictCategoryResponse)(nil), "semantic.PredictCategoryResponse")
@@ -1007,73 +1010,76 @@ func init() {
 }
 
 var fileDescriptor_32e5db2b9bc8653e = []byte{
-	// 1046 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x56, 0xdd, 0x8e, 0xdb, 0x44,
-	0x14, 0x5e, 0x27, 0xd9, 0x55, 0x72, 0xb2, 0xbf, 0x43, 0xb5, 0x49, 0x1d, 0xb5, 0x4d, 0x4c, 0x81,
-	0xb0, 0xab, 0x7a, 0xab, 0x80, 0xf8, 0xe9, 0x0d, 0x6a, 0xb2, 0x2b, 0x35, 0x42, 0x95, 0x16, 0x6f,
-	0x24, 0x10, 0x02, 0x45, 0x8e, 0x7d, 0x76, 0x63, 0xd5, 0xb1, 0x8d, 0x67, 0x12, 0x29, 0x5c, 0xf1,
-	0x2a, 0xbc, 0x40, 0xef, 0x78, 0x04, 0x5e, 0x86, 0x17, 0x40, 0x82, 0x1b, 0xe4, 0x19, 0xff, 0x25,
-	0xb1, 0x93, 0x08, 0x5a, 0xa4, 0xde, 0x79, 0xce, 0x7c, 0xe7, 0x9b, 0x6f, 0xce, 0x39, 0x9e, 0x73,
-	0xe0, 0x90, 0xe2, 0x44, 0x77, 0x98, 0x65, 0xa8, 0x9e, 0xef, 0x32, 0x97, 0x94, 0xa3, 0xb5, 0x5c,
-	0x9b, 0xe9, 0xb6, 0x65, 0xea, 0x0c, 0x2f, 0xa2, 0x0f, 0x01, 0x91, 0x1b, 0x77, 0xae, 0x7b, 0x67,
-	0xe3, 0x05, 0x5f, 0x8d, 0xa6, 0xb7, 0x17, 0x38, 0xf1, 0xd8, 0x5c, 0x6c, 0x2a, 0xcf, 0xa0, 0xa6,
-	0x21, 0xf3, 0x2d, 0x9c, 0x61, 0x4f, 0x67, 0x78, 0xe7, 0xfa, 0x73, 0x0d, 0x7f, 0x9a, 0x22, 0x65,
-	0xe4, 0x11, 0x54, 0x8d, 0xd0, 0x34, 0xb4, 0xcc, 0xba, 0xd4, 0x94, 0xda, 0x25, 0x0d, 0x22, 0x53,
-	0xdf, 0x54, 0xfe, 0x96, 0xa0, 0x1c, 0x39, 0x11, 0x02, 0x25, 0x47, 0x9f, 0x20, 0x87, 0x55, 0x34,
-	0xfe, 0x4d, 0x1a, 0x50, 0xf1, 0x74, 0x1f, 0x1d, 0x16, 0xf8, 0x17, 0xb8, 0x7f, 0x59, 0x18, 0xfa,
-	0x26, 0xf9, 0x0c, 0xf6, 0x8c, 0xb1, 0x65, 0x9b, 0xb4, 0x5e, 0x6c, 0x16, 0xdb, 0xd5, 0xce, 0x43,
-	0x35, 0xbe, 0x5a, 0x44, 0xaa, 0xf6, 0x38, 0xe0, 0xca, 0x61, 0xfe, 0x5c, 0x0b, 0xd1, 0xe4, 0x73,
-	0xa8, 0x59, 0x26, 0x3a, 0xcc, 0xba, 0xb5, 0x0c, 0x9d, 0x59, 0xae, 0x33, 0x64, 0x38, 0xf1, 0x6c,
-	0x9d, 0x61, 0xbd, 0xc4, 0xcf, 0x3e, 0x5d, 0xdc, 0x1e, 0x84, 0xbb, 0xf2, 0x4b, 0xa8, 0xa6, 0xf8,
-	0xc8, 0x31, 0x14, 0x5f, 0xe1, 0x3c, 0xbc, 0x56, 0xf0, 0x49, 0xda, 0xb0, 0x3b, 0xd3, 0xed, 0x29,
-	0x72, 0xa9, 0xd5, 0x0e, 0x59, 0x15, 0xa4, 0x09, 0xc0, 0xb3, 0xc2, 0x17, 0x92, 0x82, 0x70, 0xf4,
-	0x9c, 0x31, 0xdf, 0x1a, 0x4d, 0x19, 0xde, 0x18, 0x63, 0x9c, 0xe8, 0x1b, 0x23, 0x16, 0x07, 0xa9,
-	0x90, 0x0a, 0xd2, 0x03, 0x00, 0x4e, 0x3a, 0x64, 0x73, 0x0f, 0xeb, 0x45, 0xbe, 0x53, 0xe1, 0x96,
-	0xc1, 0xdc, 0x43, 0xe5, 0x77, 0x09, 0xe4, 0xa5, 0x0c, 0x59, 0x48, 0x35, 0xa4, 0x9e, 0xeb, 0x50,
-	0x24, 0x03, 0x88, 0xf8, 0x2d, 0xa4, 0x75, 0x89, 0x47, 0xf2, 0xd3, 0x44, 0x78, 0xbe, 0xa7, 0x9a,
-	0x98, 0x44, 0x7c, 0x53, 0x3c, 0xf2, 0x37, 0x70, 0xb4, 0xb4, 0xfd, 0x9f, 0xc3, 0xd5, 0x85, 0x47,
-	0x91, 0x98, 0x38, 0x6c, 0x54, 0xc4, 0x6d, 0xeb, 0x82, 0x1b, 0xc2, 0x83, 0x55, 0x8e, 0x4b, 0x9d,
-	0xc5, 0x0c, 0x0d, 0xa8, 0x04, 0xa9, 0x67, 0x29, 0xff, 0xb2, 0x30, 0xf4, 0x4d, 0xd2, 0x82, 0xfd,
-	0x70, 0x93, 0xe9, 0x23, 0x3b, 0x4a, 0x42, 0x55, 0xd8, 0x06, 0x81, 0x49, 0xf9, 0x45, 0x82, 0xc6,
-	0x25, 0xda, 0xc8, 0x72, 0xf8, 0x5b, 0xb0, 0xaf, 0x1b, 0x06, 0x52, 0x3a, 0x64, 0xee, 0x2b, 0x74,
-	0xc2, 0x62, 0xaf, 0x0a, 0xdb, 0x20, 0x30, 0x2d, 0x4a, 0x28, 0x6c, 0x90, 0x50, 0x5c, 0x95, 0xf0,
-	0x23, 0x34, 0xf3, 0xe3, 0x14, 0x26, 0xfd, 0x4b, 0x00, 0x3d, 0xde, 0x0b, 0x93, 0x7e, 0x3f, 0x09,
-	0xff, 0x52, 0x59, 0x6a, 0x29, 0xb0, 0x82, 0xf0, 0x30, 0x2f, 0x84, 0x21, 0x79, 0x2f, 0x83, 0xfc,
-	0xfd, 0x84, 0xfc, 0x06, 0x59, 0xb6, 0xe3, 0xc2, 0x31, 0x0c, 0xee, 0xe7, 0x02, 0xc9, 0x19, 0x9c,
-	0xc4, 0xd0, 0xa1, 0xa9, 0x33, 0x3d, 0xc9, 0xd6, 0x51, 0xbc, 0x11, 0x78, 0xf4, 0x4d, 0x72, 0x0e,
-	0xa5, 0x00, 0x11, 0xd6, 0x58, 0x2d, 0xe3, 0x92, 0x9c, 0x9a, 0x83, 0x94, 0x11, 0x34, 0x7a, 0xb6,
-	0xeb, 0xbc, 0xd5, 0x9b, 0xfd, 0x5a, 0x80, 0x7a, 0x06, 0x52, 0xd4, 0xc7, 0x77, 0x70, 0xa0, 0x4f,
-	0xd9, 0xd8, 0xf5, 0xad, 0x9f, 0xf9, 0xdb, 0xc3, 0x6f, 0x55, 0xed, 0x3c, 0x5d, 0x7b, 0x08, 0x77,
-	0x55, 0x9f, 0xa7, 0xfd, 0x5e, 0xec, 0x68, 0x8b, 0x44, 0xe4, 0xc9, 0x56, 0x71, 0x78, 0xb1, 0x23,
-	0x22, 0x21, 0xfb, 0x70, 0xb0, 0x40, 0xf8, 0x3f, 0x54, 0x6e, 0xb7, 0x0c, 0x7b, 0x86, 0xeb, 0x7b,
-	0x53, 0xaa, 0xfc, 0x21, 0x41, 0xab, 0x37, 0xd6, 0x9d, 0x3b, 0xbc, 0xe2, 0xfb, 0xff, 0xfa, 0x67,
-	0x7a, 0x0c, 0x87, 0xb7, 0xbe, 0x3b, 0x19, 0x2e, 0xeb, 0xda, 0x0f, 0xac, 0x57, 0x91, 0xb6, 0x33,
-	0x38, 0x49, 0xa3, 0xd2, 0x02, 0x8f, 0x12, 0x20, 0x17, 0x19, 0x30, 0x9a, 0x48, 0x59, 0x8a, 0xb1,
-	0x24, 0x18, 0x03, 0x6b, 0x9a, 0x31, 0x8d, 0x12, 0x8c, 0xbb, 0x82, 0x31, 0x01, 0x8a, 0x1f, 0xf6,
-	0xb5, 0x04, 0x72, 0x66, 0xd5, 0xbd, 0xe1, 0x5b, 0xae, 0x2a, 0x2f, 0x66, 0x28, 0x5f, 0xce, 0x53,
-	0x69, 0xf5, 0x85, 0xb9, 0x84, 0x83, 0x85, 0xa2, 0x09, 0x12, 0x4f, 0xf9, 0x4b, 0x91, 0x7a, 0x35,
-	0x85, 0xa1, 0x6f, 0x92, 0x53, 0xd8, 0xe3, 0x8f, 0x38, 0xad, 0x17, 0x9a, 0xc5, 0x76, 0x45, 0x0b,
-	0x57, 0x8a, 0x0a, 0xa7, 0xd7, 0x3e, 0x9a, 0x96, 0xc1, 0x96, 0xe7, 0x86, 0x7b, 0xb0, 0xcb, 0x2c,
-	0x66, 0x47, 0xa3, 0x80, 0x58, 0x04, 0x4f, 0x6b, 0x6d, 0xc5, 0x21, 0xfc, 0x31, 0x37, 0xf6, 0x4d,
-	0x15, 0xca, 0xd1, 0x6a, 0x4d, 0xb7, 0x89, 0x31, 0x81, 0x04, 0x6a, 0xb8, 0xbe, 0xa8, 0x02, 0x49,
-	0x13, 0x0b, 0x65, 0x94, 0xb4, 0xa0, 0xa4, 0xbb, 0x75, 0xe7, 0x9a, 0x6b, 0x63, 0xa4, 0xfd, 0x2b,
-	0x28, 0xf9, 0x6e, 0x24, 0xbd, 0x7b, 0xfe, 0x57, 0xb7, 0xed, 0x7f, 0xa8, 0x1d, 0x53, 0xf4, 0x67,
-	0x96, 0x81, 0x4f, 0x3c, 0xdf, 0x9d, 0x59, 0x26, 0xfa, 0x5a, 0xd9, 0x70, 0x1d, 0x3a, 0x9d, 0x04,
-	0x5f, 0x13, 0xf4, 0x8d, 0xb1, 0xee, 0x30, 0x8d, 0x3b, 0x76, 0x7e, 0x93, 0xe0, 0xf8, 0x46, 0xc0,
-	0xaf, 0x43, 0x34, 0x25, 0x03, 0x20, 0xab, 0x07, 0x93, 0x53, 0x55, 0x0c, 0x66, 0x6a, 0x34, 0x98,
-	0xa9, 0x57, 0xc1, 0x60, 0x26, 0x3f, 0xde, 0xa6, 0x7d, 0x2b, 0x3b, 0xe4, 0x6b, 0x38, 0x5e, 0x1e,
-	0xdd, 0x48, 0x2b, 0xd7, 0x37, 0x4a, 0x8f, 0x9c, 0x11, 0x39, 0x65, 0xa7, 0xf3, 0x5a, 0x82, 0xca,
-	0xcb, 0xf0, 0x2a, 0xef, 0x84, 0xe0, 0x3f, 0xf7, 0xa0, 0x7c, 0xed, 0xbb, 0xe6, 0xd4, 0x60, 0x94,
-	0xfc, 0x00, 0x47, 0x4b, 0xb5, 0x45, 0x9a, 0x89, 0x57, 0x76, 0x9d, 0xca, 0xad, 0x35, 0x88, 0x48,
-	0x73, 0x5b, 0x7a, 0x2a, 0xbd, 0x51, 0xdd, 0x6f, 0x29, 0xb4, 0x14, 0xea, 0x79, 0x53, 0x03, 0xf9,
-	0x78, 0x95, 0x23, 0x67, 0x02, 0x93, 0xcf, 0xb6, 0x81, 0xc6, 0x87, 0x4e, 0xe0, 0x34, 0x7b, 0x96,
-	0x20, 0x1f, 0xad, 0xe3, 0x49, 0xbd, 0x8e, 0x72, 0x7b, 0x33, 0x30, 0x3e, 0x6e, 0x04, 0x27, 0x2b,
-	0xdd, 0x93, 0x28, 0x9b, 0x5b, 0xab, 0xbc, 0x4d, 0x8f, 0x0f, 0x53, 0x6d, 0x80, 0x9c, 0xdf, 0xb8,
-	0xc8, 0x79, 0x2a, 0xa3, 0x9b, 0xda, 0x9b, 0x9c, 0x93, 0x52, 0x65, 0x87, 0x98, 0xf0, 0x5e, 0x46,
-	0xc3, 0x20, 0xa9, 0x5c, 0xe7, 0xf7, 0x13, 0xf9, 0x83, 0x0d, 0xa8, 0x38, 0x5c, 0xdf, 0xc2, 0xbd,
-	0xac, 0x51, 0x96, 0xa4, 0x08, 0xd6, 0x8c, 0xba, 0xf9, 0xf2, 0xbb, 0x87, 0xdf, 0xef, 0xab, 0x17,
-	0xde, 0x28, 0x62, 0x19, 0xed, 0x71, 0xc4, 0x27, 0xff, 0x04, 0x00, 0x00, 0xff, 0xff, 0x14, 0x84,
-	0xc1, 0x4f, 0x9b, 0x0e, 0x00, 0x00,
+	// 1097 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0xdd, 0x6e, 0xe3, 0x44,
+	0x14, 0x8e, 0x93, 0x6c, 0x95, 0x9c, 0xf4, 0x77, 0x58, 0xb5, 0x59, 0x57, 0xbb, 0x9b, 0x98, 0x02,
+	0xa1, 0x55, 0x9d, 0x55, 0xf8, 0x5b, 0xf5, 0x06, 0x6d, 0xda, 0x4a, 0x1b, 0xa1, 0x95, 0x8a, 0x1b,
+	0xa0, 0x5a, 0x21, 0x45, 0x13, 0x7b, 0xda, 0x58, 0xeb, 0xd8, 0xc6, 0x33, 0x89, 0x14, 0xae, 0x78,
+	0x15, 0x5e, 0x60, 0xef, 0x78, 0x04, 0xee, 0xb8, 0xe2, 0x8a, 0x67, 0xe0, 0x05, 0x90, 0xe0, 0x06,
+	0x79, 0xc6, 0x13, 0x3b, 0x89, 0x9d, 0x44, 0xb0, 0x80, 0xb8, 0xf3, 0x9c, 0x9f, 0x6f, 0xbe, 0xf3,
+	0x93, 0x39, 0x27, 0xb0, 0x4d, 0xc9, 0x10, 0xbb, 0xcc, 0x36, 0x75, 0x3f, 0xf0, 0x98, 0x87, 0x4a,
+	0xf2, 0xac, 0x1e, 0x8c, 0xb1, 0x63, 0x5b, 0x98, 0x91, 0xa6, 0xfc, 0x10, 0x26, 0xea, 0xe1, 0x9d,
+	0xe7, 0xdd, 0x39, 0xa4, 0xc9, 0x4f, 0xfd, 0xd1, 0x6d, 0x93, 0x0c, 0x7d, 0x36, 0x11, 0x4a, 0xed,
+	0x0c, 0x0e, 0x0c, 0xc2, 0x02, 0x9b, 0x8c, 0xc9, 0x39, 0x66, 0xe4, 0xce, 0x0b, 0x26, 0x06, 0xf9,
+	0x66, 0x44, 0x28, 0x43, 0x8f, 0xa1, 0x62, 0x46, 0xa2, 0x9e, 0x6d, 0x55, 0x95, 0x9a, 0xd2, 0x28,
+	0x1a, 0x20, 0x45, 0x1d, 0x4b, 0xfb, 0x43, 0x81, 0x92, 0x74, 0x42, 0x08, 0x8a, 0x2e, 0x1e, 0x12,
+	0x6e, 0x56, 0x36, 0xf8, 0x37, 0x3a, 0x84, 0xb2, 0x8f, 0x03, 0xe2, 0xb2, 0xd0, 0x3f, 0xcf, 0xfd,
+	0x4b, 0x42, 0xd0, 0xb1, 0xd0, 0xc7, 0xb0, 0x61, 0x0e, 0x6c, 0xc7, 0xa2, 0xd5, 0x42, 0xad, 0xd0,
+	0xa8, 0xb4, 0x1e, 0xe9, 0xd3, 0xd0, 0x24, 0xa8, 0x7e, 0xce, 0x0d, 0x2e, 0x5d, 0x16, 0x4c, 0x8c,
+	0xc8, 0x1a, 0x7d, 0x02, 0x07, 0xb6, 0x45, 0x5c, 0x66, 0xdf, 0xda, 0x26, 0x66, 0xb6, 0xe7, 0xf6,
+	0x18, 0x19, 0xfa, 0x0e, 0x66, 0xa4, 0x5a, 0xe4, 0x77, 0xef, 0xcf, 0xaa, 0xbb, 0x91, 0x56, 0x7d,
+	0x01, 0x95, 0x04, 0x1e, 0xda, 0x85, 0xc2, 0x2b, 0x32, 0x89, 0xc2, 0x0a, 0x3f, 0x51, 0x03, 0xee,
+	0x8d, 0xb1, 0x33, 0x22, 0x9c, 0x6a, 0xa5, 0x85, 0x16, 0x09, 0x19, 0xc2, 0xe0, 0x2c, 0xff, 0x54,
+	0xd1, 0x08, 0xec, 0x3c, 0x63, 0x2c, 0xb0, 0xfb, 0x23, 0x46, 0xae, 0xcd, 0x01, 0x19, 0xe2, 0x95,
+	0x19, 0x9b, 0x26, 0x29, 0x9f, 0x48, 0xd2, 0x43, 0x00, 0x0e, 0xda, 0x63, 0x13, 0x9f, 0x54, 0x0b,
+	0x5c, 0x53, 0xe6, 0x92, 0xee, 0xc4, 0x27, 0xda, 0x8f, 0x0a, 0xa8, 0x73, 0x15, 0xb2, 0x09, 0x35,
+	0x08, 0xf5, 0x3d, 0x97, 0x12, 0xd4, 0x05, 0x89, 0x6f, 0x13, 0x5a, 0x55, 0x78, 0x26, 0x3f, 0x8c,
+	0x89, 0x67, 0x7b, 0xea, 0xb1, 0x48, 0xe4, 0x37, 0x81, 0xa3, 0x7e, 0x0e, 0x3b, 0x73, 0xea, 0xbf,
+	0x9d, 0xae, 0x36, 0x3c, 0x96, 0x64, 0xe6, 0xd2, 0x46, 0xd7, 0x6e, 0xb8, 0x1e, 0x3c, 0x5c, 0xc0,
+	0xb8, 0xc0, 0x2c, 0x46, 0x38, 0x84, 0x72, 0x58, 0x7a, 0x96, 0xf0, 0x2f, 0x09, 0x41, 0xc7, 0x42,
+	0x75, 0xd8, 0x8c, 0x94, 0x0c, 0xf7, 0x1d, 0x59, 0x84, 0x8a, 0x90, 0x75, 0x43, 0x91, 0xf6, 0x9d,
+	0x02, 0x87, 0x17, 0xc4, 0x21, 0x2c, 0x03, 0xbf, 0x0e, 0x9b, 0xd8, 0x34, 0x09, 0xa5, 0x3d, 0xe6,
+	0xbd, 0x22, 0x6e, 0xd4, 0xec, 0x15, 0x21, 0xeb, 0x86, 0xa2, 0x59, 0x0a, 0xf9, 0x15, 0x14, 0x0a,
+	0x8b, 0x14, 0x7e, 0x51, 0xa0, 0x96, 0x9d, 0xa8, 0xa8, 0xea, 0x2f, 0x01, 0xb0, 0xd4, 0xc9, 0xaa,
+	0x9f, 0x2d, 0x56, 0x3d, 0xcb, 0x5f, 0x9f, 0x2a, 0x64, 0xed, 0x63, 0x34, 0xf5, 0x26, 0xd1, 0xd7,
+	0x99, 0xb5, 0x6f, 0xce, 0xd6, 0xfe, 0x41, 0x7c, 0xf7, 0xdc, 0x9d, 0xc9, 0x16, 0xf8, 0x59, 0x81,
+	0x47, 0x59, 0xf5, 0x8b, 0x02, 0xbb, 0x49, 0x09, 0xec, 0xe9, 0x92, 0xc0, 0x66, 0xbc, 0x97, 0x86,
+	0xf5, 0xe5, 0x3a, 0x61, 0x9d, 0xce, 0x86, 0x75, 0x90, 0x12, 0x56, 0x78, 0x63, 0x32, 0x28, 0x06,
+	0x0f, 0xae, 0x09, 0xcb, 0x08, 0xe7, 0x18, 0xf6, 0xa6, 0x14, 0x7a, 0x16, 0x66, 0x38, 0xee, 0xcb,
+	0x1d, 0x9c, 0x74, 0xe9, 0x58, 0xe8, 0x04, 0x8a, 0xa1, 0xc5, 0xaa, 0xab, 0xb9, 0x91, 0xf6, 0x93,
+	0x02, 0x87, 0xe7, 0x8e, 0xe7, 0x66, 0xe5, 0xf1, 0x8b, 0x94, 0x3c, 0x7e, 0x94, 0xf8, 0x81, 0x66,
+	0xbb, 0xfe, 0x27, 0x49, 0xfc, 0x3e, 0x0f, 0xd5, 0x94, 0x2c, 0x8a, 0x1f, 0xdd, 0x0d, 0x6c, 0xe1,
+	0x11, 0x1b, 0x78, 0x81, 0xfd, 0x2d, 0x7f, 0xd0, 0xf9, 0x5d, 0x95, 0xd6, 0x93, 0x18, 0x37, 0xcb,
+	0x55, 0x7f, 0x96, 0xf4, 0x7b, 0x9e, 0x33, 0x66, 0x81, 0xd0, 0xe9, 0x5a, 0x29, 0x7f, 0x9e, 0x13,
+	0x49, 0x57, 0x03, 0xd8, 0x9a, 0x01, 0xfc, 0x17, 0x9e, 0x83, 0x76, 0x09, 0x36, 0x4c, 0x2f, 0xf0,
+	0x47, 0x54, 0xfb, 0x55, 0x81, 0xfa, 0xf9, 0x00, 0xbb, 0x77, 0xe4, 0x92, 0xeb, 0xff, 0xf2, 0x0b,
+	0x75, 0x04, 0xdb, 0xb7, 0x81, 0x37, 0xec, 0xcd, 0xf3, 0xda, 0x0c, 0xa5, 0x97, 0x92, 0xdb, 0x31,
+	0xec, 0x25, 0xad, 0x92, 0x04, 0x77, 0x62, 0x43, 0x4e, 0x32, 0x44, 0xb4, 0x08, 0x65, 0x09, 0xc4,
+	0xa2, 0x40, 0x0c, 0xa5, 0x49, 0xc4, 0xa4, 0x95, 0x40, 0xbc, 0x27, 0x10, 0x63, 0x43, 0xf1, 0x0a,
+	0xbe, 0x56, 0x40, 0x4d, 0x6d, 0xd2, 0x37, 0x1c, 0xe5, 0x22, 0xf3, 0x42, 0x0a, 0xf3, 0xf9, 0x3a,
+	0x15, 0x17, 0x9f, 0xed, 0x0b, 0xd8, 0x9a, 0xa1, 0x1a, 0x16, 0x9e, 0xf2, 0x17, 0x30, 0x31, 0x8a,
+	0x84, 0xa0, 0x63, 0xa1, 0x7d, 0xd8, 0xe0, 0xcd, 0x4f, 0xab, 0xf9, 0x5a, 0xa1, 0x51, 0x36, 0xa2,
+	0x93, 0xa6, 0xc3, 0xfe, 0x55, 0x40, 0x2c, 0xdb, 0x64, 0xf3, 0xcb, 0xd8, 0x7d, 0xb8, 0xc7, 0x6c,
+	0xe6, 0xc8, 0xfd, 0x4a, 0x1c, 0xc2, 0x79, 0x75, 0xb0, 0xe0, 0x10, 0x3d, 0x01, 0x2b, 0x97, 0x11,
+	0x1d, 0x4a, 0xf2, 0xb4, 0x64, 0x84, 0x4f, 0x6d, 0x42, 0x0a, 0xd4, 0xf4, 0x02, 0xd1, 0x05, 0x8a,
+	0x21, 0x0e, 0x5a, 0x3f, 0x9e, 0xeb, 0xf1, 0xca, 0xd0, 0x9e, 0x18, 0x9e, 0x43, 0x24, 0xf7, 0x4f,
+	0xa1, 0x18, 0x78, 0x92, 0x7a, 0xfb, 0xe4, 0xf7, 0x76, 0x23, 0x78, 0xd7, 0xd8, 0xa5, 0x24, 0x18,
+	0xdb, 0x26, 0x39, 0xf5, 0x03, 0x6f, 0x6c, 0x5b, 0x24, 0x30, 0x4a, 0xa6, 0xe7, 0xd2, 0xd1, 0x30,
+	0xfc, 0x1a, 0x92, 0xc0, 0x1c, 0x60, 0x97, 0x19, 0xdc, 0xb1, 0xf5, 0x83, 0x02, 0xbb, 0xd7, 0xc2,
+	0xfc, 0x2a, 0xb2, 0xa6, 0xa8, 0x0b, 0x68, 0xf1, 0x62, 0xb4, 0xaf, 0x8b, 0x6d, 0x57, 0x97, 0xdb,
+	0xae, 0x7e, 0x19, 0x6e, 0xbb, 0xea, 0xd1, 0x3a, 0x3b, 0x91, 0x96, 0x43, 0x9f, 0xc1, 0xee, 0xfc,
+	0x3e, 0x8c, 0xea, 0x99, 0xbe, 0xb2, 0x3c, 0x6a, 0x4a, 0xe6, 0xb4, 0x5c, 0xeb, 0xb5, 0x02, 0xe5,
+	0x17, 0x51, 0x28, 0xff, 0x0b, 0xc2, 0xbf, 0x6d, 0x40, 0xe9, 0x2a, 0xf0, 0xac, 0x91, 0xc9, 0x28,
+	0xfa, 0x1a, 0x76, 0xe6, 0x7a, 0x0b, 0xd5, 0x62, 0xaf, 0xf4, 0x3e, 0x55, 0xeb, 0x4b, 0x2c, 0x24,
+	0xe7, 0x86, 0xf2, 0x44, 0x79, 0xa3, 0xbc, 0xff, 0xa1, 0xd4, 0x52, 0xa8, 0x66, 0x6d, 0x52, 0xe8,
+	0xfd, 0x75, 0xb6, 0x2d, 0x41, 0xf9, 0x78, 0xfd, 0xc5, 0x4c, 0xcb, 0xa1, 0x21, 0xec, 0xa7, 0x6f,
+	0x39, 0xe8, 0xbd, 0xd5, 0x7b, 0x90, 0xb8, 0xb0, 0xb1, 0xee, 0xc2, 0xa4, 0xe5, 0x50, 0x1f, 0xf6,
+	0x16, 0xa6, 0x27, 0xd2, 0x56, 0x8f, 0x56, 0xf5, 0xed, 0xa5, 0x36, 0x33, 0xa5, 0x36, 0x41, 0xcd,
+	0x1e, 0x5c, 0xe8, 0x24, 0x51, 0xd1, 0x55, 0xe3, 0x4d, 0xcd, 0x28, 0xa9, 0x96, 0x43, 0x16, 0xbc,
+	0x95, 0x32, 0x30, 0xd0, 0xd1, 0x8a, 0xa5, 0x47, 0xc0, 0xbe, 0xb3, 0xd6, 0x6a, 0xa4, 0xe5, 0xd0,
+	0x57, 0x70, 0x3f, 0xed, 0xff, 0x01, 0x4a, 0x00, 0x2c, 0xf9, 0xff, 0x90, 0x4d, 0xbf, 0xbd, 0xfd,
+	0x72, 0x53, 0x6f, 0xfa, 0x7d, 0x89, 0xd2, 0xdf, 0xe0, 0x16, 0x1f, 0xfc, 0x19, 0x00, 0x00, 0xff,
+	0xff, 0x83, 0x2c, 0x4c, 0x01, 0xf0, 0x0f, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1307,12 +1313,12 @@ type ProductsClient interface {
 	PredictCategory(ctx context.Context, opts ...grpc.CallOption) (Products_PredictCategoryClient, error)
 	RetrieveCategory(ctx context.Context, in *RetrieveCategoryRequest, opts ...grpc.CallOption) (*Category, error)
 	RetrieveCategories(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*RetrieveCategoriesResponse, error)
-	RetrieveAttributesSchema(ctx context.Context, in *RetrieveAttributesSchemaRequest, opts ...grpc.CallOption) (*RetrieveAttributesSchemaResponse, error)
-	RetrieveAttributesData(ctx context.Context, in *RetrieveAttributesDataRequest, opts ...grpc.CallOption) (*RetrieveAttributesDataResponse, error)
-	SetAttributesData(ctx context.Context, opts ...grpc.CallOption) (Products_SetAttributesDataClient, error)
-	ChangeEntityAttributesData(ctx context.Context, in *ChangeEntityAttributesDataRequest, opts ...grpc.CallOption) (*empty.Empty, error)
-	CloneAttributesData(ctx context.Context, in *CloneAttributesDataRequest, opts ...grpc.CallOption) (*CloneAttributesDataResponse, error)
-	DeleteAttributesData(ctx context.Context, in *DeleteAttributesDataRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	RetrieveAttributeSchemas(ctx context.Context, in *RetrieveAttributeSchemasRequest, opts ...grpc.CallOption) (*RetrieveAttributeSchemasResponse, error)
+	RetrieveAttributeDatas(ctx context.Context, in *RetrieveAttributeDatasRequest, opts ...grpc.CallOption) (*RetrieveAttributeDatasResponse, error)
+	SetAttributeDatas(ctx context.Context, opts ...grpc.CallOption) (Products_SetAttributeDatasClient, error)
+	ChangeEntityAttributeDatas(ctx context.Context, in *ChangeEntityAttributeDatasRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CloneAttributeDatas(ctx context.Context, in *CloneAttributeDatasRequest, opts ...grpc.CallOption) (*CloneAttributeDatasResponse, error)
+	DeleteAttributeDatas(ctx context.Context, in *DeleteAttributeDatasRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type productsClient struct {
@@ -1372,76 +1378,76 @@ func (c *productsClient) RetrieveCategories(ctx context.Context, in *empty.Empty
 	return out, nil
 }
 
-func (c *productsClient) RetrieveAttributesSchema(ctx context.Context, in *RetrieveAttributesSchemaRequest, opts ...grpc.CallOption) (*RetrieveAttributesSchemaResponse, error) {
-	out := new(RetrieveAttributesSchemaResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributesSchema", in, out, opts...)
+func (c *productsClient) RetrieveAttributeSchemas(ctx context.Context, in *RetrieveAttributeSchemasRequest, opts ...grpc.CallOption) (*RetrieveAttributeSchemasResponse, error) {
+	out := new(RetrieveAttributeSchemasResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributeSchemas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) RetrieveAttributesData(ctx context.Context, in *RetrieveAttributesDataRequest, opts ...grpc.CallOption) (*RetrieveAttributesDataResponse, error) {
-	out := new(RetrieveAttributesDataResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributesData", in, out, opts...)
+func (c *productsClient) RetrieveAttributeDatas(ctx context.Context, in *RetrieveAttributeDatasRequest, opts ...grpc.CallOption) (*RetrieveAttributeDatasResponse, error) {
+	out := new(RetrieveAttributeDatasResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/RetrieveAttributeDatas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) SetAttributesData(ctx context.Context, opts ...grpc.CallOption) (Products_SetAttributesDataClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Products_serviceDesc.Streams[1], "/semantic.Products/SetAttributesData", opts...)
+func (c *productsClient) SetAttributeDatas(ctx context.Context, opts ...grpc.CallOption) (Products_SetAttributeDatasClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Products_serviceDesc.Streams[1], "/semantic.Products/SetAttributeDatas", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &productsSetAttributesDataClient{stream}
+	x := &productsSetAttributeDatasClient{stream}
 	return x, nil
 }
 
-type Products_SetAttributesDataClient interface {
-	Send(*SetAttributesDataRequest) error
-	Recv() (*SetAttributesDataResponse, error)
+type Products_SetAttributeDatasClient interface {
+	Send(*SetAttributeDatasRequest) error
+	Recv() (*SetAttributeDatasResponse, error)
 	grpc.ClientStream
 }
 
-type productsSetAttributesDataClient struct {
+type productsSetAttributeDatasClient struct {
 	grpc.ClientStream
 }
 
-func (x *productsSetAttributesDataClient) Send(m *SetAttributesDataRequest) error {
+func (x *productsSetAttributeDatasClient) Send(m *SetAttributeDatasRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *productsSetAttributesDataClient) Recv() (*SetAttributesDataResponse, error) {
-	m := new(SetAttributesDataResponse)
+func (x *productsSetAttributeDatasClient) Recv() (*SetAttributeDatasResponse, error) {
+	m := new(SetAttributeDatasResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *productsClient) ChangeEntityAttributesData(ctx context.Context, in *ChangeEntityAttributesDataRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *productsClient) ChangeEntityAttributeDatas(ctx context.Context, in *ChangeEntityAttributeDatasRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/semantic.Products/ChangeEntityAttributesData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/semantic.Products/ChangeEntityAttributeDatas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) CloneAttributesData(ctx context.Context, in *CloneAttributesDataRequest, opts ...grpc.CallOption) (*CloneAttributesDataResponse, error) {
-	out := new(CloneAttributesDataResponse)
-	err := c.cc.Invoke(ctx, "/semantic.Products/CloneAttributesData", in, out, opts...)
+func (c *productsClient) CloneAttributeDatas(ctx context.Context, in *CloneAttributeDatasRequest, opts ...grpc.CallOption) (*CloneAttributeDatasResponse, error) {
+	out := new(CloneAttributeDatasResponse)
+	err := c.cc.Invoke(ctx, "/semantic.Products/CloneAttributeDatas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) DeleteAttributesData(ctx context.Context, in *DeleteAttributesDataRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *productsClient) DeleteAttributeDatas(ctx context.Context, in *DeleteAttributeDatasRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/semantic.Products/DeleteAttributesData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/semantic.Products/DeleteAttributeDatas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1453,12 +1459,12 @@ type ProductsServer interface {
 	PredictCategory(Products_PredictCategoryServer) error
 	RetrieveCategory(context.Context, *RetrieveCategoryRequest) (*Category, error)
 	RetrieveCategories(context.Context, *empty.Empty) (*RetrieveCategoriesResponse, error)
-	RetrieveAttributesSchema(context.Context, *RetrieveAttributesSchemaRequest) (*RetrieveAttributesSchemaResponse, error)
-	RetrieveAttributesData(context.Context, *RetrieveAttributesDataRequest) (*RetrieveAttributesDataResponse, error)
-	SetAttributesData(Products_SetAttributesDataServer) error
-	ChangeEntityAttributesData(context.Context, *ChangeEntityAttributesDataRequest) (*empty.Empty, error)
-	CloneAttributesData(context.Context, *CloneAttributesDataRequest) (*CloneAttributesDataResponse, error)
-	DeleteAttributesData(context.Context, *DeleteAttributesDataRequest) (*empty.Empty, error)
+	RetrieveAttributeSchemas(context.Context, *RetrieveAttributeSchemasRequest) (*RetrieveAttributeSchemasResponse, error)
+	RetrieveAttributeDatas(context.Context, *RetrieveAttributeDatasRequest) (*RetrieveAttributeDatasResponse, error)
+	SetAttributeDatas(Products_SetAttributeDatasServer) error
+	ChangeEntityAttributeDatas(context.Context, *ChangeEntityAttributeDatasRequest) (*empty.Empty, error)
+	CloneAttributeDatas(context.Context, *CloneAttributeDatasRequest) (*CloneAttributeDatasResponse, error)
+	DeleteAttributeDatas(context.Context, *DeleteAttributeDatasRequest) (*empty.Empty, error)
 }
 
 // UnimplementedProductsServer can be embedded to have forward compatible implementations.
@@ -1474,23 +1480,23 @@ func (*UnimplementedProductsServer) RetrieveCategory(ctx context.Context, req *R
 func (*UnimplementedProductsServer) RetrieveCategories(ctx context.Context, req *empty.Empty) (*RetrieveCategoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RetrieveCategories not implemented")
 }
-func (*UnimplementedProductsServer) RetrieveAttributesSchema(ctx context.Context, req *RetrieveAttributesSchemaRequest) (*RetrieveAttributesSchemaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributesSchema not implemented")
+func (*UnimplementedProductsServer) RetrieveAttributeSchemas(ctx context.Context, req *RetrieveAttributeSchemasRequest) (*RetrieveAttributeSchemasResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributeSchemas not implemented")
 }
-func (*UnimplementedProductsServer) RetrieveAttributesData(ctx context.Context, req *RetrieveAttributesDataRequest) (*RetrieveAttributesDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributesData not implemented")
+func (*UnimplementedProductsServer) RetrieveAttributeDatas(ctx context.Context, req *RetrieveAttributeDatasRequest) (*RetrieveAttributeDatasResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetrieveAttributeDatas not implemented")
 }
-func (*UnimplementedProductsServer) SetAttributesData(srv Products_SetAttributesDataServer) error {
-	return status.Errorf(codes.Unimplemented, "method SetAttributesData not implemented")
+func (*UnimplementedProductsServer) SetAttributeDatas(srv Products_SetAttributeDatasServer) error {
+	return status.Errorf(codes.Unimplemented, "method SetAttributeDatas not implemented")
 }
-func (*UnimplementedProductsServer) ChangeEntityAttributesData(ctx context.Context, req *ChangeEntityAttributesDataRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ChangeEntityAttributesData not implemented")
+func (*UnimplementedProductsServer) ChangeEntityAttributeDatas(ctx context.Context, req *ChangeEntityAttributeDatasRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeEntityAttributeDatas not implemented")
 }
-func (*UnimplementedProductsServer) CloneAttributesData(ctx context.Context, req *CloneAttributesDataRequest) (*CloneAttributesDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CloneAttributesData not implemented")
+func (*UnimplementedProductsServer) CloneAttributeDatas(ctx context.Context, req *CloneAttributeDatasRequest) (*CloneAttributeDatasResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloneAttributeDatas not implemented")
 }
-func (*UnimplementedProductsServer) DeleteAttributesData(ctx context.Context, req *DeleteAttributesDataRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteAttributesData not implemented")
+func (*UnimplementedProductsServer) DeleteAttributeDatas(ctx context.Context, req *DeleteAttributeDatasRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAttributeDatas not implemented")
 }
 
 func RegisterProductsServer(s *grpc.Server, srv ProductsServer) {
@@ -1559,118 +1565,118 @@ func _Products_RetrieveCategories_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_RetrieveAttributesSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RetrieveAttributesSchemaRequest)
+func _Products_RetrieveAttributeSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveAttributeSchemasRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).RetrieveAttributesSchema(ctx, in)
+		return srv.(ProductsServer).RetrieveAttributeSchemas(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/RetrieveAttributesSchema",
+		FullMethod: "/semantic.Products/RetrieveAttributeSchemas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).RetrieveAttributesSchema(ctx, req.(*RetrieveAttributesSchemaRequest))
+		return srv.(ProductsServer).RetrieveAttributeSchemas(ctx, req.(*RetrieveAttributeSchemasRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_RetrieveAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RetrieveAttributesDataRequest)
+func _Products_RetrieveAttributeDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveAttributeDatasRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).RetrieveAttributesData(ctx, in)
+		return srv.(ProductsServer).RetrieveAttributeDatas(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/RetrieveAttributesData",
+		FullMethod: "/semantic.Products/RetrieveAttributeDatas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).RetrieveAttributesData(ctx, req.(*RetrieveAttributesDataRequest))
+		return srv.(ProductsServer).RetrieveAttributeDatas(ctx, req.(*RetrieveAttributeDatasRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_SetAttributesData_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(ProductsServer).SetAttributesData(&productsSetAttributesDataServer{stream})
+func _Products_SetAttributeDatas_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ProductsServer).SetAttributeDatas(&productsSetAttributeDatasServer{stream})
 }
 
-type Products_SetAttributesDataServer interface {
-	Send(*SetAttributesDataResponse) error
-	Recv() (*SetAttributesDataRequest, error)
+type Products_SetAttributeDatasServer interface {
+	Send(*SetAttributeDatasResponse) error
+	Recv() (*SetAttributeDatasRequest, error)
 	grpc.ServerStream
 }
 
-type productsSetAttributesDataServer struct {
+type productsSetAttributeDatasServer struct {
 	grpc.ServerStream
 }
 
-func (x *productsSetAttributesDataServer) Send(m *SetAttributesDataResponse) error {
+func (x *productsSetAttributeDatasServer) Send(m *SetAttributeDatasResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *productsSetAttributesDataServer) Recv() (*SetAttributesDataRequest, error) {
-	m := new(SetAttributesDataRequest)
+func (x *productsSetAttributeDatasServer) Recv() (*SetAttributeDatasRequest, error) {
+	m := new(SetAttributeDatasRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func _Products_ChangeEntityAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChangeEntityAttributesDataRequest)
+func _Products_ChangeEntityAttributeDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeEntityAttributeDatasRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).ChangeEntityAttributesData(ctx, in)
+		return srv.(ProductsServer).ChangeEntityAttributeDatas(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/ChangeEntityAttributesData",
+		FullMethod: "/semantic.Products/ChangeEntityAttributeDatas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).ChangeEntityAttributesData(ctx, req.(*ChangeEntityAttributesDataRequest))
+		return srv.(ProductsServer).ChangeEntityAttributeDatas(ctx, req.(*ChangeEntityAttributeDatasRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_CloneAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CloneAttributesDataRequest)
+func _Products_CloneAttributeDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CloneAttributeDatasRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).CloneAttributesData(ctx, in)
+		return srv.(ProductsServer).CloneAttributeDatas(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/CloneAttributesData",
+		FullMethod: "/semantic.Products/CloneAttributeDatas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).CloneAttributesData(ctx, req.(*CloneAttributesDataRequest))
+		return srv.(ProductsServer).CloneAttributeDatas(ctx, req.(*CloneAttributeDatasRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_DeleteAttributesData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAttributesDataRequest)
+func _Products_DeleteAttributeDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAttributeDatasRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).DeleteAttributesData(ctx, in)
+		return srv.(ProductsServer).DeleteAttributeDatas(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/semantic.Products/DeleteAttributesData",
+		FullMethod: "/semantic.Products/DeleteAttributeDatas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).DeleteAttributesData(ctx, req.(*DeleteAttributesDataRequest))
+		return srv.(ProductsServer).DeleteAttributeDatas(ctx, req.(*DeleteAttributeDatasRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1688,24 +1694,24 @@ var _Products_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Products_RetrieveCategories_Handler,
 		},
 		{
-			MethodName: "RetrieveAttributesSchema",
-			Handler:    _Products_RetrieveAttributesSchema_Handler,
+			MethodName: "RetrieveAttributeSchemas",
+			Handler:    _Products_RetrieveAttributeSchemas_Handler,
 		},
 		{
-			MethodName: "RetrieveAttributesData",
-			Handler:    _Products_RetrieveAttributesData_Handler,
+			MethodName: "RetrieveAttributeDatas",
+			Handler:    _Products_RetrieveAttributeDatas_Handler,
 		},
 		{
-			MethodName: "ChangeEntityAttributesData",
-			Handler:    _Products_ChangeEntityAttributesData_Handler,
+			MethodName: "ChangeEntityAttributeDatas",
+			Handler:    _Products_ChangeEntityAttributeDatas_Handler,
 		},
 		{
-			MethodName: "CloneAttributesData",
-			Handler:    _Products_CloneAttributesData_Handler,
+			MethodName: "CloneAttributeDatas",
+			Handler:    _Products_CloneAttributeDatas_Handler,
 		},
 		{
-			MethodName: "DeleteAttributesData",
-			Handler:    _Products_DeleteAttributesData_Handler,
+			MethodName: "DeleteAttributeDatas",
+			Handler:    _Products_DeleteAttributeDatas_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
@@ -1716,8 +1722,8 @@ var _Products_serviceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 		{
-			StreamName:    "SetAttributesData",
-			Handler:       _Products_SetAttributesData_Handler,
+			StreamName:    "SetAttributeDatas",
+			Handler:       _Products_SetAttributeDatas_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

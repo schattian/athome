@@ -9,78 +9,82 @@ package semantic;
 
 service ServiceProviders {
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
+  rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
 }
 
 service Merchants {
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
+  rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
 }
 
 service Products {
   rpc PredictCategory(stream PredictCategoryRequest) returns (stream PredictCategoryResponse) {}
 
+  rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
-  rpc RetrieveAttributesSchema(RetrieveAttributesSchemaRequest) returns (RetrieveAttributesSchemaResponse) {}
-  rpc RetrieveAttributesData(RetrieveAttributesDataRequest) returns (RetrieveAttributesDataResponse) {}
+  rpc RetrieveAttributeSchemas(RetrieveAttributeSchemasRequest) returns (RetrieveAttributeSchemasResponse) {}
+  rpc RetrieveAttributeDatas(RetrieveAttributeDatasRequest) returns (RetrieveAttributeDatasResponse) {}
 
-  rpc SetAttributesData(stream SetAttributesDataRequest) returns (stream SetAttributesDataResponse) {}
-  rpc ChangeEntityAttributesData(ChangeEntityAttributesDataRequest) returns (google.protobuf.Empty) {}
-  rpc CloneAttributesData(CloneAttributesDataRequest) returns (CloneAttributesDataResponse) {}
-  rpc DeleteAttributesData(DeleteAttributesDataRequest) returns (google.protobuf.Empty) {}
+  rpc SetAttributeDatas(stream SetAttributeDatasRequest) returns (stream SetAttributeDatasResponse) {}
+  rpc ChangeEntityAttributeDatas(ChangeEntityAttributeDatasRequest) returns (google.protobuf.Empty) {}
+  rpc CloneAttributeDatas(CloneAttributeDatasRequest) returns (CloneAttributeDatasResponse) {}
+  rpc DeleteAttributeDatas(DeleteAttributeDatasRequest) returns (google.protobuf.Empty) {}
 }
 
-message Category {
-  uint64 id = 1;
-  string name = 2;
-
-  uint64 parent_id = 3;
-  repeated Category childs = 4;
-}
-
-message AttributeSchema {
-  uint64 id = 1;
-  uint64 category_id =  2;
-
-  string name = 3;
-  string value_type = 4;
-}
-
-message RetrieveCategoriesResponse {
-  repeated Category categories = 1;
-}
-
-message RetrieveAttributesSchemaRequest {
+message RetrieveCategoryRequest {
   uint64 category_id = 1;
 }
 
-message RetrieveAttributesDataRequest {
+message Category {
+  string name = 1;
+  uint64 parent_id = 2;
+  map<uint64, Category> childs = 3;
+  string identification_template = 4;
+}
+
+message AttributeSchema {
+  uint64 category_id =  1;
+  string name = 2;
+  string value_type = 3;
+}
+
+message RetrieveCategoriesResponse {
+  map<uint64, Category> categories = 1;
+}
+
+message RetrieveAttributeSchemasRequest {
+  uint64 category_id = 1;
+}
+
+message RetrieveAttributeDatasRequest {
   uint64 entity_id = 1;
   string entity_table = 2;
 }
 
-message DeleteAttributesDataRequest {
+message DeleteAttributeDatasRequest {
   string access_token = 1;
   uint64 entity_id = 2;
   string entity_table = 3;
 }
 
-message RetrieveAttributesSchemaResponse {
-  repeated AttributeSchema attributes = 1;
+message RetrieveAttributeSchemasResponse {
+  map<uint64, AttributeSchema> attributes = 1;
 }
 
-message RetrieveAttributesDataResponse {
-  repeated SetAttributesDataResponse attributes = 1;
+message RetrieveAttributeDatasResponse {
+  map<uint64, AttributeData> attributes = 1;
 }
 
-message SetAttributesDataResponse {
+message SetAttributeDatasResponse {
   uint64 attribute_data_id = 1;
   AttributeData data = 2;
 }
 
-message CloneAttributesDataResponse {
-  repeated SetAttributesDataResponse attributes = 1;
+message CloneAttributeDatasResponse {
+  map<uint64, AttributeData> attributes = 1;
 }
 
-message SetAttributesDataRequest {
+message SetAttributeDatasRequest {
   message Authorization {
     string access_token = 1; // from which assigns the user_id col
     uint64 entity_id = 2;
@@ -93,7 +97,7 @@ message SetAttributesDataRequest {
   }
 }
 
-message ChangeEntityAttributesDataRequest {
+message ChangeEntityAttributeDatasRequest {
   string access_token = 1;
 
   uint64 from_entity_id = 2;
@@ -103,7 +107,7 @@ message ChangeEntityAttributesDataRequest {
   string dest_entity_table = 5;
 }
 
-message CloneAttributesDataRequest {
+message CloneAttributeDatasRequest {
   string access_token = 1;
   uint64 from_entity_id = 2;
   uint64 dest_entity_id = 3;
@@ -120,6 +124,11 @@ message PredictCategoryRequest {
 }
 
 message PredictCategoryResponse {
-  Category category = 1;
-  double score = 2;
+  uint64 category_id =1;
+  Category category = 2;
+  double score = 3;
+}
+
+message RetrieveCategoriesByRoleRequest {
+  string role = 1 [(validate.rules).string = {in: ["service-provider", "consumer", "merchant"]}];
 }

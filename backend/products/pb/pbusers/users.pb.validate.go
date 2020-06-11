@@ -36,341 +36,6 @@ var (
 // define the regex for a UUID once up-front
 var _users_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on ViewUserRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *ViewUserRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for UserId
-
-	return nil
-}
-
-// ViewUserRequestValidationError is the validation error returned by
-// ViewUserRequest.Validate if the designated constraints aren't met.
-type ViewUserRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ViewUserRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ViewUserRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ViewUserRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ViewUserRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ViewUserRequestValidationError) ErrorName() string { return "ViewUserRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e ViewUserRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sViewUserRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ViewUserRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ViewUserRequestValidationError{}
-
-// Validate checks the field values on ViewUserResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *ViewUserResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Name
-
-	// no validation rules for Surname
-
-	return nil
-}
-
-// ViewUserResponseValidationError is the validation error returned by
-// ViewUserResponse.Validate if the designated constraints aren't met.
-type ViewUserResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ViewUserResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ViewUserResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ViewUserResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ViewUserResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ViewUserResponseValidationError) ErrorName() string { return "ViewUserResponseValidationError" }
-
-// Error satisfies the builtin error interface
-func (e ViewUserResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sViewUserResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ViewUserResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ViewUserResponseValidationError{}
-
-// Validate checks the field values on SignUpIdentificationRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SignUpIdentificationRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for OnboardingId
-
-	if val := m.GetDni(); val <= 999999 || val >= 99999999 {
-		return SignUpIdentificationRequestValidationError{
-			field:  "Dni",
-			reason: "value must be inside range (999999, 99999999)",
-		}
-	}
-
-	if v, ok := interface{}(m.GetMedic()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpIdentificationRequestValidationError{
-				field:  "Medic",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetPsychologist()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpIdentificationRequestValidationError{
-				field:  "Psychologist",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetLawyer()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpIdentificationRequestValidationError{
-				field:  "Lawyer",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetAttorney()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpIdentificationRequestValidationError{
-				field:  "Attorney",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetEducationalInstitution()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SignUpIdentificationRequestValidationError{
-				field:  "EducationalInstitution",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// SignUpIdentificationRequestValidationError is the validation error returned
-// by SignUpIdentificationRequest.Validate if the designated constraints
-// aren't met.
-type SignUpIdentificationRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SignUpIdentificationRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SignUpIdentificationRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SignUpIdentificationRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SignUpIdentificationRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SignUpIdentificationRequestValidationError) ErrorName() string {
-	return "SignUpIdentificationRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SignUpIdentificationRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSignUpIdentificationRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SignUpIdentificationRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SignUpIdentificationRequestValidationError{}
-
-// Validate checks the field values on SignUpSelectCategoryRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SignUpSelectCategoryRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for OnboardingId
-
-	// no validation rules for CategoryName
-
-	return nil
-}
-
-// SignUpSelectCategoryRequestValidationError is the validation error returned
-// by SignUpSelectCategoryRequest.Validate if the designated constraints
-// aren't met.
-type SignUpSelectCategoryRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SignUpSelectCategoryRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SignUpSelectCategoryRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SignUpSelectCategoryRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SignUpSelectCategoryRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SignUpSelectCategoryRequestValidationError) ErrorName() string {
-	return "SignUpSelectCategoryRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SignUpSelectCategoryRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSignUpSelectCategoryRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SignUpSelectCategoryRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SignUpSelectCategoryRequestValidationError{}
-
 // Validate checks the field values on RetrieveSelectableCategoriesRequest with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, an error is returned.
@@ -449,13 +114,15 @@ func (m *RetrieveSelectableCategoriesResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetCategories() {
-		_, _ = idx, item
+	for key, val := range m.GetCategories() {
+		_ = val
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		// no validation rules for Categories[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RetrieveSelectableCategoriesResponseValidationError{
-					field:  fmt.Sprintf("Categories[%v]", idx),
+					field:  fmt.Sprintf("Categories[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -524,26 +191,79 @@ var _ interface {
 	ErrorName() string
 } = RetrieveSelectableCategoriesResponseValidationError{}
 
-// Validate checks the field values on Category with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Category) Validate() error {
+// Validate checks the field values on SignUpIdentificationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpIdentificationRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Id
+	// no validation rules for OnboardingId
 
-	// no validation rules for Name
+	if val := m.GetDni(); val <= 999999 || val >= 99999999 {
+		return SignUpIdentificationRequestValidationError{
+			field:  "Dni",
+			reason: "value must be inside range (999999, 99999999)",
+		}
+	}
 
-	// no validation rules for ParentId
+	switch m.Category.(type) {
 
-	for idx, item := range m.GetChilds() {
-		_, _ = idx, item
+	case *SignUpIdentificationRequest_Medic_:
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if v, ok := interface{}(m.GetMedic()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CategoryValidationError{
-					field:  fmt.Sprintf("Childs[%v]", idx),
+				return SignUpIdentificationRequestValidationError{
+					field:  "Medic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *SignUpIdentificationRequest_Psychologist_:
+
+		if v, ok := interface{}(m.GetPsychologist()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignUpIdentificationRequestValidationError{
+					field:  "Psychologist",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *SignUpIdentificationRequest_Lawyer_:
+
+		if v, ok := interface{}(m.GetLawyer()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignUpIdentificationRequestValidationError{
+					field:  "Lawyer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *SignUpIdentificationRequest_Attorney_:
+
+		if v, ok := interface{}(m.GetAttorney()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignUpIdentificationRequestValidationError{
+					field:  "Attorney",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *SignUpIdentificationRequest_EducationalInstitution_:
+
+		if v, ok := interface{}(m.GetEducationalInstitution()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SignUpIdentificationRequestValidationError{
+					field:  "EducationalInstitution",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -551,6 +271,168 @@ func (m *Category) Validate() error {
 		}
 
 	}
+
+	return nil
+}
+
+// SignUpIdentificationRequestValidationError is the validation error returned
+// by SignUpIdentificationRequest.Validate if the designated constraints
+// aren't met.
+type SignUpIdentificationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpIdentificationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpIdentificationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpIdentificationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpIdentificationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpIdentificationRequestValidationError) ErrorName() string {
+	return "SignUpIdentificationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpIdentificationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpIdentificationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpIdentificationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpIdentificationRequestValidationError{}
+
+// Validate checks the field values on SignUpSelectCategoryRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SignUpSelectCategoryRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for OnboardingId
+
+	// no validation rules for CategoryId
+
+	return nil
+}
+
+// SignUpSelectCategoryRequestValidationError is the validation error returned
+// by SignUpSelectCategoryRequest.Validate if the designated constraints
+// aren't met.
+type SignUpSelectCategoryRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SignUpSelectCategoryRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SignUpSelectCategoryRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SignUpSelectCategoryRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SignUpSelectCategoryRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SignUpSelectCategoryRequestValidationError) ErrorName() string {
+	return "SignUpSelectCategoryRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SignUpSelectCategoryRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSignUpSelectCategoryRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SignUpSelectCategoryRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SignUpSelectCategoryRequestValidationError{}
+
+// Validate checks the field values on Category with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Category) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for ParentId
+
+	for key, val := range m.GetChilds() {
+		_ = val
+
+		// no validation rules for Childs[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CategoryValidationError{
+					field:  fmt.Sprintf("Childs[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for IdentificationTemplate
 
 	return nil
 }
@@ -961,6 +843,347 @@ var _ interface {
 	ErrorName() string
 } = ForgotPasswordRequestValidationError{}
 
+// Validate checks the field values on RetrieveUserRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveUserRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// RetrieveUserRequestValidationError is the validation error returned by
+// RetrieveUserRequest.Validate if the designated constraints aren't met.
+type RetrieveUserRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveUserRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveUserRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveUserRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveUserRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveUserRequestValidationError) ErrorName() string {
+	return "RetrieveUserRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveUserRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveUserRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveUserRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveUserRequestValidationError{}
+
+// Validate checks the field values on UserDetail with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *UserDetail) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserDetailValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCategory()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserDetailValidationError{
+				field:  "Category",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetIdentification()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserDetailValidationError{
+				field:  "Identification",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// UserDetailValidationError is the validation error returned by
+// UserDetail.Validate if the designated constraints aren't met.
+type UserDetailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserDetailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserDetailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserDetailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserDetailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserDetailValidationError) ErrorName() string { return "UserDetailValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserDetailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserDetail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserDetailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserDetailValidationError{}
+
+// Validate checks the field values on OnboardingDetail with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *OnboardingDetail) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetOnboarding()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OnboardingDetailValidationError{
+				field:  "Onboarding",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCategory()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OnboardingDetailValidationError{
+				field:  "Category",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetIdentification()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OnboardingDetailValidationError{
+				field:  "Identification",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// OnboardingDetailValidationError is the validation error returned by
+// OnboardingDetail.Validate if the designated constraints aren't met.
+type OnboardingDetailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OnboardingDetailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OnboardingDetailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OnboardingDetailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OnboardingDetailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OnboardingDetailValidationError) ErrorName() string { return "OnboardingDetailValidationError" }
+
+// Error satisfies the builtin error interface
+func (e OnboardingDetailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOnboardingDetail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OnboardingDetailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OnboardingDetailValidationError{}
+
+// Validate checks the field values on Identification with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *Identification) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	// no validation rules for Dni
+
+	// no validation rules for Verified
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	// no validation rules for License
+
+	// no validation rules for Tome
+
+	// no validation rules for Folio
+
+	// no validation rules for Cue
+
+	return nil
+}
+
+// IdentificationValidationError is the validation error returned by
+// Identification.Validate if the designated constraints aren't met.
+type IdentificationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IdentificationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IdentificationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IdentificationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IdentificationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IdentificationValidationError) ErrorName() string { return "IdentificationValidationError" }
+
+// Error satisfies the builtin error interface
+func (e IdentificationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIdentification.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IdentificationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IdentificationValidationError{}
+
 // Validate checks the field values on RetrieveOnboardingRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1030,10 +1253,9 @@ var _ interface {
 	ErrorName() string
 } = RetrieveOnboardingRequestValidationError{}
 
-// Validate checks the field values on RetrieveOnboardingResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *RetrieveOnboardingResponse) Validate() error {
+// Validate checks the field values on Onboarding with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Onboarding) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -1051,9 +1273,9 @@ func (m *RetrieveOnboardingResponse) Validate() error {
 	return nil
 }
 
-// RetrieveOnboardingResponseValidationError is the validation error returned
-// by RetrieveOnboardingResponse.Validate if the designated constraints aren't met.
-type RetrieveOnboardingResponseValidationError struct {
+// OnboardingValidationError is the validation error returned by
+// Onboarding.Validate if the designated constraints aren't met.
+type OnboardingValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1061,24 +1283,22 @@ type RetrieveOnboardingResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveOnboardingResponseValidationError) Field() string { return e.field }
+func (e OnboardingValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveOnboardingResponseValidationError) Reason() string { return e.reason }
+func (e OnboardingValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveOnboardingResponseValidationError) Cause() error { return e.cause }
+func (e OnboardingValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveOnboardingResponseValidationError) Key() bool { return e.key }
+func (e OnboardingValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveOnboardingResponseValidationError) ErrorName() string {
-	return "RetrieveOnboardingResponseValidationError"
-}
+func (e OnboardingValidationError) ErrorName() string { return "OnboardingValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RetrieveOnboardingResponseValidationError) Error() string {
+func (e OnboardingValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1090,14 +1310,14 @@ func (e RetrieveOnboardingResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveOnboardingResponse.%s: %s%s",
+		"invalid %sOnboarding.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveOnboardingResponseValidationError{}
+var _ error = OnboardingValidationError{}
 
 var _ interface {
 	Field() string
@@ -1105,7 +1325,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveOnboardingResponseValidationError{}
+} = OnboardingValidationError{}
 
 // Validate checks the field values on SignUpStartRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1771,13 +1991,15 @@ func (m *SignInUser) Validate() error {
 
 	// no validation rules for SignToken
 
-	// no validation rules for Role
-
-	// no validation rules for Name
-
-	// no validation rules for Surname
-
-	// no validation rules for Email
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SignInUserValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -1835,6 +2057,80 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SignInUserValidationError{}
+
+// Validate checks the field values on User with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *User) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Role
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	// no validation rules for Email
+
+	// no validation rules for CategoryId
+
+	return nil
+}
+
+// UserValidationError is the validation error returned by User.Validate if the
+// designated constraints aren't met.
+type UserValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserValidationError) ErrorName() string { return "UserValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUser.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserValidationError{}
 
 // Validate checks the field values on SignRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error

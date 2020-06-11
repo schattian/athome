@@ -16,17 +16,26 @@ service Images {
 
 
 message CreateImageRequest{
-  oneof corpus{
+  message Metadata {
+    string ext = 1;
+    string access_token = 2;
+  }
+
+  oneof corpus {
     Metadata metadata = 1;
     bytes chunk = 2;
   }
 }
 
+message Image{
+  int64 size = 1;
+  string uri = 2;
+  uint64 user_id = 3;
+}
+
 message CreateImageResponse {
-  string id = 1;
-  int64 size = 2;
-  string uri = 3;
-  uint64 user_id = 4;
+  string image_id = 1;
+  Image image = 2;
 }
 
 message RetrieveImagesRequest{
@@ -34,11 +43,7 @@ message RetrieveImagesRequest{
 }
 
 message RetrieveImagesResponse {
-  message Data {
-    string uri = 1;
-    uint64 user_id = 2;
-  }
-  repeated Data images = 1;
+  map<string, Image> images = 1;
 }
 
 message DeleteImagesRequest{
@@ -46,8 +51,4 @@ message DeleteImagesRequest{
   repeated string ids = 2;
 }
 
-message Metadata {
-  string ext = 1;
-  string access_token = 2;
-}
 
