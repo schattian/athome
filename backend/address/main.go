@@ -19,7 +19,7 @@ func main() {
 	s := grpc.NewServer()
 	log.Println("listening on port " + port)
 
-	pbaddress.RegisterAddressServer(s, &server.Server{})
+	pbaddress.RegisterAddressesServer(s, &server.Server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

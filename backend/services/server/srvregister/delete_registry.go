@@ -32,10 +32,10 @@ func (s *Server) DeleteRegistry(ctx context.Context, in *pbservices.DeleteRegist
 	}
 	authCloser()
 
-	return s.deleteRegistry(ctx, db, in, reg)
+	return s.deleteRegistry(ctx, db, reg)
 }
 
-func (s *Server) deleteRegistry(ctx context.Context, db *sqlx.DB, in *pbservices.DeleteRegistryRequest, reg *ent.Registry) (*emptypb.Empty, error) {
+func (s *Server) deleteRegistry(ctx context.Context, db *sqlx.DB, reg *ent.Registry) (*emptypb.Empty, error) {
 	err := storeql.DeleteFromDB(ctx, db, reg)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "DeleteFromDB: %v", err)

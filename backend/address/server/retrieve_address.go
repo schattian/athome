@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveAddress(ctx context.Context, in *pbaddress.RetrieveAddressRequest) (*pbaddress.AddressData, error) {
+func (s *Server) RetrieveAddress(ctx context.Context, in *pbaddress.RetrieveAddressRequest) (*pbaddress.Address, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func (s *Server) RetrieveAddress(ctx context.Context, in *pbaddress.RetrieveAddr
 	return s.retrieveAddress(ctx, db, in)
 }
 
-func (s *Server) retrieveAddress(ctx context.Context, db *sqlx.DB, in *pbaddress.RetrieveAddressRequest) (*pbaddress.AddressData, error) {
+func (s *Server) retrieveAddress(ctx context.Context, db *sqlx.DB, in *pbaddress.RetrieveAddressRequest) (*pbaddress.Address, error) {
 	addr, err := ent.FindAddress(ctx, db, in.GetAddressId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "FindAddress with id: %v", in.GetAddressId())
@@ -32,5 +32,5 @@ func (s *Server) retrieveAddress(ctx context.Context, db *sqlx.DB, in *pbaddress
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindAddress: %v", err)
 	}
-	return addrToPbAddrData(addr), nil
+	return addr.ToPb(), nil
 }

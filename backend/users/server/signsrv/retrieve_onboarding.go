@@ -35,10 +35,10 @@ func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnb
 	}
 	defer semCloser()
 
-	return s.retrieveOnboarding(ctx, db, sem, in, o)
+	return s.retrieveOnboarding(ctx, db, sem, o)
 }
 
-func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, in *pbusers.RetrieveOnboardingRequest, onboarding *ent.Onboarding) (*pbusers.OnboardingDetail, error) {
+func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, onboarding *ent.Onboarding) (*pbusers.OnboardingDetail, error) {
 	cat, err := onboarding.Category(ctx, sem)
 	if err != nil {
 		return nil, err

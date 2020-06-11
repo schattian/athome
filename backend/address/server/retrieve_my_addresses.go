@@ -48,9 +48,9 @@ func (s *Server) retrieveMyAddresses(
 	}
 
 	resp := &pbaddress.RetrieveMyAddressesResponse{}
-	resp.Addresses = make(map[uint64]*pbaddress.AddressData)
+	resp.Addresses = make(map[uint64]*pbaddress.Address)
 	for _, addr := range addrs {
-		resp.Addresses[addr.Id] = addrToPbAddrData(addr)
+		resp.Addresses[addr.Id] = addr.ToPb()
 	}
 	return resp, nil
 }

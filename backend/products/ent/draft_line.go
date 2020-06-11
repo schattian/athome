@@ -27,7 +27,7 @@ type DraftLine struct {
 	ImageIds []string `json:"image_ids,omitempty"`
 }
 
-func (ln *DraftLine) toProduct(ctx context.Context) *Product {
+func (ln *DraftLine) toProduct() *Product {
 	return &Product{
 		CategoryId: ln.CategoryId,
 		Title:      ln.Title,
@@ -38,7 +38,7 @@ func (ln *DraftLine) toProduct(ctx context.Context) *Product {
 }
 
 func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, userId uint64, access string) (*Product, error) {
-	prod := ln.toProduct(ctx)
+	prod := ln.toProduct()
 	prod.UserId = userId
 
 	err := storeql.InsertIntoDB(ctx, db, prod)

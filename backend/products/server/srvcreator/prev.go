@@ -27,10 +27,10 @@ func (s *Server) Prev(ctx context.Context, in *pbproducts.StageChangeRequest) (*
 		return nil, err
 	}
 
-	return s.prev(ctx, db, in, draft)
+	return s.prev(ctx, db, draft)
 }
 
-func (s *Server) prev(ctx context.Context, db *sqlx.DB, in *pbproducts.StageChangeRequest, d *ent.Draft) (*pbproducts.StageChangeResponse, error) {
+func (s *Server) prev(ctx context.Context, db *sqlx.DB, d *ent.Draft) (*pbproducts.StageChangeResponse, error) {
 	err := d.Prev(ctx, db)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "draft.Prev: %v", err)

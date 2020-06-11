@@ -7,7 +7,6 @@ import (
 	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/xerrors"
-	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -20,18 +19,17 @@ func (s *Server) RetrieveSelectableCategories(ctx context.Context, in *pbusers.R
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "server.ConnDB: %v", err)
 	}
-	defer db.Close()
 	o, err := retrieveLatestOnboarding(ctx, db, in.GetOnboardingId())
 	if err != nil {
 		return nil, err
 	}
+	db.Close()
 
-	return s.retrieveSelectableCategories(ctx, db, in, o)
+	return s.retrieveSelectableCategories(ctx, o)
 }
 
 func (s *Server) retrieveSelectableCategories(
-	ctx context.Context, db *sqlx.DB,
-	in *pbusers.RetrieveSelectableCategoriesRequest,
+	ctx context.Context,
 	onboarding *ent.Onboarding,
 ) (out *pbusers.RetrieveSelectableCategoriesResponse, err error) {
 

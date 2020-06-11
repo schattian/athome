@@ -3,6 +3,7 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/address/pb/pbaddress"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -31,6 +32,35 @@ func FindAddress(ctx context.Context, db *sqlx.DB, id uint64) (*Address, error) 
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return prod, nil
+}
+
+func AddressFromPb(d *pbaddress.Address) *Address {
+	return &Address{
+		Country:   d.GetCountry(),
+		Province:  d.GetProvince(),
+		Zipcode:   d.GetZipcode(),
+		Street:    d.GetStreet(),
+		Number:    d.GetNumber(),
+		Floor:     d.GetFloor(),
+		Latitude:  d.GetLatitude(),
+		Longitude: d.GetLongitude(),
+
+		Alias: d.GetAlias(),
+	}
+}
+
+func (addr *Address) ToPb() *pbaddress.Address {
+	return &pbaddress.Address{
+		Country:   addr.Country,
+		Province:  addr.Province,
+		Zipcode:   addr.Zipcode,
+		Street:    addr.Street,
+		Number:    addr.Number,
+		Floor:     addr.Floor,
+		Latitude:  addr.Latitude,
+		Longitude: addr.Longitude,
+		Alias:     addr.Alias,
+	}
 }
 
 func AddressesByUser(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Address, error) {

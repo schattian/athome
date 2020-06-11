@@ -33,10 +33,10 @@ func (s *Server) RetrieveUser(ctx context.Context, in *pbusers.RetrieveUserReque
 	}
 	defer semCloser()
 
-	return s.retrieveUser(ctx, db, sem, in, user)
+	return s.retrieveUser(ctx, db, sem, user)
 }
 
-func (s *Server) retrieveUser(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, in *pbusers.RetrieveUserRequest, user *ent.User) (*pbusers.UserDetail, error) {
+func (s *Server) retrieveUser(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, user *ent.User) (*pbusers.UserDetail, error) {
 	cat, err := user.Category(ctx, sem)
 	if err != nil {
 		return nil, err
