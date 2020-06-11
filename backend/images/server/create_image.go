@@ -44,7 +44,7 @@ func (s *Server) CreateImage(srv pbimages.Images_CreateImageServer) error {
 			continue
 		}
 
-		resp, err = s.createImage(ctx, in, buffer, resp.GetSize(), imageconf.GetMAX_IMAGE_SIZE())
+		resp, err = s.createImage(ctx, in, buffer, resp.GetImage().GetSize(), imageconf.GetMAX_IMAGE_SIZE())
 		if err != nil {
 			return err
 		}
@@ -58,7 +58,7 @@ func (s *Server) CreateImage(srv pbimages.Images_CreateImageServer) error {
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "store.Save: %v", err)
 	}
-	resp.Id, resp.Uri = data.Id(), data.URI()
+	resp.ImageId, resp.Image.Uri = data.Id(), data.URI()
 	err = srv.SendAndClose(resp)
 	if err != nil {
 		return err
@@ -66,7 +66,7 @@ func (s *Server) CreateImage(srv pbimages.Images_CreateImageServer) error {
 	return ctx.Err()
 }
 
-func (s *Server) createImageMetadata(ctx context.Context, c pbauth.AuthClient, meta *pbimages.Metadata) (*img.Metadata, error) {
+func (s *Server) createImageMetadata(ctx context.Context, c pbauth.AuthClient, meta *pbimages.CreateImageRequest_Metadata) (*img.Metadata, error) {
 	userId, err := GetUserFromAccessToken(ctx, c, meta.GetAccessToken())
 	if err != nil {
 		return nil, err
@@ -82,16 +82,17 @@ func (s *Server) createImage(
 	sz int64,
 	maxSize int64,
 ) (*pbimages.CreateImageResponse, error) {
-	resp := &pbimages.CreateImageResponse{}
+	image := &pbimages.Image{}
 	chunk := in.GetChunk()
 	writedSz, err := buffer.Write(chunk)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "buffer.Write: %v", err)
 	}
-	resp.Size = sz + int64(writedSz)
-	if resp.Size > maxSize {
+	image.Size = sz + int64(writedSz)
+	if image.Size > maxSize {
 		return nil, status.Errorf(xerrors.InvalidArgument, "image size overflow")
 	}
+	resp := &pbimages.CreateImageResponse{Image: image}
 
 	return resp, nil
 }

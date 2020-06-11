@@ -20,7 +20,7 @@ func (s *Server) retrieveImages(ctx context.Context, in *pbimages.RetrieveImages
 	var response *pbimages.RetrieveImagesResponse
 	var wg sync.WaitGroup
 	idsQt := len(in.GetIds())
-	respCh := make(chan *pbimages.RetrieveImagesResponse_Data, idsQt)
+	respCh := make(chan *pbimages.Image, idsQt)
 	errCh := make(chan error, 1)
 	done := make(chan struct{})
 	wg.Add(idsQt)
@@ -44,7 +44,7 @@ func (s *Server) retrieveImages(ctx context.Context, in *pbimages.RetrieveImages
 	}
 }
 
-func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pbimages.RetrieveImagesResponse_Data, errCh chan<- error, wg *sync.WaitGroup) {
+func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pbimages.Image, errCh chan<- error, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	dd, err := s.Store.Retrieve(ctx, id)
@@ -58,5 +58,5 @@ func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pb
 		return
 	}
 
-	respCh <- &pbimages.RetrieveImagesResponse_Data{Uri: dd.URI(), UserId: meta.UserId}
+	respCh <- &pbimages.Image{Uri: dd.URI(), UserId: meta.UserId}
 }

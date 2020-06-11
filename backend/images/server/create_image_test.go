@@ -15,7 +15,7 @@ import (
 func TestServer_Iterator_createImage(t *testing.T) {
 	type args struct {
 		ctx     context.Context
-		meta    *pbimages.Metadata
+		meta    *pbimages.CreateImageRequest_Metadata
 		buffer  *bytes.Buffer
 		sz      int64
 		maxSize int64
