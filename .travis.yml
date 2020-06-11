@@ -14,7 +14,48 @@ matrix:
         - cd backend/auth
       script:
         - make check
-
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/identifier
+      go: 1.14.x
+      before_script:
+        - cd backend/identifier
+      script:
+        - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/products
+      go: 1.14.x
+      before_script:
+        - cd backend/products
+      script:
+        - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/services
+      go: 1.14.x
+      before_script:
+        - cd backend/services
+      script:
+        - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/images
+      go: 1.14.x
+      before_script:
+        - cd backend/images
+      script:
+        - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/mailer
+      go: 1.14.x
+      before_script:
+        - cd backend/mailer
+      script:
+        - make check
+    - language: go
+      go_import_path: github.com/athomecomar/athome/backend/semantic
+      go: 1.14.x
+      before_script:
+        - cd backend/semantic
+      script:
+        - make check
 
 notifications:
   email:
