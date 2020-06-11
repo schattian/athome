@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/athomecomar/athome/backend/identifier/infer"
-	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
+	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"github.com/spf13/afero"

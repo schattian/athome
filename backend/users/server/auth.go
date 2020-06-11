@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"

@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbauth"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbusers"
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 

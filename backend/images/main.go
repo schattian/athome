@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/images/imageconf"
-	"github.com/athomecomar/athome/backend/images/pb/pbimages"
 	"github.com/athomecomar/athome/backend/images/server"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"google.golang.org/grpc"
 )
 

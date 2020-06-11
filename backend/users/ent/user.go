@@ -6,8 +6,8 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
-	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"

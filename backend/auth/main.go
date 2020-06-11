@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/auth/authconf"
-	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
 	"github.com/athomecomar/athome/backend/auth/server"
+	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/go-redis/redis/v8"
 
 	"google.golang.org/grpc"

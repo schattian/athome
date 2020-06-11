@@ -6,10 +6,10 @@ import (
 	"errors"
 
 	"github.com/athomecomar/athome/backend/services/ent"
-	"github.com/athomecomar/athome/backend/services/pb/pbaddress"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
-	"github.com/athomecomar/athome/backend/services/pb/pbusers"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"

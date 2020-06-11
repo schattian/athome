@@ -10,7 +10,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/internal/pbsemantictest"
 	"github.com/athomecomar/athome/backend/users/internal/usertest"
 	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/storeql/test/sqlassist"
 	"github.com/athomecomar/storeql/test/sqlhelp"
 	"github.com/athomecomar/xerrors"

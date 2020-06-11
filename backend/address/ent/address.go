@@ -3,7 +3,7 @@ package ent
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/address/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )

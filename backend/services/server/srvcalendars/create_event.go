@@ -5,9 +5,9 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/schedule"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
-	"github.com/athomecomar/athome/backend/services/pb/pbusers"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"

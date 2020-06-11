@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/athomecomar/athome/backend/images/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )

@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
-	"github.com/athomecomar/athome/backend/users/pb/pbmailer"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/backend/users/userconf"
+	"github.com/athomecomar/athome/pb/pbmailer"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc"

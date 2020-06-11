@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"

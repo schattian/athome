@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/mailer/mailerconf"
-	"github.com/athomecomar/athome/backend/mailer/pb/pbmailer"
 	"github.com/athomecomar/athome/backend/mailer/server"
+	"github.com/athomecomar/athome/pb/pbmailer"
 	"github.com/matcornic/hermes/v2"
 	"gopkg.in/gomail.v2"
 

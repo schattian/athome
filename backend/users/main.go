@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server/configsrv"
 	"github.com/athomecomar/athome/backend/users/server/signsrv"
 	"github.com/athomecomar/athome/backend/users/userconf"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"google.golang.org/grpc"
 )
 

@@ -6,10 +6,10 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
-	"github.com/athomecomar/athome/backend/users/pb/pbidentifier"
-	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/userconf"
+	"github.com/athomecomar/athome/pb/pbidentifier"
+	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"

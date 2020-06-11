@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/identifier/pb/pbidentifier"
 	"github.com/athomecomar/athome/backend/identifier/validate"
+	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/semantic/semprov"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"

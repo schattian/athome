@@ -7,8 +7,8 @@ import (
 
 	"github.com/athomecomar/athome/backend/images/imageconf"
 	"github.com/athomecomar/athome/backend/images/img"
-	"github.com/athomecomar/athome/backend/images/pb/pbauth"
-	"github.com/athomecomar/athome/backend/images/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )

@@ -3,8 +3,8 @@ package ent
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
-	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"

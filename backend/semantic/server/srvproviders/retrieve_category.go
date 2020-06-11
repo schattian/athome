@@ -5,9 +5,9 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/semantic/schema"
 	"github.com/athomecomar/athome/backend/semantic/server"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"

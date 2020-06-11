@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/address/addressconf"
-	"github.com/athomecomar/athome/backend/address/pb/pbaddress"
 	"github.com/athomecomar/athome/backend/address/server"
+	"github.com/athomecomar/athome/pb/pbaddress"
 	"google.golang.org/grpc"
 )
 

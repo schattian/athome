@@ -3,8 +3,8 @@ package srvcalendars
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/jmoiron/sqlx"
 )
 

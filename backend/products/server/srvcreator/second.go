@@ -6,9 +6,9 @@ import (
 
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/ent/stage"
-	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
-	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/products/server"
+	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"

@@ -3,7 +3,7 @@ package schema
 import (
 	"errors"
 
-	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 )
 

@@ -3,9 +3,9 @@ package ent
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/services/pb/pbaddress"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
-	"github.com/athomecomar/athome/backend/services/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/currency"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"

@@ -4,11 +4,11 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/athome/backend/semantic/semanticconf"
 	"github.com/athomecomar/athome/backend/semantic/server/srvmerchants"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproducts"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproviders"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"google.golang.org/grpc"
 )
 

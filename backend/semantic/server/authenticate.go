@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/semantic/pb/pbauth"
-	"github.com/athomecomar/athome/backend/semantic/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/semantic/semanticconf"
+	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc"

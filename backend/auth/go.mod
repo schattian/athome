@@ -6,6 +6,7 @@ require (
 	github.com/alicebob/miniredis v2.5.0+incompatible
 	github.com/alicebob/miniredis/v2 v2.11.4 // indirect
 	github.com/athomecomar/envconf v1.1.0
+	github.com/athomecomar/pb v0.0.0-20200611195403-f906817bf6d2
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.0.0-20200516201628-af9df9901326
 	github.com/client9/misspell v0.3.4 // indirect
@@ -22,9 +23,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	golang.org/x/net v0.0.0-20200513185701-a91f0712d120 // indirect
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
-	google.golang.org/genproto v0.0.0-20200515170657-fc4c6c6a6587 // indirect
 	google.golang.org/grpc v1.29.1
-	google.golang.org/protobuf v1.23.0
+	google.golang.org/protobuf v1.24.0
 	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
 	mvdan.cc/unparam v0.0.0-20200501210554-b37ab49443f7 // indirect
 )

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/services/ent/schedule"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )

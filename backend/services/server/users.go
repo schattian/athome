@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/services/pb/pbusers"
 	"github.com/athomecomar/athome/backend/services/serviceconf"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"

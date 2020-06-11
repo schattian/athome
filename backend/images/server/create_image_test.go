@@ -6,7 +6,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/athomecomar/athome/backend/images/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/xerrors"
 	"github.com/athomecomar/xtest"
 	"google.golang.org/grpc/status"

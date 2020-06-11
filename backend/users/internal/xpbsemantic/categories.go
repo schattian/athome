@@ -3,7 +3,7 @@ package xpbsemantic
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/address/addressconf"
-	"github.com/athomecomar/athome/backend/address/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/products/ent"
-	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/server"
+	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"

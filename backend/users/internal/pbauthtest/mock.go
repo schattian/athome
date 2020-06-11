@@ -3,7 +3,7 @@ package pbauthtest
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/users/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"

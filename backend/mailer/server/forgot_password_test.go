@@ -5,7 +5,7 @@ package server
 // 	"testing"
 
 // 	"github.com/alicebob/miniredis"
-// 	"github.com/athomecomar/athome/backend/auth/pb/pbauth"
+// 	"github.com/athomecomar/athome/pb/pbauth"
 // 	"github.com/athomecomar/xerrors"
 // 	"google.golang.org/grpc/status"
 // )

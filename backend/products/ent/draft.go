@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/athomecomar/athome/backend/products/ent/stage"
-	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
-	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"

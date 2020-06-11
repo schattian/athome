@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/products/ent"
-	"github.com/athomecomar/athome/backend/products/pb/pbauth"
 	"github.com/athomecomar/athome/backend/products/productconf"
+	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"

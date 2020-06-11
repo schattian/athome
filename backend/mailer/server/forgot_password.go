@@ -6,7 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/mailer/email"
 	"github.com/athomecomar/athome/backend/mailer/mailerconf"
-	"github.com/athomecomar/athome/backend/mailer/pb/pbmailer"
+	"github.com/athomecomar/athome/pb/pbmailer"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"

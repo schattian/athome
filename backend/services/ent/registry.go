@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/services/ent/stage"
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"

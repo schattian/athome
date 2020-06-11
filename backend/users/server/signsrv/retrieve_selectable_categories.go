@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/pb/pbusers"
 	"github.com/athomecomar/athome/backend/users/server"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"

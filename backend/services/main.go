@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/athome/backend/services/server/srvcalendars"
 	"github.com/athomecomar/athome/backend/services/server/srvregister"
 	"github.com/athomecomar/athome/backend/services/serviceconf"
+	"github.com/athomecomar/athome/pb/pbservices"
 	"google.golang.org/grpc"
 )
 
