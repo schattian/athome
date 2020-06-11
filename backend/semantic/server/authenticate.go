@@ -64,6 +64,5 @@ func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64
 	if draft.GetDraftId() != entityId {
 		return 0, status.Errorf(xerrors.PermissionDenied, "your draft is %d, while trying to edit %d", draft.GetDraftId(), entityId)
 	}
-
-	return draft.GetUserId(), nil
+	return draft.GetDraft().GetUserId(), nil
 }

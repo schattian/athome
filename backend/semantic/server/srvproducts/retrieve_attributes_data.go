@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveAttributesData(ctx context.Context, in *pbsemantic.RetrieveAttributesDataRequest) (*pbsemantic.RetrieveAttributesDataResponse, error) {
+func (s *Server) RetrieveAttributeDatas(ctx context.Context, in *pbsemantic.RetrieveAttributeDatasRequest) (*pbsemantic.RetrieveAttributeDatasResponse, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -21,18 +21,18 @@ func (s *Server) RetrieveAttributesData(ctx context.Context, in *pbsemantic.Retr
 		return nil, err
 	}
 	defer db.Close()
-	return s.retrieveAttributesData(ctx, db, in)
+	return s.retrieveAttributeDatas(ctx, db, in)
 }
 
-func (s *Server) retrieveAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributesDataRequest) (*pbsemantic.RetrieveAttributesDataResponse, error) {
-	atts, err := data.FindProductAttributesDataByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
+func (s *Server) retrieveAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributeDatasRequest) (*pbsemantic.RetrieveAttributeDatasResponse, error) {
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesDataByMatch: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
-	resp := &pbsemantic.RetrieveAttributesDataResponse{}
+	resp := &pbsemantic.RetrieveAttributeDatasResponse{}
+	resp.Attributes = make(map[uint64]*pbsemantic.AttributeData)
 	for _, att := range atts {
-		pbAtt := &pbsemantic.SetAttributesDataResponse{Data: server.DataAttributeToPbAttributeData(att), AttributeDataId: att.Id}
-		resp.Attributes = append(resp.Attributes, pbAtt)
+		resp.Attributes[att.Id] = data.AttributeToPb(att)
 	}
 
 	return resp, nil

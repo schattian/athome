@@ -3,6 +3,7 @@ package schema
 import (
 	"errors"
 
+	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 )
 
@@ -14,6 +15,30 @@ type Category interface {
 
 	GetParentId() uint64
 	SetParentId(uint64)
+}
+
+func CategoryToPb(c Category) *pbsemantic.Category {
+	return &pbsemantic.Category{
+		Name:     c.GetName(),
+		ParentId: c.GetParentId(),
+	}
+}
+
+func (t CategoryTree) ToPb() map[uint64]*pbsemantic.Category {
+	cats := make(map[uint64]*pbsemantic.Category)
+	for _, b := range t {
+		cats[b.GetId()] = b.ToPb()
+	}
+	return cats
+}
+
+func (b *CategoryBranch) ToPb() *pbsemantic.Category {
+	pbc := CategoryToPb(b.Category)
+	pbc.Childs = make(map[uint64]*pbsemantic.Category)
+	for _, child := range b.Leafs {
+		pbc.Childs[child.GetId()] = CategoryToPb(child)
+	}
+	return pbc
 }
 
 type CategoryBranch struct {

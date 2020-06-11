@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) CloneAttributesData(ctx context.Context, in *pbsemantic.CloneAttributesDataRequest) (*pbsemantic.CloneAttributesDataResponse, error) {
+func (s *Server) CloneAttributeDatas(ctx context.Context, in *pbsemantic.CloneAttributeDatasRequest) (*pbsemantic.CloneAttributeDatasResponse, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -28,13 +28,13 @@ func (s *Server) CloneAttributesData(ctx context.Context, in *pbsemantic.CloneAt
 	}
 	defer db.Close()
 
-	return s.cloneAttributesData(ctx, db, in)
+	return s.cloneAttributeDatas(ctx, db, in)
 }
 
-func (s *Server) cloneAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.CloneAttributesDataRequest) (*pbsemantic.CloneAttributesDataResponse, error) {
-	atts, err := data.FindProductAttributesDataByMatch(ctx, db, in.GetEntityTable(), in.GetFromEntityId())
+func (s *Server) cloneAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.CloneAttributeDatasRequest) (*pbsemantic.CloneAttributeDatasResponse, error) {
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetFromEntityId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesDataByMatch: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
 
 	var respData []*pbsemantic.AttributeData
@@ -45,17 +45,16 @@ func (s *Server) cloneAttributesData(ctx context.Context, db *sqlx.DB, in *pbsem
 			return nil, status.Errorf(xerrors.Internal, "Clone: %v", err)
 		}
 		clones = append(clones, clone)
-		respData = append(respData, server.DataAttributeToPbAttributeData(clone))
+		respData = append(respData, data.AttributeToPb(clone))
 	}
 	err = storeql.InsertIntoDB(ctx, db, clones...)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
-	resp := &pbsemantic.CloneAttributesDataResponse{}
-
+	resp := &pbsemantic.CloneAttributeDatasResponse{}
+	resp.Attributes = make(map[uint64]*pbsemantic.AttributeData)
 	for i, data := range respData {
-		att := &pbsemantic.SetAttributesDataResponse{AttributeDataId: clones[i].GetId(), Data: data}
-		resp.Attributes = append(resp.Attributes, att)
+		resp.Attributes[clones[i].GetId()] = data
 	}
 	return resp, nil
 }

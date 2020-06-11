@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) ChangeEntityAttributesData(ctx context.Context, in *pbsemantic.ChangeEntityAttributesDataRequest) (*emptypb.Empty, error) {
+func (s *Server) ChangeEntityAttributeDatas(ctx context.Context, in *pbsemantic.ChangeEntityAttributeDatasRequest) (*emptypb.Empty, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -35,13 +35,13 @@ func (s *Server) ChangeEntityAttributesData(ctx context.Context, in *pbsemantic.
 	}
 	defer db.Close()
 
-	return s.changeEntityAttributesData(ctx, db, in)
+	return s.changeEntityAttributeDatas(ctx, db, in)
 }
 
-func (s *Server) changeEntityAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.ChangeEntityAttributesDataRequest) (*emptypb.Empty, error) {
-	atts, err := data.FindProductAttributesDataByMatch(ctx, db, in.GetFromEntityTable(), in.GetFromEntityId())
+func (s *Server) changeEntityAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.ChangeEntityAttributeDatasRequest) (*emptypb.Empty, error) {
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetFromEntityTable(), in.GetFromEntityId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesDataByMatch: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
 
 	var storables []storeql.Storable

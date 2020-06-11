@@ -69,7 +69,7 @@ func (d *ProductAttributeData) Clone() (*ProductAttributeData, error) {
 	return &cp, nil
 }
 
-func FindProductAttributesDataByMatch(ctx context.Context, db *sqlx.DB, entityTable string, entityId uint64) ([]*ProductAttributeData, error) {
+func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entityTable string, entityId uint64) ([]*ProductAttributeData, error) {
 	rows, err := db.QueryxContext(ctx,
 		`SELECT * FROM product_attribute_datas WHERE entity_table=$1 AND entity_id=$2`,
 		entityTable, entityId,

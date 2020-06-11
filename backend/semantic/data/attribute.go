@@ -2,6 +2,7 @@ package data
 
 import (
 	"github.com/athomecomar/athome/backend/semantic/data/value"
+	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 	"github.com/pkg/errors"
 )
@@ -29,4 +30,11 @@ func MustUserId(d Attribute, uid uint64) error {
 	}
 	d.SetUserId(uid)
 	return nil
+}
+
+func AttributeToPb(d Attribute) *pbsemantic.AttributeData {
+	return &pbsemantic.AttributeData{
+		SchemaId: d.GetSchemaId(),
+		Values:   d.GetValue().Strings(),
+	}
 }

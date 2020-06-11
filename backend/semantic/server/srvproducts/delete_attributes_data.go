@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) DeleteAttributesData(ctx context.Context, in *pbsemantic.DeleteAttributesDataRequest) (*emptypb.Empty, error) {
+func (s *Server) DeleteAttributeDatas(ctx context.Context, in *pbsemantic.DeleteAttributeDatasRequest) (*emptypb.Empty, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -29,13 +29,13 @@ func (s *Server) DeleteAttributesData(ctx context.Context, in *pbsemantic.Delete
 	}
 	defer db.Close()
 
-	return s.deleteAttributesData(ctx, db, in)
+	return s.deleteAttributeDatas(ctx, db, in)
 }
 
-func (s *Server) deleteAttributesData(ctx context.Context, db *sqlx.DB, in *pbsemantic.DeleteAttributesDataRequest) (*emptypb.Empty, error) {
-	atts, err := data.FindProductAttributesDataByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
+func (s *Server) deleteAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.DeleteAttributeDatasRequest) (*emptypb.Empty, error) {
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesDataByMatch: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
 	var sts []storeql.Storable
 	for _, att := range atts {

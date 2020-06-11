@@ -3,6 +3,7 @@ package schema
 import (
 	"github.com/athomecomar/athome/backend/semantic/data"
 	"github.com/athomecomar/athome/backend/semantic/data/value"
+	"github.com/athomecomar/athome/backend/semantic/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 )
 
@@ -19,4 +20,12 @@ type Attribute interface {
 	SetCategoryId(p uint64)
 
 	NewData() (data.Attribute, error)
+}
+
+func AttributeToPb(c Attribute) *pbsemantic.AttributeSchema {
+	return &pbsemantic.AttributeSchema{
+		Name:       c.GetName(),
+		ValueType:  string(c.GetValueType()),
+		CategoryId: c.RetrieveCategoryId(),
+	}
 }

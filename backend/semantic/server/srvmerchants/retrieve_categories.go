@@ -41,5 +41,5 @@ func (s *Server) getCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.Re
 		}
 	}
 
-	return server.CategoryTreeToRetrieveCategoriesResponse(tree), nil
+	return &pbsemantic.RetrieveCategoriesResponse{Categories: tree.ToPb()}, nil
 }

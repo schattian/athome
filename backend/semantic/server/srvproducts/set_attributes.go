@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServer) error {
+func (s *Server) SetAttributeDatas(srv pbsemantic.Products_SetAttributeDatasServer) error {
 	ctx := srv.Context()
 	context.WithTimeout(ctx, 500*time.Second)
 
@@ -59,7 +59,7 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 			continue
 		}
 
-		resp, err := s.setAttributesData(ctx, db, in.GetData(), userId, entityTable, entityId)
+		resp, err := s.setAttributeDatas(ctx, db, in.GetData(), userId, entityTable, entityId)
 		if err != nil {
 			return err
 		}
@@ -71,17 +71,17 @@ func (s *Server) SetAttributesData(srv pbsemantic.Products_SetAttributesDataServ
 	}
 }
 
-func (s *Server) setAttributesData(
+func (s *Server) setAttributeDatas(
 	ctx context.Context,
 	db *sqlx.DB,
 	in *pbsemantic.AttributeData,
 	userId uint64,
 	entityTable string,
 	entityId uint64,
-) (*pbsemantic.SetAttributesDataResponse, error) {
+) (*pbsemantic.SetAttributeDatasResponse, error) {
 	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetSchemaId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributesSchema: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeSchemas: %v", err)
 	}
 
 	var d data.Attribute
@@ -114,8 +114,8 @@ func (s *Server) setAttributesData(
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
 
-	return &pbsemantic.SetAttributesDataResponse{
+	return &pbsemantic.SetAttributeDatasResponse{
 		AttributeDataId: d.GetId(),
-		Data:            server.DataAttributeToPbAttributeData(d),
+		Data:            data.AttributeToPb(d),
 	}, nil
 }
