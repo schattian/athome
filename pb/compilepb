@@ -5,7 +5,6 @@ cd $DIR/pb
 export DIR=$(pwd)
 export BACKEND_DIR=$DIR/../../backend
 svcs="users semantic address identifier auth mailer products images services"
-
 #  --js_out="library=pb_$1,binary:js" \
 pbcompile()
 {
@@ -14,7 +13,7 @@ protoc \
   -I ${GOPATH}/src \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
   --go_out="plugins=grpc:../" \
-  --go_out="plugins=grpc:../" \
+  --validate_out="lang=go:../" \
   $1.proto
 
 ../cleanpb ./$1.proto > ./clean/$1.proto
@@ -34,7 +33,7 @@ pbpropague()
 		exit 3
 	fi
 	cd $BACKEND_DIR
-	go get -u github.com/athomecomar/athome/pb@$2
+	go get -u github.com/athomecomar/athome/pb
 	go mod tidy
 	cd $DIR
 }
@@ -43,7 +42,9 @@ pbrelease()
 {
 	echo release tag:
 	read TAG
+	export TAG
 	git tag ${TAG} || (echo "TAG ${TAG} ALREADY EXISTS" && exit 3)
+	git push origin master
 	git push origin ${TAG}
 }
 
