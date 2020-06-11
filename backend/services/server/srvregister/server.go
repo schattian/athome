@@ -7,7 +7,6 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/stage"
-	"github.com/athomecomar/athome/backend/services/pb/pbauth"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -23,8 +22,8 @@ func mustStage(got stage.Stage, want stage.Stage) error {
 	return nil
 }
 
-func retrieveRegistryByUser(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, access string, authFn server.AuthFunc) (*ent.Registry, error) {
-	userId, err := authFn(ctx, c, access)
+func retrieveRegistryByUser(ctx context.Context, db *sqlx.DB, authFn server.AuthFunc) (*ent.Registry, error) {
+	userId, err := authFn(ctx)
 	if err != nil {
 		return nil, err
 	}

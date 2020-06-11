@@ -24,7 +24,7 @@ type Service struct {
 }
 
 func FindService(ctx context.Context, db *sqlx.DB, id uint64) (*Service, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM registries WHERE id=$1`, id)
+	row := db.QueryRowxContext(ctx, `SELECT * FROM services WHERE id=$1`, id)
 	svc := &Service{}
 	err := row.StructScan(svc)
 	if err != nil {
@@ -36,7 +36,7 @@ func FindService(ctx context.Context, db *sqlx.DB, id uint64) (*Service, error) 
 func (s *Service) User(ctx context.Context, user pbusers.ViewerClient) (*pbservices.User, error) {
 	resp, err := user.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: s.UserId})
 	if err != nil {
-		return nil, errors.Wrap(err, "user.ViewUser")
+		return nil, errors.Wrap(err, "user.RetrieveUser")
 	}
 	return &pbservices.User{
 		Name:    resp.GetUser().GetName(),

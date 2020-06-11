@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/services/ent"
-	"github.com/athomecomar/athome/backend/services/pb/pbauth"
+	"github.com/athomecomar/athome/backend/services/ent/schedule"
 	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/storeql"
@@ -28,11 +28,11 @@ func (s *Server) CreateCalendar(ctx context.Context, in *pbservices.CreateCalend
 	}
 	defer authCloser()
 
-	return s.createCalendar(ctx, db, auth, server.GetUserFromAccessToken, in)
+	return s.createCalendar(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()), in)
 }
 
-func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authFn server.AuthFunc, in *pbservices.CreateCalendarRequest) (*pbservices.CreateCalendarResponse, error) {
-	userId, err := authFn(ctx, auth, in.GetAccessToken())
+func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, authFn server.AuthFunc, in *pbservices.CreateCalendarRequest) (*pbservices.CreateCalendarResponse, error) {
+	userId, err := authFn(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -44,16 +44,19 @@ func (s *Server) createCalendar(ctx context.Context, db *sqlx.DB, auth pbauth.Au
 		}
 		availabilities = append(availabilities, availability)
 	}
-	if ent.CheckOverlappingPairwise(availabilities) {
+	availabilitiesTimer := ent.AvailabilitiesToTimeables(availabilities)
+
+	if schedule.ComparePairwise(schedule.NotNullIntersection, availabilitiesTimer...) {
 		return nil, status.Errorf(xerrors.InvalidArgument, "trying to perform a self-overlapping of availabilities")
 	}
+
 	pbCalendar := in.GetCalendar()
 	avs, err := ent.AvailabilitiesByUserGroup(ctx, db, userId, pbCalendar.GetGroupId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "AvailabilitiesByUser: %v", err)
 	}
 	for _, av := range avs {
-		if av.CheckOverlappingPairwise(availabilities) {
+		if schedule.CompareWithSlice(schedule.NotNullIntersection, av, availabilitiesTimer...) {
 			return nil, status.Errorf(xerrors.InvalidArgument, "tried to overlap availability")
 		}
 	}

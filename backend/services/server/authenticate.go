@@ -10,16 +10,18 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func GetUserFromAccessToken(ctx context.Context, c pbauth.AuthClient, access string) (uint64, error) {
-	resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
-	if err != nil {
-		return 0, err
-	}
+func GetUserFromAccessToken(c pbauth.AuthClient, access string) AuthFunc {
+	return func(ctx context.Context) (uint64, error) {
+		resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
+		if err != nil {
+			return 0, err
+		}
 
-	return resp.GetUserId(), nil
+		return resp.GetUserId(), nil
+	}
 }
 
-type AuthFunc func(ctx context.Context, c pbauth.AuthClient, access string) (uint64, error)
+type AuthFunc func(ctx context.Context) (uint64, error)
 
 func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 	conn, err := grpc.Dial(serviceconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())

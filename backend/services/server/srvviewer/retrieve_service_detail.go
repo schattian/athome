@@ -51,6 +51,10 @@ func (s *Server) retrieveServiceDetail(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindService: %v", err)
 	}
+	c, err := server.RetrieveCalendarDetail(ctx, db, svc.CalendarId)
+	if err != nil {
+		return nil, err
+	}
 	user, err := svc.User(ctx, users)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "svc.User: %v", err)
@@ -59,15 +63,12 @@ func (s *Server) retrieveServiceDetail(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "svc.Address: %v", err)
 	}
-	calendar, err := svc.Calendar(ctx, db)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "svc.Calendar: %v", err)
-	}
+
 	resp := &pbservices.RetrieveServiceDetailResponse{
 		Service:  svc.ToPb(),
 		Address:  address,
 		User:     user,
-		Calendar: calendar.ToPb(),
+		Calendar: c,
 	}
 	return resp, nil
 }

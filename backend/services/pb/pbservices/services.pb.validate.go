@@ -579,6 +579,111 @@ var _ interface {
 	ErrorName() string
 } = RetrieveMyCalendarsResponseValidationError{}
 
+// Validate checks the field values on Event with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Event) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for CalendarId
+
+	// no validation rules for ClaimantId
+
+	if _, ok := _Event_Dow_InLookup[m.GetDow()]; !ok {
+		return EventValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
+	if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EventValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EventValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// EventValidationError is the validation error returned by Event.Validate if
+// the designated constraints aren't met.
+type EventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EventValidationError) ErrorName() string { return "EventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EventValidationError{}
+
+var _Event_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
+
 // Validate checks the field values on RetrieveRegistryRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1642,6 +1747,23 @@ func (m *CalendarDetail) Validate() error {
 
 	}
 
+	for key, val := range m.GetEvents() {
+		_ = val
+
+		// no validation rules for Events[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CalendarDetailValidationError{
+					field:  fmt.Sprintf("Events[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -1698,6 +1820,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CalendarDetailValidationError{}
+
+// Validate checks the field values on CreateEventRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateEventRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for CalendarId
+
+	if v, ok := interface{}(m.GetEvent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateEventRequestValidationError{
+				field:  "Event",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateEventRequestValidationError is the validation error returned by
+// CreateEventRequest.Validate if the designated constraints aren't met.
+type CreateEventRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateEventRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateEventRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateEventRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateEventRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateEventRequestValidationError) ErrorName() string {
+	return "CreateEventRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateEventRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateEventRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateEventRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateEventRequestValidationError{}
+
+// Validate checks the field values on CreateEventResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateEventResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for EventId
+
+	if v, ok := interface{}(m.GetEvent()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateEventResponseValidationError{
+				field:  "Event",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateEventResponseValidationError is the validation error returned by
+// CreateEventResponse.Validate if the designated constraints aren't met.
+type CreateEventResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateEventResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateEventResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateEventResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateEventResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateEventResponseValidationError) ErrorName() string {
+	return "CreateEventResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateEventResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateEventResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateEventResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateEventResponseValidationError{}
 
 // Validate checks the field values on CreateCalendarResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1870,6 +2152,8 @@ func (m *Availability) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	// no validation rules for CalendarId
 
 	if _, ok := _Availability_Dow_InLookup[m.GetDow()]; !ok {
 		return AvailabilityValidationError{

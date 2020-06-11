@@ -29,7 +29,7 @@ func (s *Server) Second(ctx context.Context, in *pbservices.SecondRequest) (*emp
 		return nil, err
 	}
 
-	reg, err := retrieveRegistryByUser(ctx, db, auth, in.GetAccessToken(), server.GetUserFromAccessToken)
+	reg, err := retrieveRegistryByUser(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()))
 	if err != nil {
 		return nil, err
 	}

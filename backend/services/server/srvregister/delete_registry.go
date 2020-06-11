@@ -26,7 +26,7 @@ func (s *Server) DeleteRegistry(ctx context.Context, in *pbservices.DeleteRegist
 	if err != nil {
 		return nil, err
 	}
-	reg, err := retrieveRegistryByUser(ctx, db, auth, in.GetAccessToken(), server.GetUserFromAccessToken)
+	reg, err := retrieveRegistryByUser(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()))
 	if err != nil {
 		return nil, err
 	}

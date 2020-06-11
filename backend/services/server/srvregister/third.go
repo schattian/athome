@@ -27,7 +27,7 @@ func (s *Server) Third(ctx context.Context, in *pbservices.ThirdRequest) (*pbser
 		return nil, err
 	}
 
-	reg, err := retrieveRegistryByUser(ctx, db, auth, in.GetAccessToken(), server.GetUserFromAccessToken)
+	reg, err := retrieveRegistryByUser(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()))
 	if err != nil {
 		return nil, err
 	}

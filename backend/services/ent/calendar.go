@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/services/pb/pbservices"
+	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -51,19 +52,19 @@ func (c *Calendar) ToPb() *pbservices.Calendar {
 }
 
 func FindCalendar(ctx context.Context, db *sqlx.DB, id uint64) (*Calendar, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM calendars WHERE id=$1`, id)
-	prod := &Calendar{}
-	err := row.StructScan(prod)
+	c := &Calendar{}
+	row := storeql.Where(ctx, db, c, `id=$1`, id)
+	err := row.StructScan(c)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
 	}
-	return prod, nil
+	return c, nil
 }
 
 func (c *Calendar) Availabilities(ctx context.Context, db *sqlx.DB) ([]*Availability, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM availabilities WHERE calendar_id=$1`, c.Id)
+	rows, err := storeql.WhereMany(ctx, db, &Availability{}, `calendar_id=$1`, c.Id)
 	if err != nil {
-		return nil, errors.Wrap(err, "QueryxContext")
+		return nil, errors.Wrap(err, "WhereMany")
 	}
 	defer rows.Close()
 	var avs []*Availability
@@ -78,12 +79,52 @@ func (c *Calendar) Availabilities(ctx context.Context, db *sqlx.DB) ([]*Availabi
 	return avs, nil
 }
 
-func AvailabilitiesByUserGroup(ctx context.Context, db *sqlx.DB, uid, gid uint64) ([]*Availability, error) {
-	rows, err := db.QueryxContext(ctx,
-		`SELECT * FROM availabilities WHERE calendar_id IN (SELECT id FROM calendars WHERE user_id=$1 AND group_id=$2)`,
-		uid, gid)
+func (c *Calendar) Events(ctx context.Context, db *sqlx.DB) ([]*Event, error) {
+	rows, err := storeql.WhereMany(ctx, db, &Event{}, `calendar_id=$1`, c.Id)
 	if err != nil {
-		return nil, errors.Wrap(err, "QueryxContext")
+		return nil, errors.Wrap(err, "WhereMany")
+	}
+	defer rows.Close()
+	var avs []*Event
+	for rows.Next() {
+		av := &Event{}
+		err := rows.StructScan(av)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		avs = append(avs, av)
+	}
+	return avs, nil
+}
+
+func (c *Calendar) Detail(ctx context.Context, db *sqlx.DB) (*pbservices.CalendarDetail, error) {
+	resp := &pbservices.CalendarDetail{}
+	avs, err := c.Availabilities(ctx, db)
+	if err != nil {
+		return nil, errors.Wrap(err, "Availabilities")
+	}
+	es, err := c.Events(ctx, db)
+	if err != nil {
+		return nil, errors.Wrap(err, "Events")
+	}
+
+	calDetail := &pbservices.CalendarDetail{Calendar: c.ToPb()}
+	calDetail.Availabilities = make(map[uint64]*pbservices.Availability)
+	for _, av := range avs {
+		calDetail.Availabilities[av.Id] = av.ToPb()
+	}
+
+	calDetail.Events = make(map[uint64]*pbservices.Event)
+	for _, e := range es {
+		calDetail.Events[e.Id] = e.ToPb()
+	}
+	return resp, nil
+}
+
+func AvailabilitiesByUserGroup(ctx context.Context, db *sqlx.DB, uid, gid uint64) ([]*Availability, error) {
+	rows, err := storeql.WhereMany(ctx, db, &Availability{}, `calendar_id IN (SELECT id FROM calendars WHERE user_id=$1 AND group_id=$2)`, uid, gid)
+	if err != nil {
+		return nil, errors.Wrap(err, "WhereMany")
 	}
 	defer rows.Close()
 	var avs []*Availability

@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent/stage"
 	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/currency"
+	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -38,6 +39,15 @@ func (r *Registry) ToService() *Service {
 		PriceMin:          r.PriceMin,
 		CalendarId:        r.CalendarId,
 	}
+}
+func (r *Registry) Calendar(ctx context.Context, db *sqlx.DB) (*Calendar, error) {
+	c := &Calendar{}
+	row := storeql.Where(ctx, db, c, `id=$1`, r.CalendarId)
+	err := row.StructScan(c)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return nil, nil
 }
 
 func NewRegistry(userId uint64) *Registry {

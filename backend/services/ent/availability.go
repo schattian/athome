@@ -6,7 +6,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/athomecomar/athome/backend/services/ent/schedule"
 	"github.com/athomecomar/athome/backend/services/pb/pbservices"
+	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -34,6 +36,7 @@ func AvailabilityFromPb(in *pbservices.Availability) (*Availability, error) {
 	return &Availability{
 		DayOfWeek: dow,
 
+		CalendarId:  in.GetCalendarId(),
 		StartHour:   in.GetStart().GetHour(),
 		StartMinute: in.GetStart().GetMinute(),
 		EndHour:     in.GetEnd().GetHour(),
@@ -43,9 +46,10 @@ func AvailabilityFromPb(in *pbservices.Availability) (*Availability, error) {
 
 func (av *Availability) ToPb() *pbservices.Availability {
 	return &pbservices.Availability{
-		Dow:   strings.ToLower(av.DayOfWeek.String()),
-		Start: &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
-		End:   &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
+		Dow:        strings.ToLower(av.DayOfWeek.String()),
+		CalendarId: av.CalendarId,
+		Start:      &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
+		End:        &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
 	}
 }
 
@@ -73,7 +77,7 @@ func DayOfWeekByName(s string) (time.Weekday, error) {
 }
 
 func FindAvailability(ctx context.Context, db *sqlx.DB, id uint64) (*Availability, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM availabilities WHERE id=$1`, id)
+	row := storeql.Where(ctx, db, &Availability{}, "id=$1", id)
 	av := &Availability{}
 	err := row.StructScan(av)
 	if err != nil {
@@ -82,53 +86,17 @@ func FindAvailability(ctx context.Context, db *sqlx.DB, id uint64) (*Availabilit
 	return av, nil
 }
 
-func (av *Availability) StartAbs() int64 {
-	return absTs(av.StartHour, av.StartMinute)
-}
-
-func absTs(h, m int64) int64 {
-	return h*60 + m
-}
-
-func (av *Availability) EndAbs() int64 {
-	return absTs(av.EndHour, av.EndMinute)
-}
-
-func (av *Availability) CheckOverlappingPairwise(avs []*Availability) bool {
-	for _, avi := range avs {
-		if av.Overlaps(avi) {
-			return true
-		}
+func AvailabilitiesToTimeables(avs []*Availability) (as []schedule.Scheduleable) {
+	for _, av := range avs {
+		as = append(as, av)
 	}
-	return false
+	return
 }
 
-func CheckOverlappingPairwise(avs []*Availability) bool {
-	for i, avi := range avs {
-		for j, avj := range avs {
-			if j == i {
-				continue
-			}
-			if avi.Overlaps(avj) {
-				return true
-			}
-		}
-	}
-	return false
-}
+func (av *Availability) GetDayOfWeek() time.Weekday { return av.DayOfWeek }
 
-func (av *Availability) Overlaps(a *Availability) bool {
-	if av.DayOfWeek != a.DayOfWeek {
-		return false
-	}
+func (av *Availability) GetStartHour() int64   { return av.StartHour }
+func (av *Availability) GetStartMinute() int64 { return av.StartMinute }
 
-	startAbs, endAbs := av.StartAbs(), av.EndAbs()
-	if startAbs >= endAbs {
-		return false
-	}
-	if endAbs <= startAbs {
-		return false
-	}
-
-	return true
-}
+func (av *Availability) GetEndHour() int64   { return av.EndHour }
+func (av *Availability) GetEndMinute() int64 { return av.EndMinute }

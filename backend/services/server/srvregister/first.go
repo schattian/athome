@@ -7,7 +7,6 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/stage"
-	"github.com/athomecomar/athome/backend/services/pb/pbauth"
 	"github.com/athomecomar/athome/backend/services/pb/pbservices"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/storeql"
@@ -31,11 +30,11 @@ func (s *Server) First(ctx context.Context, in *pbservices.FirstRequest) (*pbser
 	}
 	defer authCloser()
 
-	return s.first(ctx, db, auth, server.GetUserFromAccessToken, in)
+	return s.first(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()), in)
 }
 
-func (s *Server) first(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, authFn server.AuthFunc, in *pbservices.FirstRequest) (*pbservices.FirstResponse, error) {
-	userId, err := authFn(ctx, auth, in.GetAccessToken())
+func (s *Server) first(ctx context.Context, db *sqlx.DB, authFn server.AuthFunc, in *pbservices.FirstRequest) (*pbservices.FirstResponse, error) {
+	userId, err := authFn(ctx)
 	if err != nil {
 		return nil, err
 	}
