@@ -3,6 +3,7 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
@@ -45,7 +46,7 @@ func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.Pro
 		return nil, errors.Wrap(err, "InsertIntoDB")
 	}
 
-	_, err = sem.ChangeEntityAttributesData(ctx, &pbsemantic.ChangeEntityAttributesDataRequest{
+	_, err = sem.ChangeEntityAttributeDatas(ctx, &pbsemantic.ChangeEntityAttributeDatasRequest{
 		AccessToken:     access,
 		FromEntityTable: ln.SQLTable(),
 		FromEntityId:    ln.Id,
@@ -56,6 +57,27 @@ func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.Pro
 		return nil, err
 	}
 	return prod, nil
+}
+
+func (ln *DraftLine) ToPb(atts []*pbproducts.AttributeData) *pbproducts.DraftLine {
+	return &pbproducts.DraftLine{
+		DraftLineId: ln.Id,
+
+		First: &pbproducts.DraftLineFirst{
+			Title:      ln.Title,
+			CategoryId: ln.CategoryId,
+		},
+
+		Second: &pbproducts.DraftLineSecond{
+			Price:      ln.Price.Float64(),
+			Stock:      ln.Stock,
+			Attributes: atts,
+		},
+
+		Third: &pbproducts.DraftLineThird{
+			ImageIds: ln.ImageIds,
+		},
+	}
 }
 
 func (ln *DraftLine) Draft(ctx context.Context, db *sqlx.DB) (*Draft, error) {

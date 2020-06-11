@@ -64,48 +64,26 @@ func (s *Server) cloneDraftLine(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		return nil, err
 	}
 
-	pbLn := draftLineToPbDraftLine(cpLn, atts)
-	return &pbproducts.CloneDraftLineResponse{DraftLine: pbLn}, nil
-}
-
-func draftLineToPbDraftLine(ln *ent.DraftLine, atts []*pbproducts.AttributeData) *pbproducts.DraftLine {
-	return &pbproducts.DraftLine{
-		DraftLineId: ln.Id,
-
-		First: &pbproducts.DraftLineFirst{
-			Title:      ln.Title,
-			CategoryId: ln.CategoryId,
-		},
-
-		Second: &pbproducts.DraftLineSecond{
-			Price:      ln.Price.Float64(),
-			Stock:      ln.Stock,
-			Attributes: atts,
-		},
-
-		Third: &pbproducts.DraftLineThird{
-			ImageIds: ln.ImageIds,
-		},
-	}
+	return &pbproducts.CloneDraftLineResponse{DraftLine: cpLn.ToPb(atts)}, nil
 }
 
 func cloneAttributes(ctx context.Context, c pbsemantic.ProductsClient, from, dest storeql.Storable, access string) ([]*pbproducts.AttributeData, error) {
 	if from.SQLTable() != dest.SQLTable() {
 		return nil, status.Error(xerrors.InvalidArgument, "couldnt clone attributes from different entity table")
 	}
-	req := &pbsemantic.CloneAttributesDataRequest{
+	req := &pbsemantic.CloneAttributeDatasRequest{
 		AccessToken:  access,
 		EntityTable:  from.SQLTable(),
 		DestEntityId: dest.GetId(),
 		FromEntityId: from.GetId(),
 	}
-	resp, err := c.CloneAttributesData(ctx, req)
+	resp, err := c.CloneAttributeDatas(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	var atts []*pbproducts.AttributeData
 	for _, respAtt := range resp.Attributes {
-		atts = append(atts, server.PbSemanticToPbProductAttributes(respAtt.Data))
+		atts = append(atts, server.PbSemanticToPbProductAttributes(respAtt))
 	}
 	return atts, nil
 }

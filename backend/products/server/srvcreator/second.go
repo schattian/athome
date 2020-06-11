@@ -83,13 +83,13 @@ func (s *Server) second(ctx context.Context, db *sqlx.DB, sem pbsemantic.Product
 		return nil, status.Errorf(xerrors.Internal, "LineById: %v", err)
 	}
 
-	semSrv, err := sem.SetAttributesData(ctx)
+	semSrv, err := sem.SetAttributeDatas(ctx)
 	if err != nil {
 		return nil, err
 	}
-	authReq := &pbsemantic.SetAttributesDataRequest{
-		Corpus: &pbsemantic.SetAttributesDataRequest_Authorization_{
-			Authorization: &pbsemantic.SetAttributesDataRequest_Authorization{
+	authReq := &pbsemantic.SetAttributeDatasRequest{
+		Corpus: &pbsemantic.SetAttributeDatasRequest_Authorization_{
+			Authorization: &pbsemantic.SetAttributeDatasRequest_Authorization{
 				AccessToken: access,
 				EntityTable: ln.SQLTable(),
 				EntityId:    ln.Id,
@@ -102,8 +102,8 @@ func (s *Server) second(ctx context.Context, db *sqlx.DB, sem pbsemantic.Product
 	}
 
 	for _, att := range in.GetDraftLine().Attributes {
-		req := &pbsemantic.SetAttributesDataRequest{
-			Corpus: &pbsemantic.SetAttributesDataRequest_Data{
+		req := &pbsemantic.SetAttributeDatasRequest{
+			Corpus: &pbsemantic.SetAttributeDatasRequest_Data{
 				Data: &pbsemantic.AttributeData{
 					SchemaId: att.GetSchemaId(),
 					Values:   att.GetValues(),

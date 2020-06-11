@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/athomecomar/athome/backend/products/ent/stage"
+	"github.com/athomecomar/athome/backend/products/pb/pbproducts"
 	"github.com/athomecomar/athome/backend/products/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
@@ -50,6 +51,12 @@ func (d *Draft) Prev(ctx context.Context, db *sqlx.DB) error {
 	}
 
 	return nil
+}
+func (d *Draft) ToPb() *pbproducts.Draft {
+	return &pbproducts.Draft{
+		UserId: d.UserId,
+		Stage:  uint64(d.Stage),
+	}
 }
 
 func (d *Draft) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, lns []*DraftLine, access string) (prods []*Product, err error) {

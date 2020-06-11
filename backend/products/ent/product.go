@@ -36,62 +36,62 @@ func FindProduct(ctx context.Context, db *sqlx.DB, id uint64) (*Product, error) 
 	return prod, nil
 }
 
+func (p *Product) ToPb() *pbproducts.Product {
+	return &pbproducts.Product{
+		Title:      p.Title,
+		CategoryId: p.CategoryId,
+		Price:      p.Price.Float64(),
+		Stock:      p.Stock,
+		ImageIds:   p.ImageIds,
+	}
+}
+
 func (p *Product) GetUser(ctx context.Context, users pbusers.ViewerClient) (*pbproducts.User, error) {
-	resp, err := users.ViewUser(ctx, &pbusers.ViewUserRequest{UserId: p.UserId})
+	resp, err := users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: p.UserId})
 	if err != nil {
 		return nil, errors.Wrap(err, "ViewUser")
 	}
-	return &pbproducts.User{Name: resp.GetName(), Surname: resp.GetSurname()}, nil
+	return &pbproducts.User{Name: resp.GetUser().GetName(), Surname: resp.GetUser().GetSurname()}, nil
 }
 
-func (p *Product) GetImages(ctx context.Context, img pbimages.ImagesClient) ([]string, error) {
+func (p *Product) GetImages(ctx context.Context, img pbimages.ImagesClient) (map[string]*pbproducts.Image, error) {
 	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{Ids: p.ImageIds})
 	if err != nil {
 		return nil, errors.Wrap(err, "RetrieveImages")
 	}
-	var uris []string
-	for _, image := range resp.GetImages() {
-		uris = append(uris, image.GetUri())
+
+	images := make(map[string]*pbproducts.Image)
+	for id, image := range resp.GetImages() {
+		images[id] = &pbproducts.Image{Uri: image.Uri}
 	}
-	return uris, nil
+	return images, nil
 }
 
-func (p *Product) GetViewableAttributes(ctx context.Context, sem pbsemantic.ProductsClient) ([]*pbproducts.ViewableAttributeData, error) {
-	schemas, err := sem.RetrieveAttributesSchema(ctx, &pbsemantic.RetrieveAttributesSchemaRequest{CategoryId: p.CategoryId})
+func (p *Product) GetAttributes(ctx context.Context, sem pbsemantic.ProductsClient) (map[uint64]*pbproducts.Attribute, error) {
+	schemas, err := sem.RetrieveAttributeSchemas(ctx, &pbsemantic.RetrieveAttributeSchemasRequest{CategoryId: p.CategoryId})
 	if err != nil {
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesSchema")
 	}
-	datas, err := sem.RetrieveAttributesData(ctx, &pbsemantic.RetrieveAttributesDataRequest{EntityId: p.Id, EntityTable: p.SQLTable()})
+	datas, err := sem.RetrieveAttributeDatas(ctx, &pbsemantic.RetrieveAttributeDatasRequest{EntityId: p.Id, EntityTable: p.SQLTable()})
 	if err != nil {
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesData")
 	}
-	var atts []*pbproducts.ViewableAttributeData
-	for _, data := range datas.GetAttributes() {
-		schema := schemaById(data.GetData().GetSchemaId(), schemas.GetAttributes())
-		if schema == nil {
-			return nil, fmt.Errorf("couldnt find schema with id: %v for attribute data: %v", data.GetData().GetSchemaId(), data.GetAttributeDataId())
+	atts := make(map[uint64]*pbproducts.Attribute)
+	for id, data := range datas.GetAttributes() {
+		schema, ok := schemas.GetAttributes()[data.GetSchemaId()]
+		if !ok {
+			return nil, fmt.Errorf("couldnt find schema with id: %v for attribute data: %v", data.GetSchemaId(), id)
 		}
-		atts = append(atts, attributeFromDataAndSchema(data.GetData(), schema))
+		atts[id] = attributeFromDataAndSchema(data, schema)
 	}
 
 	return atts, nil
 }
 
-func attributeFromDataAndSchema(data *pbsemantic.AttributeData, schema *pbsemantic.AttributeSchema) *pbproducts.ViewableAttributeData {
-	return &pbproducts.ViewableAttributeData{
+func attributeFromDataAndSchema(data *pbsemantic.AttributeData, schema *pbsemantic.AttributeSchema) *pbproducts.Attribute {
+	return &pbproducts.Attribute{
 		Name:      schema.GetName(),
 		ValueType: schema.GetValueType(),
 		Values:    data.GetValues(),
-		SchemaId:  schema.GetId(),
 	}
-}
-
-func schemaById(id uint64, schemas []*pbsemantic.AttributeSchema) *pbsemantic.AttributeSchema {
-	for _, schema := range schemas {
-		if schema.GetId() == id {
-			return schema
-		}
-	}
-
-	return nil
 }

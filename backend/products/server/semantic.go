@@ -50,9 +50,9 @@ func PbSemanticToPbProductAttributes(att *pbsemantic.AttributeData) *pbproducts.
 	}
 }
 
-func PbSemanticRetrieveAttributesDataToPbProductAttributes(r *pbsemantic.RetrieveAttributesDataResponse) (atts []*pbproducts.AttributeData) {
-	for _, att := range r.GetAttributes() {
-		atts = append(atts, PbSemanticToPbProductAttributes(att.Data))
+func PbSemanticRetrieveAttributesDataToPbProductAttributes(r *pbsemantic.RetrieveAttributeDatasResponse) (atts []*pbproducts.AttributeData) {
+	for _, data := range r.GetAttributes() {
+		atts = append(atts, PbSemanticToPbProductAttributes(data))
 	}
 	return atts
 }

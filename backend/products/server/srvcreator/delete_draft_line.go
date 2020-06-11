@@ -77,12 +77,12 @@ func (s *Server) deleteDraftLine(ctx context.Context, db *sqlx.DB, sem pbsemanti
 }
 
 func deleteAttributes(ctx context.Context, c pbsemantic.ProductsClient, from storeql.Storable, access string) error {
-	req := &pbsemantic.DeleteAttributesDataRequest{
+	req := &pbsemantic.DeleteAttributeDatasRequest{
 		AccessToken: access,
 		EntityTable: from.SQLTable(),
 		EntityId:    from.GetId(),
 	}
-	_, err := c.DeleteAttributesData(ctx, req)
+	_, err := c.DeleteAttributeDatas(ctx, req)
 	if err != nil {
 		return err
 	}

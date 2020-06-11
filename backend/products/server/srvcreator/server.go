@@ -1,4 +1,3 @@
 package srvcreator
 
-type Server struct {
-}
+type Server struct{}

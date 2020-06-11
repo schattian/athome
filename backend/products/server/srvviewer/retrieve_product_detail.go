@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.RetrieveProductDetailRequest) (*pbproducts.RetrieveProductDetailResponse, error) {
+func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.RetrieveProductDetailRequest) (*pbproducts.ProductDetail, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.Retri
 func (s *Server) retrieveProductDetail(ctx context.Context, db *sqlx.DB,
 	users pbusers.ViewerClient, sem pbsemantic.ProductsClient, img pbimages.ImagesClient,
 	in *pbproducts.RetrieveProductDetailRequest,
-) (*pbproducts.RetrieveProductDetailResponse, error) {
+) (*pbproducts.ProductDetail, error) {
 	prod, err := ent.FindProduct(ctx, db, in.GetProductId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "product with id %d wasnt found", in.GetProductId())
@@ -59,7 +59,7 @@ func (s *Server) retrieveProductDetail(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "FindProduct: %v", err)
 	}
 
-	atts, err := prod.GetViewableAttributes(ctx, sem)
+	atts, err := prod.GetAttributes(ctx, sem)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "GetViewableAttributes: %v", err)
 	}
@@ -67,17 +67,16 @@ func (s *Server) retrieveProductDetail(ctx context.Context, db *sqlx.DB,
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "GetImages: %v", err)
 	}
+
 	user, err := prod.GetUser(ctx, users)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "GetImages: %v", err)
 	}
-	return &pbproducts.RetrieveProductDetailResponse{
-		Title:      prod.Title,
-		CategoryId: prod.CategoryId,
-		Price:      prod.Price.Float64(),
-		Stock:      prod.Stock,
+
+	return &pbproducts.ProductDetail{
+		Product:    prod.ToPb(),
 		Attributes: atts,
-		ImageUris:  imgs,
+		Images:     imgs,
 		User:       user,
 	}, nil
 }
