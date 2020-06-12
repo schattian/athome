@@ -11,6 +11,7 @@ require (
 	github.com/client9/misspell v0.3.4 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.3.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
+	github.com/golang/mock v1.4.3 // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/google/go-cmp v0.4.1
 	github.com/gordonklaus/ineffassign v0.0.0-20200309095847-7953dde2c7bf // indirect

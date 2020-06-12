@@ -15,13 +15,13 @@ protoc \
   --go_out="plugins=grpc:../" \
   --validate_out="lang=go:../" \
   $1.proto
-
 ../cleanpb ./$1.proto > ./clean/$1.proto
 }
 
 pbadd()
 {
 	git add ../pb$1
+	git add ../test/pb${svc}test/mock.go
 	git commit -m "pb/pb$1: Bump to latest version"
 }
 
@@ -51,6 +51,41 @@ pbrelease()
 for svc in $svcs
 do
 	pbcompile $svc
+
+    testdir=../test/pb${svc}test
+    pkgdir=../pb${svc}
+    
+    if [ ! -d $testdir ]
+    then
+      mkdir -p $testdir 
+    fi
+
+    if [ ${svc} = products ]
+    then
+        symbols=CreatorClient,Creator_SecondClient,Creator_ThirdClient,ViewerClient
+        cd ${pkgdir}
+        mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
+        cd ../pb
+    elif [ ${svc} = semantic ]
+    then
+        symbols=ServiceProvidersClient,MerchantsClient,ProductsClient,Products_PredictCategoryClient,Products_SetAttributeDatasClient
+        cd ${pkgdir}
+        mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
+        cd ../pb
+    elif [ ${svc} = images ]
+    then
+        symbols=Images_CreateImageClient,ImagesClient
+        cd ${pkgdir}
+        mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
+        cd ../pb
+    else
+        result=$(mockgen -source ${pkgdir}/${svc}.pb.go -destination ${testdir}/mock.go -package pb${svc}test || echo xd)
+        if [ ! ${result} = "" ]
+        then
+          echo $svc
+          exit 3
+        fi  
+    fi
     pbadd $svc
 done
 
