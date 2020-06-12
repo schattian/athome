@@ -533,3 +533,23 @@ func (mr *MockViewerClientMockRecorder) RetrieveProductDetail(arg0, arg1 interfa
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveProductDetail", reflect.TypeOf((*MockViewerClient)(nil).RetrieveProductDetail), varargs...)
 }
+
+// SearchProducts mocks base method
+func (m *MockViewerClient) SearchProducts(arg0 context.Context, arg1 *pbproducts.SearchProductsRequest, arg2 ...grpc.CallOption) (*pbproducts.SearchProductsResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SearchProducts", varargs...)
+	ret0, _ := ret[0].(*pbproducts.SearchProductsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchProducts indicates an expected call of SearchProducts
+func (mr *MockViewerClientMockRecorder) SearchProducts(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchProducts", reflect.TypeOf((*MockViewerClient)(nil).SearchProducts), varargs...)
+}
