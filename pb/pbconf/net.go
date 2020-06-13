@@ -32,11 +32,11 @@ var (
 	Identifier = &service{Name: "identifier"}
 	Users      = &service{Name: "users"}
 
-	Semantic = &service{Name: "semantic"}
-	Products = &service{Name: "products"}
-	Images   = &service{Name: "images"}
-	Services = &service{Name: "services"}
-	Address  = &service{Name: "address"}
+	Semantic  = &service{Name: "semantic"}
+	Products  = &service{Name: "products"}
+	Images    = &service{Name: "images"}
+	Services  = &service{Name: "services"}
+	Addresses = &service{Name: "address"}
 )
 
 var devPorts = map[string]string{
