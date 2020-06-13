@@ -8,7 +8,9 @@ option go_package = "./pbservices";
 package services;
 
 service Viewer{
-  rpc RetrieveServiceDetail (RetrieveServiceDetailRequest) returns (RetrieveServiceDetailResponse){}
+  rpc SearchServices (SearchServicesRequest) returns (SearchServicesResponse){}
+
+  rpc RetrieveServiceDetail (RetrieveServiceDetailRequest) returns (ServiceDetail){}
 }
 
 service Calendars{
@@ -30,11 +32,40 @@ service Register{
   rpc Third (ThirdRequest) returns (ThirdResponse) {}
 }
 
+message SearchServicesRequest {
+  string query = 1;
+  PageRequest page = 2;
+}
+
+message SearchServicesResponse {
+  map <uint64, ServiceSearchResult> services = 1;
+  PageResponse page = 2;
+}
+
+message PageRequest {
+  string cursor = 1;
+  uint64 size = 2;
+}
+
+message PageResponse {
+  string next_cursor = 1;
+  uint64 total_size = 2;
+}
+
 message RetrieveServiceDetailRequest {
   uint64 service_id = 1;
 }
 
-message RetrieveServiceDetailResponse {
+message ServiceSearchResult {
+  message Service{
+    string title = 2;
+    Price price = 4;
+  }
+  Service service = 1;
+  User user = 2;
+}
+
+message ServiceDetail {
   Service service = 1;
   User user = 2;
   Address address = 3;
@@ -98,7 +129,7 @@ message RegistryDetail {
 
 message Service {
   uint64 address_id = 1;
-  string name = 2;
+  string title = 2;
   uint64 duration_in_minutes = 3;
   Price price = 4;
   uint64 calendar_id = 5;
@@ -123,7 +154,7 @@ message FirstResponse {
 
 message SecondRequest {
   message Body {
-    string name = 1;
+    string title = 1;
     uint64 duration_in_minutes = 2;
     Price price = 3;
   }

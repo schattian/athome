@@ -8,10 +8,20 @@ option go_package = "./pbproducts";
 package products;
 
 service Viewer {
-//  rpc SearchProducts (stream SearchProductsRequest) returns (search SearchProductsResponse){}
+  rpc SearchProducts (SearchProductsRequest) returns (SearchProductsResponse){}
 //  rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
 
   rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (ProductDetail){}
+}
+
+message SearchProductsRequest {
+  string query = 1;
+  PageRequest page = 2;
+}
+
+message SearchProductsResponse {
+  map <uint64, ProductSearchResult> products = 1;
+  PageResponse page = 2;
 }
 
 message RetrieveProductDetailRequest {
@@ -38,6 +48,16 @@ message ProductDetail {
   User user = 2;
   map<uint64, Attribute> attributes = 3;
   map<string, Image> images = 4;
+}
+
+message ProductSearchResult {
+  message Product {
+    string title = 1;
+    double price = 2;
+  }
+  Product product = 1;
+  User user = 2;
+  map<string, Image> images = 3;
 }
 
 message User {
@@ -172,7 +192,12 @@ message DraftDetail{
   map<uint64, DraftLine> lines = 3;
 }
 
-message Page {
-  uint64 cursor = 1;
+message PageRequest {
+  string cursor = 1;
   uint64 size = 2;
+}
+
+message PageResponse {
+  string next_cursor = 1;
+  uint64 total_size = 2;
 }
