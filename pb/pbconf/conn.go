@@ -124,7 +124,7 @@ func ConnServicesRegister(ctx context.Context) (pbservices.RegisterClient, func(
 	return c, conn.Close, nil
 }
 
-func ConnAddressesRegister(ctx context.Context) (pbaddress.AddressesClient, func() error, error) {
+func ConnAddresses(ctx context.Context) (pbaddress.AddressesClient, func() error, error) {
 	host := Addresses.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
