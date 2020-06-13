@@ -46,6 +46,16 @@ func (m *SearchProductsRequest) Validate() error {
 
 	// no validation rules for Query
 
+	if v, ok := interface{}(m.GetPage()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchProductsRequestValidationError{
+				field:  "Page",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -2023,9 +2033,10 @@ var _ interface {
 	ErrorName() string
 } = DraftDetailValidationError{}
 
-// Validate checks the field values on Page with the rules defined in the proto
-// definition for this message. If any rules are violated, an error is returned.
-func (m *Page) Validate() error {
+// Validate checks the field values on PageRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PageRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -2037,9 +2048,9 @@ func (m *Page) Validate() error {
 	return nil
 }
 
-// PageValidationError is the validation error returned by Page.Validate if the
-// designated constraints aren't met.
-type PageValidationError struct {
+// PageRequestValidationError is the validation error returned by
+// PageRequest.Validate if the designated constraints aren't met.
+type PageRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2047,22 +2058,22 @@ type PageValidationError struct {
 }
 
 // Field function returns field value.
-func (e PageValidationError) Field() string { return e.field }
+func (e PageRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e PageValidationError) Reason() string { return e.reason }
+func (e PageRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e PageValidationError) Cause() error { return e.cause }
+func (e PageRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e PageValidationError) Key() bool { return e.key }
+func (e PageRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PageValidationError) ErrorName() string { return "PageValidationError" }
+func (e PageRequestValidationError) ErrorName() string { return "PageRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e PageValidationError) Error() string {
+func (e PageRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2074,14 +2085,14 @@ func (e PageValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPage.%s: %s%s",
+		"invalid %sPageRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PageValidationError{}
+var _ error = PageRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -2089,7 +2100,76 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PageValidationError{}
+} = PageRequestValidationError{}
+
+// Validate checks the field values on PageResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PageResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for NextCursor
+
+	// no validation rules for TotalSize
+
+	return nil
+}
+
+// PageResponseValidationError is the validation error returned by
+// PageResponse.Validate if the designated constraints aren't met.
+type PageResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageResponseValidationError) ErrorName() string { return "PageResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PageResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPageResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageResponseValidationError{}
 
 // Validate checks the field values on SecondRequest_Body with the rules
 // defined in the proto definition for this message. If any rules are
