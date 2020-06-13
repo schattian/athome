@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/DATA-DOG/go-sqlmock v1.4.1
 	github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5 // indirect
-	github.com/athomecomar/athome/pb v0.0.0-20200612182330-5f1bf6cd55b8
+	github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/semantic v0.2.1
 	github.com/athomecomar/storeql v1.5.4

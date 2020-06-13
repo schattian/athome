@@ -6,12 +6,14 @@ import (
 
 	"github.com/athomecomar/athome/backend/images/imageconf"
 	"github.com/athomecomar/athome/backend/images/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	port := imageconf.GetPORT()
+	svc := pbconf.Images
+	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

@@ -4,16 +4,17 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/semantic/semanticconf"
 	"github.com/athomecomar/athome/backend/semantic/server/srvmerchants"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproducts"
 	"github.com/athomecomar/athome/backend/semantic/server/srvproviders"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	port := semanticconf.GetPORT()
+	svc := pbconf.Semantic
+	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

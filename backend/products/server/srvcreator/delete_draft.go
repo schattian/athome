@@ -35,7 +35,7 @@ func (s *Server) DeleteDraft(ctx context.Context, in *pbproducts.DeleteDraftRequ
 		return nil, err
 	}
 
-	sem, semCloser, err := pbconf.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemanticProducts(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -8,14 +8,13 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent"
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
@@ -30,16 +29,15 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbusers.SwitchRoleRequest) 
 	}
 	defer db.Close()
 
-	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
+		return nil, err
 	}
-	defer conn.Close()
-	c := pbauth.NewAuthClient(conn)
+	defer authCloser()
 
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	return s.switchRole(ctx, db, c, in)
+	return s.switchRole(ctx, db, auth, in)
 }
 
 func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.SwitchRoleRequest) (*pbusers.SignResponse, error) {

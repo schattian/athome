@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/mailer/mailerconf"
 	"github.com/athomecomar/athome/backend/mailer/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbmailer"
 	"github.com/matcornic/hermes/v2"
 	"gopkg.in/gomail.v2"
@@ -14,7 +15,8 @@ import (
 )
 
 func main() {
-	port := mailerconf.GetPORT()
+	svc := pbconf.Mailer
+	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/images/imageconf"
 	"github.com/athomecomar/athome/backend/images/img"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
@@ -16,7 +17,7 @@ import (
 func (s *Server) CreateImage(srv pbimages.Images_CreateImageServer) error {
 	ctx := srv.Context()
 	resp := &pbimages.CreateImageResponse{}
-	auth, authCloser, err := ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return err
 	}

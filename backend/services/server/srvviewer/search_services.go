@@ -9,6 +9,7 @@ import (
 	"unicode"
 
 	"github.com/athomecomar/athome/backend/services/ent"
+	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbsemantic"
@@ -26,11 +27,12 @@ func (s *Server) SearchServices(ctx context.Context, in *pbservices.SearchServic
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	img, imgCloser, err := pbconf.ConnImages(ctx)
+	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
 	}
 
+	sem, semCloser, err := pbconf.ConnSemanticServiceProviders(ctx)
 	defer semCloser()
 
 	img, imgCloser, err := pbconf.ConnImages(ctx)
@@ -39,7 +41,7 @@ func (s *Server) SearchServices(ctx context.Context, in *pbservices.SearchServic
 	}
 	defer imgCloser()
 
-	users, usersCloser, err := pbconf.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +50,7 @@ func (s *Server) SearchServices(ctx context.Context, in *pbservices.SearchServic
 	return s.searchServices(ctx, db, sem, users, img, in)
 }
 
-func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, users pbusers.ViewerClient, img pbimages.ImagesClient, in *pbservices.SearchServicesRequest) (*pbservices.SearchServicesResponse, error) {
+func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic.ServiceProvidersClient, users pbusers.ViewerClient, img pbimages.ImagesClient, in *pbservices.SearchServicesRequest) (*pbservices.SearchServicesResponse, error) {
 	q, err := toNormal(in.GetQuery())
 	if err != nil {
 		return nil, err

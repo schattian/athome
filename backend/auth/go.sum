@@ -6,8 +6,11 @@ github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6 h1:45bxf7AZMw
 github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6/go.mod h1:SGnFV6hVsYE877CKEZ6tDNTjaSXYUk6QqoIK6PrAtcc=
 github.com/alicebob/miniredis v2.5.0+incompatible h1:yBHoLpsyjupjz3NL3MhKMVkR41j82Yjf3KFv7ApYzUI=
 github.com/alicebob/miniredis v2.5.0+incompatible/go.mod h1:8HZjEj4yU0dwhYHky+DxYx+6BMjkBbe5ONFIF1MXffk=
+github.com/athomecomar/athome v0.3.12 h1:QTU/DYaNUuwm0vHn6CnEOlFxImdayI+BNSZYovYFDjE=
 github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee h1:Lg8SfVm9B7cVMzeWH76ftXctdOb6dbgashzCbwWyXi0=
 github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee/go.mod h1:wa/p/62S/cZfU2hAB32vJE0aLHz174pAqichJKrS0VA=
+github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae h1:DUCqlxJivdsoLaXSiJq/u16lOmT2MuOmdo74+jJcT3Y=
+github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=
@@ -31,6 +34,7 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZm
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
 github.com/envoyproxy/protoc-gen-validate v0.1.0 h1:EQciDnbrYxy13PgWoY8AqoxGiPrpgBZ1R8UNe3ddc+A=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
+github.com/envoyproxy/protoc-gen-validate v0.3.0 h1:Y2J74o+yAfcD8jpqtkLnUqRo+yshLr4eR1WPYGX0cic=
 github.com/envoyproxy/protoc-gen-validate v0.3.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/fatih/color v1.9.0/go.mod h1:eQcE1qtQxscV5RaZvpXrrb8Drkc3/DdQ+uUYCNjL+zU=
 github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV9I=

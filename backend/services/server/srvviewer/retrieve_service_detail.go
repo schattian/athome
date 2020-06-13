@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
@@ -24,12 +25,12 @@ func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.Retri
 		return nil, err
 	}
 	defer db.Close()
-	addr, addrCloser, err := server.ConnAddress(ctx)
+	addr, addrCloser, err := pbconf.ConnAddresses(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer addrCloser()
-	users, usersCloser, err := pbconf.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

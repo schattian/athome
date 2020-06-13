@@ -4,14 +4,15 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/address/addressconf"
 	"github.com/athomecomar/athome/backend/address/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	port := addressconf.GetPORT()
+	svc := pbconf.Addresses
+	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

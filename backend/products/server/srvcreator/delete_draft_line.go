@@ -29,7 +29,7 @@ func (s *Server) DeleteDraftLine(ctx context.Context, in *pbproducts.DeleteDraft
 	}
 	defer db.Close()
 
-	sem, semCloser, err := pbconf.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemanticProducts(ctx)
 	if err != nil {
 		return nil, err
 	}

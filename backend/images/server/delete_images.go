@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
@@ -11,7 +12,7 @@ import (
 )
 
 func (s *Server) DeleteImages(ctx context.Context, in *pbimages.DeleteImagesRequest) (*emptypb.Empty, error) {
-	auth, authCloser, err := ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

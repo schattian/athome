@@ -33,7 +33,7 @@ func (s *Server) SearchProducts(ctx context.Context, in *pbproducts.SearchProduc
 	}
 	defer db.Close()
 
-	sem, semCloser, err := pbconf.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemanticProducts(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (s *Server) SearchProducts(ctx context.Context, in *pbproducts.SearchProduc
 	}
 	defer imgCloser()
 
-	users, usersCloser, err := pbconf.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

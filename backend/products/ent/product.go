@@ -48,7 +48,7 @@ func (p *Product) ToPb() *pbproducts.Product {
 
 func (p *Product) ToPbSearchResult(ctx context.Context, users pbusers.ViewerClient, img pbimages.ImagesClient) (*pbproducts.ProductSearchResult, error) {
 	var err error
-	resp := &pbproducts.ProductSearchResult{Title: p.Title, Price: p.Price.Float64()}
+	resp := &pbproducts.ProductSearchResult{Product: &pbproducts.ProductSearchResult_Product{Title: p.Title, Price: p.Price.Float64()}}
 	resp.User, err = p.GetUser(ctx, users)
 	if err != nil {
 		return nil, errors.Wrap(err, "GetUser")

@@ -38,6 +38,7 @@ github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb
 github.com/athomecomar/athome v0.0.0-20200611210535-894bd35b4bd6 h1:frIHTSfhcg0slF+abIVb+St+n0MSV6l+FYdw5nNDnLI=
 github.com/athomecomar/athome v0.2.3 h1:HExV9o36wZYWWPbQFCrkplrhxzZu+bnv4oNSjZZGEww=
 github.com/athomecomar/athome v0.3.9 h1:+fvOw9yG4xql6OMZmxqkoHFBlZ84cD36icnbrdM5xRE=
+github.com/athomecomar/athome v0.3.12 h1:QTU/DYaNUuwm0vHn6CnEOlFxImdayI+BNSZYovYFDjE=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22 h1:hdDLdUStpfZNcGeuv2fiTquJfZuqoM/qQAQW6/H0ejM=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22/go.mod h1:jqHG9LUZ/NrYhU2GYQwmz/y64oFAavLI+/jxIpXzXvI=
 github.com/athomecomar/athome/pb v0.0.0-20200611210535-894bd35b4bd6 h1:tJyiajPVxCE+VXULtVC17gkS1/IlKIstvA+rLeA8vqU=
@@ -48,10 +49,16 @@ github.com/athomecomar/athome/pb v0.0.0-20200613144549-ef445669ca22 h1:BWKtskU6q
 github.com/athomecomar/athome/pb v0.0.0-20200613144549-ef445669ca22/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
 github.com/athomecomar/athome/pb v0.0.0-20200613145848-dd6b913b4107 h1:/tIfAUkQnBC6RuS9aB3PvWlAyqlLZ8ZVdnAjlucEuwo=
 github.com/athomecomar/athome/pb v0.0.0-20200613145848-dd6b913b4107/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
+github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae h1:DUCqlxJivdsoLaXSiJq/u16lOmT2MuOmdo74+jJcT3Y=
+github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
+github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7 h1:YRaUrMfXLRogNbLPS0/m5A5TbGaA8efDlOMy3Py0EsQ=
+github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=
 github.com/athomecomar/currency v0.1.0/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
+github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=
+github.com/athomecomar/envconf v1.2.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.4.5/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
 github.com/athomecomar/storeql v1.5.4 h1:hInuGQBo6HIttfLkrZEcNWp/Sc6azeNrr8bSxKiPuEk=
 github.com/athomecomar/storeql v1.5.4/go.mod h1:SR4g5IIplzvnDjVJCq5iyUzLatxygqc+4/WOFcYAJ0U=

@@ -37,7 +37,7 @@ func (s *Server) retrieveImages(ctx context.Context, in *pbimages.RetrieveImages
 		case err := <-errCh:
 			return nil, err
 		case resp := <-respCh:
-			response.Images = append(response.Images, resp)
+			response.Images[resp.Uri] = resp
 		case <-done:
 			return response, nil
 		}

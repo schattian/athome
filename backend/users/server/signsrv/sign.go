@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
@@ -14,7 +15,6 @@ import (
 	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/xerrors"
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
@@ -22,16 +22,15 @@ func (s *Server) Sign(ctx context.Context, in *pbusers.SignRequest) (*pbusers.Si
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
+		return nil, err
 	}
-	defer conn.Close()
-	c := pbauth.NewAuthClient(conn)
+	defer authCloser()
 
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	return s.sign(ctx, c, in)
+	return s.sign(ctx, auth, in)
 }
 
 func (s *Server) sign(ctx context.Context, c pbauth.AuthClient, in *pbusers.SignRequest) (*pbusers.SignResponse, error) {

@@ -7,13 +7,14 @@ import (
 	"github.com/athomecomar/athome/backend/services/server/srvcalendars"
 	"github.com/athomecomar/athome/backend/services/server/srvregister"
 	"github.com/athomecomar/athome/backend/services/server/srvviewer"
-	"github.com/athomecomar/athome/backend/services/serviceconf"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	port := serviceconf.GetPORT()
+	svc := pbconf.Services
+	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

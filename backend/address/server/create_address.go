@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/address/ent"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -21,7 +22,7 @@ func (s *Server) CreateAddress(ctx context.Context, in *pbaddress.CreateAddressR
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

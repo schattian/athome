@@ -4,9 +4,9 @@ go 1.14
 
 require (
 	github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22
-	github.com/athomecomar/athome/pb v0.0.0-20200613145848-dd6b913b4107
+	github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7
 	github.com/athomecomar/currency v0.1.0
-	github.com/athomecomar/envconf v1.1.0
+	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/envoyproxy/protoc-gen-validate v0.3.0

@@ -29,7 +29,7 @@ func (s *Server) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequ
 		return nil, err
 	}
 	defer authCloser()
-	users, usersCloser, err := pbconf.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

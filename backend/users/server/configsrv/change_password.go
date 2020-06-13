@@ -8,13 +8,12 @@ import (
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"golang.org/x/crypto/bcrypt"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/backend/users/userconf"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
 	_ "github.com/lib/pq"
 )
@@ -30,16 +29,15 @@ func (s *Server) ChangePassword(ctx context.Context, in *pbusers.ChangePasswordR
 	}
 	defer db.Close()
 
-	conn, err := grpc.Dial(userconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetAUTH_ADDR())
+		return nil, err
 	}
-	c := pbauth.NewAuthClient(conn)
+	defer authCloser()
 
-	defer conn.Close()
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	return s.changePassword(ctx, db, c, in)
+	return s.changePassword(ctx, db, auth, in)
 }
 
 func (s *Server) changePassword(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.ChangePasswordRequest) (*emptypb.Empty, error) {

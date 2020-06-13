@@ -5,12 +5,11 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/backend/users/userconf"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbmailer"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -25,16 +24,16 @@ func (s *Server) ForgotPassword(ctx context.Context, in *pbusers.ForgotPasswordR
 	}
 	defer db.Close()
 
-	conn, err := grpc.Dial(userconf.GetMAILER_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	m, mCloser, err := pbconf.ConnMailer(ctx)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, userconf.GetMAILER_ADDR())
+		return nil, err
 	}
-	defer conn.Close()
+	defer mCloser()
 
-	return s.forgotPassword(ctx, db, conn, in)
+	return s.forgotPassword(ctx, db, m, in)
 }
 
-func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, conn *grpc.ClientConn, in *pbusers.ForgotPasswordRequest) (*emptypb.Empty, error) {
+func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, m pbmailer.MailerClient, in *pbusers.ForgotPasswordRequest) (*emptypb.Empty, error) {
 	rows, err := db.QueryxContext(ctx, `SELECT id, role FROM users WHERE email=$1 limit 3`, in.GetEmail())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
@@ -56,8 +55,7 @@ func (s *Server) forgotPassword(ctx context.Context, db *sqlx.DB, conn *grpc.Cli
 		tokenizedUsers = append(tokenizedUsers, tokenizedUser)
 	}
 
-	mailer := pbmailer.NewMailerClient(conn)
-	_, err = mailer.ForgotPassword(ctx, &pbmailer.ForgotPasswordRequest{TokenizedUsers: tokenizedUsers, Email: in.GetEmail()})
+	_, err = m.ForgotPassword(ctx, &pbmailer.ForgotPasswordRequest{TokenizedUsers: tokenizedUsers, Email: in.GetEmail()})
 	if err != nil {
 		return nil, err
 	}

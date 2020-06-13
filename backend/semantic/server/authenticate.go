@@ -3,26 +3,16 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/semantic/semanticconf"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
-func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
-	conn, err := grpc.Dial(semanticconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
-	if err != nil {
-		return nil, nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, semanticconf.GetAUTH_ADDR())
-	}
-	c := pbauth.NewAuthClient(conn)
-	return c, conn.Close, nil
-}
-
 func GetUserFromAccessToken(ctx context.Context, db *sqlx.DB, access string) (uint64, error) {
-	c, closer, err := ConnAuth(ctx)
+	c, closer, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return 0, err
 	}
@@ -51,12 +41,11 @@ func AuthorizeThroughEntity(ctx context.Context, access string, entityId uint64,
 }
 
 func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64) (uint64, error) {
-	conn, err := grpc.Dial(semanticconf.GetPRODUCTS_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
+	c, closer, err := pbconf.ConnProductsCreator(ctx)
 	if err != nil {
-		return 0, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, semanticconf.GetAUTH_ADDR())
+		return 0, err
 	}
-	defer conn.Close()
-	c := pbproducts.NewCreatorClient(conn)
+	defer closer()
 	draft, err := c.RetrieveDraft(ctx, &pbproducts.RetrieveDraftRequest{AccessToken: access})
 	if err != nil {
 		return 0, err
