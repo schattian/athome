@@ -26,7 +26,7 @@ func (s *Server) CloneDraftLine(ctx context.Context, in *pbproducts.CloneDraftLi
 	}
 	defer db.Close()
 
-	sem, semCloser, err := server.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemantic(ctx)
 	if err != nil {
 		return nil, err
 	}

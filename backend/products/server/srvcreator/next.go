@@ -22,7 +22,7 @@ func (s *Server) Next(ctx context.Context, in *pbproducts.StageChangeRequest) (*
 	if err != nil {
 		return nil, err
 	}
-	sem, semCloser, err := server.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemantic(ctx)
 	if err != nil {
 		return nil, err
 	}

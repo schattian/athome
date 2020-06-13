@@ -7,6 +7,7 @@ import (
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
 	"github.com/athomecomar/athome/backend/users/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/semantic/semerr"
@@ -33,7 +34,7 @@ func (s *Server) SignUpIdentification(ctx context.Context, in *pbusers.SignUpIde
 		return nil, err
 	}
 
-	iden, idenCloser, err := server.ConnIdentifier(ctx)
+	iden, idenCloser, err := pbconf.ConnIdentifier(ctx)
 	if err != nil {
 		return nil, err
 	}

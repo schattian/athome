@@ -25,7 +25,7 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 		return err
 	}
 
-	sem, semCloser, err := server.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemantic(ctx)
 	if err != nil {
 		return err
 	}

@@ -4,12 +4,11 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/products/ent"
-	"github.com/athomecomar/athome/backend/products/productconf"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
@@ -22,18 +21,8 @@ func GetUserFromAccessToken(ctx context.Context, c pbauth.AuthClient, access str
 	return resp.GetUserId(), nil
 }
 
-func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
-	conn, err := grpc.Dial(productconf.GetAUTH_ADDR(), grpc.WithInsecure(), grpc.WithBlock())
-
-	if err != nil {
-		return nil, nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, productconf.GetAUTH_ADDR())
-	}
-	c := pbauth.NewAuthClient(conn)
-	return c, conn.Close, nil
-}
-
 func RetrieveLatestDraft(ctx context.Context, db *sqlx.DB, accessToken string) (*ent.Draft, error) {
-	c, closer, err := ConnAuth(ctx)
+	c, closer, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

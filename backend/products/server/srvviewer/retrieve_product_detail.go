@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
@@ -26,19 +27,19 @@ func (s *Server) RetrieveProductDetail(ctx context.Context, in *pbproducts.Retri
 	}
 	defer db.Close()
 
-	sem, semCloser, err := server.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemantic(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer semCloser()
 
-	img, imgCloser, err := server.ConnImages(ctx)
+	img, imgCloser, err := pbconf.ConnImages(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer imgCloser()
 
-	users, usersCloser, err := server.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsers(ctx)
 	if err != nil {
 		return nil, err
 	}

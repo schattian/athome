@@ -29,7 +29,7 @@ func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraft
 		return nil, err
 	}
 
-	sem, semCloser, err := server.ConnSemantic(ctx)
+	sem, semCloser, err := pbconf.ConnSemantic(ctx)
 	if err != nil {
 		return nil, err
 	}
