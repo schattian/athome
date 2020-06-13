@@ -546,9 +546,15 @@ func (m *ProductSearchResult) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Title
-
-	// no validation rules for Price
+	if v, ok := interface{}(m.GetProduct()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProductSearchResultValidationError{
+				field:  "Product",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -2268,6 +2274,78 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PageResponseValidationError{}
+
+// Validate checks the field values on ProductSearchResult_Product with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ProductSearchResult_Product) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Title
+
+	// no validation rules for Price
+
+	return nil
+}
+
+// ProductSearchResult_ProductValidationError is the validation error returned
+// by ProductSearchResult_Product.Validate if the designated constraints
+// aren't met.
+type ProductSearchResult_ProductValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProductSearchResult_ProductValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProductSearchResult_ProductValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProductSearchResult_ProductValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProductSearchResult_ProductValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProductSearchResult_ProductValidationError) ErrorName() string {
+	return "ProductSearchResult_ProductValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProductSearchResult_ProductValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProductSearchResult_Product.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProductSearchResult_ProductValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProductSearchResult_ProductValidationError{}
 
 // Validate checks the field values on SecondRequest_Body with the rules
 // defined in the proto definition for this message. If any rules are
