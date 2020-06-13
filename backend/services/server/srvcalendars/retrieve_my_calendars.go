@@ -7,6 +7,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -22,7 +23,7 @@ func (s *Server) RetrieveMyCalendars(ctx context.Context, in *pbservices.Retriev
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := server.ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

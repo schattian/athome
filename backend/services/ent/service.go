@@ -17,7 +17,7 @@ type Service struct {
 	AddressId  uint64 `json:"address_id,omitempty"`
 	CalendarId uint64 `json:"calendar_id,omitempty"`
 
-	Name              string       `json:"name,omitempty"`
+	Title             string       `json:"title,omitempty"`
 	DurationInMinutes uint64       `json:"duration_in_minutes,omitempty"`
 	PriceMin          currency.ARS `json:"price_min,omitempty"`
 	PriceMax          currency.ARS `json:"price_max,omitempty"`
@@ -65,14 +65,35 @@ func (s *Service) Address(ctx context.Context, addr pbaddress.AddressesClient) (
 	}, nil
 }
 
+func (s *Service) PbPrice() *pbservices.Price {
+	return &pbservices.Price{
+		Min: s.PriceMin.Float64(),
+		Max: s.PriceMax.Float64(),
+	}
+}
+
+func (s *Service) ToPbSearchResult(ctx context.Context, users pbusers.ViewerClient) (*pbservices.ServiceSearchResult, error) {
+	user, err := s.User(ctx, users)
+	if err != nil {
+		return nil, errors.Wrap(err, "User")
+	}
+	return &pbservices.ServiceSearchResult{
+		User: user,
+		Service: &pbservices.ServiceSearchResult_Service{
+			Title: s.Title,
+			Price: s.PbPrice(),
+		},
+	}, nil
+}
+
 func (s *Service) ToPb() *pbservices.Service {
 	return &pbservices.Service{
-		Name:       s.Name,
+		Title:      s.Title,
 		UserId:     s.UserId,
 		AddressId:  s.AddressId,
 		CalendarId: s.CalendarId,
 
 		DurationInMinutes: s.DurationInMinutes,
-		Price:             &pbservices.Price{Min: s.PriceMin.Float64(), Max: s.PriceMax.Float64()},
+		Price:             s.PbPrice(),
 	}
 }

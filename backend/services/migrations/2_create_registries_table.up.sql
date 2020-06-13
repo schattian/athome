@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS registries(
     --
     address_id int,
     --
-    name varchar(30),
+    title varchar(30),
     duration_in_minutes int,
     price_min int,
     price_max int,

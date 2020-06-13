@@ -21,7 +21,7 @@ func (u *Service) SQLMap() map[string]driver.Value {
 		"calendar_id": u.CalendarId,
 		"address_id":  u.AddressId,
 
-		"name":                u.Name,
+		"title":               u.Title,
 		"duration_in_minutes": u.DurationInMinutes,
 		"price_min":           u.PriceMin,
 		"price_max":           u.PriceMax,

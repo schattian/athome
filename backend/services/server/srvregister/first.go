@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/stage"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -24,7 +25,7 @@ func (s *Server) First(ctx context.Context, in *pbservices.FirstRequest) (*pbser
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := server.ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

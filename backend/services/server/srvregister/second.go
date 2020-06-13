@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/stage"
 	"github.com/athomecomar/athome/backend/services/server"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
@@ -24,7 +25,7 @@ func (s *Server) Second(ctx context.Context, in *pbservices.SecondRequest) (*emp
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := server.ConnAuth(ctx)
+	auth, authCloser, err := pbconf.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +55,7 @@ func (s *Server) second(ctx context.Context, db *sqlx.DB, in *pbservices.SecondR
 
 func applySecondRequestToRegistry(f *pbservices.SecondRequest_Body, r *ent.Registry) *ent.Registry {
 	r.DurationInMinutes = f.GetDurationInMinutes()
-	r.Name = f.GetName()
+	r.Title = f.GetTitle()
 	r.PriceMax = currency.ToARS(f.GetPrice().GetMax())
 	r.PriceMin = currency.ToARS(f.GetPrice().GetMin())
 	return r

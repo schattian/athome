@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest) (*pbservices.RetrieveServiceDetailResponse, error) {
+func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest) (*pbservices.ServiceDetail, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.Retri
 		return nil, err
 	}
 	defer addrCloser()
-	users, usersCloser, err := server.ConnUsers(ctx)
+	users, usersCloser, err := pbconf.ConnUsers(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (s *Server) retrieveServiceDetail(
 	addr pbaddress.AddressesClient,
 	users pbusers.ViewerClient,
 	in *pbservices.RetrieveServiceDetailRequest,
-) (*pbservices.RetrieveServiceDetailResponse, error) {
+) (*pbservices.ServiceDetail, error) {
 	svc, err := ent.FindService(ctx, db, in.GetServiceId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "FindService with id: %v", in.GetServiceId())
@@ -64,7 +64,7 @@ func (s *Server) retrieveServiceDetail(
 		return nil, status.Errorf(xerrors.Internal, "svc.Address: %v", err)
 	}
 
-	resp := &pbservices.RetrieveServiceDetailResponse{
+	resp := &pbservices.ServiceDetail{
 		Service:  svc.ToPb(),
 		Address:  address,
 		User:     user,

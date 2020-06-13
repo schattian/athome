@@ -20,7 +20,7 @@ type Registry struct {
 	AddressId uint64 `json:"address_id,omitempty"`
 
 	// Second
-	Name              string       `json:"name,omitempty"`
+	Title             string       `json:"title,omitempty"`
 	DurationInMinutes uint64       `json:"duration_in_minutes,omitempty"`
 	PriceMin          currency.ARS `json:"price_min,omitempty"`
 	PriceMax          currency.ARS `json:"price_max,omitempty"`
@@ -33,7 +33,7 @@ func (r *Registry) ToService() *Service {
 	return &Service{
 		UserId:            r.UserId,
 		AddressId:         r.AddressId,
-		Name:              r.Name,
+		Title:             r.Title,
 		DurationInMinutes: r.DurationInMinutes,
 		PriceMax:          r.PriceMax,
 		PriceMin:          r.PriceMin,
@@ -53,6 +53,12 @@ func (r *Registry) Calendar(ctx context.Context, db *sqlx.DB) (*Calendar, error)
 func NewRegistry(userId uint64) *Registry {
 	return &Registry{UserId: userId, Stage: stage.First}
 }
+func (r *Registry) PbPrice() *pbservices.Price {
+	return &pbservices.Price{
+		Min: r.PriceMin.Float64(),
+		Max: r.PriceMax.Float64(),
+	}
+}
 
 func (r *Registry) ToPb() *pbservices.Registry {
 	return &pbservices.Registry{
@@ -63,12 +69,9 @@ func (r *Registry) ToPb() *pbservices.Registry {
 		},
 
 		Second: &pbservices.SecondRequest_Body{
-			Name:              r.Name,
+			Title:             r.Title,
 			DurationInMinutes: r.DurationInMinutes,
-			Price: &pbservices.Price{
-				Max: r.PriceMax.Float64(),
-				Min: r.PriceMin.Float64(),
-			},
+			Price:             r.PbPrice(),
 		},
 
 		Third: &pbservices.ThirdRequest_Body{

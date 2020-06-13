@@ -3,7 +3,8 @@ module github.com/athomecomar/athome/backend/services
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee
+	github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22
+	github.com/athomecomar/athome/pb v0.0.0-20200613145848-dd6b913b4107
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.1.0
 	github.com/athomecomar/storeql v1.5.4
@@ -17,6 +18,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9 // indirect
+	golang.org/x/text v0.3.2
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.24.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect

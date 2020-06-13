@@ -25,7 +25,7 @@ func (u *Registry) SQLMap() map[string]driver.Value {
 		"price_min":           u.PriceMin,
 		"price_max":           u.PriceMax,
 		"duration_in_minutes": u.DurationInMinutes,
-		"name":                u.Name,
+		"title":               u.Title,
 
 		"calendar_id": u.CalendarId,
 	}
