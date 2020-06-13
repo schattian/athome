@@ -36,15 +36,35 @@ func (m *MockViewerClient) EXPECT() *MockViewerClientMockRecorder {
 	return m.recorder
 }
 
+// SearchServices mocks base method
+func (m *MockViewerClient) SearchServices(ctx context.Context, in *pbservices.SearchServicesRequest, opts ...grpc.CallOption) (*pbservices.SearchServicesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SearchServices", varargs...)
+	ret0, _ := ret[0].(*pbservices.SearchServicesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchServices indicates an expected call of SearchServices
+func (mr *MockViewerClientMockRecorder) SearchServices(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchServices", reflect.TypeOf((*MockViewerClient)(nil).SearchServices), varargs...)
+}
+
 // RetrieveServiceDetail mocks base method
-func (m *MockViewerClient) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest, opts ...grpc.CallOption) (*pbservices.RetrieveServiceDetailResponse, error) {
+func (m *MockViewerClient) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest, opts ...grpc.CallOption) (*pbservices.ServiceDetail, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveServiceDetail", varargs...)
-	ret0, _ := ret[0].(*pbservices.RetrieveServiceDetailResponse)
+	ret0, _ := ret[0].(*pbservices.ServiceDetail)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -79,11 +99,26 @@ func (m *MockViewerServer) EXPECT() *MockViewerServerMockRecorder {
 	return m.recorder
 }
 
+// SearchServices mocks base method
+func (m *MockViewerServer) SearchServices(arg0 context.Context, arg1 *pbservices.SearchServicesRequest) (*pbservices.SearchServicesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SearchServices", arg0, arg1)
+	ret0, _ := ret[0].(*pbservices.SearchServicesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchServices indicates an expected call of SearchServices
+func (mr *MockViewerServerMockRecorder) SearchServices(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchServices", reflect.TypeOf((*MockViewerServer)(nil).SearchServices), arg0, arg1)
+}
+
 // RetrieveServiceDetail mocks base method
-func (m *MockViewerServer) RetrieveServiceDetail(arg0 context.Context, arg1 *pbservices.RetrieveServiceDetailRequest) (*pbservices.RetrieveServiceDetailResponse, error) {
+func (m *MockViewerServer) RetrieveServiceDetail(arg0 context.Context, arg1 *pbservices.RetrieveServiceDetailRequest) (*pbservices.ServiceDetail, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveServiceDetail", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.RetrieveServiceDetailResponse)
+	ret0, _ := ret[0].(*pbservices.ServiceDetail)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

@@ -36,6 +36,317 @@ var (
 // define the regex for a UUID once up-front
 var _services_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on SearchServicesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SearchServicesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Query
+
+	if v, ok := interface{}(m.GetPage()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchServicesRequestValidationError{
+				field:  "Page",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SearchServicesRequestValidationError is the validation error returned by
+// SearchServicesRequest.Validate if the designated constraints aren't met.
+type SearchServicesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchServicesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchServicesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchServicesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchServicesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchServicesRequestValidationError) ErrorName() string {
+	return "SearchServicesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchServicesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchServicesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchServicesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchServicesRequestValidationError{}
+
+// Validate checks the field values on SearchServicesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SearchServicesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetServices() {
+		_ = val
+
+		// no validation rules for Services[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchServicesResponseValidationError{
+					field:  fmt.Sprintf("Services[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if v, ok := interface{}(m.GetPage()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchServicesResponseValidationError{
+				field:  "Page",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SearchServicesResponseValidationError is the validation error returned by
+// SearchServicesResponse.Validate if the designated constraints aren't met.
+type SearchServicesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchServicesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchServicesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchServicesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchServicesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchServicesResponseValidationError) ErrorName() string {
+	return "SearchServicesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchServicesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchServicesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchServicesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchServicesResponseValidationError{}
+
+// Validate checks the field values on PageRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PageRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Cursor
+
+	// no validation rules for Size
+
+	return nil
+}
+
+// PageRequestValidationError is the validation error returned by
+// PageRequest.Validate if the designated constraints aren't met.
+type PageRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageRequestValidationError) ErrorName() string { return "PageRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PageRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPageRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageRequestValidationError{}
+
+// Validate checks the field values on PageResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PageResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for NextCursor
+
+	// no validation rules for TotalSize
+
+	return nil
+}
+
+// PageResponseValidationError is the validation error returned by
+// PageResponse.Validate if the designated constraints aren't met.
+type PageResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageResponseValidationError) ErrorName() string { return "PageResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PageResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPageResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageResponseValidationError{}
+
 // Validate checks the field values on RetrieveServiceDetailRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -106,17 +417,17 @@ var _ interface {
 	ErrorName() string
 } = RetrieveServiceDetailRequestValidationError{}
 
-// Validate checks the field values on RetrieveServiceDetailResponse with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ServiceSearchResult with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RetrieveServiceDetailResponse) Validate() error {
+func (m *ServiceSearchResult) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RetrieveServiceDetailResponseValidationError{
+			return ServiceSearchResultValidationError{
 				field:  "Service",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -126,28 +437,8 @@ func (m *RetrieveServiceDetailResponse) Validate() error {
 
 	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RetrieveServiceDetailResponseValidationError{
+			return ServiceSearchResultValidationError{
 				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetAddress()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RetrieveServiceDetailResponseValidationError{
-				field:  "Address",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RetrieveServiceDetailResponseValidationError{
-				field:  "Calendar",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -157,10 +448,9 @@ func (m *RetrieveServiceDetailResponse) Validate() error {
 	return nil
 }
 
-// RetrieveServiceDetailResponseValidationError is the validation error
-// returned by RetrieveServiceDetailResponse.Validate if the designated
-// constraints aren't met.
-type RetrieveServiceDetailResponseValidationError struct {
+// ServiceSearchResultValidationError is the validation error returned by
+// ServiceSearchResult.Validate if the designated constraints aren't met.
+type ServiceSearchResultValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -168,24 +458,24 @@ type RetrieveServiceDetailResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RetrieveServiceDetailResponseValidationError) Field() string { return e.field }
+func (e ServiceSearchResultValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RetrieveServiceDetailResponseValidationError) Reason() string { return e.reason }
+func (e ServiceSearchResultValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RetrieveServiceDetailResponseValidationError) Cause() error { return e.cause }
+func (e ServiceSearchResultValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RetrieveServiceDetailResponseValidationError) Key() bool { return e.key }
+func (e ServiceSearchResultValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RetrieveServiceDetailResponseValidationError) ErrorName() string {
-	return "RetrieveServiceDetailResponseValidationError"
+func (e ServiceSearchResultValidationError) ErrorName() string {
+	return "ServiceSearchResultValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RetrieveServiceDetailResponseValidationError) Error() string {
+func (e ServiceSearchResultValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -197,14 +487,14 @@ func (e RetrieveServiceDetailResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRetrieveServiceDetailResponse.%s: %s%s",
+		"invalid %sServiceSearchResult.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RetrieveServiceDetailResponseValidationError{}
+var _ error = ServiceSearchResultValidationError{}
 
 var _ interface {
 	Field() string
@@ -212,7 +502,112 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RetrieveServiceDetailResponseValidationError{}
+} = ServiceSearchResultValidationError{}
+
+// Validate checks the field values on ServiceDetail with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *ServiceDetail) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceDetailValidationError{
+				field:  "Service",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceDetailValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceDetailValidationError{
+				field:  "Address",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCalendar()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceDetailValidationError{
+				field:  "Calendar",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// ServiceDetailValidationError is the validation error returned by
+// ServiceDetail.Validate if the designated constraints aren't met.
+type ServiceDetailValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceDetailValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceDetailValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceDetailValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceDetailValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceDetailValidationError) ErrorName() string { return "ServiceDetailValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServiceDetailValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceDetail.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceDetailValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceDetailValidationError{}
 
 // Validate checks the field values on User with the rules defined in the proto
 // definition for this message. If any rules are violated, an error is returned.
@@ -2316,6 +2711,86 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PriceValidationError{}
+
+// Validate checks the field values on ServiceSearchResult_Service with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ServiceSearchResult_Service) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	if v, ok := interface{}(m.GetPrice()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ServiceSearchResult_ServiceValidationError{
+				field:  "Price",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// ServiceSearchResult_ServiceValidationError is the validation error returned
+// by ServiceSearchResult_Service.Validate if the designated constraints
+// aren't met.
+type ServiceSearchResult_ServiceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceSearchResult_ServiceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceSearchResult_ServiceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceSearchResult_ServiceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceSearchResult_ServiceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceSearchResult_ServiceValidationError) ErrorName() string {
+	return "ServiceSearchResult_ServiceValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ServiceSearchResult_ServiceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServiceSearchResult_Service.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceSearchResult_ServiceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceSearchResult_ServiceValidationError{}
 
 // Validate checks the field values on FirstRequest_Body with the rules defined
 // in the proto definition for this message. If any rules are violated, an
