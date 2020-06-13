@@ -1426,7 +1426,7 @@ func (m *Service) Validate() error {
 
 	// no validation rules for AddressId
 
-	// no validation rules for Name
+	// no validation rules for Title
 
 	// no validation rules for DurationInMinutes
 
@@ -2720,7 +2720,7 @@ func (m *ServiceSearchResult_Service) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	// no validation rules for Title
 
 	if v, ok := interface{}(m.GetPrice()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -2869,7 +2869,7 @@ func (m *SecondRequest_Body) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	// no validation rules for Title
 
 	// no validation rules for DurationInMinutes
 
