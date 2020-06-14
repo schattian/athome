@@ -174,6 +174,46 @@ func (m *MockImagesClient) EXPECT() *MockImagesClientMockRecorder {
 	return m.recorder
 }
 
+// ChangeEntityImages mocks base method
+func (m *MockImagesClient) ChangeEntityImages(arg0 context.Context, arg1 *pbimages.ChangeEntityImagesRequest, arg2 ...grpc.CallOption) (*emptypb.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ChangeEntityImages", varargs...)
+	ret0, _ := ret[0].(*emptypb.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ChangeEntityImages indicates an expected call of ChangeEntityImages
+func (mr *MockImagesClientMockRecorder) ChangeEntityImages(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ChangeEntityImages", reflect.TypeOf((*MockImagesClient)(nil).ChangeEntityImages), varargs...)
+}
+
+// CloneImages mocks base method
+func (m *MockImagesClient) CloneImages(arg0 context.Context, arg1 *pbimages.CloneImagesRequest, arg2 ...grpc.CallOption) (*pbimages.CloneImagesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CloneImages", varargs...)
+	ret0, _ := ret[0].(*pbimages.CloneImagesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CloneImages indicates an expected call of CloneImages
+func (mr *MockImagesClientMockRecorder) CloneImages(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CloneImages", reflect.TypeOf((*MockImagesClient)(nil).CloneImages), varargs...)
+}
+
 // CreateImage mocks base method
 func (m *MockImagesClient) CreateImage(arg0 context.Context, arg1 ...grpc.CallOption) (pbimages.Images_CreateImageClient, error) {
 	m.ctrl.T.Helper()

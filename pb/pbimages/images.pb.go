@@ -26,6 +26,179 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type CloneImagesResponse struct {
+	Images               map[string]*Image `protobuf:"bytes,1,rep,name=images,proto3" json:"images,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *CloneImagesResponse) Reset()         { *m = CloneImagesResponse{} }
+func (m *CloneImagesResponse) String() string { return proto.CompactTextString(m) }
+func (*CloneImagesResponse) ProtoMessage()    {}
+func (*CloneImagesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_77d46971e2a21737, []int{0}
+}
+
+func (m *CloneImagesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloneImagesResponse.Unmarshal(m, b)
+}
+func (m *CloneImagesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloneImagesResponse.Marshal(b, m, deterministic)
+}
+func (m *CloneImagesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloneImagesResponse.Merge(m, src)
+}
+func (m *CloneImagesResponse) XXX_Size() int {
+	return xxx_messageInfo_CloneImagesResponse.Size(m)
+}
+func (m *CloneImagesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloneImagesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CloneImagesResponse proto.InternalMessageInfo
+
+func (m *CloneImagesResponse) GetImages() map[string]*Image {
+	if m != nil {
+		return m.Images
+	}
+	return nil
+}
+
+type CloneImagesRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	FromEntityId         uint64   `protobuf:"varint,2,opt,name=from_entity_id,json=fromEntityId,proto3" json:"from_entity_id,omitempty"`
+	DestEntityId         uint64   `protobuf:"varint,3,opt,name=dest_entity_id,json=destEntityId,proto3" json:"dest_entity_id,omitempty"`
+	EntityTable          string   `protobuf:"bytes,4,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CloneImagesRequest) Reset()         { *m = CloneImagesRequest{} }
+func (m *CloneImagesRequest) String() string { return proto.CompactTextString(m) }
+func (*CloneImagesRequest) ProtoMessage()    {}
+func (*CloneImagesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_77d46971e2a21737, []int{1}
+}
+
+func (m *CloneImagesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CloneImagesRequest.Unmarshal(m, b)
+}
+func (m *CloneImagesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CloneImagesRequest.Marshal(b, m, deterministic)
+}
+func (m *CloneImagesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CloneImagesRequest.Merge(m, src)
+}
+func (m *CloneImagesRequest) XXX_Size() int {
+	return xxx_messageInfo_CloneImagesRequest.Size(m)
+}
+func (m *CloneImagesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CloneImagesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CloneImagesRequest proto.InternalMessageInfo
+
+func (m *CloneImagesRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *CloneImagesRequest) GetFromEntityId() uint64 {
+	if m != nil {
+		return m.FromEntityId
+	}
+	return 0
+}
+
+func (m *CloneImagesRequest) GetDestEntityId() uint64 {
+	if m != nil {
+		return m.DestEntityId
+	}
+	return 0
+}
+
+func (m *CloneImagesRequest) GetEntityTable() string {
+	if m != nil {
+		return m.EntityTable
+	}
+	return ""
+}
+
+type ChangeEntityImagesRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	FromEntityId         uint64   `protobuf:"varint,2,opt,name=from_entity_id,json=fromEntityId,proto3" json:"from_entity_id,omitempty"`
+	FromEntityTable      string   `protobuf:"bytes,3,opt,name=from_entity_table,json=fromEntityTable,proto3" json:"from_entity_table,omitempty"`
+	DestEntityId         uint64   `protobuf:"varint,4,opt,name=dest_entity_id,json=destEntityId,proto3" json:"dest_entity_id,omitempty"`
+	DestEntityTable      string   `protobuf:"bytes,5,opt,name=dest_entity_table,json=destEntityTable,proto3" json:"dest_entity_table,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ChangeEntityImagesRequest) Reset()         { *m = ChangeEntityImagesRequest{} }
+func (m *ChangeEntityImagesRequest) String() string { return proto.CompactTextString(m) }
+func (*ChangeEntityImagesRequest) ProtoMessage()    {}
+func (*ChangeEntityImagesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_77d46971e2a21737, []int{2}
+}
+
+func (m *ChangeEntityImagesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChangeEntityImagesRequest.Unmarshal(m, b)
+}
+func (m *ChangeEntityImagesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChangeEntityImagesRequest.Marshal(b, m, deterministic)
+}
+func (m *ChangeEntityImagesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChangeEntityImagesRequest.Merge(m, src)
+}
+func (m *ChangeEntityImagesRequest) XXX_Size() int {
+	return xxx_messageInfo_ChangeEntityImagesRequest.Size(m)
+}
+func (m *ChangeEntityImagesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChangeEntityImagesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChangeEntityImagesRequest proto.InternalMessageInfo
+
+func (m *ChangeEntityImagesRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *ChangeEntityImagesRequest) GetFromEntityId() uint64 {
+	if m != nil {
+		return m.FromEntityId
+	}
+	return 0
+}
+
+func (m *ChangeEntityImagesRequest) GetFromEntityTable() string {
+	if m != nil {
+		return m.FromEntityTable
+	}
+	return ""
+}
+
+func (m *ChangeEntityImagesRequest) GetDestEntityId() uint64 {
+	if m != nil {
+		return m.DestEntityId
+	}
+	return 0
+}
+
+func (m *ChangeEntityImagesRequest) GetDestEntityTable() string {
+	if m != nil {
+		return m.DestEntityTable
+	}
+	return ""
+}
+
 type CreateImageRequest struct {
 	// Types that are valid to be assigned to Corpus:
 	//	*CreateImageRequest_Metadata_
@@ -40,7 +213,7 @@ func (m *CreateImageRequest) Reset()         { *m = CreateImageRequest{} }
 func (m *CreateImageRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateImageRequest) ProtoMessage()    {}
 func (*CreateImageRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{0}
+	return fileDescriptor_77d46971e2a21737, []int{3}
 }
 
 func (m *CreateImageRequest) XXX_Unmarshal(b []byte) error {
@@ -109,6 +282,8 @@ func (*CreateImageRequest) XXX_OneofWrappers() []interface{} {
 type CreateImageRequest_Metadata struct {
 	Ext                  string   `protobuf:"bytes,1,opt,name=ext,proto3" json:"ext,omitempty"`
 	AccessToken          string   `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	EntityId             string   `protobuf:"bytes,3,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
+	EntityTable          string   `protobuf:"bytes,4,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -118,7 +293,7 @@ func (m *CreateImageRequest_Metadata) Reset()         { *m = CreateImageRequest_
 func (m *CreateImageRequest_Metadata) String() string { return proto.CompactTextString(m) }
 func (*CreateImageRequest_Metadata) ProtoMessage()    {}
 func (*CreateImageRequest_Metadata) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{0, 0}
+	return fileDescriptor_77d46971e2a21737, []int{3, 0}
 }
 
 func (m *CreateImageRequest_Metadata) XXX_Unmarshal(b []byte) error {
@@ -153,10 +328,26 @@ func (m *CreateImageRequest_Metadata) GetAccessToken() string {
 	return ""
 }
 
+func (m *CreateImageRequest_Metadata) GetEntityId() string {
+	if m != nil {
+		return m.EntityId
+	}
+	return ""
+}
+
+func (m *CreateImageRequest_Metadata) GetEntityTable() string {
+	if m != nil {
+		return m.EntityTable
+	}
+	return ""
+}
+
 type Image struct {
 	Size                 int64    `protobuf:"varint,1,opt,name=size,proto3" json:"size,omitempty"`
 	Uri                  string   `protobuf:"bytes,2,opt,name=uri,proto3" json:"uri,omitempty"`
 	UserId               uint64   `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	EntityId             uint64   `protobuf:"varint,4,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
+	EntityTable          uint64   `protobuf:"varint,5,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -166,7 +357,7 @@ func (m *Image) Reset()         { *m = Image{} }
 func (m *Image) String() string { return proto.CompactTextString(m) }
 func (*Image) ProtoMessage()    {}
 func (*Image) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{1}
+	return fileDescriptor_77d46971e2a21737, []int{4}
 }
 
 func (m *Image) XXX_Unmarshal(b []byte) error {
@@ -208,6 +399,20 @@ func (m *Image) GetUserId() uint64 {
 	return 0
 }
 
+func (m *Image) GetEntityId() uint64 {
+	if m != nil {
+		return m.EntityId
+	}
+	return 0
+}
+
+func (m *Image) GetEntityTable() uint64 {
+	if m != nil {
+		return m.EntityTable
+	}
+	return 0
+}
+
 type CreateImageResponse struct {
 	ImageId              string   `protobuf:"bytes,1,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
 	Image                *Image   `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
@@ -220,7 +425,7 @@ func (m *CreateImageResponse) Reset()         { *m = CreateImageResponse{} }
 func (m *CreateImageResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateImageResponse) ProtoMessage()    {}
 func (*CreateImageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{2}
+	return fileDescriptor_77d46971e2a21737, []int{5}
 }
 
 func (m *CreateImageResponse) XXX_Unmarshal(b []byte) error {
@@ -256,7 +461,8 @@ func (m *CreateImageResponse) GetImage() *Image {
 }
 
 type RetrieveImagesRequest struct {
-	Ids                  []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	EntityId             uint64   `protobuf:"varint,1,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
+	EntityTable          string   `protobuf:"bytes,2,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -266,7 +472,7 @@ func (m *RetrieveImagesRequest) Reset()         { *m = RetrieveImagesRequest{} }
 func (m *RetrieveImagesRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveImagesRequest) ProtoMessage()    {}
 func (*RetrieveImagesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{3}
+	return fileDescriptor_77d46971e2a21737, []int{6}
 }
 
 func (m *RetrieveImagesRequest) XXX_Unmarshal(b []byte) error {
@@ -287,11 +493,18 @@ func (m *RetrieveImagesRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RetrieveImagesRequest proto.InternalMessageInfo
 
-func (m *RetrieveImagesRequest) GetIds() []string {
+func (m *RetrieveImagesRequest) GetEntityId() uint64 {
 	if m != nil {
-		return m.Ids
+		return m.EntityId
 	}
-	return nil
+	return 0
+}
+
+func (m *RetrieveImagesRequest) GetEntityTable() string {
+	if m != nil {
+		return m.EntityTable
+	}
+	return ""
 }
 
 type RetrieveImagesResponse struct {
@@ -305,7 +518,7 @@ func (m *RetrieveImagesResponse) Reset()         { *m = RetrieveImagesResponse{}
 func (m *RetrieveImagesResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveImagesResponse) ProtoMessage()    {}
 func (*RetrieveImagesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{4}
+	return fileDescriptor_77d46971e2a21737, []int{7}
 }
 
 func (m *RetrieveImagesResponse) XXX_Unmarshal(b []byte) error {
@@ -335,7 +548,8 @@ func (m *RetrieveImagesResponse) GetImages() map[string]*Image {
 
 type DeleteImagesRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	Ids                  []string `protobuf:"bytes,2,rep,name=ids,proto3" json:"ids,omitempty"`
+	EntityId             uint64   `protobuf:"varint,2,opt,name=entity_id,json=entityId,proto3" json:"entity_id,omitempty"`
+	EntityTable          string   `protobuf:"bytes,3,opt,name=entity_table,json=entityTable,proto3" json:"entity_table,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -345,7 +559,7 @@ func (m *DeleteImagesRequest) Reset()         { *m = DeleteImagesRequest{} }
 func (m *DeleteImagesRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteImagesRequest) ProtoMessage()    {}
 func (*DeleteImagesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_77d46971e2a21737, []int{5}
+	return fileDescriptor_77d46971e2a21737, []int{8}
 }
 
 func (m *DeleteImagesRequest) XXX_Unmarshal(b []byte) error {
@@ -373,14 +587,25 @@ func (m *DeleteImagesRequest) GetAccessToken() string {
 	return ""
 }
 
-func (m *DeleteImagesRequest) GetIds() []string {
+func (m *DeleteImagesRequest) GetEntityId() uint64 {
 	if m != nil {
-		return m.Ids
+		return m.EntityId
 	}
-	return nil
+	return 0
+}
+
+func (m *DeleteImagesRequest) GetEntityTable() string {
+	if m != nil {
+		return m.EntityTable
+	}
+	return ""
 }
 
 func init() {
+	proto.RegisterType((*CloneImagesResponse)(nil), "images.CloneImagesResponse")
+	proto.RegisterMapType((map[string]*Image)(nil), "images.CloneImagesResponse.ImagesEntry")
+	proto.RegisterType((*CloneImagesRequest)(nil), "images.CloneImagesRequest")
+	proto.RegisterType((*ChangeEntityImagesRequest)(nil), "images.ChangeEntityImagesRequest")
 	proto.RegisterType((*CreateImageRequest)(nil), "images.CreateImageRequest")
 	proto.RegisterType((*CreateImageRequest_Metadata)(nil), "images.CreateImageRequest.Metadata")
 	proto.RegisterType((*Image)(nil), "images.Image")
@@ -396,39 +621,51 @@ func init() {
 }
 
 var fileDescriptor_77d46971e2a21737 = []byte{
-	// 508 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x53, 0xc1, 0x6e, 0xd3, 0x4c,
-	0x10, 0xf6, 0xc6, 0x89, 0x9b, 0x8e, 0xfd, 0xff, 0xaa, 0xb6, 0x6a, 0x12, 0x5c, 0x81, 0x82, 0x7b,
-	0x09, 0x08, 0x39, 0x52, 0xb8, 0x20, 0x6e, 0x18, 0x82, 0x92, 0x4a, 0x1c, 0x58, 0xc1, 0x05, 0x0e,
-	0x95, 0x13, 0x0f, 0xc6, 0x4d, 0x62, 0x1b, 0xef, 0x3a, 0x22, 0x3c, 0x10, 0x8f, 0xc4, 0x63, 0xf0,
-	0x00, 0x9c, 0xd0, 0xee, 0xda, 0x51, 0x9a, 0x26, 0xdc, 0x66, 0x76, 0xbe, 0xfd, 0x66, 0xbe, 0x6f,
-	0x76, 0xc1, 0x49, 0x56, 0x61, 0x8c, 0xdc, 0xcf, 0x8b, 0x4c, 0x64, 0xd4, 0xd2, 0x99, 0xdb, 0x5d,
-	0x87, 0xcb, 0x24, 0x0a, 0x05, 0x0e, 0xeb, 0x40, 0x03, 0xdc, 0xcb, 0x38, 0xcb, 0xe2, 0x25, 0x0e,
-	0x55, 0x36, 0x2b, 0xbf, 0x0c, 0x71, 0x95, 0x8b, 0x8d, 0x2e, 0x7a, 0xbf, 0x08, 0xd0, 0xd7, 0x05,
-	0x86, 0x02, 0xa7, 0x92, 0x86, 0xe1, 0xb7, 0x12, 0xb9, 0xa0, 0xaf, 0xa0, 0xbd, 0x42, 0x11, 0x46,
-	0xa1, 0x08, 0x7b, 0xa4, 0x4f, 0x06, 0xf6, 0xe8, 0xca, 0xaf, 0xba, 0xde, 0x47, 0xfb, 0xef, 0x2a,
-	0xe8, 0xc4, 0x60, 0xdb, 0x6b, 0xb4, 0x03, 0xad, 0xf9, 0xd7, 0x32, 0x5d, 0xf4, 0x1a, 0x7d, 0x32,
-	0x70, 0x26, 0x06, 0xd3, 0xa9, 0xfb, 0x19, 0xda, 0x35, 0x9e, 0x3e, 0x03, 0x13, 0xbf, 0x0b, 0xd5,
-	0xe1, 0x34, 0x70, 0xff, 0x04, 0xdd, 0xe2, 0x82, 0x99, 0x7c, 0x1d, 0x33, 0xf3, 0x36, 0x8f, 0x59,
-	0xf3, 0x36, 0xc7, 0x98, 0x99, 0x79, 0x1a, 0x33, 0x09, 0xa3, 0x8f, 0xc1, 0x09, 0xe7, 0x73, 0xe4,
-	0xfc, 0x46, 0x64, 0x0b, 0x4c, 0x15, 0xf1, 0x29, 0xb3, 0xf5, 0xd9, 0x07, 0x79, 0x14, 0xb4, 0xc1,
-	0x9a, 0x67, 0x45, 0x5e, 0x72, 0xef, 0x2d, 0xb4, 0xd4, 0x8c, 0x94, 0x42, 0x93, 0x27, 0x3f, 0x50,
-	0x35, 0x31, 0x99, 0x8a, 0xe9, 0x19, 0x98, 0x65, 0x91, 0x54, 0x04, 0x32, 0xa4, 0x5d, 0x38, 0x29,
-	0x39, 0x16, 0x37, 0x49, 0xd4, 0x33, 0xfb, 0x64, 0xd0, 0x64, 0x96, 0x4c, 0xa7, 0x91, 0xf7, 0x11,
-	0xce, 0xef, 0x28, 0xe6, 0x79, 0x96, 0x72, 0xa4, 0x0f, 0xa0, 0xad, 0xfc, 0x90, 0x17, 0xd4, 0xf8,
-	0xec, 0x44, 0xe5, 0xd3, 0x88, 0x5e, 0x41, 0x4b, 0x85, 0x8a, 0xde, 0x1e, 0xfd, 0x57, 0x1b, 0xa7,
-	0x09, 0x74, 0xcd, 0x7b, 0x02, 0x17, 0x0c, 0x45, 0x91, 0xe0, 0x5a, 0x13, 0xf3, 0xda, 0xf9, 0x33,
-	0x30, 0x93, 0x88, 0xf7, 0x48, 0xdf, 0x94, 0xa3, 0x25, 0x11, 0xf7, 0x7e, 0x12, 0xe8, 0xec, 0x63,
-	0xab, 0x29, 0x02, 0xa8, 0xb6, 0xaf, 0xf0, 0xf6, 0xe8, 0x69, 0xdd, 0xeb, 0x30, 0x5e, 0x8f, 0xc0,
-	0xc7, 0xa9, 0x28, 0x36, 0xac, 0x7e, 0x37, 0x13, 0xb0, 0x77, 0x8e, 0x65, 0xff, 0x05, 0x6e, 0x2a,
-	0x4d, 0x32, 0x94, 0x7a, 0xd6, 0xe1, 0xb2, 0x3c, 0xa6, 0x47, 0xd5, 0x5e, 0x36, 0x5e, 0x10, 0xef,
-	0x1a, 0xce, 0xdf, 0xe0, 0x12, 0xc5, 0x9e, 0xa2, 0xfd, 0xb5, 0x91, 0x7b, 0x6b, 0xab, 0x45, 0x37,
-	0xb6, 0xa2, 0x47, 0xbf, 0x09, 0x58, 0x9a, 0x86, 0x5e, 0x83, 0xbd, 0xb3, 0x01, 0xea, 0x1e, 0x7f,
-	0x88, 0xee, 0xe5, 0xc1, 0x9a, 0x16, 0xef, 0x19, 0x03, 0x42, 0xdf, 0xc3, 0xff, 0x77, 0xad, 0xa1,
-	0x0f, 0x8f, 0x59, 0xa6, 0x19, 0x1f, 0xfd, 0xdb, 0x51, 0xcf, 0xa0, 0x63, 0x70, 0x76, 0x55, 0xd3,
-	0xed, 0x0c, 0x07, 0xbc, 0x70, 0x3b, 0xbe, 0xfe, 0x8c, 0x7e, 0xfd, 0x19, 0xfd, 0xb1, 0xfc, 0x8c,
-	0x9e, 0x11, 0x38, 0x9f, 0xc0, 0x1f, 0xe6, 0x33, 0x7d, 0x77, 0x66, 0xa9, 0xfa, 0xf3, 0xbf, 0x01,
-	0x00, 0x00, 0xff, 0xff, 0x2f, 0xe9, 0x01, 0x12, 0xeb, 0x03, 0x00, 0x00,
+	// 697 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0x8d, 0xe3, 0x24, 0x4d, 0x27, 0xa6, 0xd0, 0xad, 0xda, 0xa6, 0xae, 0x40, 0xad, 0x8b, 0x44,
+	0x54, 0x21, 0x47, 0x0a, 0x17, 0xc4, 0x05, 0x91, 0x12, 0x29, 0x41, 0xe2, 0xd0, 0x55, 0x11, 0x12,
+	0x97, 0xca, 0x89, 0xa7, 0xae, 0xdb, 0xc4, 0x36, 0xf6, 0x3a, 0x6a, 0xf8, 0x00, 0x2e, 0x7c, 0x00,
+	0x07, 0x2e, 0x9c, 0xfa, 0x61, 0x7c, 0x06, 0x27, 0xb4, 0xbb, 0x76, 0x6a, 0xd7, 0x09, 0x85, 0x43,
+	0x6f, 0x3b, 0xb3, 0x6f, 0x67, 0xdf, 0xbc, 0xd9, 0x99, 0x05, 0xcd, 0x9d, 0x58, 0x0e, 0x46, 0x66,
+	0x10, 0xfa, 0xcc, 0x27, 0x35, 0x69, 0xe9, 0xdb, 0x53, 0x6b, 0xec, 0xda, 0x16, 0xc3, 0x76, 0xba,
+	0x90, 0x00, 0x7d, 0xd7, 0xf1, 0x7d, 0x67, 0x8c, 0x6d, 0x61, 0x0d, 0xe3, 0xb3, 0x36, 0x4e, 0x02,
+	0x36, 0x93, 0x9b, 0xc6, 0x4f, 0x05, 0x36, 0x8e, 0xc6, 0xbe, 0x87, 0x03, 0x11, 0x85, 0x62, 0x14,
+	0xf8, 0x5e, 0x84, 0xe4, 0x35, 0x24, 0x71, 0x9b, 0xca, 0x9e, 0xda, 0x6a, 0x74, 0x9e, 0x99, 0xc9,
+	0xa5, 0x0b, 0xc0, 0xa6, 0x34, 0x7b, 0x1e, 0x0b, 0x67, 0x34, 0xa5, 0xd3, 0x87, 0x46, 0xc6, 0x4d,
+	0x1e, 0x81, 0x7a, 0x89, 0xb3, 0xa6, 0xb2, 0xa7, 0xb4, 0x56, 0x29, 0x5f, 0x92, 0x03, 0xa8, 0x4e,
+	0xad, 0x71, 0x8c, 0xcd, 0xf2, 0x9e, 0xd2, 0x6a, 0x74, 0x1e, 0xa4, 0x17, 0x88, 0x53, 0x54, 0xee,
+	0xbd, 0x2a, 0xbf, 0x54, 0x8c, 0x6b, 0x05, 0x48, 0xee, 0xd6, 0xcf, 0x31, 0x46, 0x8c, 0xec, 0x83,
+	0x66, 0x8d, 0x46, 0x18, 0x45, 0xa7, 0xcc, 0xbf, 0x44, 0x2f, 0x09, 0xdd, 0x90, 0xbe, 0x13, 0xee,
+	0x22, 0x4f, 0x61, 0xed, 0x2c, 0xf4, 0x27, 0xa7, 0xe8, 0x31, 0x97, 0xcd, 0x4e, 0x5d, 0x5b, 0xdc,
+	0x55, 0xa1, 0x1a, 0xf7, 0xf6, 0x84, 0x73, 0x60, 0x73, 0x94, 0x8d, 0x11, 0xcb, 0xa0, 0x54, 0x89,
+	0xe2, 0xde, 0x39, 0x6a, 0x1f, 0xb4, 0x04, 0xc0, 0xac, 0xe1, 0x18, 0x9b, 0x15, 0x79, 0x9d, 0xf4,
+	0x9d, 0x70, 0x97, 0xf1, 0x4b, 0x81, 0x9d, 0xa3, 0x73, 0xcb, 0x73, 0x30, 0x39, 0x75, 0x3f, 0x7c,
+	0x0f, 0x61, 0x3d, 0x8b, 0x92, 0x74, 0x54, 0x11, 0xed, 0xe1, 0x0d, 0x50, 0x50, 0x5a, 0x90, 0x5b,
+	0x65, 0x41, 0x6e, 0x87, 0xb0, 0x9e, 0x45, 0xc9, 0x88, 0x55, 0x19, 0xf1, 0x06, 0x28, 0x93, 0xfc,
+	0x5e, 0x06, 0x72, 0x14, 0xa2, 0xc5, 0x64, 0x39, 0xd2, 0xec, 0xde, 0x40, 0x7d, 0x82, 0xcc, 0xb2,
+	0x2d, 0x66, 0x89, 0xcc, 0x1a, 0x9d, 0x83, 0xf9, 0x8b, 0x29, 0xa0, 0xcd, 0xf7, 0x09, 0xb4, 0x5f,
+	0xa2, 0xf3, 0x63, 0x64, 0x0b, 0xaa, 0xa3, 0xf3, 0xd8, 0xbb, 0x14, 0x49, 0x6b, 0xfd, 0x12, 0x95,
+	0xa6, 0xfe, 0x43, 0x81, 0x7a, 0x7a, 0x80, 0x3c, 0x07, 0x15, 0xaf, 0x98, 0x14, 0xaf, 0xab, 0xff,
+	0xee, 0x6e, 0x87, 0x9b, 0x54, 0x8d, 0xa6, 0x0e, 0x55, 0x2f, 0x02, 0x87, 0x56, 0x2e, 0x02, 0x74,
+	0xa8, 0x1a, 0x78, 0x0e, 0xe5, 0xb0, 0x82, 0xe6, 0xe5, 0xa2, 0xe6, 0xbb, 0xb0, 0x9a, 0x2f, 0xfc,
+	0x2a, 0xad, 0xe3, 0xbf, 0x17, 0xbd, 0x5b, 0x87, 0xda, 0xc8, 0x0f, 0x83, 0x38, 0x32, 0xbe, 0x2a,
+	0x50, 0x15, 0x59, 0x12, 0x02, 0x95, 0xc8, 0xfd, 0x82, 0x82, 0xa5, 0x4a, 0xc5, 0x9a, 0x37, 0x40,
+	0x1c, 0xba, 0x09, 0x03, 0xbe, 0x24, 0xdb, 0xb0, 0x12, 0x47, 0x18, 0xde, 0x3c, 0xb8, 0x1a, 0x37,
+	0x07, 0x76, 0x9e, 0x92, 0xac, 0xd7, 0x72, 0x4a, 0x55, 0xb1, 0x9f, 0x7b, 0x87, 0x1f, 0x60, 0x23,
+	0xa7, 0x79, 0xd2, 0xd2, 0x3b, 0x50, 0x17, 0x15, 0xe1, 0x51, 0xe5, 0xe3, 0x5b, 0x11, 0xf6, 0xc0,
+	0xe6, 0xbd, 0x28, 0x96, 0x4b, 0x7a, 0x51, 0x58, 0xc6, 0x47, 0xd8, 0xa4, 0xc8, 0x42, 0x17, 0xa7,
+	0xb7, 0x3a, 0x31, 0xc7, 0x57, 0xb9, 0x83, 0x6f, 0xb9, 0xd8, 0x37, 0xd7, 0x0a, 0x6c, 0xdd, 0x8e,
+	0x9c, 0x70, 0xee, 0xde, 0x1a, 0x43, 0x87, 0x29, 0xb3, 0xc5, 0xf8, 0x7b, 0x9e, 0x44, 0x57, 0xb0,
+	0xf1, 0x16, 0xc7, 0xc8, 0xfe, 0x7f, 0x12, 0xe5, 0x24, 0x2a, 0xdf, 0x21, 0x91, 0x5a, 0x90, 0xa8,
+	0xf3, 0x4d, 0x85, 0x9a, 0xbc, 0x94, 0xbc, 0x83, 0x46, 0xa6, 0xba, 0x44, 0x5f, 0xde, 0x66, 0xfa,
+	0xee, 0xc2, 0x3d, 0x29, 0x95, 0x51, 0x6a, 0x29, 0xe4, 0x18, 0xd6, 0xf2, 0x42, 0x92, 0xc7, 0xcb,
+	0x04, 0x96, 0x11, 0x9f, 0xfc, 0x5d, 0x7f, 0xa3, 0x44, 0x7a, 0xa0, 0x65, 0x35, 0x22, 0x73, 0x0e,
+	0x0b, 0x94, 0xd3, 0xb7, 0x4c, 0xf9, 0x37, 0x99, 0xe9, 0xdf, 0x64, 0xf6, 0xf8, 0xdf, 0x64, 0x94,
+	0x48, 0x1f, 0x1a, 0x99, 0x99, 0x9f, 0xc9, 0xb2, 0xf0, 0x11, 0x64, 0xb2, 0x2c, 0x7e, 0x4d, 0x46,
+	0x89, 0x1c, 0x03, 0x29, 0x0e, 0x65, 0xb2, 0x3f, 0x3f, 0xb4, 0x6c, 0x60, 0x2f, 0x27, 0xd7, 0xd5,
+	0x3e, 0x81, 0xd9, 0x0e, 0x86, 0x32, 0xc2, 0xb0, 0x26, 0xf6, 0x5f, 0xfc, 0x09, 0x00, 0x00, 0xff,
+	0xff, 0x7c, 0x7e, 0x5b, 0x69, 0x97, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -446,6 +683,8 @@ type ImagesClient interface {
 	CreateImage(ctx context.Context, opts ...grpc.CallOption) (Images_CreateImageClient, error)
 	RetrieveImages(ctx context.Context, in *RetrieveImagesRequest, opts ...grpc.CallOption) (*RetrieveImagesResponse, error)
 	DeleteImages(ctx context.Context, in *DeleteImagesRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CloneImages(ctx context.Context, in *CloneImagesRequest, opts ...grpc.CallOption) (*CloneImagesResponse, error)
+	ChangeEntityImages(ctx context.Context, in *ChangeEntityImagesRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type imagesClient struct {
@@ -508,11 +747,31 @@ func (c *imagesClient) DeleteImages(ctx context.Context, in *DeleteImagesRequest
 	return out, nil
 }
 
+func (c *imagesClient) CloneImages(ctx context.Context, in *CloneImagesRequest, opts ...grpc.CallOption) (*CloneImagesResponse, error) {
+	out := new(CloneImagesResponse)
+	err := c.cc.Invoke(ctx, "/images.Images/CloneImages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *imagesClient) ChangeEntityImages(ctx context.Context, in *ChangeEntityImagesRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/images.Images/ChangeEntityImages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ImagesServer is the server API for Images service.
 type ImagesServer interface {
 	CreateImage(Images_CreateImageServer) error
 	RetrieveImages(context.Context, *RetrieveImagesRequest) (*RetrieveImagesResponse, error)
 	DeleteImages(context.Context, *DeleteImagesRequest) (*empty.Empty, error)
+	CloneImages(context.Context, *CloneImagesRequest) (*CloneImagesResponse, error)
+	ChangeEntityImages(context.Context, *ChangeEntityImagesRequest) (*empty.Empty, error)
 }
 
 // UnimplementedImagesServer can be embedded to have forward compatible implementations.
@@ -527,6 +786,12 @@ func (*UnimplementedImagesServer) RetrieveImages(ctx context.Context, req *Retri
 }
 func (*UnimplementedImagesServer) DeleteImages(ctx context.Context, req *DeleteImagesRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteImages not implemented")
+}
+func (*UnimplementedImagesServer) CloneImages(ctx context.Context, req *CloneImagesRequest) (*CloneImagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloneImages not implemented")
+}
+func (*UnimplementedImagesServer) ChangeEntityImages(ctx context.Context, req *ChangeEntityImagesRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeEntityImages not implemented")
 }
 
 func RegisterImagesServer(s *grpc.Server, srv ImagesServer) {
@@ -595,6 +860,42 @@ func _Images_DeleteImages_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Images_CloneImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CloneImagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).CloneImages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/CloneImages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).CloneImages(ctx, req.(*CloneImagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Images_ChangeEntityImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeEntityImagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImagesServer).ChangeEntityImages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/images.Images/ChangeEntityImages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImagesServer).ChangeEntityImages(ctx, req.(*ChangeEntityImagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Images_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "images.Images",
 	HandlerType: (*ImagesServer)(nil),
@@ -606,6 +907,14 @@ var _Images_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteImages",
 			Handler:    _Images_DeleteImages_Handler,
+		},
+		{
+			MethodName: "CloneImages",
+			Handler:    _Images_CloneImages_Handler,
+		},
+		{
+			MethodName: "ChangeEntityImages",
+			Handler:    _Images_ChangeEntityImages_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

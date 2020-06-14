@@ -36,6 +36,242 @@ var (
 // define the regex for a UUID once up-front
 var _images_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on CloneImagesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CloneImagesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetImages() {
+		_ = val
+
+		// no validation rules for Images[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CloneImagesResponseValidationError{
+					field:  fmt.Sprintf("Images[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// CloneImagesResponseValidationError is the validation error returned by
+// CloneImagesResponse.Validate if the designated constraints aren't met.
+type CloneImagesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloneImagesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloneImagesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloneImagesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloneImagesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloneImagesResponseValidationError) ErrorName() string {
+	return "CloneImagesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloneImagesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloneImagesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloneImagesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloneImagesResponseValidationError{}
+
+// Validate checks the field values on CloneImagesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CloneImagesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for FromEntityId
+
+	// no validation rules for DestEntityId
+
+	// no validation rules for EntityTable
+
+	return nil
+}
+
+// CloneImagesRequestValidationError is the validation error returned by
+// CloneImagesRequest.Validate if the designated constraints aren't met.
+type CloneImagesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloneImagesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloneImagesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloneImagesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloneImagesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloneImagesRequestValidationError) ErrorName() string {
+	return "CloneImagesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloneImagesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloneImagesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloneImagesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloneImagesRequestValidationError{}
+
+// Validate checks the field values on ChangeEntityImagesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ChangeEntityImagesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for FromEntityId
+
+	// no validation rules for FromEntityTable
+
+	// no validation rules for DestEntityId
+
+	// no validation rules for DestEntityTable
+
+	return nil
+}
+
+// ChangeEntityImagesRequestValidationError is the validation error returned by
+// ChangeEntityImagesRequest.Validate if the designated constraints aren't met.
+type ChangeEntityImagesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChangeEntityImagesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChangeEntityImagesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChangeEntityImagesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChangeEntityImagesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChangeEntityImagesRequestValidationError) ErrorName() string {
+	return "ChangeEntityImagesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChangeEntityImagesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChangeEntityImagesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChangeEntityImagesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChangeEntityImagesRequestValidationError{}
+
 // Validate checks the field values on CreateImageRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -134,6 +370,10 @@ func (m *Image) Validate() error {
 	// no validation rules for Uri
 
 	// no validation rules for UserId
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
 
 	return nil
 }
@@ -278,6 +518,10 @@ func (m *RetrieveImagesRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
 
 	return nil
 }
@@ -432,6 +676,10 @@ func (m *DeleteImagesRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
+
 	return nil
 }
 
@@ -507,6 +755,10 @@ func (m *CreateImageRequest_Metadata) Validate() error {
 	}
 
 	// no validation rules for AccessToken
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
 
 	return nil
 }
