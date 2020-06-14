@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./pbnotifier";
+
+package notifier;
+
+service Notifications {
+  rpc Create(CreateRequest) returns (CreateResponse){}
+  rpc Retrieve(RetrieveRequest) returns (Notification){}
+
+  rpc SetReceived(UpdateStatusRequest) returns (google.protobuf.Empty){}
+  rpc SetSeen(UpdateStatusRequest) returns (google.protobuf.Empty){}
+
+  rpc RetrieveMany(RetrieveManyRequest) returns (RetrieveManyResponse){}
+}
+
+message UpdateStatusRequest {
+  string access_token = 1;
+}
+
+message CreateRequest{
+  string notification_token = 1;
+  Notification notification = 2;
+}
+
+message CreateResponse{
+  uint64 notification_id = 1;
+  Notification notification = 2;
+}
+
+message RetrieveRequest{
+  string access_token = 1;
+  uint64 notification_id = 2;
+}
+
+message RetrieveManyRequest{
+  string access_token = 1;
+}
+
+message RetrieveManyResponse{
+  map<uint64, Notification> notifications = 1;
+}
+
+message Notification {
+  uint64 user_id = 1;
+  Entity entity = 2;
+  Status status = 3;
+  string priority = 4;
+}
+
+message Status{
+  google.protobuf.Timestamp created_at = 1;
+  google.protobuf.Timestamp received_at = 2;
+  google.protobuf.Timestamp seen_at = 3;
+}
+
+message Entity {
+  uint64 entity_id = 1;
+  string entity_table = 2;
+}
+
