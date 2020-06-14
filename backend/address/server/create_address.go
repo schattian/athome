@@ -6,7 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/address/ent"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -22,7 +22,7 @@ func (s *Server) CreateAddress(ctx context.Context, in *pbaddress.CreateAddressR
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (s *Server) CreateAddress(ctx context.Context, in *pbaddress.CreateAddressR
 }
 
 func (s *Server) createAddress(ctx context.Context, db *sqlx.DB, auth pbauth.AuthClient, in *pbaddress.CreateAddressRequest) (*pbaddress.CreateAddressResponse, error) {
-	userId, err := GetUserFromAccessToken(ctx, auth, in.GetAccessToken())
+	userId, err := pbutil.GetUserFromAccessToken(ctx, auth, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

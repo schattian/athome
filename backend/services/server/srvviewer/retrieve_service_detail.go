@@ -8,9 +8,9 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
@@ -25,12 +25,12 @@ func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.Retri
 		return nil, err
 	}
 	defer db.Close()
-	addr, addrCloser, err := pbconf.ConnAddresses(ctx)
+	addr, addrCloser, err := pbutil.ConnAddresses(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer addrCloser()
-	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
+	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

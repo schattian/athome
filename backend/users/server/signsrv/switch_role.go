@@ -9,8 +9,8 @@ import (
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -29,7 +29,7 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbusers.SwitchRoleRequest) 
 	}
 	defer db.Close()
 
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,11 @@ func (s *Server) SwitchRole(ctx context.Context, in *pbusers.SwitchRoleRequest) 
 }
 
 func (s *Server) switchRole(ctx context.Context, db *sqlx.DB, c pbauth.AuthClient, in *pbusers.SwitchRoleRequest) (*pbusers.SignResponse, error) {
-	oldUser, err := server.GetUserFromAccessToken(ctx, db, c, in.GetAccessToken())
+	oldUserId, err := pbutil.GetUserFromAccessToken(ctx, c, in.GetAccessToken())
+	if err != nil {
+		return nil, err
+	}
+	oldUser, err := server.FindUser(ctx, db, oldUserId)
 	if err != nil {
 		return nil, err
 	}

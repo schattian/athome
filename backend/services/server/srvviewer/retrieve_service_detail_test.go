@@ -70,7 +70,7 @@ func TestServer_retrieveServiceDetail(t *testing.T) {
 			},
 			addr: addrStub{
 				req:  &pbaddress.RetrieveAddressRequest{AddressId: gServices.Foo.AddressId},
-				resp: &pbaddress.Address{Alias: "foo", Department: 8},
+				resp: &pbaddress.Address{Alias: "foo", Department: "8"},
 			},
 			users: usersStub{
 				req:  &pbusers.RetrieveUserRequest{UserId: gServices.Foo.UserId},
@@ -79,7 +79,7 @@ func TestServer_retrieveServiceDetail(t *testing.T) {
 
 			want: &pbservices.ServiceDetail{
 				User:    &pbservices.User{Name: "foo"},
-				Address: &pbservices.Address{Department: 8},
+				Address: &pbservices.Address{Department: "8"},
 				Service: gServices.Foo.ToPb(),
 				Calendar: &pbservices.CalendarDetail{
 					Calendar: gCalendars.Foo.Medic.A.ToPb(),

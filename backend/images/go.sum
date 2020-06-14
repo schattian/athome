@@ -13,6 +13,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200614143218-43deb7fcfa8a h1:PlNcVA0Ii
 github.com/athomecomar/athome/pb v0.0.0-20200614143218-43deb7fcfa8a/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/athome/pb v0.0.0-20200614144848-6e75f3dbe405 h1:jDyH/PP+KsG/JOT89X3eYPreSTB9R2Q3as4gMP6WeGU=
 github.com/athomecomar/athome/pb v0.0.0-20200614144848-6e75f3dbe405/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845 h1:9mTw2WUdwM4xqo3rIXvEDYdDppr9FwCahRG35tOiZeo=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=
 github.com/athomecomar/envconf v1.2.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=

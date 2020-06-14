@@ -21,6 +21,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee h1:Lg8SfVm9B
 github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee/go.mod h1:wa/p/62S/cZfU2hAB32vJE0aLHz174pAqichJKrS0VA=
 github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae h1:DUCqlxJivdsoLaXSiJq/u16lOmT2MuOmdo74+jJcT3Y=
 github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845 h1:9mTw2WUdwM4xqo3rIXvEDYdDppr9FwCahRG35tOiZeo=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=
 github.com/athomecomar/envconf v1.2.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/semantic v0.1.3 h1:PoB1aVDweVgPOc+FnTjSuQrjZZiMu0wjhxUHz2fjDE8=

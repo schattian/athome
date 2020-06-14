@@ -5,8 +5,8 @@ go 1.14
 require (
 	github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6 // indirect
 	github.com/alicebob/miniredis v2.5.0+incompatible
-	github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae
-	github.com/athomecomar/envconf v1.1.0
+	github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845
+	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.0.0-20200516201628-af9df9901326
 	github.com/client9/misspell v0.3.4 // indirect

@@ -6,9 +6,9 @@ import (
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/ent/stage"
 	"github.com/athomecomar/athome/backend/products/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -27,7 +27,7 @@ func (s *Server) CloneDraftLine(ctx context.Context, in *pbproducts.CloneDraftLi
 	}
 	defer db.Close()
 
-	sem, semCloser, err := pbconf.ConnSemanticProducts(ctx)
+	sem, semCloser, err := pbutil.ConnSemanticProducts(ctx)
 	if err != nil {
 		return nil, err
 	}

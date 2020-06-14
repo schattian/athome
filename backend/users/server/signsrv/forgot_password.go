@@ -5,9 +5,9 @@ import (
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 	"github.com/athomecomar/athome/backend/users/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbmailer"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
@@ -24,7 +24,7 @@ func (s *Server) ForgotPassword(ctx context.Context, in *pbusers.ForgotPasswordR
 	}
 	defer db.Close()
 
-	m, mCloser, err := pbconf.ConnMailer(ctx)
+	m, mCloser, err := pbutil.ConnMailer(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -6,9 +6,9 @@ import (
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/ent/schedule"
 	"github.com/athomecomar/athome/backend/services/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -24,12 +24,12 @@ func (s *Server) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequ
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer authCloser()
-	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
+	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

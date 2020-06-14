@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -16,7 +16,7 @@ func (s *Server) SignOut(ctx context.Context, in *pbusers.SignOutRequest) (*empt
 		return nil, err
 	}
 
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

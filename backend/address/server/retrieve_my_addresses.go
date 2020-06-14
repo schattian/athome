@@ -6,7 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/address/ent"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
@@ -25,7 +25,7 @@ func (s *Server) RetrieveMyAddresses(
 	}
 	defer db.Close()
 
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func (s *Server) retrieveMyAddresses(
 	auth pbauth.AuthClient,
 	in *pbaddress.RetrieveMyAddressesRequest,
 ) (*pbaddress.RetrieveMyAddressesResponse, error) {
-	userId, err := GetUserFromAccessToken(ctx, auth, in.GetAccessToken())
+	userId, err := pbutil.GetUserFromAccessToken(ctx, auth, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

@@ -38,8 +38,12 @@ github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5/go.mod h1:976q2E
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae h1:DUCqlxJivdsoLaXSiJq/u16lOmT2MuOmdo74+jJcT3Y=
 github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae/go.mod h1:3p+IwCz2oskFXcFBuL2F+7gQziW5ngBXP6oWoeOWlQ0=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845 h1:9mTw2WUdwM4xqo3rIXvEDYdDppr9FwCahRG35tOiZeo=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
+github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=
+github.com/athomecomar/envconf v1.2.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/storeql v1.4.5 h1:uPJv91XBq3KxiQagVyAw/ut2aYSzSjPhbma5C2ZF7RA=
 github.com/athomecomar/storeql v1.4.5/go.mod h1:WOw/0p1/y9Z2Cacb5FvdXJB++d25eHWbTKEGEMH1n6U=
 github.com/athomecomar/xerrors v1.2.1 h1:K5x2Um9NIxvPJU7qTPAKbquwf6JXiIEgf9N6yEySqDM=

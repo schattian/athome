@@ -7,9 +7,9 @@ import (
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/ent/stage"
 	"github.com/athomecomar/athome/backend/products/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -26,7 +26,7 @@ func (s *Server) Second(srv pbproducts.Creator_SecondServer) error {
 		return err
 	}
 
-	sem, semCloser, err := pbconf.ConnSemanticProducts(ctx)
+	sem, semCloser, err := pbutil.ConnSemanticProducts(ctx)
 	if err != nil {
 		return err
 	}

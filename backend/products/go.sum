@@ -60,6 +60,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7 h1:YRaUrMfXL
 github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/athome/pb v0.0.0-20200614144848-6e75f3dbe405 h1:jDyH/PP+KsG/JOT89X3eYPreSTB9R2Q3as4gMP6WeGU=
 github.com/athomecomar/athome/pb v0.0.0-20200614144848-6e75f3dbe405/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845 h1:9mTw2WUdwM4xqo3rIXvEDYdDppr9FwCahRG35tOiZeo=
+github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/currency v0.0.0-20200605192938-0acef9cd2efd h1:dV41OfQIfCyLNqSQtm05HEi242rD2PKprUWLDPlGkzc=
 github.com/athomecomar/currency v0.0.0-20200605192938-0acef9cd2efd/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=

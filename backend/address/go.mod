@@ -3,8 +3,8 @@ module github.com/athomecomar/athome/backend/address
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200613171715-d8ee4ade78ae
-	github.com/athomecomar/envconf v1.1.0
+	github.com/athomecomar/athome/pb v0.0.0-20200614174631-650f88e03845
+	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.4.5
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/golang-migrate/migrate/v4 v4.11.0

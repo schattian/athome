@@ -4,16 +4,12 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbutil"
 )
 
 func GetUserFromAccessToken(c pbauth.AuthClient, access string) AuthFunc {
 	return func(ctx context.Context) (uint64, error) {
-		resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
-		if err != nil {
-			return 0, err
-		}
-
-		return resp.GetUserId(), nil
+		return pbutil.GetUserFromAccessToken(ctx, c, access)
 	}
 }
 

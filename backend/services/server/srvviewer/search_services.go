@@ -10,11 +10,11 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"golang.org/x/text/runes"
@@ -32,16 +32,16 @@ func (s *Server) SearchServices(ctx context.Context, in *pbservices.SearchServic
 		return nil, err
 	}
 
-	sem, semCloser, err := pbconf.ConnSemanticServiceProviders(ctx)
+	sem, semCloser, err := pbutil.ConnSemanticServiceProviders(ctx)
 	defer semCloser()
 
-	img, imgCloser, err := pbconf.ConnImages(ctx)
+	img, imgCloser, err := pbutil.ConnImages(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer imgCloser()
 
-	users, usersCloser, err := pbconf.ConnUsersViewer(ctx)
+	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
 	if err != nil {
 		return nil, err
 	}

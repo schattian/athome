@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/services/server"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
@@ -20,7 +20,7 @@ func (s *Server) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRe
 		return nil, err
 	}
 	defer db.Close()
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}

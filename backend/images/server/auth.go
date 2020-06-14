@@ -3,21 +3,11 @@ package server
 import (
 	"context"
 
-	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )
-
-func GetUserFromAccessToken(ctx context.Context, c pbauth.AuthClient, access string) (uint64, error) {
-	resp, err := c.RetrieveAuthentication(ctx, &pbauth.RetrieveAuthenticationRequest{AccessToken: access})
-	if err != nil {
-		return 0, err
-	}
-
-	return resp.GetUserId(), nil
-}
 
 func AuthorizeThroughEntity(ctx context.Context, access string, entityId uint64, entityTable string) (userId uint64, err error) {
 	type authorizationFunc func(ctx context.Context, access string, entityId uint64) (userId uint64, err error)
@@ -35,7 +25,7 @@ func AuthorizeThroughEntity(ctx context.Context, access string, entityId uint64,
 }
 
 func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64) (uint64, error) {
-	c, closer, err := pbconf.ConnProductsCreator(ctx)
+	c, closer, err := pbutil.ConnProductsCreator(ctx)
 	if err != nil {
 		return 0, err
 	}
@@ -51,16 +41,16 @@ func authorizeProductsDrafts(ctx context.Context, access string, entityId uint64
 }
 
 func authorizeProductsProducts(ctx context.Context, access string, entityId uint64) (uint64, error) {
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return 0, err
 	}
-	userId, err := GetUserFromAccessToken(ctx, auth, access)
+	userId, err := pbutil.GetUserFromAccessToken(ctx, auth, access)
 	if err != nil {
 		return 0, err
 	}
 	authCloser()
-	c, closer, err := pbconf.ConnProductsViewer(ctx)
+	c, closer, err := pbutil.ConnProductsViewer(ctx)
 	if err != nil {
 		return 0, err
 	}

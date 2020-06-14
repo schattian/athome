@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/pb/pbauth"
-	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 
 	"github.com/athomecomar/athome/backend/users/internal/userjwt"
 
@@ -22,7 +22,7 @@ func (s *Server) Sign(ctx context.Context, in *pbusers.SignRequest) (*pbusers.Si
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	auth, authCloser, err := pbconf.ConnAuth(ctx)
+	auth, authCloser, err := pbutil.ConnAuth(ctx)
 	if err != nil {
 		return nil, err
 	}
