@@ -205,13 +205,25 @@ func (m *ChangeEntityImagesRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for FromEntityId
+	if v, ok := interface{}(m.GetFrom()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ChangeEntityImagesRequestValidationError{
+				field:  "From",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for FromEntityTable
-
-	// no validation rules for DestEntityId
-
-	// no validation rules for DestEntityTable
+	if v, ok := interface{}(m.GetDest()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ChangeEntityImagesRequestValidationError{
+				field:  "Dest",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -271,6 +283,74 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ChangeEntityImagesRequestValidationError{}
+
+// Validate checks the field values on Entity with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Entity) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for EntityId
+
+	// no validation rules for EntityTable
+
+	return nil
+}
+
+// EntityValidationError is the validation error returned by Entity.Validate if
+// the designated constraints aren't met.
+type EntityValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EntityValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EntityValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EntityValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EntityValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EntityValidationError) ErrorName() string { return "EntityValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EntityValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEntity.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EntityValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EntityValidationError{}
 
 // Validate checks the field values on CreateImageRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -369,9 +449,15 @@ func (m *Image) Validate() error {
 
 	// no validation rules for Uri
 
-	// no validation rules for EntityId
-
-	// no validation rules for EntityTable
+	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ImageValidationError{
+				field:  "Entity",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -517,9 +603,15 @@ func (m *RetrieveImagesRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for EntityId
-
-	// no validation rules for EntityTable
+	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveImagesRequestValidationError{
+				field:  "Entity",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -674,9 +766,15 @@ func (m *DeleteImagesRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for EntityId
-
-	// no validation rules for EntityTable
+	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeleteImagesRequestValidationError{
+				field:  "Entity",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -754,9 +852,15 @@ func (m *CreateImageRequest_Metadata) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for EntityId
-
-	// no validation rules for EntityTable
+	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateImageRequest_MetadataValidationError{
+				field:  "Entity",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
