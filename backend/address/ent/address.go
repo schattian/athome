@@ -18,7 +18,7 @@ type Address struct {
 	Street     string
 	Number     uint64
 	Floor      uint64
-	Department uint64
+	Department string
 	Latitude   uint64
 	Longitude  uint64
 	Alias      string
@@ -51,15 +51,16 @@ func AddressFromPb(d *pbaddress.Address) *Address {
 
 func (addr *Address) ToPb() *pbaddress.Address {
 	return &pbaddress.Address{
-		Country:   addr.Country,
-		Province:  addr.Province,
-		Zipcode:   addr.Zipcode,
-		Street:    addr.Street,
-		Number:    addr.Number,
-		Floor:     addr.Floor,
-		Latitude:  addr.Latitude,
-		Longitude: addr.Longitude,
-		Alias:     addr.Alias,
+		Country:    addr.Country,
+		Province:   addr.Province,
+		Zipcode:    addr.Zipcode,
+		Street:     addr.Street,
+		Number:     addr.Number,
+		Department: addr.Department,
+		Floor:      addr.Floor,
+		Latitude:   addr.Latitude,
+		Longitude:  addr.Longitude,
+		Alias:      addr.Alias,
 	}
 }
 

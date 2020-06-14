@@ -56,18 +56,25 @@ func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		return nil, err
 	}
 	page := in.GetPage()
+
 	cursorId, err := b64DecodeId(page.GetCursor())
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := db.QueryxContext(ctx, `SELECT id, title, price_min, price_max FROM services 
-    WHERE id < $1
-    AND lower(unaccent(title)) ILIKE ESCAPE $2
-    ORDER BY id LIMIT $3`, cursorId, q, page.GetSize())
+	qr := `SELECT (*) FROM services
+    WHERE lower(unaccent(title)) ILIKE ESCAPE $1`
+	if cursorId > 0 {
+		qr += ` AND id < ` + strconv.Itoa(int(cursorId))
+	}
+	qr += ` ORDER BY id DESC LIMIT $2`
+
+	rows, err := db.QueryxContext(ctx, qr, q, page.GetSize())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
+	defer rows.Close()
+
 	var svcs []*ent.Service
 	for rows.Next() {
 		svc := &ent.Service{}
@@ -79,7 +86,7 @@ func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic
 	}
 
 	resp := &pbservices.SearchServicesResponse{Page: &pbservices.PageResponse{}}
-	count, err := db.QueryxContext(ctx, `SELECT COUNT(*) FROM products WHERE lower(unaccent(title)) ILIKE ESCAPE $1`, q)
+	count, err := db.QueryxContext(ctx, `SELECT COUNT(*) FROM services WHERE lower(unaccent(title)) ILIKE ESCAPE $1`, q)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
@@ -91,13 +98,13 @@ func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic
 	}
 
 	if len(svcs) > 0 {
-		resp.Page.NextCursor = b64EncodeId(svcs[len(svcs)].Id)
+		resp.Page.NextCursor = b64EncodeId(svcs[len(svcs)-1].Id)
 	}
 
 	var wg sync.WaitGroup
 	errCh := make(chan error, 1)
 	done := make(chan struct{})
-
+	resp.Services = make(map[uint64]*pbservices.ServiceSearchResult)
 	var lock sync.RWMutex
 	for _, svc := range svcs {
 		wg.Add(1)
@@ -166,6 +173,9 @@ func removeNonWord(s string) string {
 }
 
 func b64DecodeId(str string) (uint64, error) {
+	if str == "" {
+		return 0, nil
+	}
 	bytes, err := base64.RawStdEncoding.DecodeString(str)
 	if err != nil {
 		return 0, status.Errorf(xerrors.InvalidArgument, "base64.DecodeString: %v", err)

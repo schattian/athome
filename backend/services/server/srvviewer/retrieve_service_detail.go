@@ -65,11 +65,10 @@ func (s *Server) retrieveServiceDetail(
 		return nil, status.Errorf(xerrors.Internal, "svc.Address: %v", err)
 	}
 
-	resp := &pbservices.ServiceDetail{
+	return &pbservices.ServiceDetail{
 		Service:  svc.ToPb(),
 		Address:  address,
 		User:     user,
 		Calendar: c,
-	}
-	return resp, nil
+	}, nil
 }

@@ -1,12 +1,12 @@
 package servicestest
 
-// var (
-// 	gUsers                     GoldenUsers
-// 	gOnboardings               GoldenOnboardings
-// 	gOnboardingIdentifications GoldenOnboardingIdentifications
-// 	gTokens                    GoldenTokens
-// )
+var (
+	gCalendars      GoldenCalendars
+	gServices       GoldenServices
+	gAvailabilities GoldenAvailabilities
+	gEvents         GoldenEvents
+)
 
-// func init() {
-// Init(&gTokens, &gUsers, &gOnboardings, &gOnboardingIdentifications)
-// }
+func init() {
+	Init(&gServices, &gCalendars, &gAvailabilities, &gEvents)
+}

@@ -3,6 +3,7 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/currency"
@@ -24,7 +25,7 @@ type DraftLine struct {
 	Stock uint64       `json:"stock,omitempty"`
 
 	// Third
-	ImageIds []string `json:"image_ids,omitempty"`
+	// ImageIds []string `json:"image_ids,omitempty"`
 }
 
 func (ln *DraftLine) toProduct() *Product {
@@ -33,11 +34,10 @@ func (ln *DraftLine) toProduct() *Product {
 		Title:      ln.Title,
 		Price:      ln.Price,
 		Stock:      ln.Stock,
-		ImageIds:   ln.ImageIds,
 	}
 }
 
-func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, userId uint64, access string) (*Product, error) {
+func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, imgs pbimages.ImagesClient, sem pbsemantic.ProductsClient, userId uint64, access string) (*Product, error) {
 	prod := ln.toProduct()
 	prod.UserId = userId
 
@@ -56,6 +56,14 @@ func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.Pro
 	if err != nil {
 		return nil, err
 	}
+	_, err = imgs.ChangeEntityImages(ctx, &pbimages.ChangeEntityImagesRequest{
+		AccessToken:     access,
+		FromEntityTable: ln.SQLTable(),
+		FromEntityId:    ln.Id,
+		DestEntityTable: prod.SQLTable(),
+		DestEntityId:    prod.Id,
+	})
+
 	return prod, nil
 }
 
@@ -74,9 +82,9 @@ func (ln *DraftLine) ToPb(atts []*pbproducts.AttributeData) *pbproducts.DraftLin
 			Attributes: atts,
 		},
 
-		Third: &pbproducts.DraftLineThird{
-			ImageIds: ln.ImageIds,
-		},
+		// Third: &pbproducts.DraftLineThird{
+		// ImageIds: ln.ImageIds,
+		// },
 	}
 }
 

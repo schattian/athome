@@ -13,7 +13,7 @@ import (
 type Event struct {
 	Id         uint64 `json:"id,omitempty"`
 	CalendarId uint64 `json:"calendar_id,omitempty"`
-	ClaimantId uint64
+	ClaimantId uint64 `json:"claimant_id,omitempty"`
 
 	DayOfWeek   time.Weekday `json:"day_of_week,omitempty"`
 	StartHour   int64        `json:"start_hour,omitempty"`

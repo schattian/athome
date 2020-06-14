@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS addresses(
     number integer not null,
     street varchar(30) not null,
     floor integer,
-    department integer,
+    department varchar(10), 
     latitude decimal(9,6) not null,
     longitude decimal(9,6) not null,
     alias varchar(30) 

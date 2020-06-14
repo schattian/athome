@@ -98,7 +98,6 @@ func (c *Calendar) Events(ctx context.Context, db *sqlx.DB) ([]*Event, error) {
 }
 
 func (c *Calendar) Detail(ctx context.Context, db *sqlx.DB) (*pbservices.CalendarDetail, error) {
-	resp := &pbservices.CalendarDetail{}
 	avs, err := c.Availabilities(ctx, db)
 	if err != nil {
 		return nil, errors.Wrap(err, "Availabilities")
@@ -118,7 +117,7 @@ func (c *Calendar) Detail(ctx context.Context, db *sqlx.DB) (*pbservices.Calenda
 	for _, e := range es {
 		calDetail.Events[e.Id] = e.ToPb()
 	}
-	return resp, nil
+	return calDetail, nil
 }
 
 func AvailabilitiesByUserGroup(ctx context.Context, db *sqlx.DB, uid, gid uint64) ([]*Availability, error) {

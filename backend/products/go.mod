@@ -3,19 +3,24 @@ module github.com/athomecomar/athome/backend/products
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200613165114-dc55071349c6
+	github.com/DATA-DOG/go-sqlmock v1.4.1
+	github.com/athomecomar/athome/backend/services v0.0.0-20200613174324-c3e603d0c679
+	github.com/athomecomar/athome/pb v0.0.0-20200614144848-6e75f3dbe405
 	github.com/athomecomar/currency v0.1.0
-	github.com/athomecomar/envconf v1.1.0
-	github.com/athomecomar/storeql v1.4.5
+	github.com/athomecomar/envconf v1.2.0
+	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/athomecomar/xtest v0.2.0
 	github.com/client9/misspell v0.3.4 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.3.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
+	github.com/golang/mock v1.4.0
 	github.com/golang/protobuf v1.4.2
+	github.com/google/go-cmp v0.4.1
 	github.com/gordonklaus/ineffassign v0.0.0-20200309095847-7953dde2c7bf // indirect
 	github.com/jcmturner/gokrb5/v8 v8.3.0 // indirect
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
-	github.com/lib/pq v1.6.0
+	github.com/lib/pq v1.7.0
 	github.com/mdempsky/unconvert v0.0.0-20200228143138-95ecdbfc0b5f // indirect
 	github.com/omeid/pgerror v0.0.0-20200121005125-8254ae5f5ba0
 	github.com/pkg/errors v0.9.1

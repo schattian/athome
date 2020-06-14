@@ -1,36 +1,39 @@
 package productstest
 
-// func Init(gTokens *GoldenTokens, gUsers *GoldenUsers, gOnboardings *GoldenOnboardings, gOnboardingIdentifications *GoldenOnboardingIdentifications) {
-// 	xload.DecodeJsonnet("tokens", gTokens)
-// 	xload.DecodeJsonnet("products", gUsers)
-// 	xload.DecodeJsonnet("onboardings", gOnboardings)
-// 	xload.DecodeJsonnet("onboarding_identifications", gOnboardingIdentifications)
-// }
+import (
+	"github.com/athomecomar/athome/backend/products/ent"
+	"github.com/athomecomar/athome/pb/pbimages"
+	"github.com/athomecomar/xtest/xload"
+)
 
-// type GoldenTokens struct {
-// 	Sign   *variadicTokens `json:"sign,omitempty"`
-// 	Forgot *variadicTokens `json:"forgot,omitempty"`
-// }
+func Init(gDraftLines *GoldenDraftLines, gDrafts *GoldenDrafts, gProducts *GoldenProducts, gPbUsers *GoldenPbUsers, gPbImages *GoldenPbImages) {
+	xload.DecodeJsonnet("drafts", gDrafts)
+	xload.DecodeJsonnet("products", gProducts)
+	xload.DecodeJsonnet("users", gPbUsers)
+	xload.DecodeJsonnet("images", gPbImages)
+	xload.DecodeJsonnet("draft_lines", gDraftLines)
+}
 
-// type GoldenUsers struct {
-// 	Consumers        *variadicUsers `json:"consumers,omitempty"`
-// 	ServiceProviders struct {
-// 		Medic  *variadicUsers `json:"medic,omitempty"`
-// 		Lawyer *variadicUsers `json:"lawyer,omitempty"`
-// 	} `json:"service_providers,omitempty"`
-// }
+type GoldenDraftLines struct {
+	Foo *variadicDraftLines `json:"foo,omitempty"`
+	Bar *variadicDraftLines `json:"bar,omitempty"`
+}
 
-// type GoldenOnboardings struct {
-// 	Consumers        *variadicOnboardings `json:"consumers,omitempty"`
-// 	ServiceProviders struct {
-// 		Medic  *variadicOnboardings `json:"medic,omitempty"`
-// 		Lawyer *variadicOnboardings `json:"lawyer,omitempty"`
-// 	} `json:"service_providers,omitempty"`
-// }
+type GoldenPbImages struct {
+	Foo *pbimages.Image
+	Bar *pbimages.Image
+}
 
-// type GoldenOnboardingIdentifications struct {
-// 	ServiceProviders struct {
-// 		Medic  *variadicOnboardingIdentifications `json:"medic,omitempty"`
-// 		Lawyer *variadicOnboardingIdentifications `json:"lawyer,omitempty"`
-// 	} `json:"service_providers,omitempty"`
-// }
+type GoldenPbUsers struct {
+	Consumers *variadicPbUsers `json:"consumers,omitempty"`
+	Merchants *variadicPbUsers `json:"merchants,omitempty"`
+}
+type GoldenDrafts struct {
+	Foo *ent.Draft `json:"foo,omitempty"`
+	Bar *ent.Draft `json:"bar,omitempty"`
+}
+
+type GoldenProducts struct {
+	Foo *variadicProducts `json:"foo,omitempty"`
+	Bar *variadicProducts `json:"bar,omitempty"`
+}

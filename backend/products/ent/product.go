@@ -22,8 +22,6 @@ type Product struct {
 
 	Price currency.ARS `json:"price,omitempty"`
 	Stock uint64       `json:"stock,omitempty"`
-
-	ImageIds []string `json:"image_ids,omitempty"`
 }
 
 func FindProduct(ctx context.Context, db *sqlx.DB, id uint64) (*Product, error) {
@@ -42,7 +40,6 @@ func (p *Product) ToPb() *pbproducts.Product {
 		CategoryId: p.CategoryId,
 		Price:      p.Price.Float64(),
 		Stock:      p.Stock,
-		ImageIds:   p.ImageIds,
 	}
 }
 
@@ -69,7 +66,7 @@ func (p *Product) GetUser(ctx context.Context, users pbusers.ViewerClient) (*pbp
 }
 
 func (p *Product) GetImages(ctx context.Context, img pbimages.ImagesClient) (map[string]*pbproducts.Image, error) {
-	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{Ids: p.ImageIds})
+	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{EntityTable: p.SQLTable(), EntityId: p.Id})
 	if err != nil {
 		return nil, errors.Wrap(err, "RetrieveImages")
 	}
@@ -107,5 +104,6 @@ func attributeFromDataAndSchema(data *pbsemantic.AttributeData, schema *pbsemant
 		Name:      schema.GetName(),
 		ValueType: schema.GetValueType(),
 		Values:    data.GetValues(),
+		SchemaId:  data.GetSchemaId(),
 	}
 }

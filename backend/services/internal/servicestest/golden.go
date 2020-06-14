@@ -1,24 +1,41 @@
 package servicestest
 
-// func Init(gTokens *GoldenTokens, gUsers *GoldenUsers, gOnboardings *GoldenOnboardings, gOnboardingIdentifications *GoldenOnboardingIdentifications) {
-// 	xload.DecodeJsonnet("tokens", gTokens)
-// 	xload.DecodeJsonnet("services", gUsers)
-// 	xload.DecodeJsonnet("onboardings", gOnboardings)
-// 	xload.DecodeJsonnet("onboarding_identifications", gOnboardingIdentifications)
-// }
+import (
+	"github.com/athomecomar/athome/backend/services/ent"
+	"github.com/athomecomar/xtest/xload"
+)
+
+func Init(gServices *GoldenServices, gCalendars *GoldenCalendars, gAvailabilities *GoldenAvailabilities, gEvents *GoldenEvents) {
+	xload.DecodeJsonnet("services", gServices)
+	xload.DecodeJsonnet("calendars", gCalendars)
+	xload.DecodeJsonnet("availabilities", gAvailabilities)
+	xload.DecodeJsonnet("events", gEvents)
+}
 
 // type GoldenTokens struct {
 // 	Sign   *variadicTokens `json:"sign,omitempty"`
 // 	Forgot *variadicTokens `json:"forgot,omitempty"`
 // }
 
-// type GoldenUsers struct {
-// 	Consumers        *variadicUsers `json:"consumers,omitempty"`
-// 	ServiceProviders struct {
-// 		Medic  *variadicUsers `json:"medic,omitempty"`
-// 		Lawyer *variadicUsers `json:"lawyer,omitempty"`
-// 	} `json:"service_providers,omitempty"`
-// }
+type GoldenServices struct {
+	Foo *ent.Service
+	Bar *ent.Service
+}
+
+type GoldenCalendars struct {
+	Foo *variadicCalendars
+	Bar *variadicCalendars
+}
+
+type GoldenAvailabilities struct {
+	Foo *variadicAvailabilities
+	Bar *variadicAvailabilities
+}
+
+type GoldenEvents struct {
+	Foo *variadicEvents
+	Bar *variadicEvents
+}
 
 // type GoldenOnboardings struct {
 // 	Consumers        *variadicOnboardings `json:"consumers,omitempty"`

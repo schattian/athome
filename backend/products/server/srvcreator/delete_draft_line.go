@@ -91,30 +91,12 @@ func deleteAttributes(ctx context.Context, c pbsemantic.ProductsClient, from sto
 }
 
 func deleteImages(ctx context.Context, db *sqlx.DB, c pbimages.ImagesClient, ln *ent.DraftLine, access string) error {
-	if len(ln.ImageIds) == 0 {
-		return nil
-	}
-	rows, err := db.QueryxContext(ctx, `SELECT COUNT(id) FROM draft_lines WHERE id != $1 AND image_ids = $2`, ln.Id, ln.ImageIds)
-	if err != nil {
-		return status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
-	}
-	defer rows.Close()
-	var count int64
-	for rows.Next() {
-		err = rows.Scan(&count)
-		if err != nil {
-			return status.Errorf(xerrors.Internal, "rows.Scan: %v", err)
-		}
-	}
-	if count > 0 {
-		return nil
-	}
-
 	req := &pbimages.DeleteImagesRequest{
 		AccessToken: access,
-		Ids:         ln.ImageIds,
+		EntityId:    ln.Id,
+		EntityTable: ln.SQLTable(),
 	}
-	_, err = c.DeleteImages(ctx, req)
+	_, err := c.DeleteImages(ctx, req)
 	if err != nil {
 		return err
 	}

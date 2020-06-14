@@ -17,31 +17,16 @@ func (s *Server) RetrieveImages(ctx context.Context, in *pbimages.RetrieveImages
 }
 
 func (s *Server) retrieveImages(ctx context.Context, in *pbimages.RetrieveImagesRequest) (*pbimages.RetrieveImagesResponse, error) {
-	var response *pbimages.RetrieveImagesResponse
-	var wg sync.WaitGroup
-	idsQt := len(in.GetIds())
-	respCh := make(chan *pbimages.Image, idsQt)
-	errCh := make(chan error, 1)
-	done := make(chan struct{})
-	wg.Add(idsQt)
-	for _, id := range in.GetIds() {
-		go s.retrieveImage(ctx, id, respCh, errCh, &wg)
+	dds, err := s.Store.RetrieveMany(ctx, in.GetEntityId(), in.GetEntityTable())
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "store.RetrieveMany: %v", err)
 	}
-	go func() {
-		wg.Wait()
-		close(done)
-	}()
+	imgs := make(map[string]*pbimages.Image)
+	for _, dd := range dds {
+		imgs[dd.Id()] = &pbimages.Image{Uri: dd.URI(), EntityId: in.GetEntityId(), EntityTable: in.GetEntityTable()}
+	}
 
-	for {
-		select {
-		case err := <-errCh:
-			return nil, err
-		case resp := <-respCh:
-			response.Images[resp.Uri] = resp
-		case <-done:
-			return response, nil
-		}
-	}
+	return &pbimages.RetrieveImagesResponse{Images: imgs}, nil
 }
 
 func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pbimages.Image, errCh chan<- error, wg *sync.WaitGroup) {
@@ -58,5 +43,5 @@ func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pb
 		return
 	}
 
-	respCh <- &pbimages.Image{Uri: dd.URI(), UserId: meta.UserId}
+	respCh <- &pbimages.Image{Uri: dd.URI(), EntityId: meta.EntityId, EntityTable: meta.EntityTable}
 }

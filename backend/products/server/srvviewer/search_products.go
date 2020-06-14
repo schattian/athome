@@ -60,18 +60,25 @@ func (s *Server) searchProducts(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		return nil, err
 	}
 	page := in.GetPage()
+
 	cursorId, err := b64DecodeId(page.GetCursor())
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := db.QueryxContext(ctx, `SELECT id, title, price FROM products 
-    WHERE id < $1
-    AND lower(unaccent(title)) ILIKE ESCAPE $2
-    ORDER BY id LIMIT $3`, cursorId, q, page.GetSize())
+	qr := `SELECT (*) FROM products 
+    WHERE lower(unaccent(title)) ILIKE ESCAPE $1`
+	if cursorId > 0 {
+		qr += ` AND id < ` + strconv.Itoa(int(cursorId))
+	}
+	qr += ` ORDER BY id DESC LIMIT $2`
+
+	rows, err := db.QueryxContext(ctx, qr, q, page.GetSize())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
+	defer rows.Close()
+
 	var prods []*ent.Product
 	for rows.Next() {
 		pr := &ent.Product{}
@@ -95,13 +102,13 @@ func (s *Server) searchProducts(ctx context.Context, db *sqlx.DB, sem pbsemantic
 	}
 
 	if len(prods) > 0 {
-		resp.Page.NextCursor = b64EncodeId(prods[len(prods)].Id)
+		resp.Page.NextCursor = b64EncodeId(prods[len(prods)-1].Id)
 	}
 
 	var wg sync.WaitGroup
 	errCh := make(chan error, 1)
 	done := make(chan struct{})
-
+	resp.Products = make(map[uint64]*pbproducts.ProductSearchResult)
 	var lock sync.RWMutex
 	for _, pr := range prods {
 		wg.Add(1)
@@ -170,6 +177,9 @@ func removeNonWord(s string) string {
 }
 
 func b64DecodeId(str string) (uint64, error) {
+	if str == "" {
+		return 0, nil
+	}
 	bytes, err := base64.RawStdEncoding.DecodeString(str)
 	if err != nil {
 		return 0, status.Errorf(xerrors.InvalidArgument, "base64.DecodeString: %v", err)

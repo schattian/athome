@@ -68,12 +68,11 @@ func (s *Server) CreateImage(srv pbimages.Images_CreateImageServer) error {
 }
 
 func (s *Server) createImageMetadata(ctx context.Context, c pbauth.AuthClient, meta *pbimages.CreateImageRequest_Metadata) (*img.Metadata, error) {
-	userId, err := GetUserFromAccessToken(ctx, c, meta.GetAccessToken())
+	_, err := AuthorizeThroughEntity(ctx, meta.GetAccessToken(), meta.GetEntityId(), meta.GetEntityTable())
 	if err != nil {
 		return nil, err
 	}
-
-	return &img.Metadata{Ext: img.Ext(meta.GetExt()), UserId: userId}, nil
+	return &img.Metadata{Ext: img.Ext(meta.GetExt()), EntityId: meta.EntityId, EntityTable: meta.EntityTable}, nil
 }
 
 func (s *Server) createImage(

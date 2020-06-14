@@ -1,12 +1,13 @@
 package productstest
 
-// var (
-// 	gUsers                     GoldenUsers
-// 	gOnboardings               GoldenOnboardings
-// 	gOnboardingIdentifications GoldenOnboardingIdentifications
-// 	gTokens                    GoldenTokens
-// )
+var (
+	gProducts   GoldenProducts
+	gDraftLines GoldenDraftLines
+	gDrafts     GoldenDrafts
+	gPbUsers    GoldenPbUsers
+	gPbImages   GoldenPbImages
+)
 
-// func init() {
-// Init(&gTokens, &gUsers, &gOnboardings, &gOnboardingIdentifications)
-// }
+func init() {
+	Init(&gDraftLines, &gDrafts, &gProducts, &gPbUsers, &gPbImages)
+}

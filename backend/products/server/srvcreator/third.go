@@ -84,6 +84,5 @@ func (s *Server) third(ctx context.Context, db *sqlx.DB, in *pbproducts.ThirdReq
 }
 
 func applyThirdRequestToDraftLine(in *pbproducts.DraftLineThird, ln *ent.DraftLine) *ent.DraftLine {
-	ln.ImageIds = in.GetImageIds()
 	return ln
 }

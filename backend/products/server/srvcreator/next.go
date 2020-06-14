@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/products/ent"
 	"github.com/athomecomar/athome/backend/products/server"
 	"github.com/athomecomar/athome/pb/pbconf"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/xerrors"
@@ -29,16 +30,22 @@ func (s *Server) Next(ctx context.Context, in *pbproducts.StageChangeRequest) (*
 	}
 	defer semCloser()
 
+	imgs, imgsCloser, err := pbconf.ConnImages(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer imgsCloser()
+
 	draft, err := server.RetrieveLatestDraft(ctx, db, in.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
 
-	return s.next(ctx, db, sem, in, draft)
+	return s.next(ctx, db, imgs, sem, in, draft)
 }
 
-func (s *Server) next(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, in *pbproducts.StageChangeRequest, d *ent.Draft) (*pbproducts.StageChangeResponse, error) {
-	qt, err := d.Next(ctx, db, sem, in.GetAccessToken())
+func (s *Server) next(ctx context.Context, db *sqlx.DB, imgs pbimages.ImagesClient, sem pbsemantic.ProductsClient, in *pbproducts.StageChangeRequest, d *ent.Draft) (*pbproducts.StageChangeResponse, error) {
+	qt, err := d.Next(ctx, db, imgs, sem, in.GetAccessToken())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "draft.Next: %v", err)
 	}

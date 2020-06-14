@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/athomecomar/athome/backend/products/ent/stage"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
@@ -36,9 +37,9 @@ func (d *Draft) ValidateLineByStage(l *DraftLine) error {
 			return errors.New("line's stock is nil")
 		}
 	case stage.Third:
-		if l.ImageIds == nil {
-			return errors.New("line's stock is nil")
-		}
+		// if l.ImageIds == nil {
+		// return errors.New("line's stock is nil")
+		// }
 	}
 	return nil
 }
@@ -59,7 +60,7 @@ func (d *Draft) ToPb() *pbproducts.Draft {
 	}
 }
 
-func (d *Draft) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, lns []*DraftLine, access string) (prods []*Product, err error) {
+func (d *Draft) finish(ctx context.Context, db *sqlx.DB, imgs pbimages.ImagesClient, sem pbsemantic.ProductsClient, lns []*DraftLine, access string) (prods []*Product, err error) {
 	var wg sync.WaitGroup
 
 	prodCh := make(chan *Product)
@@ -71,7 +72,7 @@ func (d *Draft) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.Products
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			prod, err := ln.finish(ctx, db, sem, d.UserId, access)
+			prod, err := ln.finish(ctx, db, imgs, sem, d.UserId, access)
 			if err != nil {
 				errCh <- err
 			}
@@ -100,7 +101,7 @@ func (d *Draft) finish(ctx context.Context, db *sqlx.DB, sem pbsemantic.Products
 	}
 }
 
-func (d *Draft) Next(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsClient, accessToken string) (int, error) {
+func (d *Draft) Next(ctx context.Context, db *sqlx.DB, imgs pbimages.ImagesClient, sem pbsemantic.ProductsClient, accessToken string) (int, error) {
 	d.Stage = d.Stage.Next()
 
 	lns, err := d.Lines(ctx, db)
@@ -122,7 +123,7 @@ func (d *Draft) Next(ctx context.Context, db *sqlx.DB, sem pbsemantic.ProductsCl
 
 	switch d.Stage {
 	case stage.Fourth:
-		prods, err := d.finish(ctx, db, sem, upstreamLines, accessToken)
+		prods, err := d.finish(ctx, db, imgs, sem, upstreamLines, accessToken)
 		if err != nil {
 			return 0, errors.Wrap(err, "draft.finish")
 		}

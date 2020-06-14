@@ -24,7 +24,5 @@ func (u *Product) SQLMap() map[string]driver.Value {
 
 		"price": u.Price,
 		"stock": u.Stock,
-
-		"image_ids": u.ImageIds,
 	}
 }

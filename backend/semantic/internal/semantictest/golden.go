@@ -7,10 +7,16 @@ package semantictest
 // 	xload.DecodeJsonnet("onboarding_identifications", gOnboardingIdentifications)
 // }
 
-// type GoldenTokens struct {
-// 	Sign   *variadicTokens `json:"sign,omitempty"`
-// 	Forgot *variadicTokens `json:"forgot,omitempty"`
-// }
+type GoldenServiceProviderCategories struct {
+	Foo *variadicServiceProviderCategories
+}
+type GoldenMerchantCategories struct {
+	Foo *variadicMerchantCategories
+}
+
+type GoldenProductCategories struct {
+	Foo *variadicProductCategories
+}
 
 // type GoldenUsers struct {
 // 	Consumers        *variadicUsers `json:"consumers,omitempty"`

@@ -3,15 +3,19 @@ module github.com/athomecomar/athome/backend/services
 go 1.14
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.4.1
 	github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22
 	github.com/athomecomar/athome/pb v0.0.0-20200613173711-789fcc184ba7
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/athomecomar/xtest v0.2.0
 	github.com/envoyproxy/protoc-gen-validate v0.3.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
+	github.com/golang/mock v1.4.0
 	github.com/golang/protobuf v1.4.2
+	github.com/google/go-cmp v0.4.1
 	github.com/gordonklaus/ineffassign v0.0.0-20200309095847-7953dde2c7bf // indirect
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.7.0

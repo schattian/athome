@@ -1,21 +1,21 @@
 package productstest
 
-// type variadicTokens struct {
-// 	Valid   string `json:"valid,omitempty"`
-// 	Expired string `json:"expired,omitempty"`
-// }
+import (
+	"github.com/athomecomar/athome/backend/products/ent"
+	"github.com/athomecomar/athome/pb/pbusers"
+)
 
-// type variadicUsers struct {
-// 	Foo *ent.User `json:"foo,omitempty"`
-// 	Bar *ent.User `json:"bar,omitempty"`
-// }
+type variadicPbUsers struct {
+	Foo *pbusers.User `json:"foo,omitempty"`
+	Bar *pbusers.User `json:"bar,omitempty"`
+}
 
-// type variadicOnboardings struct {
-// 	Foo *ent.Onboarding `json:"foo,omitempty"`
-// 	Bar *ent.Onboarding `json:"bar,omitempty"`
-// }
+type variadicProducts struct {
+	A *ent.Product
+	B *ent.Product
+}
 
-// type variadicOnboardingIdentifications struct {
-// 	Foo *ent.OnboardingIdentification `json:"foo,omitempty"`
-// 	Bar *ent.OnboardingIdentification `json:"bar,omitempty"`
-// }
+type variadicDraftLines struct {
+	A *ent.DraftLine
+	B *ent.DraftLine
+}
