@@ -1,10 +1,11 @@
-package pbconf
+package pbutil
 
 import (
 	"context"
 
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbmailer"
@@ -26,7 +27,7 @@ func conn(ctx context.Context, host string) (*grpc.ClientConn, error) {
 }
 
 func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
-	host := Auth.GetHost()
+	host := pbconf.Auth.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -36,7 +37,7 @@ func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
 }
 
 func ConnMailer(ctx context.Context) (pbmailer.MailerClient, func() error, error) {
-	host := Mailer.GetHost()
+	host := pbconf.Mailer.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -46,7 +47,7 @@ func ConnMailer(ctx context.Context) (pbmailer.MailerClient, func() error, error
 }
 
 func ConnIdentifier(ctx context.Context) (pbidentifier.IdentifierClient, func() error, error) {
-	host := Mailer.GetHost()
+	host := pbconf.Mailer.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -56,7 +57,7 @@ func ConnIdentifier(ctx context.Context) (pbidentifier.IdentifierClient, func() 
 }
 
 func ConnUsersConfig(ctx context.Context) (pbusers.ConfigClient, func() error, error) {
-	host := Users.GetHost()
+	host := pbconf.Users.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -66,7 +67,7 @@ func ConnUsersConfig(ctx context.Context) (pbusers.ConfigClient, func() error, e
 }
 
 func ConnUsersViewer(ctx context.Context) (pbusers.ViewerClient, func() error, error) {
-	host := Users.GetHost()
+	host := pbconf.Users.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -76,7 +77,7 @@ func ConnUsersViewer(ctx context.Context) (pbusers.ViewerClient, func() error, e
 }
 
 func ConnImages(ctx context.Context) (pbimages.ImagesClient, func() error, error) {
-	host := Images.GetHost()
+	host := pbconf.Images.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -86,7 +87,7 @@ func ConnImages(ctx context.Context) (pbimages.ImagesClient, func() error, error
 }
 
 func ConnProductsCreator(ctx context.Context) (pbproducts.CreatorClient, func() error, error) {
-	host := Products.GetHost()
+	host := pbconf.Products.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -95,7 +96,7 @@ func ConnProductsCreator(ctx context.Context) (pbproducts.CreatorClient, func() 
 	return c, conn.Close, nil
 }
 func ConnProductsViewer(ctx context.Context) (pbproducts.ViewerClient, func() error, error) {
-	host := Products.GetHost()
+	host := pbconf.Products.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -105,7 +106,7 @@ func ConnProductsViewer(ctx context.Context) (pbproducts.ViewerClient, func() er
 }
 
 func ConnServicesViewer(ctx context.Context) (pbservices.ViewerClient, func() error, error) {
-	host := Services.GetHost()
+	host := pbconf.Services.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -115,7 +116,7 @@ func ConnServicesViewer(ctx context.Context) (pbservices.ViewerClient, func() er
 }
 
 func ConnServicesRegister(ctx context.Context) (pbservices.RegisterClient, func() error, error) {
-	host := Services.GetHost()
+	host := pbconf.Services.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -125,7 +126,7 @@ func ConnServicesRegister(ctx context.Context) (pbservices.RegisterClient, func(
 }
 
 func ConnAddresses(ctx context.Context) (pbaddress.AddressesClient, func() error, error) {
-	host := Addresses.GetHost()
+	host := pbconf.Addresses.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -135,7 +136,7 @@ func ConnAddresses(ctx context.Context) (pbaddress.AddressesClient, func() error
 }
 
 func ConnSemanticProducts(ctx context.Context) (pbsemantic.ProductsClient, func() error, error) {
-	host := Semantic.GetHost()
+	host := pbconf.Semantic.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -145,7 +146,7 @@ func ConnSemanticProducts(ctx context.Context) (pbsemantic.ProductsClient, func(
 }
 
 func ConnSemanticServiceProviders(ctx context.Context) (pbsemantic.ServiceProvidersClient, func() error, error) {
-	host := Semantic.GetHost()
+	host := pbconf.Semantic.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
@@ -155,7 +156,7 @@ func ConnSemanticServiceProviders(ctx context.Context) (pbsemantic.ServiceProvid
 }
 
 func ConnSemanticMerchants(ctx context.Context) (pbsemantic.MerchantsClient, func() error, error) {
-	host := Semantic.GetHost()
+	host := pbconf.Semantic.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
