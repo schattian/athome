@@ -46,6 +46,8 @@ func (m *UpdateStatusRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
+	// no validation rules for NotificationId
+
 	return nil
 }
 
