@@ -31,6 +31,7 @@ var (
 	Mailer     = &service{Name: "mailer"}
 	Identifier = &service{Name: "identifier"}
 	Users      = &service{Name: "users"}
+	Notifier   = &service{Name: "identifier"}
 
 	Semantic  = &service{Name: "semantic"}
 	Products  = &service{Name: "products"}
@@ -50,4 +51,5 @@ var devPorts = map[string]string{
 	"images":   ":9993",
 	"services": ":9994",
 	"address":  ":9995",
+	"notifier": ":9996",
 }
