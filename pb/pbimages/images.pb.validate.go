@@ -369,8 +369,6 @@ func (m *Image) Validate() error {
 
 	// no validation rules for Uri
 
-	// no validation rules for UserId
-
 	// no validation rules for EntityId
 
 	// no validation rules for EntityTable
