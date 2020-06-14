@@ -12,13 +12,38 @@ service Images {
   rpc CreateImage (stream CreateImageRequest) returns (CreateImageResponse) {}
   rpc RetrieveImages (RetrieveImagesRequest) returns (RetrieveImagesResponse) {}
   rpc DeleteImages (DeleteImagesRequest) returns (google.protobuf.Empty) {}
+
+  rpc CloneImages (CloneImagesRequest) returns (CloneImagesResponse) {}
+  rpc ChangeEntityImages (ChangeEntityImagesRequest) returns (google.protobuf.Empty) {}
 }
 
+message CloneImagesResponse {
+  map<string, Image> images = 1;
+}
+
+message CloneImagesRequest {
+  string access_token = 1;
+  uint64 from_entity_id = 2;
+  uint64 dest_entity_id = 3;
+  string entity_table = 4;
+}
+
+message ChangeEntityImagesRequest {
+  string access_token = 1;
+
+  uint64 from_entity_id = 2;
+  string from_entity_table = 3;
+
+  uint64 dest_entity_id = 4;
+  string dest_entity_table = 5;
+}
 
 message CreateImageRequest{
   message Metadata {
     string ext = 1;
     string access_token = 2;
+    string entity_id = 3;
+    string entity_table = 4;
   }
 
   oneof corpus {
@@ -30,7 +55,8 @@ message CreateImageRequest{
 message Image{
   int64 size = 1;
   string uri = 2;
-  uint64 user_id = 3;
+  uint64 entity_id = 3;
+  uint64 entity_table = 4;
 }
 
 message CreateImageResponse {
@@ -39,7 +65,8 @@ message CreateImageResponse {
 }
 
 message RetrieveImagesRequest{
-  repeated string ids = 1;
+  uint64 entity_id = 1;
+  string entity_table = 2;
 }
 
 message RetrieveImagesResponse {
@@ -48,7 +75,8 @@ message RetrieveImagesResponse {
 
 message DeleteImagesRequest{
   string access_token = 1;
-  repeated string ids = 2;
+  uint64 entity_id = 2;
+  string entity_table = 3;
 }
 
 

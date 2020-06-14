@@ -82,7 +82,7 @@ message Address {
   string street = 2;
   uint64 number = 3;
   uint64 floor = 4;
-  uint64 department = 5;
+  string department = 5;
 }
 
 message RetrieveCalendarRequest {

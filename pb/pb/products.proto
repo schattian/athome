@@ -34,7 +34,6 @@ message Product {
   uint64 category_id = 2;
   double price = 3;
   uint64 stock = 4;
-  repeated string image_ids = 5;
   uint64 user_id = 6;
 }
 
@@ -113,8 +112,7 @@ message DraftLineSecond {
   repeated AttributeData attributes = 3;
 }
 
-message DraftLineThird {
-  repeated string image_ids = 1;
+message DraftLineThird{
 }
 
 message FirstRequest{
