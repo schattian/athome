@@ -21,7 +21,7 @@ local users = import './users.jsonnet';
     },
   merchants:
     {
-      local users = user.merchants,
+      local user = users.merchants,
       foo: {
         id: 84,
         user_id: user.foo.id,
@@ -54,6 +54,20 @@ local users = import './users.jsonnet';
           latitude: 25344,
           longitude: 22535,
           alias: 'casita',
+        },
+        bar: {
+          id: 2228999,
+          user_id: user.foo.id,
+          country: 'UY',
+          province: 'AS',
+          zipcode: '9200',
+          street: 'Sth',
+          number: 123,
+          floor: 1,
+          department: 'B',
+          latitude: 259994,
+          longitude: 2535,
+          alias: 'ofis',
         },
       },
       lawyer: {
