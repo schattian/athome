@@ -5,6 +5,7 @@ import (
 
 	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/athomecomar/athome/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbnotifier"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/storeql"
 )
@@ -26,6 +27,13 @@ func ToPbSemanticEntity(s storeql.Storable) *pbsemantic.Entity {
 }
 func ToPbImagesEntity(s storeql.Storable) *pbimages.Entity {
 	return &pbimages.Entity{
+		EntityId:    s.GetId(),
+		EntityTable: s.SQLTable(),
+	}
+}
+
+func ToPbNotifierEntity(s storeql.Storable) *pbnotifier.Entity {
+	return &pbnotifier.Entity{
 		EntityId:    s.GetId(),
 		EntityTable: s.SQLTable(),
 	}
