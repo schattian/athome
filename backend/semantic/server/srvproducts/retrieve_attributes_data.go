@@ -25,7 +25,7 @@ func (s *Server) RetrieveAttributeDatas(ctx context.Context, in *pbsemantic.Retr
 }
 
 func (s *Server) retrieveAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveAttributeDatasRequest) (*pbsemantic.RetrieveAttributeDatasResponse, error) {
-	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntity())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}

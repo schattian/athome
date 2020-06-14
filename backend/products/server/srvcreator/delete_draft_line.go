@@ -80,8 +80,7 @@ func (s *Server) deleteDraftLine(ctx context.Context, db *sqlx.DB, sem pbsemanti
 func deleteAttributes(ctx context.Context, c pbsemantic.ProductsClient, from storeql.Storable, access string) error {
 	req := &pbsemantic.DeleteAttributeDatasRequest{
 		AccessToken: access,
-		EntityTable: from.SQLTable(),
-		EntityId:    from.GetId(),
+		Entity:      pbutil.ToPbSemanticEntity(from),
 	}
 	_, err := c.DeleteAttributeDatas(ctx, req)
 	if err != nil {
@@ -93,8 +92,7 @@ func deleteAttributes(ctx context.Context, c pbsemantic.ProductsClient, from sto
 func deleteImages(ctx context.Context, db *sqlx.DB, c pbimages.ImagesClient, ln *ent.DraftLine, access string) error {
 	req := &pbimages.DeleteImagesRequest{
 		AccessToken: access,
-		EntityId:    ln.Id,
-		EntityTable: ln.SQLTable(),
+		Entity:      pbutil.ToPbImagesEntity(ln),
 	}
 	_, err := c.DeleteImages(ctx, req)
 	if err != nil {

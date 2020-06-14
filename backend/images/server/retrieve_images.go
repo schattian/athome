@@ -17,13 +17,13 @@ func (s *Server) RetrieveImages(ctx context.Context, in *pbimages.RetrieveImages
 }
 
 func (s *Server) retrieveImages(ctx context.Context, in *pbimages.RetrieveImagesRequest) (*pbimages.RetrieveImagesResponse, error) {
-	dds, err := s.Store.RetrieveMany(ctx, in.GetEntityId(), in.GetEntityTable())
+	dds, err := s.Store.RetrieveMany(ctx, in.GetEntity().GetEntityId(), in.GetEntity().GetEntityTable())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "store.RetrieveMany: %v", err)
 	}
 	imgs := make(map[string]*pbimages.Image)
 	for _, dd := range dds {
-		imgs[dd.Id()] = &pbimages.Image{Uri: dd.URI(), EntityId: in.GetEntityId(), EntityTable: in.GetEntityTable()}
+		imgs[dd.Id()] = &pbimages.Image{Uri: dd.URI(), Entity: in.GetEntity()}
 	}
 
 	return &pbimages.RetrieveImagesResponse{Images: imgs}, nil
@@ -43,5 +43,5 @@ func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pb
 		return
 	}
 
-	respCh <- &pbimages.Image{Uri: dd.URI(), EntityId: meta.EntityId, EntityTable: meta.EntityTable}
+	respCh <- &pbimages.Image{Uri: dd.URI(), Entity: &pbimages.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
 }

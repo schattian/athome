@@ -10,6 +10,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/athome/pb/test/pbimagestest"
 	"github.com/athomecomar/athome/pb/test/pbsemantictest"
 	"github.com/athomecomar/athome/pb/test/pbuserstest"
@@ -65,7 +66,7 @@ func TestServer_retrieveProductDetail(t *testing.T) {
 		{
 			name: "basic retrieve detail",
 			imgs: imgsStub{
-				req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Foo.A.Id, EntityTable: gProducts.Foo.A.SQLTable()},
+				req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Foo.A)},
 				resp: &pbimages.RetrieveImagesResponse{
 					Images: map[string]*pbimages.Image{
 						"fooImageId": gPbImages.Foo,
@@ -73,7 +74,7 @@ func TestServer_retrieveProductDetail(t *testing.T) {
 				},
 			},
 			semData: semDataStub{
-				req: &pbsemantic.RetrieveAttributeDatasRequest{EntityId: gProducts.Foo.A.Id, EntityTable: gProducts.Foo.A.SQLTable()},
+				req: &pbsemantic.RetrieveAttributeDatasRequest{Entity: pbutil.ToPbSemanticEntity(gProducts.Foo.A)},
 				resp: &pbsemantic.RetrieveAttributeDatasResponse{
 					Attributes: map[uint64]*pbsemantic.AttributeData{
 						3424: {SchemaId: 432, Values: []string{"1"}},

@@ -51,7 +51,7 @@ func (s *Server) retrieveDraft(ctx context.Context, db *sqlx.DB, sem pbsemantic.
 		var atts []*pbproducts.AttributeData
 		if d.Stage >= stage.Second {
 			semResp, err := sem.RetrieveAttributeDatas(ctx,
-				&pbsemantic.RetrieveAttributeDatasRequest{EntityId: ln.GetId(), EntityTable: ln.SQLTable()},
+				&pbsemantic.RetrieveAttributeDatasRequest{Entity: pbutil.ToPbSemanticEntity(ln)},
 			)
 			if err != nil {
 				return nil, err

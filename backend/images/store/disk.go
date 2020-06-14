@@ -28,20 +28,24 @@ type DiskData struct {
 	Filename string
 }
 
-func entityFromDiskFilename(f string) (uint64, string, error) {
+func entityFromDiskFilename(f string) (ent img.Entity, err error) {
 	split := strings.Split(f, "_")
 	withExt := split[len(split)]
 	strEntity := strings.TrimSuffix(withExt, filepath.Ext(withExt))
 	entity := strings.Split(strEntity, "-")
 	if len(entity) != 2 {
-		return 0, "", errors.New("entity len is invalid")
+		err = errors.New("entity len is invalid")
+		return
 	}
-	strEntityId, entityTable := entity[0], entity[1]
-	entityId, err := strconv.Atoi(strEntityId)
+	var strEntityId string
+	strEntityId, ent.Table = entity[0], entity[1]
+	entId, err := strconv.Atoi(strEntityId)
 	if err != nil {
-		return 0, "", err
+		err = errors.Wrap(err, "strconv.Atoi")
+		return
 	}
-	return uint64(entityId), entityTable, nil
+	ent.Id = uint64(entId)
+	return
 }
 
 func (d *DiskData) Metadata() (*img.Metadata, error) {
@@ -49,7 +53,7 @@ func (d *DiskData) Metadata() (*img.Metadata, error) {
 		Ext: img.Ext(filepath.Ext(d.Filename)),
 	}
 	var err error
-	meta.EntityId, meta.EntityTable, err = entityFromDiskFilename(d.Filename)
+	meta.Entity, err = entityFromDiskFilename(d.Filename)
 	if err != nil {
 		return nil, errors.Wrap(err, "userIdFromDiskFilename")
 	}
@@ -86,7 +90,7 @@ func (store *DiskStore) Create(ctx context.Context, meta *img.Metadata, data *by
 		return nil, fmt.Errorf("cannot generate image id: %w", err)
 	}
 	id := uid.String()
-	imagePath := fmt.Sprintf("%s/%s_%d-%s.%s", store.dir, id, meta.EntityId, meta.EntityTable, meta.Ext)
+	imagePath := fmt.Sprintf("%s/%s_%d-%s.%s", store.dir, id, meta.Entity.Id, meta.Entity.Table, meta.Ext)
 	file, err := store.fs.Create(imagePath)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create image file: %w", err)
@@ -140,11 +144,11 @@ func (store *DiskStore) RetrieveMany(ctx context.Context, entityId uint64, entit
 	var dds []Data
 	var fi os.FileInfo
 	for _, f := range files {
-		id, table, err := entityFromDiskFilename(f.Name())
+		ent, err := entityFromDiskFilename(f.Name())
 		if err != nil {
 			return nil, errors.Wrap(err, "entityFromDiskFilename")
 		}
-		if table != entityTable || id != entityId {
+		if ent.Table != entityTable || ent.Id != entityId {
 			continue
 		}
 		dds = append(dds, &DiskData{Filename: fi.Name()})

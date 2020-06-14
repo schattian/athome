@@ -18,7 +18,7 @@ func (s *Server) DeleteAttributeDatas(ctx context.Context, in *pbsemantic.Delete
 	if err != nil {
 		return nil, err
 	}
-	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetEntityId(), in.GetEntityTable())
+	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetEntity())
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func (s *Server) DeleteAttributeDatas(ctx context.Context, in *pbsemantic.Delete
 }
 
 func (s *Server) deleteAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.DeleteAttributeDatasRequest) (*emptypb.Empty, error) {
-	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetEntityId())
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntity())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}

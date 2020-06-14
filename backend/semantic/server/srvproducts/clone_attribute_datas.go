@@ -17,7 +17,7 @@ func (s *Server) CloneAttributeDatas(ctx context.Context, in *pbsemantic.CloneAt
 	if err != nil {
 		return nil, err
 	}
-	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetDestEntityId(), in.GetEntityTable())
+	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), &pbsemantic.Entity{EntityId: in.GetDestEntityId(), EntityTable: in.GetEntityTable()})
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +32,7 @@ func (s *Server) CloneAttributeDatas(ctx context.Context, in *pbsemantic.CloneAt
 }
 
 func (s *Server) cloneAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.CloneAttributeDatasRequest) (*pbsemantic.CloneAttributeDatasResponse, error) {
-	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetEntityTable(), in.GetFromEntityId())
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, &pbsemantic.Entity{EntityTable: in.GetEntityTable(), EntityId: in.GetFromEntityId()})
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}

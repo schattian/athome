@@ -10,6 +10,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/athome/pb/test/pbimagestest"
 	"github.com/athomecomar/athome/pb/test/pbuserstest"
 	"github.com/athomecomar/storeql"
@@ -51,7 +52,7 @@ func TestServer_searchProducts(t *testing.T) {
 			name: "nil cursor given (1st iteration)",
 			imgs: []imgsStub{
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Foo.A.Id, EntityTable: gProducts.Foo.A.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Foo.A)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"fooImageId": gPbImages.Foo,
@@ -59,7 +60,7 @@ func TestServer_searchProducts(t *testing.T) {
 					},
 				},
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Bar.A.Id, EntityTable: gProducts.Bar.A.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Bar.A)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"barImageId": gPbImages.Bar,
@@ -67,7 +68,7 @@ func TestServer_searchProducts(t *testing.T) {
 					},
 				},
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Foo.B.Id, EntityTable: gProducts.Foo.B.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Foo.B)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"fooImageId": gPbImages.Foo,
@@ -161,7 +162,7 @@ func TestServer_searchProducts(t *testing.T) {
 			name: "basic retrieve detail",
 			imgs: []imgsStub{
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Foo.A.Id, EntityTable: gProducts.Foo.A.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Foo.A)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"fooImageId": gPbImages.Foo,
@@ -169,7 +170,7 @@ func TestServer_searchProducts(t *testing.T) {
 					},
 				},
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Bar.A.Id, EntityTable: gProducts.Bar.A.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Bar.A)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"barImageId": gPbImages.Bar,
@@ -177,7 +178,7 @@ func TestServer_searchProducts(t *testing.T) {
 					},
 				},
 				{
-					req: &pbimages.RetrieveImagesRequest{EntityId: gProducts.Foo.B.Id, EntityTable: gProducts.Foo.B.SQLTable()},
+					req: &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbImagesEntity(gProducts.Foo.B)},
 					resp: &pbimages.RetrieveImagesResponse{
 						Images: map[string]*pbimages.Image{
 							"fooImageId": gPbImages.Foo,

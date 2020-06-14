@@ -19,12 +19,12 @@ func (s *Server) ChangeEntityAttributeDatas(ctx context.Context, in *pbsemantic.
 		return nil, err
 	}
 
-	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetDestEntityId(), in.GetDestEntityTable())
+	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetDest())
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetFromEntityId(), in.GetFromEntityTable())
+	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), in.GetFrom())
 	if err != nil {
 		return nil, err
 	}
@@ -39,14 +39,15 @@ func (s *Server) ChangeEntityAttributeDatas(ctx context.Context, in *pbsemantic.
 }
 
 func (s *Server) changeEntityAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.ChangeEntityAttributeDatasRequest) (*emptypb.Empty, error) {
-	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, in.GetFromEntityTable(), in.GetFromEntityId())
+	from, dest := in.GetFrom(), in.GetDest()
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, from)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
 
 	var storables []storeql.Storable
 	for _, att := range atts {
-		att.EntityId, att.EntityTable = in.GetDestEntityId(), in.GetDestEntityTable()
+		att.EntityId, att.EntityTable = dest.GetEntityId(), dest.GetEntityTable()
 		storables = append(storables, att)
 	}
 

@@ -73,5 +73,5 @@ func (s *Server) cloneImages(
 	go s.deleteImage(ctx, dd, errCh, wg)
 	lock.Lock()
 	defer lock.Unlock()
-	resp.Images[destDd.Id()] = &pbimages.Image{Uri: destDd.URI(), EntityId: meta.EntityId, EntityTable: meta.EntityTable}
+	resp.Images[destDd.Id()] = &pbimages.Image{Uri: destDd.URI(), Entity: &pbimages.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
 }

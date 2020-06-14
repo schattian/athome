@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/currency"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -66,7 +67,9 @@ func (p *Product) GetUser(ctx context.Context, users pbusers.ViewerClient) (*pbp
 }
 
 func (p *Product) GetImages(ctx context.Context, img pbimages.ImagesClient) (map[string]*pbproducts.Image, error) {
-	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{EntityTable: p.SQLTable(), EntityId: p.Id})
+	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{
+		Entity: &pbimages.Entity{EntityTable: p.SQLTable(), EntityId: p.Id},
+	})
 	if err != nil {
 		return nil, errors.Wrap(err, "RetrieveImages")
 	}
@@ -83,7 +86,9 @@ func (p *Product) GetAttributes(ctx context.Context, sem pbsemantic.ProductsClie
 	if err != nil {
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesSchema")
 	}
-	datas, err := sem.RetrieveAttributeDatas(ctx, &pbsemantic.RetrieveAttributeDatasRequest{EntityId: p.Id, EntityTable: p.SQLTable()})
+	datas, err := sem.RetrieveAttributeDatas(ctx, &pbsemantic.RetrieveAttributeDatasRequest{
+		Entity: pbutil.ToPbSemanticEntity(p),
+	})
 	if err != nil {
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesData")
 	}

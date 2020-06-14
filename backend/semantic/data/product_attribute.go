@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/semantic/data/value"
+	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -69,10 +70,10 @@ func (d *ProductAttributeData) Clone() (*ProductAttributeData, error) {
 	return &cp, nil
 }
 
-func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entityTable string, entityId uint64) ([]*ProductAttributeData, error) {
+func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entity *pbsemantic.Entity) ([]*ProductAttributeData, error) {
 	rows, err := db.QueryxContext(ctx,
 		`SELECT * FROM product_attribute_datas WHERE entity_table=$1 AND entity_id=$2`,
-		entityTable, entityId,
+		entity.EntityTable, entity.EntityId,
 	)
 	if err != nil {
 		return nil, errors.Wrap(err, "QueryxContext")
@@ -89,10 +90,10 @@ func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entityTa
 	return ds, nil
 }
 
-func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entityTable string, entityId uint64) (*ProductAttributeData, error) {
+func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entity *pbsemantic.Entity) (*ProductAttributeData, error) {
 	row := db.QueryRowxContext(ctx,
 		`SELECT * FROM product_attribute_datas WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
-		schemaId, entityTable, entityId,
+		schemaId, entity.GetEntityTable(), entity.GetEntityId(),
 	)
 	d := &ProductAttributeData{}
 	err := row.StructScan(d)

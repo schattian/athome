@@ -52,7 +52,14 @@ func MustExt(r io.Reader, must Ext) error {
 }
 
 type Metadata struct {
-	Ext         Ext
-	EntityId    uint64
-	EntityTable string
+	Ext    Ext
+	Entity struct {
+		Id    uint64
+		Table string
+	}
+}
+
+type Entity struct {
+	Id    uint64
+	Table string
 }

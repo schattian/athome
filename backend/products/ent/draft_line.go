@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
@@ -47,22 +48,21 @@ func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, imgs pbimages.Imag
 	}
 
 	_, err = sem.ChangeEntityAttributeDatas(ctx, &pbsemantic.ChangeEntityAttributeDatasRequest{
-		AccessToken:     access,
-		FromEntityTable: ln.SQLTable(),
-		FromEntityId:    ln.Id,
-		DestEntityTable: prod.SQLTable(),
-		DestEntityId:    prod.Id,
+		AccessToken: access,
+		From:        pbutil.ToPbSemanticEntity(ln),
+		Dest:        pbutil.ToPbSemanticEntity(prod),
 	})
 	if err != nil {
 		return nil, err
 	}
 	_, err = imgs.ChangeEntityImages(ctx, &pbimages.ChangeEntityImagesRequest{
-		AccessToken:     access,
-		FromEntityTable: ln.SQLTable(),
-		FromEntityId:    ln.Id,
-		DestEntityTable: prod.SQLTable(),
-		DestEntityId:    prod.Id,
+		AccessToken: access,
+		From:        pbutil.ToPbImagesEntity(ln),
+		Dest:        pbutil.ToPbImagesEntity(prod),
 	})
+	if err != nil {
+		return nil, err
+	}
 
 	return prod, nil
 }
