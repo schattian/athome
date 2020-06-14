@@ -31,19 +31,20 @@ message CloneImagesRequest {
 message ChangeEntityImagesRequest {
   string access_token = 1;
 
-  uint64 from_entity_id = 2;
-  string from_entity_table = 3;
+  Entity from = 2;
+  Entity dest = 3;
+}
 
-  uint64 dest_entity_id = 4;
-  string dest_entity_table = 5;
+message Entity {
+  uint64 entity_id = 1;
+  string entity_table = 2;
 }
 
 message CreateImageRequest{
   message Metadata {
     string ext = 1;
     string access_token = 2;
-    uint64 entity_id = 3;
-    string entity_table = 4;
+    Entity entity = 3;
   }
 
   oneof corpus {
@@ -55,8 +56,7 @@ message CreateImageRequest{
 message Image{
   int64 size = 1;
   string uri = 2;
-  uint64 entity_id = 3;
-  string entity_table = 4;
+  Entity entity = 3;
 }
 
 message CreateImageResponse {
@@ -65,8 +65,7 @@ message CreateImageResponse {
 }
 
 message RetrieveImagesRequest{
-  uint64 entity_id = 1;
-  string entity_table = 2;
+  Entity entity = 1;
 }
 
 message RetrieveImagesResponse {
@@ -75,8 +74,7 @@ message RetrieveImagesResponse {
 
 message DeleteImagesRequest{
   string access_token = 1;
-  uint64 entity_id = 2;
-  string entity_table = 3;
+  Entity entity = 2;
 }
 
 

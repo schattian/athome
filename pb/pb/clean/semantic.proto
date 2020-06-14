@@ -56,15 +56,18 @@ message RetrieveAttributeSchemasRequest {
   uint64 category_id = 1;
 }
 
-message RetrieveAttributeDatasRequest {
+message Entity {
   uint64 entity_id = 1;
   string entity_table = 2;
 }
 
+message RetrieveAttributeDatasRequest {
+  Entity entity = 1;
+}
+
 message DeleteAttributeDatasRequest {
   string access_token = 1;
-  uint64 entity_id = 2;
-  string entity_table = 3;
+  Entity entity = 2;
 }
 
 message RetrieveAttributeSchemasResponse {
@@ -87,8 +90,7 @@ message CloneAttributeDatasResponse {
 message SetAttributeDatasRequest {
   message Authorization {
     string access_token = 1; // from which assigns the user_id col
-    uint64 entity_id = 2;
-    string entity_table = 3;
+    Entity entity = 2;
   }
 
   oneof corpus {
@@ -100,11 +102,8 @@ message SetAttributeDatasRequest {
 message ChangeEntityAttributeDatasRequest {
   string access_token = 1;
 
-  uint64 from_entity_id = 2;
-  string from_entity_table = 3;
-
-  uint64 dest_entity_id = 4;
-  string dest_entity_table = 5;
+  Entity from = 2;
+  Entity dest = 3;
 }
 
 message CloneAttributeDatasRequest {
