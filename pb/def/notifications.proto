@@ -15,12 +15,12 @@ message Notification {
 }
 
 message Status{
-  google.protobuf.Timestamp created_at = 1;    
-  google.protobuf.Timestamp received_at = 2;    
-  google.protobuf.Timestamp seen_at = 3;    
+  google.protobuf.Timestamp created_at = 1;
+  google.protobuf.Timestamp received_at = 2;
+  google.protobuf.Timestamp seen_at = 3;
 }
 
 message Entity {
   uint64 entity_id = 1;
   string entity_table = 2;
-} 
+}

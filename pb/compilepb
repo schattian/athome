@@ -1,6 +1,6 @@
 #!/bin/bash
 DIR=$(dirname "$0")
-cd $DIR/pb
+cd $DIR/def
 
 export DIR=$(pwd)
 export BACKEND_DIR=$DIR/../../backend
@@ -70,19 +70,19 @@ then
 			symbols=CreatorClient,Creator_SecondClient,Creator_ThirdClient,ViewerClient
 			cd ${pkgdir}
 			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
-			cd ../pb
+			cd ../def
 		elif [ ${svc} = semantic ]
 		then
 			symbols=ServiceProvidersClient,MerchantsClient,ProductsClient,Products_PredictCategoryClient,Products_SetAttributeDatasClient
 			cd ${pkgdir}
 			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
-			cd ../pb
+			cd ../def
 		elif [ ${svc} = images ]
 		then
 			symbols=Images_CreateImageClient,ImagesClient
 			cd ${pkgdir}
 			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
-			cd ../pb
+			cd ../def
 		else
 			result=$(mockgen -source ${pkgdir}/${svc}.pb.go -destination ${testdir}/mock.go -package pb${svc}test || echo xd)
 			if [ ! ${result} = "" ]
