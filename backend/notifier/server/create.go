@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"database/sql"
 	"time"
 
 	"github.com/athomecomar/athome/backend/notifier/ent"
@@ -39,7 +40,7 @@ func (s *Server) create(ctx context.Context, db *sqlx.DB, in *pbnotifier.CreateR
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "NotificationFromPb: %v", err)
 	}
-	notif.CreatedAt = time.Now()
+	notif.CreatedAt = ent.Time{sql.NullTime{Time: time.Now()}}
 	notif.UserId = userId
 	err = storeql.InsertIntoDB(ctx, db, notif)
 	if err != nil {

@@ -16,6 +16,7 @@
     {
       local role = 'consumer',
       foo: $.base.foo { id: 324, role: role },
+      bar: $.base.bar { id: 13244, role: role },
     },
 
   merchants:

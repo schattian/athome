@@ -4,6 +4,7 @@ local onboardings = import './onboardings.jsonnet';
     {
       local role = 'consumer',
       foo: onboardings.consumers.foo { id: 4 },
+      bar: onboardings.consumers.bar { id: 214 },
     },
 
   merchants:

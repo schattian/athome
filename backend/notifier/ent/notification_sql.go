@@ -21,8 +21,8 @@ func (u *Notification) SQLMap() map[string]driver.Value {
 		"user_id":      u.UserId,
 		"entity_table": u.EntityTable,
 		"entity_id":    u.EntityId,
-		"created_at":   u.CreatedAt,
-		"received_at":  u.ReceivedAt,
-		"seen_at":      u.SeenAt,
+		"created_at":   u.CreatedAt.Time,
+		"received_at":  u.ReceivedAt.Time,
+		"seen_at":      u.SeenAt.Time,
 	}
 }

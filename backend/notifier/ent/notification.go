@@ -2,6 +2,7 @@ package ent
 
 import (
 	"context"
+	"database/sql"
 	"time"
 
 	"github.com/athomecomar/athome/backend/notifier/ent/prior"
@@ -20,31 +21,46 @@ type Notification struct {
 	EntityTable string         `json:"entity_table,omitempty"`
 	EntityId    uint64         `json:"entity_id,omitempty"`
 
-	CreatedAt  time.Time `json:"created_at,omitempty"`
-	ReceivedAt time.Time `json:"received_at,omitempty"`
-	SeenAt     time.Time `json:"seen_at,omitempty"`
+	CreatedAt  Time `json:"created_at,omitempty"`
+	ReceivedAt Time `json:"received_at,omitempty"`
+	SeenAt     Time `json:"seen_at,omitempty"`
+}
+
+type Time struct {
+	sql.NullTime
+}
+
+func (t Time) UnmarshalJSON(b []byte) error {
+	// "2006-01-02T15:04:05Z"
+	var err error
+	t.Time, err = time.Parse(`"`+time.RFC3339+`"`, string(b))
+	if err != nil {
+		return errors.Wrap(err, "parse")
+	}
+	return nil
 }
 
 func NewNotification(uid uint64, p prior.Priority) *Notification {
+	now := time.Now()
 	return &Notification{
 		Priority:  p,
 		UserId:    uid,
-		CreatedAt: time.Now(),
+		CreatedAt: Time{sql.NullTime{Time: now}},
 	}
 }
 
-func StatusFromPb(in *pbnotifier.Status) (cAt, rAt, sAt time.Time, err error) {
-	cAt, err = ptypes.Timestamp(in.GetCreatedAt())
+func StatusFromPb(in *pbnotifier.Status) (cAt, rAt, sAt Time, err error) {
+	cAt.Time, err = ptypes.Timestamp(in.GetCreatedAt())
 	if err != nil {
 		err = errors.Wrap(err, "createdAt Timestamp")
 		return
 	}
-	rAt, err = ptypes.Timestamp(in.GetReceivedAt())
+	rAt.Time, err = ptypes.Timestamp(in.GetReceivedAt())
 	if err != nil {
 		err = errors.Wrap(err, "receivedAt Timestamp")
 		return
 	}
-	sAt, err = ptypes.Timestamp(in.GetSeenAt())
+	sAt.Time, err = ptypes.Timestamp(in.GetSeenAt())
 	if err != nil {
 		err = errors.Wrap(err, "seenAt Timestamp")
 		return
@@ -74,17 +90,17 @@ func NotificationFromPb(in *pbnotifier.Notification) (*Notification, error) {
 func (n *Notification) ToPbStatus() (*pbnotifier.Status, error) {
 	status := &pbnotifier.Status{}
 	var err error
-	status.CreatedAt, err = ptypes.TimestampProto(n.CreatedAt)
+	status.CreatedAt, err = ptypes.TimestampProto(n.CreatedAt.Time)
 	if err != nil {
 		return nil, errors.Wrap(err, "createdAt TimestampProto")
 	}
 
-	status.ReceivedAt, err = ptypes.TimestampProto(n.ReceivedAt)
+	status.ReceivedAt, err = ptypes.TimestampProto(n.ReceivedAt.Time)
 	if err != nil {
 		return nil, errors.Wrap(err, "receivedAt TimestampProto")
 	}
 
-	status.SeenAt, err = ptypes.TimestampProto(n.SeenAt)
+	status.SeenAt, err = ptypes.TimestampProto(n.SeenAt.Time)
 	if err != nil {
 		return nil, errors.Wrap(err, "seenAt TimestampProto")
 	}
@@ -122,7 +138,7 @@ func FindNotificationsByUser(ctx context.Context, db *sqlx.DB, uid uint64) ([]*N
 }
 
 func FindNotificationsByUserWithOffset(ctx context.Context, db *sqlx.DB, uid uint64, offset time.Time) ([]*Notification, error) {
-	rows, err := storeql.WhereMany(ctx, db, &Notification{}, `user_id=$1 AND created_at >= $1 ORDER BY created_at`, uid, offset)
+	rows, err := storeql.WhereMany(ctx, db, &Notification{}, `user_id=$1 AND created_at>=$2 ORDER BY created_at`, uid, offset)
 	if err != nil {
 		return nil, errors.Wrap(err, "storeql.WhereMany")
 	}

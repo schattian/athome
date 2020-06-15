@@ -77,11 +77,11 @@ func (s *Server) setTimestamp(ctx context.Context, db *sqlx.DB, userId uint64, i
 }
 
 func setReceived(n *ent.Notification) *ent.Notification {
-	n.ReceivedAt = time.Now()
+	n.ReceivedAt = ent.Time{NullTime: sql.NullTime{Time: time.Now()}}
 	return n
 }
 
 func setSeen(n *ent.Notification) *ent.Notification {
-	n.SeenAt = time.Now()
+	n.SeenAt = ent.Time{NullTime: sql.NullTime{Time: time.Now()}}
 	return n
 }

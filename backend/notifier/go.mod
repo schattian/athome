@@ -7,7 +7,7 @@ require (
 	github.com/alicebob/miniredis v2.5.0+incompatible
 	github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22
 	github.com/athomecomar/athome/backend/services v0.0.0-20200614200957-e4a53c7c626c
-	github.com/athomecomar/athome/pb v0.0.0-20200615133431-55fcf4bece71
+	github.com/athomecomar/athome/pb v0.0.0-20200615140202-43bc2163cb0c
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4

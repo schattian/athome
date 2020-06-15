@@ -33,7 +33,7 @@ func (s *Server) RetrieveStream(in *pbnotifier.RetrieveStreamRequest, srv pbnoti
 		return err
 	}
 	authCloser()
-	ticker := time.Duration(in.GetTicker()) * time.Millisecond
+	ticker := time.Duration(in.GetTickerMs()) * time.Millisecond
 
 	var offset time.Time
 	for {
@@ -57,6 +57,7 @@ func (s *Server) RetrieveStream(in *pbnotifier.RetrieveStreamRequest, srv pbnoti
 	}
 
 }
+
 func (s *Server) retrieveStream(ctx context.Context, db *sqlx.DB, userId uint64, offset time.Time) (*pbnotifier.RetrieveManyResponse, error) {
 	notifs, err := ent.FindNotificationsByUserWithOffset(ctx, db, userId, offset)
 	if errors.Is(err, sql.ErrNoRows) {
