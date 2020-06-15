@@ -15,11 +15,14 @@ service Notifications {
   rpc SetReceived(UpdateStatusRequest) returns (google.protobuf.Empty){}
   rpc SetSeen(UpdateStatusRequest) returns (google.protobuf.Empty){}
 
+  rpc RetrieveStream(RetrieveStreamRequest) returns (stream Notification){}
+
   rpc RetrieveMany(RetrieveManyRequest) returns (RetrieveManyResponse){}
 }
 
 message UpdateStatusRequest {
   string access_token = 1;
+  uint64 notification_id = 2;
 }
 
 message CreateRequest{
@@ -35,6 +38,11 @@ message CreateResponse{
 message RetrieveRequest{
   string access_token = 1;
   uint64 notification_id = 2;
+}
+
+message RetrieveStreamRequest{
+  string access_token = 1;
+  uint64 ticker_ms = 2;
 }
 
 message RetrieveManyRequest{

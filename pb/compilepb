@@ -77,6 +77,12 @@ then
 			cd ${pkgdir}
 			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
 			cd ../def
+		elif [ ${svc} = notifier ]
+		then
+			symbols=NotificationsClient,Notifications_RetrieveStreamClient
+			cd ${pkgdir}
+			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
+			cd ../def
 		elif [ ${svc} = images ]
 		then
 			symbols=Images_CreateImageClient,ImagesClient

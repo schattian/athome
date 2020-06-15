@@ -14,16 +14,16 @@ local onboardings = import './onboardings.jsonnet';
     },
 
 
-  service_providers:
+  notifier_providers:
     {
-      local role = 'service-provider',
+      local role = 'notifier-provider',
       medic: {
-        foo: onboardings.service_providers.medic.foo { id: 30 },
-        bar: onboardings.service_providers.medic.bar { id: 39 },
+        foo: onboardings.notifier_providers.medic.foo { id: 30 },
+        bar: onboardings.notifier_providers.medic.bar { id: 39 },
       },
       lawyer: {
-        foo: onboardings.service_providers.lawyer.foo { id: 45 },
-        bar: onboardings.service_providers.lawyer.bar { id: 48 },
+        foo: onboardings.notifier_providers.lawyer.foo { id: 45 },
+        bar: onboardings.notifier_providers.lawyer.bar { id: 48 },
       },
     },
 

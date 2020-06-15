@@ -1,6 +1,6 @@
-local services = import './services.jsonnet';
+local notifier = import './notifier.jsonnet';
 
 {
-  foo: services.foo { id: 4325 },
-  bar: services.foo { id: 342423 },
+  foo: notifier.foo { id: 4325 },
+  bar: notifier.foo { id: 342423 },
 }

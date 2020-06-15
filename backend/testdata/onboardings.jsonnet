@@ -26,9 +26,9 @@
     },
 
 
-  service_providers:
+  notifier_providers:
     {
-      local role = 'service-provider',
+      local role = 'notifier-provider',
       medic:
         {
           foo: $.base.foo { id: 241, role: role, category_id: 4 },

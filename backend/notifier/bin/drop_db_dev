@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T notifier_db psql -U postgres -c "drop database notifier_dev"

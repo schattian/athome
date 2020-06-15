@@ -37,10 +37,10 @@ local users = import './users.jsonnet';
         alias: 'casaej',
       },
     },
-  service_providers:
+  notifier_providers:
     {
       medic: {
-        local user = users.service_providers.medic,
+        local user = users.notifier_providers.medic,
         foo: {
           id: 22284,
           user_id: user.foo.id,
@@ -71,7 +71,7 @@ local users = import './users.jsonnet';
         },
       },
       lawyer: {
-        local user = users.service_providers.lawyer,
+        local user = users.notifier_providers.lawyer,
         foo: {
           id: 3484,
           user_id: user.foo.id,
