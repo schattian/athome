@@ -340,7 +340,7 @@ func (m *RetrieveStreamRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for Ticker
+	// no validation rules for TickerMs
 
 	return nil
 }
