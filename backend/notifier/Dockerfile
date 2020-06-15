@@ -2,8 +2,8 @@ FROM golang:alpine AS builder
 
 ARG svc_name
 
-# Keys to fetch private deps of pb repo 
-ARG github_user 
+# Keys to fetch private deps of pb repo
+ARG github_user
 ENV github_user=$github_user
 ARG github_token
 ENV github_token=$github_token

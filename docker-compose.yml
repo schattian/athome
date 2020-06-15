@@ -42,6 +42,28 @@ services:
     depends_on:
       - products_db
 
+  notifier_db:
+    env_file: backend/notifier/build/db/dev.env
+    image: postgres:12
+    volumes:
+      - notifier_db:/var/lib/postgresql/data
+
+  notifier_svc:
+    env_file: backend/notifier/build/svc/dev.env
+    build:
+      context: backend/notifier
+      args:
+        github_user: ${GITHUB_USER}
+        github_token: ${GITHUB_TOKEN}
+        svc_name: notifier
+    ports:
+      - "9996:9996"
+    volumes:
+      - ./backend/notifier/migrations:/notifier/migrations
+    depends_on:
+      - notifier_db
+
+
   images_svc:
     env_file: backend/images/build/svc/dev.env
     build:
@@ -164,6 +186,8 @@ volumes:
   images_svc:
   users_svc:
   users_db:
+  notifier_svc:
+  notifier_db:
   products_svc:
   products_db:
   auth_redis:
