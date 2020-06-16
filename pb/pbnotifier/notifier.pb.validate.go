@@ -564,6 +564,8 @@ func (m *Notification) Validate() error {
 
 	// no validation rules for UserId
 
+	// no validation rules for Body
+
 	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return NotificationValidationError{
