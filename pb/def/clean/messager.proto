@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./pbmessager";
+
+package messager;
+
+service Messages {
+  rpc Create (CreateRequest) returns (CreateResponse){}
+
+  rpc Retrieve (RetrieveRequest) returns (Message){}
+  rpc RetrieveMany (RetrieveManyRequest) returns (RetrieveManyResponse){}
+
+  rpc SetReceived(UpdateStatusRequest) returns (google.protobuf.Empty){}
+  rpc SetSeen(UpdateStatusRequest) returns (google.protobuf.Empty){}
+
+  rpc Reply (ReplyRequest) returns (CreateResponse){}
+}
+
+message RetrieveRequest{
+  string access_token = 1;
+  uint64 message_id = 2;
+}
+
+message RetrieveManyRequest{
+  string access_token = 1;
+  uint64 counterpart_id = 2;
+}
+
+message RetrieveManyResponse {
+  map<uint64, Message> messages = 1;
+}
+
+message CreateRequest{
+  message Message{
+    string body = 1;
+    uint64 receiver_id = 2;
+  }
+  string access_token = 1;
+  Message message = 2;
+}
+
+message CreateResponse{
+  uint64 message_id = 1;
+  Message message = 2;
+}
+
+message ReplyRequest {
+  string access_token = 1;
+  uint64 message_id = 2;
+  string body = 3;
+}
+
+message UpdateStatusRequest {
+  string access_token = 1;
+  uint64 message_id = 2;
+}
+
+message Status{
+  google.protobuf.Timestamp created_at = 1;
+  google.protobuf.Timestamp received_at = 2;
+  google.protobuf.Timestamp seen_at = 3;
+}
+
+message Message {
+  uint64 sender_id = 1;
+  uint64 receiver_id = 2;
+  string body = 3;
+  Status status = 4;
+}
+

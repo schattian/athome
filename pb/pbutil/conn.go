@@ -9,6 +9,8 @@ import (
 	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbmailer"
+	"github.com/athomecomar/athome/pb/pbmessager"
+	"github.com/athomecomar/athome/pb/pbnotifier"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbservices"
@@ -24,6 +26,26 @@ func conn(ctx context.Context, host string) (*grpc.ClientConn, error) {
 		return nil, status.Errorf(xerrors.Internal, "grpc.Dial: %v at %v", err, host)
 	}
 	return conn, nil
+}
+
+func ConnMessager(ctx context.Context) (pbmessager.MessagesClient, func() error, error) {
+	host := pbconf.Messager.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbmessager.NewMessagesClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnNotifier(ctx context.Context) (pbnotifier.NotificationsClient, func() error, error) {
+	host := pbconf.Notifier.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbnotifier.NewNotificationsClient(conn)
+	return c, conn.Close, nil
 }
 
 func ConnAuth(ctx context.Context) (pbauth.AuthClient, func() error, error) {
