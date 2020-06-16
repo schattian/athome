@@ -31,7 +31,8 @@ var (
 	Mailer     = &service{Name: "mailer"}
 	Identifier = &service{Name: "identifier"}
 	Users      = &service{Name: "users"}
-	Notifier   = &service{Name: "identifier"}
+	Notifier   = &service{Name: "notifier"}
+	Messager   = &service{Name: "messager"}
 
 	Semantic  = &service{Name: "semantic"}
 	Products  = &service{Name: "products"}
@@ -52,4 +53,5 @@ var devPorts = map[string]string{
 	"services": ":9994",
 	"address":  ":9995",
 	"notifier": ":9996",
+	"messager": ":9997",
 }
