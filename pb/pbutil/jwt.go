@@ -39,6 +39,7 @@ func CreateNotification(
 	entity storeql.Storable,
 	userId uint64,
 	secretFn func() string,
+	b string,
 	p Priority,
 	c pbnotifier.NotificationsClient,
 ) (*pbnotifier.CreateResponse, error) {
@@ -53,6 +54,7 @@ func CreateNotification(
 		NotificationToken: token,
 		Notification: &pbnotifier.Notification{
 			UserId:   userId,
+			Body:     b,
 			Priority: p.String(),
 			Entity:   ToPbNotifierEntity(entity),
 		},

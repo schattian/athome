@@ -55,9 +55,10 @@ message RetrieveManyResponse{
 
 message Notification {
   uint64 user_id = 1;
-  Entity entity = 2;
-  Status status = 3;
-  string priority = 4;
+  string body = 2;
+  Entity entity = 3;
+  Status status = 4;
+  string priority = 5;
 }
 
 message Status{
