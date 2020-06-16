@@ -136,24 +136,24 @@ func (mr *MockMessagesClientMockRecorder) SetSeen(ctx, in interface{}, opts ...i
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetSeen", reflect.TypeOf((*MockMessagesClient)(nil).SetSeen), varargs...)
 }
 
-// Answer mocks base method
-func (m *MockMessagesClient) Answer(ctx context.Context, in *pbmessager.AnswerRequest, opts ...grpc.CallOption) (*pbmessager.CreateResponse, error) {
+// Reply mocks base method
+func (m *MockMessagesClient) Reply(ctx context.Context, in *pbmessager.ReplyRequest, opts ...grpc.CallOption) (*pbmessager.CreateResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "Answer", varargs...)
+	ret := m.ctrl.Call(m, "Reply", varargs...)
 	ret0, _ := ret[0].(*pbmessager.CreateResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Answer indicates an expected call of Answer
-func (mr *MockMessagesClientMockRecorder) Answer(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+// Reply indicates an expected call of Reply
+func (mr *MockMessagesClientMockRecorder) Reply(ctx, in interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Answer", reflect.TypeOf((*MockMessagesClient)(nil).Answer), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Reply", reflect.TypeOf((*MockMessagesClient)(nil).Reply), varargs...)
 }
 
 // MockMessagesServer is a mock of MessagesServer interface
@@ -254,17 +254,17 @@ func (mr *MockMessagesServerMockRecorder) SetSeen(arg0, arg1 interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetSeen", reflect.TypeOf((*MockMessagesServer)(nil).SetSeen), arg0, arg1)
 }
 
-// Answer mocks base method
-func (m *MockMessagesServer) Answer(arg0 context.Context, arg1 *pbmessager.AnswerRequest) (*pbmessager.CreateResponse, error) {
+// Reply mocks base method
+func (m *MockMessagesServer) Reply(arg0 context.Context, arg1 *pbmessager.ReplyRequest) (*pbmessager.CreateResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Answer", arg0, arg1)
+	ret := m.ctrl.Call(m, "Reply", arg0, arg1)
 	ret0, _ := ret[0].(*pbmessager.CreateResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Answer indicates an expected call of Answer
-func (mr *MockMessagesServerMockRecorder) Answer(arg0, arg1 interface{}) *gomock.Call {
+// Reply indicates an expected call of Reply
+func (mr *MockMessagesServerMockRecorder) Reply(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Answer", reflect.TypeOf((*MockMessagesServer)(nil).Answer), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Reply", reflect.TypeOf((*MockMessagesServer)(nil).Reply), arg0, arg1)
 }

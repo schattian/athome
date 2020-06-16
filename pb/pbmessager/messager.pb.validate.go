@@ -414,10 +414,10 @@ var _ interface {
 	ErrorName() string
 } = CreateResponseValidationError{}
 
-// Validate checks the field values on AnswerRequest with the rules defined in
+// Validate checks the field values on ReplyRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
-func (m *AnswerRequest) Validate() error {
+func (m *ReplyRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -431,9 +431,9 @@ func (m *AnswerRequest) Validate() error {
 	return nil
 }
 
-// AnswerRequestValidationError is the validation error returned by
-// AnswerRequest.Validate if the designated constraints aren't met.
-type AnswerRequestValidationError struct {
+// ReplyRequestValidationError is the validation error returned by
+// ReplyRequest.Validate if the designated constraints aren't met.
+type ReplyRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -441,22 +441,22 @@ type AnswerRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AnswerRequestValidationError) Field() string { return e.field }
+func (e ReplyRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AnswerRequestValidationError) Reason() string { return e.reason }
+func (e ReplyRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AnswerRequestValidationError) Cause() error { return e.cause }
+func (e ReplyRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AnswerRequestValidationError) Key() bool { return e.key }
+func (e ReplyRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AnswerRequestValidationError) ErrorName() string { return "AnswerRequestValidationError" }
+func (e ReplyRequestValidationError) ErrorName() string { return "ReplyRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AnswerRequestValidationError) Error() string {
+func (e ReplyRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -468,14 +468,14 @@ func (e AnswerRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAnswerRequest.%s: %s%s",
+		"invalid %sReplyRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AnswerRequestValidationError{}
+var _ error = ReplyRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -483,7 +483,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AnswerRequestValidationError{}
+} = ReplyRequestValidationError{}
 
 // Validate checks the field values on UpdateStatusRequest with the rules
 // defined in the proto definition for this message. If any rules are
