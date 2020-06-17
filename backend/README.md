@@ -16,6 +16,7 @@ Exposed svcs:
  - **9994**: services 
  - **9995**: address
  - **9996**: notifier 
+ - **9997**: messager 
 
 ## Naming
 
