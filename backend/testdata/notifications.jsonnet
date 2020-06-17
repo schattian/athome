@@ -10,6 +10,7 @@ local users = import './users.jsonnet';
       foo: {
         id: 43258,
         priority: high,
+        body: "fooNotificationBody",
         user_id: user.foo.id,
         entity_table: 'orders',
         entity_id: 432,
@@ -20,6 +21,7 @@ local users = import './users.jsonnet';
       bar: {
         id: 324,
         priority: mid,
+        body: "barNotificationBody",
         user_id: user.bar.id,
         entity_table: 'orders',
         entity_id: 3322,
@@ -37,16 +39,16 @@ local users = import './users.jsonnet';
   //     },
 
 
-  //   notifier_providers:
+  //   service_providers:
   //     {
-  //       local role = 'notifier-provider',
+  //       local role = 'service_provider',
   //       medic: {
-  //         foo: onboardings.notifier_providers.medic.foo { id: 30 },
-  //         bar: onboardings.notifier_providers.medic.bar { id: 39 },
+  //         foo: onboardings.service_providers.medic.foo { id: 30 },
+  //         bar: onboardings.service_providers.medic.bar { id: 39 },
   //       },
   //       lawyer: {
-  //         foo: onboardings.notifier_providers.lawyer.foo { id: 45 },
-  //         bar: onboardings.notifier_providers.lawyer.bar { id: 48 },
+  //         foo: onboardings.service_providers.lawyer.foo { id: 45 },
+  //         bar: onboardings.service_providers.lawyer.bar { id: 48 },
   //       },
   //     },
 

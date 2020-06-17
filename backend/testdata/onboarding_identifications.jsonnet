@@ -1,7 +1,7 @@
 local onboardings = import './onboardings.jsonnet';
 {
   base: {
-    notifier_providers: {
+    service_providers: {
 
       foo: {
         dni: 42418479,
@@ -17,14 +17,14 @@ local onboardings = import './onboardings.jsonnet';
     },
   },
 
-  notifier_providers:
+  service_providers:
     {
-      local role = 'notifier-provider',
+      local role = 'service-provider',
       medic: {
-        foo: $.base.notifier_providers.foo { id: 234, license: 123123, onboarding_id: onboardings.notifier_providers.medic.foo.id },
+        foo: $.base.service_providers.foo { id: 234, license: 123123, onboarding_id: onboardings.service_providers.medic.foo.id },
       },
       lawyer: {
-        foo: $.base.notifier_providers.bar { id: 854,  tome: 123, folio: 456, onboarding_id: onboardings.notifier_providers.lawyer.foo.id },
+        foo: $.base.service_providers.bar { id: 854,  tome: 123, folio: 456, onboarding_id: onboardings.service_providers.lawyer.foo.id },
       },
     },
 

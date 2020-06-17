@@ -2,8 +2,8 @@ local users = import './users.jsonnet';
 
 {
   local groups = { foo: 2313, bar: 77723 },
-  local medics = users.notifier_providers.medic,
-  local lawyers = users.notifier_providers.lawyer,
+  local medics = users.service_providers.medic,
+  local lawyers = users.service_providers.lawyer,
 
   foo: {
     medic: {

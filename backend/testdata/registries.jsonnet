@@ -1,6 +1,6 @@
-local notifier = import './notifier.jsonnet';
+local messager = import './messager.jsonnet';
 
 {
-  foo: notifier.foo { id: 4325 },
-  bar: notifier.foo { id: 342423 },
+  foo: messager.foo { id: 4325 },
+  bar: messager.foo { id: 342423 },
 }
