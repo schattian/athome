@@ -7,6 +7,6 @@ package notifiertest
 // 	gEvents         GoldenEvents
 // )
 
-// // func init() {
+// func init() {
 // 	Init(&gnotifier, &gCalendars, &gAvailabilities, &gEvents)
 // }

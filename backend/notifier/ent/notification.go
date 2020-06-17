@@ -20,6 +20,7 @@ type Notification struct {
 	UserId      uint64         `json:"user_id,omitempty"`
 	EntityTable string         `json:"entity_table,omitempty"`
 	EntityId    uint64         `json:"entity_id,omitempty"`
+	Body        string
 
 	CreatedAt  Time `json:"created_at,omitempty"`
 	ReceivedAt Time `json:"received_at,omitempty"`
@@ -71,6 +72,7 @@ func StatusFromPb(in *pbnotifier.Status) (cAt, rAt, sAt Time, err error) {
 func NotificationFromPb(in *pbnotifier.Notification) (*Notification, error) {
 	notif := &Notification{
 		UserId:      in.GetUserId(),
+		Body:        in.GetBody(),
 		EntityId:    in.GetEntity().GetEntityId(),
 		EntityTable: in.GetEntity().GetEntityTable(),
 	}
@@ -114,6 +116,7 @@ func (n *Notification) ToPb() (*pbnotifier.Notification, error) {
 	}
 	return &pbnotifier.Notification{
 		UserId: n.UserId,
+		Body:   n.Body,
 		Entity: pbutil.ToPbNotifierEntity(n),
 		Status: status,
 	}, nil

@@ -32,7 +32,11 @@ func (s *Server) RetrieveStream(in *pbnotifier.RetrieveStreamRequest, srv pbnoti
 	if err != nil {
 		return err
 	}
-	authCloser()
+	err = authCloser()
+	if err != nil {
+		return err
+	}
+
 	ticker := time.Duration(in.GetTickerMs()) * time.Millisecond
 
 	var offset time.Time

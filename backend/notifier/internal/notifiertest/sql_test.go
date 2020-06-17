@@ -1,9 +1,12 @@
 package notifiertest
 
-// func TestSQL(t *testing.T) {
-// 	sqltest.SQL(t, &ent.Calendar{}, "Calendar")
-// 	sqltest.SQL(t, &ent.Event{}, "Event")
-// 	sqltest.SQL(t, &ent.Registry{}, "Registry")
-// 	sqltest.SQL(t, &ent.notifier{}, "notifier")
-// 	sqltest.SQL(t, &ent.Availability{}, "Availability")
-// }
+import (
+	"testing"
+
+	"github.com/athomecomar/athome/backend/notifier/ent"
+	"github.com/athomecomar/storeql/test/sqltest"
+)
+
+func TestSQL(t *testing.T) {
+	sqltest.SQL(t, &ent.Notification{}, "Notification")
+}

@@ -30,7 +30,10 @@ func (s *Server) Retrieve(ctx context.Context, in *pbnotifier.RetrieveRequest) (
 	if err != nil {
 		return nil, err
 	}
-	authCloser()
+	err = authCloser()
+	if err != nil {
+		return nil, err
+	}
 
 	return s.retrieve(ctx, db, userId, in)
 }

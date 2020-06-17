@@ -31,7 +31,10 @@ func (s *Server) RetrieveMany(ctx context.Context, in *pbnotifier.RetrieveManyRe
 	if err != nil {
 		return nil, err
 	}
-	authCloser()
+	err = authCloser()
+	if err != nil {
+		return nil, err
+	}
 
 	return s.retrieveMany(ctx, db, userId)
 }

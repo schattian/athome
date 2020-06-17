@@ -33,7 +33,10 @@ func (s *Server) SetReceived(ctx context.Context, in *pbnotifier.UpdateStatusReq
 	if err != nil {
 		return nil, err
 	}
-	authCloser()
+	err = authCloser()
+	if err != nil {
+		return nil, err
+	}
 
 	return s.setTimestamp(ctx, db, userId, in, setReceived)
 }
@@ -55,7 +58,10 @@ func (s *Server) SetSeen(ctx context.Context, in *pbnotifier.UpdateStatusRequest
 	if err != nil {
 		return nil, err
 	}
-	authCloser()
+	err = authCloser()
+	if err != nil {
+		return nil, err
+	}
 
 	return s.setTimestamp(ctx, db, userId, in, setSeen)
 }

@@ -42,6 +42,7 @@ github.com/athomecomar/athome v0.2.3 h1:HExV9o36wZYWWPbQFCrkplrhxzZu+bnv4oNSjZZG
 github.com/athomecomar/athome v0.3.9 h1:+fvOw9yG4xql6OMZmxqkoHFBlZ84cD36icnbrdM5xRE=
 github.com/athomecomar/athome v0.3.12 h1:QTU/DYaNUuwm0vHn6CnEOlFxImdayI+BNSZYovYFDjE=
 github.com/athomecomar/athome v0.3.18 h1:6Ygz+WELKDCmkbeJ9SHbEUfYBlMmcEU3NYvld7/d3WY=
+github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c/go.mod h1:C1th0ptuW0qRaNFFc++HXRQU5xrPvLbTQIG4iHHLQAY=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22 h1:hdDLdUStpfZNcGeuv2fiTquJfZuqoM/qQAQW6/H0ejM=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22/go.mod h1:jqHG9LUZ/NrYhU2GYQwmz/y64oFAavLI+/jxIpXzXvI=
 github.com/athomecomar/athome/backend/services v0.0.0-20200614200957-e4a53c7c626c h1:yyULpVZoFA3wvjoh2HDhOv+/ObZDvPl/H+VO2BysB6o=
@@ -76,6 +77,10 @@ github.com/athomecomar/athome/pb v0.0.0-20200615133431-55fcf4bece71 h1:jofVAw/E6
 github.com/athomecomar/athome/pb v0.0.0-20200615133431-55fcf4bece71/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/athome/pb v0.0.0-20200615140202-43bc2163cb0c h1:5Jft9aqzyRIN+Vge/JKf0J5vFUjzV5fZmT3qj//ftM4=
 github.com/athomecomar/athome/pb v0.0.0-20200615140202-43bc2163cb0c/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
+github.com/athomecomar/athome/pb v0.0.0-20200616115745-fa94a06bd221 h1:ZZE2wxPcHj0BSvbfo2zQ8e+U1iC2jl6oR1J50DmWmCY=
+github.com/athomecomar/athome/pb v0.0.0-20200616115745-fa94a06bd221/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
+github.com/athomecomar/athome/pb v0.0.0-20200616201740-8fad0f40bbef h1:iT2DglaFm1r1mbU/gM65C+ayg6H10F/QoFruNaS0FpU=
+github.com/athomecomar/athome/pb v0.0.0-20200616201740-8fad0f40bbef/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=
 github.com/athomecomar/currency v0.1.0/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
