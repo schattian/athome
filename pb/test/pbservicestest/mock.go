@@ -213,14 +213,14 @@ func (mr *MockCalendarsClientMockRecorder) RetrieveMyCalendars(ctx, in interface
 }
 
 // CreateEvent mocks base method
-func (m *MockCalendarsClient) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequest, opts ...grpc.CallOption) (*pbservices.CreateEventResponse, error) {
+func (m *MockCalendarsClient) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "CreateEvent", varargs...)
-	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
+	ret0, _ := ret[0].(*empty.Empty)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -230,6 +230,26 @@ func (mr *MockCalendarsClientMockRecorder) CreateEvent(ctx, in interface{}, opts
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEvent", reflect.TypeOf((*MockCalendarsClient)(nil).CreateEvent), varargs...)
+}
+
+// ConfirmEvent mocks base method
+func (m *MockCalendarsClient) ConfirmEvent(ctx context.Context, in *pbservices.ConfirmEventRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ConfirmEvent", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ConfirmEvent indicates an expected call of ConfirmEvent
+func (mr *MockCalendarsClientMockRecorder) ConfirmEvent(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfirmEvent", reflect.TypeOf((*MockCalendarsClient)(nil).ConfirmEvent), varargs...)
 }
 
 // MockCalendarsServer is a mock of CalendarsServer interface
@@ -301,10 +321,10 @@ func (mr *MockCalendarsServerMockRecorder) RetrieveMyCalendars(arg0, arg1 interf
 }
 
 // CreateEvent mocks base method
-func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices.CreateEventRequest) (*pbservices.CreateEventResponse, error) {
+func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices.CreateEventRequest) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateEvent", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
+	ret0, _ := ret[0].(*empty.Empty)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -313,6 +333,21 @@ func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices
 func (mr *MockCalendarsServerMockRecorder) CreateEvent(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEvent", reflect.TypeOf((*MockCalendarsServer)(nil).CreateEvent), arg0, arg1)
+}
+
+// ConfirmEvent mocks base method
+func (m *MockCalendarsServer) ConfirmEvent(arg0 context.Context, arg1 *pbservices.ConfirmEventRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ConfirmEvent", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ConfirmEvent indicates an expected call of ConfirmEvent
+func (mr *MockCalendarsServerMockRecorder) ConfirmEvent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfirmEvent", reflect.TypeOf((*MockCalendarsServer)(nil).ConfirmEvent), arg0, arg1)
 }
 
 // MockRegisterClient is a mock of RegisterClient interface
