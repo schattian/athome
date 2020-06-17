@@ -17,6 +17,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200614185709-481c07a078ed h1:hjvPhrir1
 github.com/athomecomar/athome/pb v0.0.0-20200614185709-481c07a078ed/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/athome/pb v0.0.0-20200614192353-66fa147cc6e7 h1:ikFcVPLkvzBG3NqnnXCF4Rx0JbkCRVWsPxeOkPcW9kg=
 github.com/athomecomar/athome/pb v0.0.0-20200614192353-66fa147cc6e7/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
+github.com/athomecomar/athome/pb v0.0.0-20200616115745-fa94a06bd221 h1:ZZE2wxPcHj0BSvbfo2zQ8e+U1iC2jl6oR1J50DmWmCY=
+github.com/athomecomar/athome/pb v0.0.0-20200616115745-fa94a06bd221/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
 github.com/athomecomar/envconf v1.2.0 h1:DrCu7h6pDHQ3+BgzQKwQj/D5RsOk37Hge47NUwAi4JY=

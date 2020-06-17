@@ -63,6 +63,7 @@ func handleJwt(token string, secretFn func() string) (uint64, error) {
 	}
 	return userId, nil
 }
+
 func createAuthTokens(ctx context.Context, c pbauth.AuthClient, userId uint64) (*pbauth.CreateAuthenticationResponse, error) {
 	signJwt, err := userjwt.CreateSignToken(userId)
 	if err != nil {
