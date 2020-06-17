@@ -4,7 +4,9 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/messager/ent"
+	"github.com/athomecomar/athome/backend/messager/messagerconf"
 	"github.com/athomecomar/athome/pb/pbmessager"
+	"github.com/athomecomar/athome/pb/pbnotifier"
 	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -33,10 +35,16 @@ func (s *Server) Reply(ctx context.Context, in *pbmessager.ReplyRequest) (*pbmes
 	if err != nil {
 		return nil, err
 	}
-	return s.reply(ctx, db, in, userId)
+	noti, notiCloser, err := pbutil.ConnNotifier(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer notiCloser()
+
+	return s.reply(ctx, db, noti, in, userId)
 }
 
-func (s *Server) reply(ctx context.Context, db *sqlx.DB, in *pbmessager.ReplyRequest, uid uint64) (*pbmessager.CreateResponse, error) {
+func (s *Server) reply(ctx context.Context, db *sqlx.DB, noti pbnotifier.NotificationsClient, in *pbmessager.ReplyRequest, uid uint64) (*pbmessager.CreateResponse, error) {
 	repliedMsg, err := ent.FindMessageByReceiver(ctx, db, in.GetMessageId(), uid)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "ent.FindMessageByReceiver: %v", err)
@@ -47,6 +55,20 @@ func (s *Server) reply(ctx context.Context, db *sqlx.DB, in *pbmessager.ReplyReq
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
+
+	_, err = pbutil.CreateNotification(
+		ctx,
+		msg,
+		repliedMsg.ReceiverId,
+		messagerconf.GetNOTIFICATION_JWT_SECRET,
+		messagerconf.GetNOTIFICATION_BODY(),
+		pbutil.High,
+		noti,
+	)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "msg.ToPb: %v", err)
+	}
+
 	pbMsg, err := msg.ToPb()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "msg.ToPb: %v", err)

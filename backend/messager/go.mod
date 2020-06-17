@@ -5,10 +5,10 @@ go 1.14
 require (
 	github.com/DATA-DOG/go-sqlmock v1.4.1
 	github.com/alicebob/miniredis v2.5.0+incompatible
-	github.com/athomecomar/athome/backend/notifier v0.0.0-20200616120407-5a0fb7055fbb
+	github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c
 	github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22
 	github.com/athomecomar/athome/backend/services v0.0.0-20200614200957-e4a53c7c626c
-	github.com/athomecomar/athome/pb v0.0.0-20200616190615-a6f27a2bb408
+	github.com/athomecomar/athome/pb v0.0.0-20200616201740-8fad0f40bbef
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
