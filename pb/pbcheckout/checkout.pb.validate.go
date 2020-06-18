@@ -1177,6 +1177,8 @@ func (m *StateChange) Validate() error {
 		}
 	}
 
+	// no validation rules for Stage
+
 	return nil
 }
 
@@ -1243,7 +1245,22 @@ func (m *Shipment) Validate() error {
 
 	// no validation rules for PurchaseId
 
-	// no validation rules for Stage
+	for key, val := range m.GetStateChanges() {
+		_ = val
+
+		// no validation rules for StateChanges[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ShipmentValidationError{
+					field:  fmt.Sprintf("StateChanges[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	// no validation rules for ServiceId
 
@@ -1437,6 +1454,23 @@ func (m *Payment) Validate() error {
 				cause:  err,
 			}
 		}
+	}
+
+	for key, val := range m.GetStateChanges() {
+		_ = val
+
+		// no validation rules for StateChanges[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PaymentValidationError{
+					field:  fmt.Sprintf("StateChanges[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
