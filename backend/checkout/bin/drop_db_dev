@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T checkout_db psql -U postgres -c "drop database checkout_dev"

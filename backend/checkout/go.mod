@@ -14,4 +14,5 @@ require (
 	github.com/lib/pq v1.7.0
 	github.com/pkg/errors v0.9.1
 	google.golang.org/grpc v1.29.1
+	google.golang.org/protobuf v1.24.0
 )
