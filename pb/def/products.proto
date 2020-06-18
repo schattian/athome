@@ -7,6 +7,10 @@ option go_package = "./pbproducts";
 
 package products;
 
+//service Manager {
+// rpc
+//}
+
 service Viewer {
   rpc SearchProducts (SearchProductsRequest) returns (SearchProductsResponse){}
   rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}

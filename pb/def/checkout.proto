@@ -9,133 +9,177 @@ option go_package = "./pbcheckout";
 package checkout;
 
 service Reservations {
-    rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse){}
+  rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse){}
 
-    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Reservation){};
-    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
+  rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveReservationResponse){}
+  rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
+
+  rpc Prev(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+  rpc Next(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+
+  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
 }
 
 service Bookings {
-    rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse){}
+  rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse){}
 
-    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Booking){};
-    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
+  rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveBookingResponse){}
+  rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
+
+  rpc Prev(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+  rpc Next(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+
+  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
 }
 
 service Purchases {
-    rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
+  rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
 
-    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Purchase){};
-    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
-    rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {};
+  rpc AssignAddress(AssignAddressRequest) returns (google.protobuf.Empty){}
+
+  rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
+  rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
+  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
+  rpc Prev(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+
+  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
+}
+
+message UpdateOrderStateRequest{
+  string access_token = 1;
+  uint64 order_id = 2;
+}
+
+message RetrieveReservationResponse{
+  uint64 reservation_id = 1;
+  Reservation reservation = 2;
+}
+
+message RetrieveBookingResponse{
+  uint64 booking_id = 1;
+  Booking booking = 2;
+}
+
+message RetrievePurchaseResponse{
+  uint64 purchase_id = 1;
+  Purchase purchase = 2;
+}
+
+message AssignAddressRequest{
+  string access_token = 1;
+  uint64 order_id = 2;
+  uint64 address_id = 3;
 }
 
 message RetrieveShippingMethodsRequest {
-    string access_token = 1;
+  string access_token = 1;
 }
 
 message ShippingMethod{
-    double price = 1;
-    uint64 duration_in_minutes = 2;
+  double price = 1;
+  uint64 duration_in_minutes = 2;
 }
 
 message RetrieveShippingMethodsResponse {
-    map<uint64, ShippingMethod> shipping_methods = 1;
+  map<uint64, ShippingMethod> shipping_methods = 1;
 }
 
 message CreateReservationResponse {
-    uint64 reservation_id = 1;
-    Reservation reservation = 2;
+  uint64 reservation_id = 1;
+  Reservation reservation = 2;
 }
 
 message CreatePurchaseResponse {
-    uint64 purchase_id = 1;
-    Purchase purchase = 2;
+  uint64 purchase_id = 1;
+  Purchase purchase = 2;
 }
 
 message CreateBookingResponse {
-    uint64 booking_id = 1;
-    Purchase booking = 2;
+  uint64 booking_id = 1;
+  Purchase booking = 2;
 }
 
 message CreateReservationRequest {
-    string access_token = 1;
-    uint64 product_id = 2;
-    uint64 days = 3;
+  string access_token = 1;
+  uint64 product_id = 2;
+  uint64 days = 3;
 }
 
 message CreateBookingRequest {
-    string access_token = 1;
-    uint64 service_id = 2;
+  string access_token = 1;
+  uint64 service_id = 2;
 }
 
 message CreatePurchaseRequest {
-    string access_token = 1;
-    map<uint64,uint64> items = 2; // { product_id: quantity }
+  string access_token = 1;
+  map<uint64,uint64> items = 2; // { product_id: quantity }
 }
 
 
 message StateMachineResponse {
-    message StateDefinition {
-        uint64 stage = 1;
-        string name = 2;
-        string description = 3;
-    }
-    repeated StateDefinition states = 1;
+  message StateDefinition {
+    uint64 stage = 1;
+    string name = 2;
+    string description = 3;
+  }
+  repeated StateDefinition states = 1;
 }
 
 message Reservation {
-    uint64 user_id = 1;
-    map<uint64, StateChange> state_changes = 2;
-    Timestamp timestamp = 3;
-    uint64 product_id = 4;
-    uint64 days = 5;
-    double amount = 6;  // calculated at req time
+  uint64 user_id = 1;
+  map<uint64, StateChange> state_changes = 2;
+  Timestamp timestamp = 3;
+  uint64 product_id = 4;
+  uint64 days = 5;
+  double amount = 6;  // calculated at req time
 }
 
 message Purchase {
-    uint64 user_id = 1;
-    map<uint64, StateChange> state_changes = 2;
-    Timestamp timestamp = 3;
-    map<uint64,uint64> items = 4; // { product_id: quantity }
-    double amount = 5;  // calculated at req time
+  uint64 user_id = 1;
+  map<uint64, StateChange> state_changes = 2;
+  Timestamp timestamp = 3;
+  map<uint64,uint64> items = 4; // { product_id: quantity }
+  double amount = 5;  // calculated at req time
 }
 
 message Booking {
-    uint64 user_id = 1;
-    map<uint64, StateChange> state_changes = 2;
-    Timestamp timestamp = 3;
-    uint64 service_id = 4;
-    double amount = 5;  // calculated at req time
+  uint64 user_id = 1;
+  map<uint64, StateChange> state_changes = 2;
+  Timestamp timestamp = 3;
+  uint64 service_id = 4;
+  double amount = 5;  // calculated at req time
 }
 
 message RetrieveCurrentRequest {
-    string access_token = 1;
+  string access_token = 1;
 }
 
 message StateChange {
-    string name = 1;
-    google.protobuf.Timestamp created_at = 2;
+  string name = 1;
+  google.protobuf.Timestamp created_at = 2;
+  uint64 stage = 3;
 }
 
 message Shipment {
-    uint64 purchase_id = 1;
-    int64 stage = 2;
-    uint64 service_id = 3;
-    Timestamp timestamp = 4;
+  uint64 purchase_id = 1;
+  map<uint64, StateChange> state_changes = 2;
+  uint64 service_id = 3;
+  Timestamp timestamp = 4;
 }
 
 message Timestamp{
-    google.protobuf.Timestamp created_at = 1;
-    google.protobuf.Timestamp updated_at = 2;
+  google.protobuf.Timestamp created_at = 1;
+  google.protobuf.Timestamp updated_at = 2;
 }
 
 message Payment {
-    Entity entity = 1;
-    uint64 user_id = 2;
-    double amount = 3;
-    Timestamp timestamp = 4;
-    Card card = 5;
+  Entity entity = 1;
+  uint64 user_id = 2;
+  double amount = 3;
+  Timestamp timestamp = 4;
+  Card card = 5;
+  map<uint64, StateChange> state_changes = 6;
 }
 
 message Entity {
@@ -144,15 +188,15 @@ message Entity {
 }
 
 message Card {
-    uint64 number = 1;
-    uint64 cvv = 2;
-    uint64 expiry_month = 3;
-    uint64 expiry_year = 4;
-    CardHolder holder = 5;
+  uint64 number = 1;
+  uint64 cvv = 2;
+  uint64 expiry_month = 3;
+  uint64 expiry_year = 4;
+  CardHolder holder = 5;
 }
 
 message CardHolder {
-    uint64 dni = 1;
-    string name = 2;
-    string surname = 3;
+  uint64 dni = 1;
+  string name = 2;
+  string surname = 3;
 }
