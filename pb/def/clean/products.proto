@@ -9,9 +9,17 @@ package products;
 
 service Viewer {
   rpc SearchProducts (SearchProductsRequest) returns (SearchProductsResponse){}
-//  rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
+  rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
 
   rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (ProductDetail){}
+}
+
+message RetrieveProductsRequest {
+  repeated uint64 ids = 1;
+}
+
+message RetrieveProductsResponse {
+  map<uint64, Product> products = 1;
 }
 
 message SearchProductsRequest {

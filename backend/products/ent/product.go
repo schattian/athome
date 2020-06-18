@@ -11,6 +11,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/currency"
 	"github.com/jmoiron/sqlx"
+	"github.com/lib/pq"
 	"github.com/pkg/errors"
 )
 
@@ -33,6 +34,24 @@ func FindProduct(ctx context.Context, db *sqlx.DB, id uint64) (*Product, error) 
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return prod, nil
+}
+
+func FindProductsById(ctx context.Context, db *sqlx.DB, ids []uint64) ([]*Product, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM products WHERE id=any($1)`, pq.Array(ids))
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var prods []*Product
+	for rows.Next() {
+		prod := &Product{}
+		err = rows.StructScan(prod)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		prods = append(prods, prod)
+	}
+	return prods, nil
 }
 
 func (p *Product) ToPb() *pbproducts.Product {
