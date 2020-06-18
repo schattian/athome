@@ -1,0 +1,158 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./pbcheckout";
+
+package checkout;
+
+service Reservations {
+    rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse){}
+
+    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Reservation){};
+    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
+}
+
+service Bookings {
+    rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse){}
+
+    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Booking){};
+    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
+}
+
+service Purchases {
+    rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
+
+    rpc RetrieveCurrent (RetrieveCurrentRequest) returns (Purchase){};
+    rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){};
+    rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}; 
+}
+
+message RetrieveShippingMethodsRequest {
+    string access_token = 1;    
+}
+
+message ShippingMethod{
+    double price = 1;
+    uint64 duration_in_minutes = 2;
+}
+
+message RetrieveShippingMethodsResponse {
+    map<uint64, ShippingMethod> shipping_methods = 1;
+}
+
+message CreateReservationResponse {
+    uint64 reservation_id = 1;
+    Reservation reservation = 2;
+}
+
+message CreatePurchaseResponse {
+    uint64 purchase_id = 1;
+    Purchase purchase = 2;
+}
+
+message CreateBookingResponse {
+    uint64 booking_id = 1;
+    Purchase booking = 2;
+}
+
+message CreateReservationRequest {
+    string access_token = 1;
+    uint64 product_id = 2;
+    uint64 days = 3;
+}
+
+message CreateBookingRequest {
+    string access_token = 1;
+    uint64 service_id = 2;
+}
+
+message CreatePurchaseRequest {
+    string access_token = 1;
+    map<uint64,uint64> items = 2; // { product_id: quantity }
+}
+
+
+message StateMachineResponse {
+    message StateDefinition {
+        uint64 stage = 1;
+        string name = 2;
+        string description = 3;    
+    }
+    repeated StateDefinition states = 1;
+}
+
+message Reservation {
+    uint64 user_id = 1;
+    map<uint64, StateChange> state_changes = 2;
+    Timestamp timestamp = 3;
+    uint64 product_id = 4;
+    uint64 days = 5;
+    double amount = 6;  // calculated at req time
+}
+
+message Purchase {
+    uint64 user_id = 1;
+    map<uint64, StateChange> state_changes = 2;
+    Timestamp timestamp = 3;
+    map<uint64,uint64> items = 4; // { product_id: quantity }
+    double amount = 5;  // calculated at req time
+}
+
+message Booking {
+    uint64 user_id = 1;
+    map<uint64, StateChange> state_changes = 2;
+    Timestamp timestamp = 3;
+    uint64 service_id = 4;
+    double amount = 5;  // calculated at req time
+}
+
+message RetrieveCurrentRequest {
+    string access_token = 1;
+}
+
+message StateChange {
+    string name = 1;
+    Timestamp timestamp = 2;
+}
+
+message Shipment {
+    uint64 purchase_id = 1; 
+    int64 stage = 2;
+    uint64 service_id = 3;
+    Timestamp timestamp = 4;
+}
+
+message Timestamp{
+    google.protobuf.Timestamp created_at = 1;
+    google.protobuf.Timestamp updated_at = 2;
+}
+
+message Payment {
+    Entity entity = 1;
+    uint64 user_id = 2;
+    double amount = 3;
+    Timestamp timestamp = 4;
+    Card card = 5;
+}
+
+message Entity {
+  uint64 entity_id = 1;
+  string entity_table = 2;
+}
+
+message Card {
+    uint64 number = 1;
+    uint64 cvv = 2;
+    uint64 expiry_month = 3;
+    uint64 expiry_year = 4;
+    CardHolder holder = 5;
+}
+
+message CardHolder {
+    uint64 dni = 1;
+    string name = 2;
+    string surname = 3;
+}

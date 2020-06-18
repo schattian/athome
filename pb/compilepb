@@ -4,7 +4,7 @@ cd $DIR/def
 
 export DIR=$(pwd)
 export BACKEND_DIR=$DIR/../../backend
-svcs="messager notifier users semantic address identifier auth mailer products images services"
+svcs="checkout messager notifier users semantic address identifier auth mailer products images services"
 #  --js_out="library=pb_$1,binary:js" \
 pbcompile()
 {
@@ -32,7 +32,7 @@ pbpropague()
 		echo "nil tag cant be propagated"
 		exit 3
 	fi
-	cd $BACKEND_DIR
+	cd $BACKEND_DIR/$1
 	go get -u github.com/athomecomar/athome/pb
 	go mod tidy
 	cd $DIR
@@ -105,7 +105,7 @@ pbrelease
 
 for svc in $svcs
 do
-	pbpropague $svcs
+	pbpropague $svc
 done
 
 

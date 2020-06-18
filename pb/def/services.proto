@@ -18,7 +18,8 @@ service Calendars{
   rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarDetail) {}
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 
-  rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse){}
+  rpc CreateEvent(CreateEventRequest) returns (google.protobuf.Empty){}
+  rpc ConfirmEvent(ConfirmEventRequest) returns (google.protobuf.Empty){}
 }
 
 service Register{
@@ -105,6 +106,8 @@ message Event {
   }];
   TimeOfDay start = 4;
   TimeOfDay end = 5;
+  uint64 order_id = 6;
+  bool is_confirmed = 7;
 }
 
 message RetrieveRegistryRequest {
@@ -200,6 +203,11 @@ message CreateEventRequest {
   string access_token = 1;
   uint64 calendar_id = 2;
   Event event = 3;
+}
+
+message ConfirmEventRequest {
+  string access_token = 1;
+  uint64 event_id = 2;
 }
 
 message CreateEventResponse {
