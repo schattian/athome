@@ -5,6 +5,7 @@ import (
 
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/athome/pb/pbimages"
@@ -68,6 +69,35 @@ func ConnMailer(ctx context.Context) (pbmailer.MailerClient, func() error, error
 	return c, conn.Close, nil
 }
 
+func ConnCheckoutPurchases(ctx context.Context) (pbcheckout.PurchasesClient, func() error, error) {
+	host := pbconf.Checkout.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbcheckout.NewPurchasesClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnCheckoutBookings(ctx context.Context) (pbcheckout.BookingsClient, func() error, error) {
+	host := pbconf.Checkout.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbcheckout.NewBookingsClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnCheckoutReservations(ctx context.Context) (pbcheckout.ReservationsClient, func() error, error) {
+	host := pbconf.Checkout.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbcheckout.NewReservationsClient(conn)
+	return c, conn.Close, nil
+}
 func ConnIdentifier(ctx context.Context) (pbidentifier.IdentifierClient, func() error, error) {
 	host := pbconf.Mailer.GetHost()
 	conn, err := conn(ctx, host)

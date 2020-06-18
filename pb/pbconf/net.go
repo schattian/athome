@@ -39,6 +39,7 @@ var (
 	Images    = &service{Name: "images"}
 	Services  = &service{Name: "services"}
 	Addresses = &service{Name: "address"}
+	Checkout  = &service{Name: "checkout"}
 )
 
 var devPorts = map[string]string{
@@ -54,4 +55,5 @@ var devPorts = map[string]string{
 	"address":  ":9995",
 	"notifier": ":9996",
 	"messager": ":9997",
+	"checkout": ":9998",
 }
