@@ -15,6 +15,10 @@ type Event struct {
 	CalendarId uint64 `json:"calendar_id,omitempty"`
 	ClaimantId uint64 `json:"claimant_id,omitempty"`
 
+	IsConfirmed bool `json:"is_confirmed,omitempty"`
+
+	OrderId uint64 `json:"order_id,omitempty"`
+
 	DayOfWeek   time.Weekday `json:"day_of_week,omitempty"`
 	StartHour   int64        `json:"start_hour,omitempty"`
 	EndHour     int64        `json:"end_hour,omitempty"`
@@ -40,8 +44,8 @@ func EventFromPb(in *pbservices.Event) (*Event, error) {
 		CalendarId: in.GetCalendarId(),
 		ClaimantId: in.GetClaimantId(),
 
-		DayOfWeek: dow,
-
+		DayOfWeek:   dow,
+		OrderId:     in.GetOrderId(),
 		StartHour:   in.GetStart().GetHour(),
 		StartMinute: in.GetStart().GetMinute(),
 		EndHour:     in.GetEnd().GetHour(),
@@ -51,11 +55,13 @@ func EventFromPb(in *pbservices.Event) (*Event, error) {
 
 func (e *Event) ToPb() *pbservices.Event {
 	return &pbservices.Event{
-		Dow:        strings.ToLower(e.DayOfWeek.String()),
-		ClaimantId: e.ClaimantId,
-		CalendarId: e.CalendarId,
-		Start:      &pbservices.TimeOfDay{Hour: e.StartHour, Minute: e.StartMinute},
-		End:        &pbservices.TimeOfDay{Hour: e.EndHour, Minute: e.EndMinute},
+		Dow:         strings.ToLower(e.DayOfWeek.String()),
+		IsConfirmed: e.IsConfirmed,
+		ClaimantId:  e.ClaimantId,
+		OrderId:     e.OrderId,
+		CalendarId:  e.CalendarId,
+		Start:       &pbservices.TimeOfDay{Hour: e.StartHour, Minute: e.StartMinute},
+		End:         &pbservices.TimeOfDay{Hour: e.EndHour, Minute: e.EndMinute},
 	}
 }
 

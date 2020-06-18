@@ -77,13 +77,23 @@ func DayOfWeekByName(s string) (time.Weekday, error) {
 }
 
 func FindAvailability(ctx context.Context, db *sqlx.DB, id uint64) (*Availability, error) {
-	row := storeql.Where(ctx, db, &Availability{}, "id=$1", id)
 	av := &Availability{}
+	row := storeql.Where(ctx, db, av, "id=$1", id)
 	err := row.StructScan(av)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return av, nil
+}
+
+func FindEvent(ctx context.Context, db *sqlx.DB, id uint64) (*Event, error) {
+	e := &Event{}
+	row := storeql.Where(ctx, db, &Event{}, "id=$1", id)
+	err := row.StructScan(e)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return e, nil
 }
 
 func AvailabilitiesToTimeables(avs []*Availability) (as []schedule.Scheduleable) {

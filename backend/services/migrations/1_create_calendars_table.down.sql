@@ -1,3 +1,5 @@
-DROP TABLE IF EXISTS calendars; 
+DROP TABLE IF EXISTS calendars;
 
-DROP TABLE IF EXISTS availabilities; 
+DROP TABLE IF EXISTS availabilities;
+
+DROP TABLE IF EXISTS events;

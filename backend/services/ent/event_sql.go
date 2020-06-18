@@ -16,10 +16,11 @@ func (u *Event) SQLTable() string {
 
 func (u *Event) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":          u.Id,
-		"claimant_id": u.ClaimantId,
-		"calendar_id": u.CalendarId,
-
+		"id":           u.Id,
+		"claimant_id":  u.ClaimantId,
+		"order_id":     u.OrderId,
+		"calendar_id":  u.CalendarId,
+		"is_confirmed": u.IsConfirmed,
 		"day_of_week":  u.DayOfWeek,
 		"start_hour":   u.StartHour,
 		"start_minute": u.StartMinute,
