@@ -1167,10 +1167,10 @@ func (m *StateChange) Validate() error {
 
 	// no validation rules for Name
 
-	if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetCreatedAt()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return StateChangeValidationError{
-				field:  "Timestamp",
+				field:  "CreatedAt",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
