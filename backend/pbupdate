@@ -5,3 +5,6 @@ do
 	go get -u github.com/athomecomar/athome/pb
 	cd ..
 done
+git add ./*/go.mod
+git add ./*/go.sum
+git commit -m "pb: Bump dep pkgs to latest"
