@@ -18,19 +18,23 @@ import (
 type Purchase struct {
 	Id        uint64            `json:"id,omitempty"`
 	UserId    uint64            `json:"user_id,omitempty"`
+	AddressId uint64            `json:"address_id,omitempty"`
 	CreatedAt ent.Time          `json:"created_at,omitempty"`
 	UpdatedAt ent.Time          `json:"updated_at,omitempty"`
 	Items     map[uint64]uint64 `json:"items,omitempty"`
 }
 
-func (o *Purchase) GetCreatedAt() time.Time  { return o.CreatedAt.Time }
-func (o *Purchase) GetUpdatedAt() time.Time  { return o.UpdatedAt.Time }
-func (o *Purchase) SetCreatedAt(t time.Time) { o.CreatedAt = ent.Time{NullTime: sql.NullTime{Time: t}} }
+func (o *Purchase) GetCreatedAt() time.Time { return o.CreatedAt.Time }
+func (o *Purchase) GetUpdatedAt() time.Time { return o.UpdatedAt.Time }
+func (o *Purchase) SetCreatedAt(t time.Time) {
+	o.CreatedAt = ent.Time{NullTime: sql.NullTime{Time: t}}
+	o.SetUpdatedAt(t)
+}
 func (o *Purchase) SetUpdatedAt(t time.Time) { o.UpdatedAt = ent.Time{NullTime: sql.NullTime{Time: t}} }
 
-func FindPurchase(ctx context.Context, db *sqlx.DB, id uint64) (*Purchase, error) {
+func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (*Purchase, error) {
 	order := &Purchase{}
-	row := storeql.Where(ctx, db, order, "id=$1", id)
+	row := storeql.Where(ctx, db, order, `id=$1 AND user_id=$2`, oId, userId)
 	err := row.StructScan(order)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
@@ -144,6 +148,7 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 	return &pbcheckout.Purchase{
 		UserId:       o.UserId,
 		Items:        o.Items,
+		AddressId:    o.AddressId,
 		Amount:       amount,
 		Timestamp:    ts,
 		StateChanges: pbScs,

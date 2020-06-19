@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS purchases(
     id serial primary key,
     user_id int not null,
+    address_id int,
     created_at timestamp not null,
     updated_at timestamp not null,
     items json not null
