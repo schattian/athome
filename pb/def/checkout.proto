@@ -48,7 +48,7 @@ service Purchases {
 
 message UpdateOrderStateRequest{
   string access_token = 1;
-  uint64 order_id = 2;
+//  uint64 order_id = 2;
 }
 
 message RetrieveReservationResponse{
@@ -68,8 +68,7 @@ message RetrievePurchaseResponse{
 
 message AssignAddressRequest{
   string access_token = 1;
-  uint64 order_id = 2;
-  uint64 address_id = 3;
+  uint64 address_id = 2;
 }
 
 message RetrieveShippingMethodsRequest {
@@ -141,6 +140,7 @@ message Purchase {
   Timestamp timestamp = 3;
   map<uint64,uint64> items = 4; // { product_id: quantity }
   double amount = 5;  // calculated at req time
+  uint64 address_id = 6;
 }
 
 message Booking {
