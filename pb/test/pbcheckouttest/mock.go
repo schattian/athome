@@ -137,14 +137,14 @@ func (mr *MockReservationsClientMockRecorder) Next(ctx, in interface{}, opts ...
 }
 
 // Cancel mocks base method
-func (m *MockReservationsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (m *MockReservationsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveReservationResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Cancel", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveReservationResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -255,10 +255,10 @@ func (mr *MockReservationsServerMockRecorder) Next(arg0, arg1 interface{}) *gomo
 }
 
 // Cancel mocks base method
-func (m *MockReservationsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*empty.Empty, error) {
+func (m *MockReservationsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrieveReservationResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Cancel", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveReservationResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -393,14 +393,14 @@ func (mr *MockBookingsClientMockRecorder) Next(ctx, in interface{}, opts ...inte
 }
 
 // Cancel mocks base method
-func (m *MockBookingsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (m *MockBookingsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveBookingResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Cancel", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveBookingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -511,10 +511,10 @@ func (mr *MockBookingsServerMockRecorder) Next(arg0, arg1 interface{}) *gomock.C
 }
 
 // Cancel mocks base method
-func (m *MockBookingsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*empty.Empty, error) {
+func (m *MockBookingsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrieveBookingResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Cancel", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveBookingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -689,14 +689,14 @@ func (mr *MockPurchasesClientMockRecorder) Next(ctx, in interface{}, opts ...int
 }
 
 // Cancel mocks base method
-func (m *MockPurchasesClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (m *MockPurchasesClient) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Cancel", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrievePurchaseResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -837,10 +837,10 @@ func (mr *MockPurchasesServerMockRecorder) Next(arg0, arg1 interface{}) *gomock.
 }
 
 // Cancel mocks base method
-func (m *MockPurchasesServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*empty.Empty, error) {
+func (m *MockPurchasesServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Cancel", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbcheckout.RetrievePurchaseResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
