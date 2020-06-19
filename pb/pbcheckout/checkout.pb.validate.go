@@ -1316,6 +1316,8 @@ func (m *Purchase) Validate() error {
 
 	// no validation rules for Amount
 
+	// no validation rules for AddressId
+
 	return nil
 }
 
