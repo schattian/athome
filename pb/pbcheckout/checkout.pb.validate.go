@@ -46,8 +46,6 @@ func (m *UpdateOrderStateRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for OrderId
-
 	return nil
 }
 
@@ -354,8 +352,6 @@ func (m *AssignAddressRequest) Validate() error {
 	}
 
 	// no validation rules for AccessToken
-
-	// no validation rules for OrderId
 
 	// no validation rules for AddressId
 
