@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c
-	github.com/athomecomar/athome/pb v0.0.0-20200619220628-22ce817b3a85
+	github.com/athomecomar/athome/pb v0.0.0-20200619222232-78ff92287134
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
