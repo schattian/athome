@@ -56,7 +56,7 @@ func CreateNotification(
 			UserId:   userId,
 			Body:     b,
 			Priority: p.String(),
-			Entity:   ToPbNotifierEntity(entity),
+			Entity:   ToPbEntity(entity),
 		},
 	})
 }
