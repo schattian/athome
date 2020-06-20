@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-	"sync"
 
 	"github.com/athomecomar/athome/backend/semantic/data/value"
 	"github.com/athomecomar/athome/pb/pbshared"
@@ -10,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type ProductAttributeData struct {
+type ServiceProviderAttributeData struct {
 	Id       uint64 `json:"id,omitempty"`
 	SchemaId uint64 `json:"schema_id,omitempty"`
 	UserId   uint64 `json:"user_id,omitempty"`
@@ -26,12 +25,10 @@ type ProductAttributeData struct {
 	SlStringValue  *value.SlString  `json:"sl_string_value,omitempty"`
 	SlInt64Value   *value.SlInt64   `json:"sl_int_64_value,omitempty"`
 	SlFloat64Value *value.SlFloat64 `json:"sl_float_64_value,omitempty"`
-
-	lock sync.RWMutex
 }
 
-func NewProductAttributeData(t value.Type) (*ProductAttributeData, error) {
-	pc := &ProductAttributeData{}
+func NewServiceProviderAttributeData(t value.Type) (*ServiceProviderAttributeData, error) {
+	pc := &ServiceProviderAttributeData{}
 	switch t {
 	case value.TypeInt64:
 		pc.Int64Value = value.NilInt64
@@ -52,9 +49,13 @@ func NewProductAttributeData(t value.Type) (*ProductAttributeData, error) {
 	}
 	return pc, nil
 }
-func FindProductAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*ProductAttributeData, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM product_attribute_datas WHERE id=$1`, id)
-	d := &ProductAttributeData{}
+
+func FindServiceProviderAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entity *pbshared.Entity) (*ServiceProviderAttributeData, error) {
+	row := db.QueryRowxContext(ctx,
+		`SELECT * FROM service_provider_attribute_datas WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
+		schemaId, entity.GetEntityTable(), entity.GetEntityId(),
+	)
+	d := &ServiceProviderAttributeData{}
 	err := row.StructScan(d)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
@@ -62,27 +63,17 @@ func FindProductAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*Pro
 	return d, nil
 }
 
-func (d *ProductAttributeData) Clone() (*ProductAttributeData, error) {
-	if d == nil {
-		return nil, errors.New("nil is not clonable")
-	}
-	cp := ProductAttributeData{}
-	cp = *d
-	cp.Id = 0
-	return &cp, nil
-}
-
-func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entity *pbshared.Entity) ([]*ProductAttributeData, error) {
+func FindServiceProviderAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entity *pbshared.Entity) ([]*ServiceProviderAttributeData, error) {
 	rows, err := db.QueryxContext(ctx,
-		`SELECT * FROM product_attribute_datas WHERE entity_table=$1 AND entity_id=$2`,
+		`SELECT * FROM service_provider_attribute_datas WHERE entity_table=$1 AND entity_id=$2`,
 		entity.EntityTable, entity.EntityId,
 	)
 	if err != nil {
 		return nil, errors.Wrap(err, "QueryxContext")
 	}
-	var ds []*ProductAttributeData
+	var ds []*ServiceProviderAttributeData
 	for rows.Next() {
-		d := &ProductAttributeData{}
+		d := &ServiceProviderAttributeData{}
 		err = rows.StructScan(d)
 		if err != nil {
 			return nil, errors.Wrap(err, "StructScan")
@@ -92,12 +83,9 @@ func FindProductAttributeDatasByMatch(ctx context.Context, db *sqlx.DB, entity *
 	return ds, nil
 }
 
-func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId uint64, entity *pbshared.Entity) (*ProductAttributeData, error) {
-	row := db.QueryRowxContext(ctx,
-		`SELECT * FROM product_attribute_datas WHERE schema_id=$1 AND entity_table=$2 AND entity_id=$3`,
-		schemaId, entity.GetEntityTable(), entity.GetEntityId(),
-	)
-	d := &ProductAttributeData{}
+func FindServiceProviderAttributeData(ctx context.Context, db *sqlx.DB, id uint64) (*ServiceProviderAttributeData, error) {
+	row := db.QueryRowxContext(ctx, `SELECT * FROM service_provider_attribute_datas WHERE id=$1`, id)
+	d := &ServiceProviderAttributeData{}
 	err := row.StructScan(d)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
@@ -105,23 +93,23 @@ func FindProductAttributeDataByMatch(ctx context.Context, db *sqlx.DB, schemaId 
 	return d, nil
 }
 
-func (pc *ProductAttributeData) GetSchemaId() uint64 {
+func (pc *ServiceProviderAttributeData) GetSchemaId() uint64 {
 	return pc.SchemaId
 }
 
-func (pc *ProductAttributeData) SetSchemaId(i uint64) {
+func (pc *ServiceProviderAttributeData) SetSchemaId(i uint64) {
 	pc.SchemaId = i
 }
 
-func (pc *ProductAttributeData) GetUserId() uint64 {
+func (pc *ServiceProviderAttributeData) GetUserId() uint64 {
 	return pc.UserId
 }
 
-func (pc *ProductAttributeData) SetUserId(i uint64) {
+func (pc *ServiceProviderAttributeData) SetUserId(i uint64) {
 	pc.UserId = i
 }
 
-func (pc *ProductAttributeData) SetValue(v interface{}) error {
+func (pc *ServiceProviderAttributeData) SetValue(v interface{}) error {
 	var err error
 	for _, value := range pc.values() {
 		err = value.SetValue(v)
@@ -136,7 +124,7 @@ func (pc *ProductAttributeData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (pc *ProductAttributeData) GetValue() value.Value {
+func (pc *ServiceProviderAttributeData) GetValue() value.Value {
 	for _, val := range pc.values() {
 		if !val.IsNil() {
 			return val
@@ -145,7 +133,7 @@ func (pc *ProductAttributeData) GetValue() value.Value {
 	return nil
 }
 
-func (pc *ProductAttributeData) values() []value.Value {
+func (pc *ServiceProviderAttributeData) values() []value.Value {
 	return []value.Value{
 		pc.BoolValue,
 		pc.Float64Value,

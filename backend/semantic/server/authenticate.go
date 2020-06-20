@@ -4,13 +4,13 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/pb/pbproducts"
-	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )
 
-func AuthorizeThroughEntity(ctx context.Context, access string, entity *pbsemantic.Entity) (userId uint64, err error) {
+func AuthorizeThroughEntity(ctx context.Context, access string, entity *pbshared.Entity) (userId uint64, err error) {
 	type authorizationFunc func(ctx context.Context, access string, entityId uint64) (userId uint64, err error)
 
 	authFns := map[string]authorizationFunc{

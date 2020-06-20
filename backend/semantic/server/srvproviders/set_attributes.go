@@ -1,4 +1,4 @@
-package srvproducts
+package srvproviders
 
 import (
 	"context"
@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) SetAttributeDatas(srv pbsemantic.Products_SetAttributeDatasServer) error {
+func (s *Server) SetAttributeDatas(srv pbsemantic.ServiceProviders_SetAttributeDatasServer) error {
 	ctx := srv.Context()
 	context.WithTimeout(ctx, 500*time.Second)
 
@@ -79,13 +79,13 @@ func (s *Server) setAttributeDatas(
 	userId uint64,
 	entity *pbshared.Entity,
 ) (*pbsemantic.SetAttributeDatasResponse, error) {
-	attSchema, err := schema.FindProductAttributeSchema(ctx, db, in.GetSchemaId())
+	attSchema, err := schema.FindServiceProviderAttributeSchema(ctx, db, in.GetSchemaId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeSchemas: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindServiceProviderAttributeSchemas: %v", err)
 	}
 
 	var d data.Attribute
-	d, err = data.FindProductAttributeDataByMatch(ctx, db, in.GetSchemaId(), entity) // yes, it can store multi attrs in one match on wrapper, but thats safer
+	d, err = data.FindServiceProviderAttributeDataByMatch(ctx, db, in.GetSchemaId(), entity) // yes, it can store multi attrs in one match on wrapper, but thats safer
 	if errors.Is(err, sql.ErrNoRows) {
 		d, err = attSchema.NewData()
 		if err != nil {
@@ -93,7 +93,7 @@ func (s *Server) setAttributeDatas(
 		}
 	}
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDataByMatch: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindServiceProviderAttributeDataByMatch: %v", err)
 	}
 
 	err = data.MustUserId(d, userId)

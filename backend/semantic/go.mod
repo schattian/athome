@@ -9,6 +9,7 @@ require (
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.2.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
+	github.com/google/go-cmp v0.4.1
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.7.0
 	github.com/pkg/errors v0.9.1

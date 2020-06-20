@@ -4,7 +4,8 @@ import (
 	"testing"
 
 	"github.com/athomecomar/athome/backend/semantic/data/value"
-	"github.com/athomecomar/xtest"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func newProductAttributeData(t *testing.T, ty value.Type) *ProductAttributeData {
@@ -115,13 +116,29 @@ func TestProductAttributeData_SetValue(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		// tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+
+			// t.Parallel()
 			old := *tt.att
+			tt.att.lock.Lock()
 			err := tt.att.SetValue(tt.v)
+			tt.att.lock.Unlock()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ProductAttributeData.SetValue() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			xtest.CmpIfErr(t, err, &old, tt.att, tt.wantAtt, "ProductAttributeData.SetValue()")
+
+			msg := "ProductAttributeData.SetValue()"
+			if err != nil {
+				if diff := cmp.Diff(&old, tt.att, cmpopts.IgnoreUnexported(ProductAttributeData{})); diff != "" {
+					t.Fatalf("%s errored mismatch (-want +got): %s", msg, diff)
+				}
+			}
+
+			if diff := cmp.Diff(tt.wantAtt, tt.att, cmpopts.IgnoreUnexported(ProductAttributeData{})); diff != "" {
+				t.Errorf("%s mismatch (-want +got): %s", msg, diff)
+			}
+
 		})
 	}
 }

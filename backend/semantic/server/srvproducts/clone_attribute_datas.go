@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/semantic/data"
 	"github.com/athomecomar/athome/backend/semantic/server"
 	"github.com/athomecomar/athome/pb/pbsemantic"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -17,7 +18,7 @@ func (s *Server) CloneAttributeDatas(ctx context.Context, in *pbsemantic.CloneAt
 	if err != nil {
 		return nil, err
 	}
-	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), &pbsemantic.Entity{EntityId: in.GetDestEntityId(), EntityTable: in.GetEntityTable()})
+	_, err = server.AuthorizeThroughEntity(ctx, in.GetAccessToken(), &pbshared.Entity{EntityId: in.GetDestEntityId(), EntityTable: in.GetEntityTable()})
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +33,7 @@ func (s *Server) CloneAttributeDatas(ctx context.Context, in *pbsemantic.CloneAt
 }
 
 func (s *Server) cloneAttributeDatas(ctx context.Context, db *sqlx.DB, in *pbsemantic.CloneAttributeDatasRequest) (*pbsemantic.CloneAttributeDatasResponse, error) {
-	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, &pbsemantic.Entity{EntityTable: in.GetEntityTable(), EntityId: in.GetFromEntityId()})
+	atts, err := data.FindProductAttributeDatasByMatch(ctx, db, &pbshared.Entity{EntityTable: in.GetEntityTable(), EntityId: in.GetFromEntityId()})
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindProductAttributeDatasByMatch: %v", err)
 	}
