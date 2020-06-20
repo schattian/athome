@@ -77,8 +77,9 @@ message AssignAddressRequest{
 
 message RetrieveShippingMethodsRequest {
   string access_token = 1;
-  shared.TimeOfDay start = 4;
-  shared.TimeOfDay end = 5;
+  shared.TimeOfDay start = 2;
+  shared.TimeOfDay end = 3;
+  string dow = 4;
 }
 
 message ShippingMethod{
@@ -120,7 +121,6 @@ message CreatePurchaseRequest {
   string access_token = 1;
   map<uint64,uint64> items = 2; // { product_id: quantity }
 }
-
 
 message StateMachineResponse {
   message StateDefinition {

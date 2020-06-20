@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent/schedule"
 	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )
@@ -60,8 +61,8 @@ func (e *Event) ToPb() *pbservices.Event {
 		ClaimantId:  e.ClaimantId,
 		OrderId:     e.OrderId,
 		CalendarId:  e.CalendarId,
-		Start:       &pbservices.TimeOfDay{Hour: e.StartHour, Minute: e.StartMinute},
-		End:         &pbservices.TimeOfDay{Hour: e.EndHour, Minute: e.EndMinute},
+		Start:       &pbshared.TimeOfDay{Hour: e.StartHour, Minute: e.StartMinute},
+		End:         &pbshared.TimeOfDay{Hour: e.EndHour, Minute: e.EndMinute},
 	}
 }
 

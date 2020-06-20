@@ -80,8 +80,10 @@ func (s *Service) ToPbSearchResult(ctx context.Context, users pbusers.ViewerClie
 	return &pbservices.ServiceSearchResult{
 		User: user,
 		Service: &pbservices.ServiceSearchResult_Service{
-			Title: s.Title,
-			Price: s.PbPrice(),
+			AddressId:  s.AddressId,
+			CalendarId: s.CalendarId,
+			Title:      s.Title,
+			Price:      s.PbPrice(),
 		},
 	}, nil
 }

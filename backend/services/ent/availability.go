@@ -8,6 +8,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent/schedule"
 	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
@@ -48,8 +49,8 @@ func (av *Availability) ToPb() *pbservices.Availability {
 	return &pbservices.Availability{
 		Dow:        strings.ToLower(av.DayOfWeek.String()),
 		CalendarId: av.CalendarId,
-		Start:      &pbservices.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
-		End:        &pbservices.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
+		Start:      &pbshared.TimeOfDay{Hour: av.StartHour, Minute: av.StartMinute},
+		End:        &pbshared.TimeOfDay{Hour: av.EndHour, Minute: av.EndMinute},
 	}
 }
 

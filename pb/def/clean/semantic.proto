@@ -11,6 +11,10 @@ package semantic;
 service ServiceProviders {
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
   rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
+
+  rpc RetrieveAttributeSchemas(RetrieveAttributeSchemasRequest) returns (RetrieveAttributeSchemasResponse) {}
+  rpc RetrieveAttributeDatas(RetrieveAttributeDatasRequest) returns (RetrieveAttributeDatasResponse) {}
+  rpc SetAttributeDatas(stream SetAttributeDatasRequest) returns (stream SetAttributeDatasResponse) {}
 }
 
 service Merchants {
@@ -41,6 +45,9 @@ message Category {
   uint64 parent_id = 2;
   map<uint64, Category> childs = 3;
   string identification_template = 4;
+  uint64 max_vol_weight = 5; // in case of being
+  // svcprov category, it's max can carry. In case of being
+  // prod category, max to weight
 }
 
 message AttributeSchema {

@@ -11,15 +11,19 @@ package services;
 service Viewer{
   rpc SearchServices (SearchServicesRequest) returns (SearchServicesResponse){}
 
+  rpc SearchAvailableShippings (SearchAvailableShippingsRequest) returns (SearchAvailableShippingsResponse){}
+
   rpc RetrieveServiceDetail (RetrieveServiceDetailRequest) returns (ServiceDetail){}
 }
+
 
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
   rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarDetail) {}
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 
-  rpc CreateEvent(CreateEventRequest) returns (google.protobuf.Empty){}
+  rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse){}
+
   rpc ConfirmEvent(ConfirmEventRequest) returns (google.protobuf.Empty){}
 }
 
@@ -32,6 +36,19 @@ service Register{
   rpc First (FirstRequest) returns (FirstResponse) {}
   rpc Second (SecondRequest) returns (google.protobuf.Empty) {}
   rpc Third (ThirdRequest) returns (ThirdResponse) {}
+}
+
+message SearchAvailableShippingsRequest {
+  shared.TimeOfDay start = 1;
+  shared.TimeOfDay end = 2;
+  string dow = 3 [(validate.rules).string = {in:
+    ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  }];
+  uint64 max_vol_weight = 4;
+}
+
+message SearchAvailableShippingsResponse {
+  map <uint64, ServiceSearchResult> services = 1;
 }
 
 message SearchServicesRequest {
@@ -60,8 +77,10 @@ message RetrieveServiceDetailRequest {
 
 message ServiceSearchResult {
   message Service{
-    string title = 2;
-    Price price = 4;
+    string title = 1;
+    Price price = 2;
+    uint64 address_id = 3;
+    uint64 calendar_id = 4;
   }
   Service service = 1;
   User user = 2;
