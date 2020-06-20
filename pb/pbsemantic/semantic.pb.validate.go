@@ -135,6 +135,8 @@ func (m *Category) Validate() error {
 
 	// no validation rules for IdentificationTemplate
 
+	// no validation rules for MaxVolWeight
+
 	return nil
 }
 
