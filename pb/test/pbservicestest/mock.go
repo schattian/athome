@@ -56,6 +56,26 @@ func (mr *MockViewerClientMockRecorder) SearchServices(ctx, in interface{}, opts
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchServices", reflect.TypeOf((*MockViewerClient)(nil).SearchServices), varargs...)
 }
 
+// SearchAvailableShippings mocks base method
+func (m *MockViewerClient) SearchAvailableShippings(ctx context.Context, in *pbservices.SearchAvailableShippingsRequest, opts ...grpc.CallOption) (*pbservices.SearchAvailableShippingsResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SearchAvailableShippings", varargs...)
+	ret0, _ := ret[0].(*pbservices.SearchAvailableShippingsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchAvailableShippings indicates an expected call of SearchAvailableShippings
+func (mr *MockViewerClientMockRecorder) SearchAvailableShippings(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchAvailableShippings", reflect.TypeOf((*MockViewerClient)(nil).SearchAvailableShippings), varargs...)
+}
+
 // RetrieveServiceDetail mocks base method
 func (m *MockViewerClient) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest, opts ...grpc.CallOption) (*pbservices.ServiceDetail, error) {
 	m.ctrl.T.Helper()
@@ -112,6 +132,21 @@ func (m *MockViewerServer) SearchServices(arg0 context.Context, arg1 *pbservices
 func (mr *MockViewerServerMockRecorder) SearchServices(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchServices", reflect.TypeOf((*MockViewerServer)(nil).SearchServices), arg0, arg1)
+}
+
+// SearchAvailableShippings mocks base method
+func (m *MockViewerServer) SearchAvailableShippings(arg0 context.Context, arg1 *pbservices.SearchAvailableShippingsRequest) (*pbservices.SearchAvailableShippingsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SearchAvailableShippings", arg0, arg1)
+	ret0, _ := ret[0].(*pbservices.SearchAvailableShippingsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchAvailableShippings indicates an expected call of SearchAvailableShippings
+func (mr *MockViewerServerMockRecorder) SearchAvailableShippings(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchAvailableShippings", reflect.TypeOf((*MockViewerServer)(nil).SearchAvailableShippings), arg0, arg1)
 }
 
 // RetrieveServiceDetail mocks base method
@@ -213,14 +248,14 @@ func (mr *MockCalendarsClientMockRecorder) RetrieveMyCalendars(ctx, in interface
 }
 
 // CreateEvent mocks base method
-func (m *MockCalendarsClient) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (m *MockCalendarsClient) CreateEvent(ctx context.Context, in *pbservices.CreateEventRequest, opts ...grpc.CallOption) (*pbservices.CreateEventResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "CreateEvent", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -321,10 +356,10 @@ func (mr *MockCalendarsServerMockRecorder) RetrieveMyCalendars(arg0, arg1 interf
 }
 
 // CreateEvent mocks base method
-func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices.CreateEventRequest) (*empty.Empty, error) {
+func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices.CreateEventRequest) (*pbservices.CreateEventResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateEvent", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

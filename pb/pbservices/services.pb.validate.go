@@ -36,6 +36,198 @@ var (
 // define the regex for a UUID once up-front
 var _services_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on SearchAvailableShippingsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SearchAvailableShippingsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchAvailableShippingsRequestValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchAvailableShippingsRequestValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _SearchAvailableShippingsRequest_Dow_InLookup[m.GetDow()]; !ok {
+		return SearchAvailableShippingsRequestValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
+	// no validation rules for MaxVolWeight
+
+	return nil
+}
+
+// SearchAvailableShippingsRequestValidationError is the validation error
+// returned by SearchAvailableShippingsRequest.Validate if the designated
+// constraints aren't met.
+type SearchAvailableShippingsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchAvailableShippingsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchAvailableShippingsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchAvailableShippingsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchAvailableShippingsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchAvailableShippingsRequestValidationError) ErrorName() string {
+	return "SearchAvailableShippingsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchAvailableShippingsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchAvailableShippingsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchAvailableShippingsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchAvailableShippingsRequestValidationError{}
+
+var _SearchAvailableShippingsRequest_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
+
+// Validate checks the field values on SearchAvailableShippingsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *SearchAvailableShippingsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetServices() {
+		_ = val
+
+		// no validation rules for Services[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchAvailableShippingsResponseValidationError{
+					field:  fmt.Sprintf("Services[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// SearchAvailableShippingsResponseValidationError is the validation error
+// returned by SearchAvailableShippingsResponse.Validate if the designated
+// constraints aren't met.
+type SearchAvailableShippingsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchAvailableShippingsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchAvailableShippingsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchAvailableShippingsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchAvailableShippingsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchAvailableShippingsResponseValidationError) ErrorName() string {
+	return "SearchAvailableShippingsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchAvailableShippingsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchAvailableShippingsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchAvailableShippingsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchAvailableShippingsResponseValidationError{}
+
 // Validate checks the field values on SearchServicesRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -2738,6 +2930,10 @@ func (m *ServiceSearchResult_Service) Validate() error {
 			}
 		}
 	}
+
+	// no validation rules for AddressId
+
+	// no validation rules for CalendarId
 
 	return nil
 }
