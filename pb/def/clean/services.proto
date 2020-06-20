@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "shared/time.proto";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 
@@ -102,8 +103,8 @@ message Event {
   uint64 calendar_id = 1;
   uint64 claimant_id = 2;  // buyer user
   string dow = 3;
-  TimeOfDay start = 4;
-  TimeOfDay end = 5;
+  shared.TimeOfDay start = 4;
+  shared.TimeOfDay end = 5;
   uint64 order_id = 6;
   bool is_confirmed = 7;
 }
@@ -219,17 +220,11 @@ message CreateCalendarResponse {
   map<uint64,Availability> availabilities = 3;
 }
 
-// 24 hour format
-message TimeOfDay {
-  int64 hour = 1;
-  int64 minute = 2;
-}
-
 message Availability {
   uint64 calendar_id = 1;
   string dow = 2;
-  TimeOfDay start = 3;
-  TimeOfDay end = 4;
+  shared.TimeOfDay start = 3;
+  shared.TimeOfDay end = 4;
 }
 
 message Price {
