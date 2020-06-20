@@ -23,6 +23,14 @@ func StateChanges(ctx context.Context, db *sqlx.DB, o Order) (scs []StateChange,
 	return
 }
 
+func LatestStateChange(ctx context.Context, db *sqlx.DB, o Order) (sc StateChange, err error) {
+	switch o.OrderClass() {
+	case Purchases:
+		sc, err = latestStateChangePurchases(ctx, db, o.GetId())
+	}
+	return
+}
+
 func stateChangesPurchases(ctx context.Context, db *sqlx.DB, oid uint64) (scs []StateChange, err error) {
 	rows, err := storeql.WhereMany(ctx, db, &PurchaseStateChange{}, "order_id=$1", oid)
 	if err != nil {
@@ -40,4 +48,14 @@ func stateChangesPurchases(ctx context.Context, db *sqlx.DB, oid uint64) (scs []
 		scs = append(scs, sc)
 	}
 	return
+}
+
+func latestStateChangePurchases(ctx context.Context, db *sqlx.DB, oid uint64) (StateChange, error) {
+	sc := &PurchaseStateChange{}
+	row := storeql.Where(ctx, db, sc, "order_id=$1 ORDER BY created_at", oid)
+	err := row.StructScan(sc)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return sc, nil
 }

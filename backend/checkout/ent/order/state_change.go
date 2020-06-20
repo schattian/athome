@@ -3,6 +3,7 @@ package order
 import (
 	"time"
 
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/storeql"
 	"github.com/golang/protobuf/ptypes"
@@ -12,7 +13,8 @@ import (
 type StateChange interface {
 	GetName() string
 	GetCreatedAt() time.Time
-	GetStage() uint64
+	GetStage() int64
+	GetState() *sm.State
 	storeql.Storable
 }
 

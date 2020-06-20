@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -41,6 +42,7 @@ func (s *Server) CreatePurchase(ctx context.Context, in *pbcheckout.CreatePurcha
 		return nil, err
 	}
 	defer prodsCloser()
+
 	return s.createPurchase(ctx, db, in, prods, uid)
 }
 
@@ -54,16 +56,17 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Products")
 	}
-	err = o.ValidateStock(ctx, products)
+	err = o.ValidateItems(ctx, products)
 	if err != nil {
 		return nil, status.Errorf(xerrors.ResourceExhausted, "ValidateStock")
 	}
+
 	err = storeql.InsertIntoDB(ctx, db, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "o InsertIntoDB")
 	}
 
-	sc, err := order.NewPurchaseStateChange(ctx, o.Id)
+	sc, err := order.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseAddress)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB")
 	}
@@ -72,7 +75,11 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB")
 	}
 
-	amount := o.AmountFromProducts(ctx, products)
+	amount, err := o.AmountFromProducts(ctx, products)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "AmountFromProducts")
+	}
+
 	oPb, err := o.ToPb([]order.StateChange{sc}, amount)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "ToPbWrapped")

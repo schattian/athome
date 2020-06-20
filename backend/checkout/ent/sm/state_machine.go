@@ -8,7 +8,11 @@ type StateMachine struct {
 	States []*State
 }
 
-func (sm *StateMachine) StateByName(s string) *State {
+func (sm *StateMachine) StateByName(s StateName) *State {
+	if s == Cancelled {
+		return CancelledState
+	}
+
 	for _, st := range sm.States {
 		if st.Name == s {
 			return st
@@ -17,22 +21,19 @@ func (sm *StateMachine) StateByName(s string) *State {
 	return nil
 }
 
-func (s *State) ToPb(stage uint64) *pbcheckout.StateMachineResponse_StateDefinition {
-	return &pbcheckout.StateMachineResponse_StateDefinition{
-		Name:        s.Name,
-		Stage:       stage,
-		Description: s.Description,
-	}
-}
 func (sm *StateMachine) ToPb() *pbcheckout.StateMachineResponse {
 	var states []*pbcheckout.StateMachineResponse_StateDefinition
 	for i, state := range sm.States {
-		states = append(states, state.ToPb(uint64(i)+1))
+		states = append(states, state.ToPb(int64(i)+1))
 	}
 	return &pbcheckout.StateMachineResponse{States: states}
 }
 
-func (sm *StateMachine) StateByStage(s uint64) *State {
+func (sm *StateMachine) StateByStage(s int64) *State {
+	if s == -1 {
+		return CancelledState
+	}
+
 	if len(sm.States) < int(s) {
 		return nil
 	}
@@ -43,29 +44,22 @@ func (sm *StateMachine) First() *State {
 	return sm.StateByStage(1)
 }
 
-func (sm *StateMachine) StageByName(s string) uint64 {
+func (sm *StateMachine) StageByName(s StateName) int64 {
+	if s == Cancelled {
+		return -1
+	}
 	for i, st := range sm.States {
 		if st.Name == s {
-			return uint64(i) + 1
+			return int64(i) + 1
 		}
 	}
 	return 0
 }
 
-type State struct {
-	Name        string
-	Description string
-
-	IsCancellable bool
-
-	IsPrevable bool
-	IsNextable bool
-}
-
 var (
 	PurchaseStateMachine = &StateMachine{
 		States: []*State{
-			{Name: "address", Description: "address fulfill is needed", IsPrevable: true, IsNextable: true, IsCancellable: true},
+			{Name: PurchaseAddress, Description: "address fulfill is needed", prevable: true, nextable: true, cancellable: true},
 		},
 	}
 )

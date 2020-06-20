@@ -10,6 +10,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -64,6 +65,10 @@ func (o *Purchase) OrderClass() class {
 	return Purchases
 }
 
+func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient, uid uint64) (*pbusers.UserDetail, error) {
+	return c.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: uid})
+}
+
 func (o *Purchase) Products(ctx context.Context, c pbproducts.ViewerClient) (map[uint64]*pbproducts.Product, error) {
 	prods, err := c.RetrieveProducts(ctx, &pbproducts.RetrieveProductsRequest{Ids: o.ProductIds()})
 	if err != nil {
@@ -84,15 +89,23 @@ func (o *Purchase) Amount(ctx context.Context, c pbproducts.ViewerClient) (float
 	if err != nil {
 		return 0, errors.Wrap(err, "Products")
 	}
-	return o.AmountFromProducts(ctx, prods), nil
+	return o.AmountFromProducts(ctx, prods)
 }
 
-func (o *Purchase) AmountFromProducts(ctx context.Context, prods map[uint64]*pbproducts.Product) float64 {
+func (o *Purchase) AmountFromProducts(ctx context.Context, prods map[uint64]*pbproducts.Product) (float64, error) {
 	var amount float64
 	for id, prod := range prods {
-		amount += float64(o.Items[id]) * prod.GetPrice()
+		desiredStock, gotStock := o.Items[id], prod.GetStock()
+		if desiredStock > gotStock {
+			return 0, fmt.Errorf("product with id %v has %d of stock while asked for %d", id, gotStock, desiredStock)
+		}
+		plus := float64(desiredStock) * prod.GetPrice()
+		if plus <= 0 {
+			return 0, fmt.Errorf("invalid amount calculated. Given quantity %v with prod price %v", desiredStock, prod.GetPrice())
+		}
+		amount += plus
 	}
-	return amount
+	return amount, nil
 }
 
 func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproducts.ViewerClient) (*pbcheckout.Purchase, error) {
@@ -111,8 +124,15 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	return pb, nil
 }
 
-func (o *Purchase) ValidateStock(ctx context.Context, prods map[uint64]*pbproducts.Product) error {
+func (o *Purchase) ValidateItems(ctx context.Context, prods map[uint64]*pbproducts.Product) error {
+	var userId uint64
 	for id, prod := range prods {
+		if userId == 0 {
+			userId = prod.GetUserId()
+		}
+		if prod.GetUserId() != userId {
+			return fmt.Errorf("product with id %v mixes userId on order", id)
+		}
 		if prod.GetStock() < o.Items[id] {
 			return fmt.Errorf("product with id %v has %d of stock while asked for %d", id, prod.GetStock(), o.Items[id])
 		}
