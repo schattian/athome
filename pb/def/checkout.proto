@@ -4,6 +4,9 @@ import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
+import "shared/time.proto";
+import "shared/entity.proto";
+
 option go_package = "./pbcheckout";
 
 package checkout;
@@ -17,7 +20,7 @@ service Reservations {
   rpc Prev(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
   rpc Next(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
+  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
 }
 
 service Bookings {
@@ -29,7 +32,7 @@ service Bookings {
   rpc Prev(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
   rpc Next(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
+  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
 }
 
 service Purchases {
@@ -40,10 +43,11 @@ service Purchases {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
+
   rpc Prev(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
   rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (google.protobuf.Empty){}
+  rpc Cancel(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
 }
 
 message UpdateOrderStateRequest{
@@ -73,6 +77,8 @@ message AssignAddressRequest{
 
 message RetrieveShippingMethodsRequest {
   string access_token = 1;
+  shared.TimeOfDay start = 4;
+  shared.TimeOfDay end = 5;
 }
 
 message ShippingMethod{
@@ -118,7 +124,7 @@ message CreatePurchaseRequest {
 
 message StateMachineResponse {
   message StateDefinition {
-    uint64 stage = 1;
+    int64 stage = 1;
     string name = 2;
     string description = 3;
   }
@@ -141,6 +147,7 @@ message Purchase {
   map<uint64,uint64> items = 4; // { product_id: quantity }
   double amount = 5;  // calculated at req time
   uint64 address_id = 6;
+  uint64 merchant_id = 7;
 }
 
 message Booking {
@@ -158,7 +165,7 @@ message RetrieveCurrentRequest {
 message StateChange {
   string name = 1;
   google.protobuf.Timestamp created_at = 2;
-  uint64 stage = 3;
+  int64 stage = 3;
 }
 
 message Shipment {
@@ -174,17 +181,12 @@ message Timestamp{
 }
 
 message Payment {
-  Entity entity = 1;
+  shared.Entity entity = 1;
   uint64 user_id = 2;
   double amount = 3;
   Timestamp timestamp = 4;
   Card card = 5;
   map<uint64, StateChange> state_changes = 6;
-}
-
-message Entity {
-  uint64 entity_id = 1;
-  string entity_table = 2;
 }
 
 message Card {

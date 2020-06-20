@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package shared;
+
+option go_package = "github.com/athomecomar/athome/pb/pbshared";
+
+message Entity {
+  uint64 entity_id = 1;
+  string entity_table = 2;
+}

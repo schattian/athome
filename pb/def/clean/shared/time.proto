@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package shared;
+
+option go_package = "github.com/athomecomar/athome/pb/pbshared";
+
+// 24 hour format
+message TimeOfDay {
+  int64 hour = 1;
+  int64 minute = 2;
+}
+

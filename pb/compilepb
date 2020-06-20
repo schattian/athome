@@ -6,7 +6,21 @@ export DIR=$(pwd)
 export BACKEND_DIR=$DIR/../../backend
 svcs="checkout messager notifier users semantic address identifier auth mailer products images services"
 #  --js_out="library=pb_$1,binary:js" \
-pbcompile()
+
+pbsharedcompile()
+{
+protoc \
+  -I . \
+  -I ${GOPATH}/src \
+  -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
+  --go_out="plugins=grpc:../" \
+  --validate_out="lang=go:../" \
+  shared/$1
+
+../cleanpb ./shared/$1 > ./clean/shared/$1
+}
+
+pbsvccompile()
 {
 protoc \
   -I . \
@@ -51,12 +65,18 @@ pbrelease()
 echo "build (Y/n):"
 read build
 
+for shared in $(ls ./shared)
+do
+	pbsharedcompile $shared
+done
+mv ../github.com/athomecomar/athome/pb/pbshared/* ../pbshared
+rm -rf ../github.com/athomecomar/athome/pb/pbshared
+
 if [ ! ${build} = "n" ]
 then
 	for svc in $svcs
 	do
-		pbcompile $svc
-
+		pbsvccompile $svc
 		testdir=../test/pb${svc}test
 		pkgdir=../pb${svc}
 

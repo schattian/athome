@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
+import "shared/entity.proto";
 
 option go_package = "./pbsemantic";
 
@@ -56,18 +57,13 @@ message RetrieveAttributeSchemasRequest {
   uint64 category_id = 1;
 }
 
-message Entity {
-  uint64 entity_id = 1;
-  string entity_table = 2;
-}
-
 message RetrieveAttributeDatasRequest {
-  Entity entity = 1;
+  shared.Entity entity = 1;
 }
 
 message DeleteAttributeDatasRequest {
   string access_token = 1;
-  Entity entity = 2;
+  shared.Entity entity = 2;
 }
 
 message RetrieveAttributeSchemasResponse {
@@ -90,7 +86,7 @@ message CloneAttributeDatasResponse {
 message SetAttributeDatasRequest {
   message Authorization {
     string access_token = 1; // from which assigns the user_id col
-    Entity entity = 2;
+    shared.Entity entity = 2;
   }
 
   oneof corpus {
@@ -102,8 +98,8 @@ message SetAttributeDatasRequest {
 message ChangeEntityAttributeDatasRequest {
   string access_token = 1;
 
-  Entity from = 2;
-  Entity dest = 3;
+  shared.Entity from = 2;
+  shared.Entity dest = 3;
 }
 
 message CloneAttributeDatasRequest {

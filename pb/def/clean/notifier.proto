@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "shared/entity.proto";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -56,7 +57,7 @@ message RetrieveManyResponse{
 message Notification {
   uint64 user_id = 1;
   string body = 2;
-  Entity entity = 3;
+  shared.Entity entity = 3;
   Status status = 4;
   string priority = 5;
 }
@@ -67,8 +68,4 @@ message Status{
   google.protobuf.Timestamp seen_at = 3;
 }
 
-message Entity {
-  uint64 entity_id = 1;
-  string entity_table = 2;
-}
 
