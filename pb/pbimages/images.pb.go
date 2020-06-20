@@ -4,9 +4,9 @@
 package pbimages
 
 import (
-	pbshared "./pbshared"
 	context "context"
 	fmt "fmt"
+	pbshared "github.com/athomecomar/athome/pb/pbshared"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	proto "github.com/golang/protobuf/proto"
 	empty "github.com/golang/protobuf/ptypes/empty"
