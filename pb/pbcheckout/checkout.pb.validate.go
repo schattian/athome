@@ -444,6 +444,13 @@ func (m *RetrieveShippingMethodsRequest) Validate() error {
 		}
 	}
 
+	if _, ok := _RetrieveShippingMethodsRequest_Dow_InLookup[m.GetDow()]; !ok {
+		return RetrieveShippingMethodsRequestValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
 	return nil
 }
 
@@ -503,6 +510,16 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RetrieveShippingMethodsRequestValidationError{}
+
+var _RetrieveShippingMethodsRequest_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
 
 // Validate checks the field values on ShippingMethod with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
