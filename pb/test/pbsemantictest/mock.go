@@ -117,6 +117,26 @@ func (mr *MockServiceProvidersClientMockRecorder) RetrieveCategory(arg0, arg1 in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCategory", reflect.TypeOf((*MockServiceProvidersClient)(nil).RetrieveCategory), varargs...)
 }
 
+// RetrieveShippingCategories mocks base method
+func (m *MockServiceProvidersClient) RetrieveShippingCategories(arg0 context.Context, arg1 *pbsemantic.RetrieveShippingCategoriesRequest, arg2 ...grpc.CallOption) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveShippingCategories", varargs...)
+	ret0, _ := ret[0].(*pbsemantic.RetrieveCategoriesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveShippingCategories indicates an expected call of RetrieveShippingCategories
+func (mr *MockServiceProvidersClientMockRecorder) RetrieveShippingCategories(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingCategories", reflect.TypeOf((*MockServiceProvidersClient)(nil).RetrieveShippingCategories), varargs...)
+}
+
 // SetAttributeDatas mocks base method
 func (m *MockServiceProvidersClient) SetAttributeDatas(arg0 context.Context, arg1 ...grpc.CallOption) (pbsemantic.ServiceProviders_SetAttributeDatasClient, error) {
 	m.ctrl.T.Helper()
