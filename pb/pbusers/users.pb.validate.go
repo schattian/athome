@@ -1272,6 +1272,8 @@ func (m *Onboarding) Validate() error {
 
 	// no validation rules for Stage
 
+	// no validation rules for AddressId
+
 	return nil
 }
 
