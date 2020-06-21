@@ -44,8 +44,8 @@ message SearchAvailableShippingsRequest {
   string dow = 3 [(validate.rules).string = {in:
     ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   }];
-  uint64 max_vol_weight = 4;
-  uint64 distance_in_kilometers = 5;
+  double max_vol_weight = 4;
+  double distance_in_kilometers = 5;
 }
 
 message SearchAvailableShippingsResponse {
