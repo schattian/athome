@@ -812,6 +812,8 @@ func (m *User) Validate() error {
 
 	// no validation rules for Surname
 
+	// no validation rules for ImageUrl
+
 	return nil
 }
 
