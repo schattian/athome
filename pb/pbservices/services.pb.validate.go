@@ -73,6 +73,8 @@ func (m *SearchAvailableShippingsRequest) Validate() error {
 
 	// no validation rules for MaxVolWeight
 
+	// no validation rules for DistanceInKilometers
+
 	return nil
 }
 
