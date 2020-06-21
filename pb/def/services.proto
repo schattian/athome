@@ -45,6 +45,7 @@ message SearchAvailableShippingsRequest {
     ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   }];
   uint64 max_vol_weight = 4;
+  uint64 distance_in_kilometers = 5;
 }
 
 message SearchAvailableShippingsResponse {

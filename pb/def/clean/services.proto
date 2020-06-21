@@ -43,6 +43,7 @@ message SearchAvailableShippingsRequest {
   shared.TimeOfDay end = 2;
   string dow = 3;
   uint64 max_vol_weight = 4;
+  uint64 distance_in_kilometers = 5;
 }
 
 message SearchAvailableShippingsResponse {
