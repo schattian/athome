@@ -949,6 +949,8 @@ func (m *UserDetail) Validate() error {
 		}
 	}
 
+	// no validation rules for ImageUrl
+
 	return nil
 }
 
@@ -2074,6 +2076,8 @@ func (m *User) Validate() error {
 	// no validation rules for Email
 
 	// no validation rules for CategoryId
+
+	// no validation rules for ImageId
 
 	return nil
 }
