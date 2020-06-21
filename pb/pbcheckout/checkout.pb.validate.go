@@ -677,6 +677,8 @@ func (m *User) Validate() error {
 
 	// no validation rules for ImageUrl
 
+	// no validation rules for AddressId
+
 	return nil
 }
 
