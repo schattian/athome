@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS users(
   password_hash    char(60) not null,
 
   category_id integer
-  image_id string 
 );
 
 ALTER TABLE ONLY users ADD CONSTRAINT uq_users UNIQUE(email, role);

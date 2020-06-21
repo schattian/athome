@@ -3,11 +3,14 @@ package ent
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/athomecomar/athome/backend/users/ent/field"
 	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
+	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -16,8 +19,6 @@ import (
 
 type User struct {
 	Id uint64 `json:"id,omitempty"`
-
-	ImageId string `json:"image_id,omitempty"`
 
 	Email        field.Email `json:"email,omitempty"`
 	PasswordHash string      `json:"password_hash,omitempty"`
@@ -46,7 +47,6 @@ func (u *User) ToPb() *pbusers.User {
 		Name:       string(u.Name),
 		Surname:    string(u.Surname),
 		CategoryId: u.CategoryId,
-		ImageId:    u.ImageId,
 	}
 }
 
@@ -56,6 +56,22 @@ func (u *User) Category(ctx context.Context, sem xpbsemantic.CategoriesClient) (
 		return nil, err
 	}
 	return cat, nil
+}
+
+func (u *User) Image(ctx context.Context, img pbimages.ImagesClient) (*pbimages.Image, error) {
+	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{Entity: pbutil.ToPbEntity(u)})
+	if err != nil {
+		return nil, err
+	}
+	if qt := len(resp.GetImages()); qt > 1 {
+		return nil, fmt.Errorf("got %d qt of images from retrieve images for user", qt)
+	}
+	image := &pbimages.Image{}
+	for _, img := range resp.GetImages() {
+		image = img
+		break
+	}
+	return image, nil
 }
 
 func (u *User) Identification(ctx context.Context, db *sqlx.DB) (*Identification, error) {
