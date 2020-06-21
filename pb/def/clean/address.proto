@@ -10,7 +10,7 @@ service Addresses{
   rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse) {}
   rpc RetrieveAddress (RetrieveAddressRequest) returns (Address) {}
   rpc RetrieveMyAddresses (RetrieveMyAddressesRequest) returns (RetrieveMyAddressesResponse) {}
- 
+
   rpc MeasureDistance (MeasureDistanceRequest) returns (MeasureDistanceResponse) {}
 }
 
@@ -22,8 +22,8 @@ message Address {
   uint64 number = 5;
   uint64 floor = 6;
   string department = 7;
-  uint64 latitude = 8;
-  uint64 longitude = 9;
+  double latitude = 8;
+  double longitude = 9;
   string alias = 10;
   uint64 user_id = 11;
 }
