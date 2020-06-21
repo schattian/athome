@@ -24,5 +24,5 @@ CREATE TABLE IF NOT EXISTS events(
     start_hour integer not null,
     start_minute integer not null,
     end_hour integer not null,
-    end_minute integern ot null
+    end_minute integer not null
 );
