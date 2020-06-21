@@ -2941,6 +2941,8 @@ func (m *ServiceSearchResult_Service) Validate() error {
 
 	// no validation rules for CalendarId
 
+	// no validation rules for DurationInMinutes
+
 	return nil
 }
 
