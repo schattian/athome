@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/messager
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200621202110-a6035b7acbd7
+	github.com/athomecomar/athome/pb v0.0.0-20200621204940-6f592a7b3544
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
