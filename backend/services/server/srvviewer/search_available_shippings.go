@@ -6,7 +6,6 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
-	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbsemantic"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
@@ -26,13 +25,10 @@ func (s *Server) SearchAvailableShippings(ctx context.Context, in *pbservices.Se
 	}
 
 	sem, semCloser, err := pbutil.ConnSemanticServiceProviders(ctx)
-	defer semCloser()
-
-	img, imgCloser, err := pbutil.ConnImages(ctx)
 	if err != nil {
 		return nil, err
 	}
-	defer imgCloser()
+	defer semCloser()
 
 	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
 	if err != nil {
@@ -40,19 +36,40 @@ func (s *Server) SearchAvailableShippings(ctx context.Context, in *pbservices.Se
 	}
 	defer usersCloser()
 
-	return s.searchAvailableShippings(ctx, db, sem, users, img, in)
+	return s.searchAvailableShippings(ctx, db, sem, users, in)
 }
 
 func (s *Server) searchAvailableShippings(ctx context.Context, db *sqlx.DB,
-	sem pbsemantic.ServiceProvidersClient, users pbusers.ViewerClient, img pbimages.ImagesClient,
+	sem pbsemantic.ServiceProvidersClient, users pbusers.ViewerClient,
 	in *pbservices.SearchAvailableShippingsRequest) (*pbservices.SearchAvailableShippingsResponse, error) {
 	dow, err := ent.DayOfWeekByName(in.GetDow())
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)
 	}
-	svcs, err := ent.AvailableServicesByCategory(ctx, db, dow, in.GetStart(), in.GetEnd(), 12)
+
+	cat, err := sem.RetrieveShippingCategories(ctx, &pbsemantic.RetrieveShippingCategoriesRequest{MaxVolWeight: in.GetMaxVolWeight()})
+	if err != nil {
+		return nil, err
+	}
+	var catIds []uint64
+	for id := range cat.Categories {
+		catIds = append(catIds, id)
+	}
+
+	candidates, err := ent.AvailableServicesInAnyCategory(ctx, db, dow, in.GetStart(), in.GetEnd(), catIds...)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)
+	}
+	startInMinutes := in.GetStart().GetMinute() + in.GetStart().GetHour()*60
+	endInMinutes := in.GetEnd().GetMinute() + in.GetEnd().GetHour()*60
+	maxDuration := endInMinutes - startInMinutes
+
+	var svcs []*ent.Service
+	for _, svc := range candidates {
+		realDuration := svc.DurationInMinutes * in.GetDistanceInKilometers()
+		if int64(realDuration) <= maxDuration {
+			svcs = append(svcs, svc)
+		}
 	}
 
 	resp := &pbservices.SearchAvailableShippingsResponse{}

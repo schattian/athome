@@ -76,14 +76,14 @@ func (s *Service) PbPrice() *pbservices.Price {
 	}
 }
 
-func AvailableServicesByCategory(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay, cid uint64) ([]*Service, error) {
+func AvailableServicesInAnyCategory(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay, categoryIds ...uint64) ([]*Service, error) {
 	cIds, err := calendarIdsAvailablesInRange(ctx, db, dow, from, to)
 	if err != nil {
 		return nil, errors.Wrap(err, "calendarsWithAvailabilitiesInRange")
 	}
 	rows, err := db.QueryxContext(ctx,
-		`SELECT * FROM services WHERE calendar_id IN($1) AND category_id=$2`,
-		cIds, cid,
+		`SELECT * FROM services WHERE calendar_id IN($1) AND category_id IN($2)`,
+		cIds, categoryIds,
 	)
 	if err != nil {
 		return nil, errors.Wrap(err, "QueryxContext")
