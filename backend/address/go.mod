@@ -11,6 +11,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.7.0
 	github.com/pkg/errors v0.9.1
+	github.com/umahmood/haversine v0.0.0-20151105152445-808ab04add26
 	google.golang.org/grpc v1.29.1
 )
 

@@ -3,6 +3,7 @@ package ent
 import (
 	"context"
 
+	"github.com/athomecomar/athome/backend/address/ent/distance"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -19,19 +20,52 @@ type Address struct {
 	Number     uint64
 	Floor      uint64
 	Department string
-	Latitude   uint64
-	Longitude  uint64
+	Latitude   float64
+	Longitude  float64
 	Alias      string
 }
 
+func (a *Address) coord() distance.Coord {
+	return distance.Coord{
+		Lat: a.Latitude,
+		Lon: a.Longitude,
+	}
+}
+
+func (a *Address) DistanceHaversine(b *Address) float64 {
+	return distance.Haversine(a.coord(), b.coord())
+}
+
+func (a *Address) DistanceManhattan(b *Address) float64 {
+	return distance.Manhattan(a.coord(), b.coord())
+}
+
 func FindAddress(ctx context.Context, db *sqlx.DB, id uint64) (*Address, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM calendars WHERE id=$1`, id)
+	row := db.QueryRowxContext(ctx, `SELECT * FROM addresses WHERE id=$1`, id)
 	prod := &Address{}
 	err := row.StructScan(prod)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return prod, nil
+}
+
+func FindAddresses(ctx context.Context, db *sqlx.DB, ids ...uint64) ([]*Address, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM addresses WHERE id IN($1)`, ids)
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var addrs []*Address
+	for rows.Next() {
+		addr := &Address{}
+		err := rows.StructScan(addr)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		addrs = append(addrs, addr)
+	}
+	return addrs, nil
 }
 
 func AddressFromPb(d *pbaddress.Address) *Address {
