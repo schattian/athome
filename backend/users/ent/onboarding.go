@@ -27,6 +27,7 @@ type Onboarding struct {
 	Name       field.Name    `json:"name,omitempty"`
 	Surname    field.Surname `json:"surname,omitempty"`
 	CategoryId uint64        `json:"category_id,omitempty"`
+	AddressId  uint64        `json:"address_id,omitempty"`
 }
 
 func (o *Onboarding) Category(ctx context.Context, sem xpbsemantic.CategoriesClient) (*pbsemantic.Category, error) {
@@ -42,11 +43,12 @@ func (o *Onboarding) Category(ctx context.Context, sem xpbsemantic.CategoriesCli
 
 func (o *Onboarding) ToPb() *pbusers.Onboarding {
 	return &pbusers.Onboarding{
-		Email:   string(o.Email),
-		Name:    string(o.Name),
-		Role:    string(o.Role),
-		Surname: string(o.Surname),
-		Stage:   int64(o.Stage),
+		Email:     string(o.Email),
+		Name:      string(o.Name),
+		Role:      string(o.Role),
+		Surname:   string(o.Surname),
+		Stage:     int64(o.Stage),
+		AddressId: o.AddressId,
 	}
 }
 

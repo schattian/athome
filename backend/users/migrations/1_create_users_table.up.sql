@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
   surname varchar(30) not null,
   password_hash    char(60) not null,
 
+  address_id integer,
   category_id integer
 );
 

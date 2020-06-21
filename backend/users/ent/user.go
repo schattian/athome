@@ -28,6 +28,8 @@ type User struct {
 	Surname    field.Surname `json:"surname,omitempty"`
 
 	Role field.Role `json:"role,omitempty"`
+
+	AddressId uint64 `json:"address_id,omitempty"`
 }
 
 func FindUser(ctx context.Context, db *sqlx.DB, uid uint64) (*User, error) {
@@ -47,6 +49,7 @@ func (u *User) ToPb() *pbusers.User {
 		Name:       string(u.Name),
 		Surname:    string(u.Surname),
 		CategoryId: u.CategoryId,
+		AddressId:  u.AddressId,
 	}
 }
 

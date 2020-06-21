@@ -19,6 +19,7 @@ func (o *Onboarding) SQLMap() map[string]driver.Value {
 		"id":          o.Id,
 		"email":       o.Email,
 		"category_id": o.CategoryId,
+		"address_id":  o.AddressId,
 		"stage":       o.Stage,
 		"role":        o.Role,
 		"name":        o.Name,

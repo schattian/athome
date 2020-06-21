@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS onboardings(
   name varchar(30),
   surname varchar(30)
 
+  address_id integer, -- TODO: ADD STEP
   category_id  integer 
 );
