@@ -149,6 +149,7 @@ message Onboarding {
   string name = 3;
   string surname = 4;
   int64 stage = 5;
+uint64 address_id = 6;
 }
 
 message SignUpStartRequest {
