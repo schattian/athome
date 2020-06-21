@@ -519,9 +519,25 @@ func (m *ShippingMethod) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Price
+	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ShippingMethodValidationError{
+				field:  "Service",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for DurationInMinutes
+	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ShippingMethodValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -579,6 +595,144 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ShippingMethodValidationError{}
+
+// Validate checks the field values on Service with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Service) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Price
+
+	// no validation rules for DurationInMinutes
+
+	return nil
+}
+
+// ServiceValidationError is the validation error returned by Service.Validate
+// if the designated constraints aren't met.
+type ServiceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServiceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServiceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServiceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServiceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServiceValidationError) ErrorName() string { return "ServiceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServiceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sService.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServiceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServiceValidationError{}
+
+// Validate checks the field values on User with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *User) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Surname
+
+	// no validation rules for ImageUrl
+
+	return nil
+}
+
+// UserValidationError is the validation error returned by User.Validate if the
+// designated constraints aren't met.
+type UserValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserValidationError) ErrorName() string { return "UserValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUser.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserValidationError{}
 
 // Validate checks the field values on RetrieveShippingMethodsResponse with the
 // rules defined in the proto definition for this message. If any rules are
