@@ -17,12 +17,13 @@ import (
 )
 
 type Purchase struct {
-	Id        uint64            `json:"id,omitempty"`
-	UserId    uint64            `json:"user_id,omitempty"`
-	AddressId uint64            `json:"address_id,omitempty"`
-	CreatedAt ent.Time          `json:"created_at,omitempty"`
-	UpdatedAt ent.Time          `json:"updated_at,omitempty"`
-	Items     map[uint64]uint64 `json:"items,omitempty"`
+	Id         uint64   `json:"id,omitempty"`
+	UserId     uint64   `json:"user_id,omitempty"`
+	AddressId  uint64   `json:"address_id,omitempty"`
+	CreatedAt  ent.Time `json:"created_at,omitempty"`
+	MerchantId uint64
+	UpdatedAt  ent.Time          `json:"updated_at,omitempty"`
+	Items      map[uint64]uint64 `json:"items,omitempty"`
 }
 
 func (o *Purchase) GetCreatedAt() time.Time { return o.CreatedAt.Time }
@@ -65,8 +66,8 @@ func (o *Purchase) OrderClass() class {
 	return Purchases
 }
 
-func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient, uid uint64) (*pbusers.UserDetail, error) {
-	return c.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: uid})
+func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient) (*pbusers.UserDetail, error) {
+	return c.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: o.MerchantId})
 }
 
 func (o *Purchase) Products(ctx context.Context, c pbproducts.ViewerClient) (map[uint64]*pbproducts.Product, error) {
@@ -124,14 +125,13 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	return pb, nil
 }
 
-func (o *Purchase) ValidateItems(ctx context.Context, prods map[uint64]*pbproducts.Product) error {
-	var userId uint64
+func (o *Purchase) AssignMerchant(ctx context.Context, prods map[uint64]*pbproducts.Product) error {
 	for id, prod := range prods {
-		if userId == 0 {
-			userId = prod.GetUserId()
+		if o.MerchantId == 0 {
+			o.MerchantId = prod.GetUserId()
 		}
-		if prod.GetUserId() != userId {
-			return fmt.Errorf("product with id %v mixes userId on order", id)
+		if prod.GetUserId() != o.MerchantId {
+			return fmt.Errorf("product with id %v mixes merchant id on order", id)
 		}
 		if prod.GetStock() < o.Items[id] {
 			return fmt.Errorf("product with id %v has %d of stock while asked for %d", id, prod.GetStock(), o.Items[id])
@@ -171,6 +171,7 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 		AddressId:    o.AddressId,
 		Amount:       amount,
 		Timestamp:    ts,
+		MerchantId:   o.MerchantId,
 		StateChanges: pbScs,
 	}, nil
 }

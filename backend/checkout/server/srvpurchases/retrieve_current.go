@@ -92,10 +92,57 @@ func (s *Server) retrieveShippingMethods(
 	in *pbcheckout.RetrieveShippingMethodsRequest,
 	order *order.Purchase,
 ) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
+	start, err := pbutil.RestTimeOfDay(in.GetTime(), dispatchDelayMinutes)
+	if err != nil {
+		return nil, err
+	}
+	mch, err := order.Merchant(ctx, users)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "Merchant: %v", err)
+	}
 
+	dist, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{AAddressId: order.AddressId, BAddressId: mch.GetUser().GetAddressId()})
+	if err != nil {
+		return nil, err
+	}
+
+	shippings, err := svcs.SearchAvailableShippings(ctx, &pbservices.SearchAvailableShippingsRequest{
+		MaxVolWeight:         2, // TODO: Add products count by cat
+		DistanceInKilometers: dist.GetManhattanInKilometers(),
+
+		Dow:   in.GetDow(),
+		Start: start,
+		End:   in.GetTime(),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	resp := &pbcheckout.RetrieveShippingMethodsResponse{}
+	resp.ShippingMethods = make(map[uint64]*pbcheckout.ShippingMethod)
+	for id, ship := range shippings.GetServices() {
+		resp.ShippingMethods[id] = serviceSearchResultToShippingMethod(ship) // TODO: Add price
+	}
 	return nil, nil
 }
 
+func serviceSearchResultToShippingMethod(ship *pbservices.ServiceSearchResult) *pbcheckout.ShippingMethod {
+	svc, user := ship.GetService(), ship.GetUser()
+	return &pbcheckout.ShippingMethod{
+		Service: &pbcheckout.Service{
+			Title: svc.GetTitle(),
+			// Price: svc.GetPrice(),
+			DurationInMinutes: svc.GetDurationInMinutes(),
+		},
+		User: &pbcheckout.User{
+			Name:      user.GetName(),
+			Surname:   user.GetSurname(),
+			ImageUrl:  user.GetImageUrl(),
+			AddressId: user.GetAddressId(),
+		},
+	}
+
+}
 func (s *Server) RetrieveCurrent(ctx context.Context, in *pbcheckout.RetrieveCurrentRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err

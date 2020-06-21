@@ -16,11 +16,12 @@ func (u *Purchase) SQLTable() string {
 
 func (u *Purchase) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":         u.Id,
-		"user_id":    u.UserId,
-		"address_id": u.AddressId,
-		"created_at": u.CreatedAt,
-		"updated_at": u.UpdatedAt,
-		"items":      u.Items,
+		"id":          u.Id,
+		"user_id":     u.UserId,
+		"address_id":  u.AddressId,
+		"merchant_id": u.MerchantId,
+		"created_at":  u.CreatedAt,
+		"updated_at":  u.UpdatedAt,
+		"items":       u.Items,
 	}
 }

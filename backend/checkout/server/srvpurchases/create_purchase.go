@@ -56,7 +56,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Products")
 	}
-	err = o.ValidateItems(ctx, products)
+	err = o.AssignMerchant(ctx, products)
 	if err != nil {
 		return nil, status.Errorf(xerrors.ResourceExhausted, "ValidateStock")
 	}
