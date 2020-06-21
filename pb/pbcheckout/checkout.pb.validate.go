@@ -607,6 +607,8 @@ func (m *Service) Validate() error {
 
 	// no validation rules for DurationInMinutes
 
+	// no validation rules for Title
+
 	return nil
 }
 
