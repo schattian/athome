@@ -10,11 +10,16 @@ package semantic;
 
 service ServiceProviders {
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
+  rpc RetrieveShippingCategories (RetrieveShippingCategoriesRequest) returns (RetrieveCategoriesResponse) {}
   rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
 
   rpc RetrieveAttributeSchemas(RetrieveAttributeSchemasRequest) returns (RetrieveAttributeSchemasResponse) {}
   rpc RetrieveAttributeDatas(RetrieveAttributeDatasRequest) returns (RetrieveAttributeDatasResponse) {}
   rpc SetAttributeDatas(stream SetAttributeDatasRequest) returns (stream SetAttributeDatasResponse) {}
+}
+
+message RetrieveShippingCategoriesRequest {
+  uint64 max_vol_weight = 1;
 }
 
 service Merchants {
