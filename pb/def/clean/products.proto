@@ -72,8 +72,9 @@ message ProductSearchResult {
 }
 
 message User {
-  string name = 2;
-  string surname = 3;
+  string name = 1;
+  string surname = 2;
+  string image_url = 3;
 }
 
 message Attribute {

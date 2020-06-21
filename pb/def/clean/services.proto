@@ -94,6 +94,7 @@ message ServiceDetail {
 message User {
   string name = 1;
   string surname = 2;
+  string image_url = 3;
 }
 
 message Address {
