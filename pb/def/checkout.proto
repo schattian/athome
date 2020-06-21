@@ -84,8 +84,21 @@ message RetrieveShippingMethodsRequest {
 }
 
 message ShippingMethod{
+  Service service = 1;
+  User user = 2;
+}
+
+message Service  {
   double price = 1;
   uint64 duration_in_minutes = 2;
+  string title = 3;
+}
+
+message User {
+  string name = 1;
+  string surname = 2;
+  string image_url = 3;
+  uint64 address_id = 4;
 }
 
 message RetrieveShippingMethodsResponse {
