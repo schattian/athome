@@ -424,20 +424,10 @@ func (m *RetrieveShippingMethodsRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RetrieveShippingMethodsRequestValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RetrieveShippingMethodsRequestValidationError{
-				field:  "End",
+				field:  "Time",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
