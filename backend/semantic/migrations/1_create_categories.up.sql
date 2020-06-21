@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS service_provider_categories(
     id serial primary key,
     name varchar(30) unique not null,
-    parent_id int
+    parent_id int,
+    max_vol_weight int
 );
 
 CREATE TABLE IF NOT EXISTS merchant_categories(

@@ -21,6 +21,7 @@ func (s *Server) RetrieveCategory(ctx context.Context, in *pbsemantic.RetrieveCa
 	defer db.Close()
 	return s.retrieveCategory(ctx, db, in)
 }
+
 func (s *Server) retrieveCategory(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveCategoryRequest) (*pbsemantic.Category, error) {
 	row := db.QueryRowxContext(ctx, `SELECT * FROM service_provider_categories WHERE id=$1`, in.GetCategoryId())
 	cat := &schema.ServiceProviderCategory{}

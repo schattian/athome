@@ -9,24 +9,29 @@ import (
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) RetrieveCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.RetrieveCategoriesResponse, error) {
+func (s *Server) RetrieveShippingCategories(ctx context.Context, in *pbsemantic.RetrieveShippingCategoriesRequest) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	if err := in.Validate(); err != nil {
+		return nil, err
+	}
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
 	}
 	defer db.Close()
-	return s.retrieveCategories(ctx, db)
+	return s.retrieveShippingCategories(ctx, db, in)
 }
 
-func (s *Server) retrieveCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.RetrieveCategoriesResponse, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM service_provider_categories ORDER BY parent_id`)
+func (s *Server) retrieveShippingCategories(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveShippingCategoriesRequest) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	rows, err := db.QueryxContext(
+		ctx,
+		`SELECT * FROM service_provider_categories WHERE max_vol_weight >= $1 ORDER BY parent_id`,
+		in.GetMaxVolWeight(),
+	)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}
-
 	var tree schema.CategoryTree
 	for rows.Next() {
 		cat := &schema.ServiceProviderCategory{}
