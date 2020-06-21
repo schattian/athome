@@ -198,7 +198,6 @@ message User{
   string surname = 3;
   string email = 4;
   uint64 category_id = 5;
-  string image_id = 6;
 }
 
 message SignRequest {
