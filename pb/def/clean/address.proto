@@ -10,6 +10,8 @@ service Addresses{
   rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse) {}
   rpc RetrieveAddress (RetrieveAddressRequest) returns (Address) {}
   rpc RetrieveMyAddresses (RetrieveMyAddressesRequest) returns (RetrieveMyAddressesResponse) {}
+ 
+  rpc MeasureDistance (MeasureDistanceRequest) returns (MeasureDistanceResponse) {}
 }
 
 message Address {
@@ -24,6 +26,16 @@ message Address {
   uint64 longitude = 9;
   string alias = 10;
   uint64 user_id = 11;
+}
+
+message MeasureDistanceRequest {
+  uint64 a_address_id = 1;
+  uint64 b_address_id = 2;
+}
+
+message MeasureDistanceResponse {
+  double manhattan_in_kilometers = 1;
+  double haversine_in_kilometers = 2;
 }
 
 message CreateAddressRequest {

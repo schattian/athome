@@ -77,9 +77,8 @@ message AssignAddressRequest{
 
 message RetrieveShippingMethodsRequest {
   string access_token = 1;
-  shared.TimeOfDay start = 2;
-  shared.TimeOfDay end = 3;
-  string dow = 4;
+  shared.TimeOfDay time = 2;
+  string dow = 3;
 }
 
 message ShippingMethod{
