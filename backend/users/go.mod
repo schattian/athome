@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.4.1
-	github.com/athomecomar/athome/pb v0.0.0-20200621215002-58ae70d66ef4
+	github.com/athomecomar/athome/pb v0.0.0-20200621215531-af5227e74c8b
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/semantic v0.2.1
 	github.com/athomecomar/storeql v1.5.4
