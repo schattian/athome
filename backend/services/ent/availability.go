@@ -27,9 +27,33 @@ type Availability struct {
 	EndMinute   int64        `json:"end_minute,omitempty"`
 }
 
-func AvailabilityFromPb(in *pbservices.Availability) (*Availability, error) {
-	in.GetDow()
+func availabilitiesContainingRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]*Availability, error) {
+	qr := `
+        SELECT * FROM availabilities WHERE 
+        dow = $1 
+        AND
+        (start_hour < $2 OR (start_hour = $2 AND start_minute <= $3))
+        AND
+        (end_hour > $4 OR (end_hour = $4 AND end_minute >= $5))
+    `
+	rows, err := db.QueryxContext(ctx, qr, dow, from.GetHour(), from.GetMinute(), to.GetHour(), to.GetMinute())
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var cs []*Availability
+	for rows.Next() {
+		c := &Availability{}
+		err := rows.StructScan(c)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		cs = append(cs, c)
+	}
+	return cs, nil
+}
 
+func AvailabilityFromPb(in *pbservices.Availability) (*Availability, error) {
 	dow, err := DayOfWeekByName(in.GetDow())
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)

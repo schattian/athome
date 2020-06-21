@@ -1,6 +1,7 @@
 package ent
 
 import (
+	"context"
 	"strings"
 	"time"
 
@@ -8,6 +9,8 @@ import (
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/xerrors"
+	"github.com/jmoiron/sqlx"
+	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
 )
 
@@ -25,6 +28,32 @@ type Event struct {
 	EndHour     int64        `json:"end_hour,omitempty"`
 	StartMinute int64        `json:"start_minute,omitempty"`
 	EndMinute   int64        `json:"end_minute,omitempty"`
+}
+
+func eventsWithNonNullIntersectionInRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]*Event, error) {
+	qr := `
+        SELECT * FROM events WHERE 
+        dow = $1 
+        AND
+        ((start_hour > $2 AND start_minute > $3) AND (start_hour < $4 AND start_minute > $5))
+        OR 
+        ((end_hour > $2 AND end_minute > $3) AND (end_hour < $4 AND end_minute > $5))
+    `
+	rows, err := db.QueryxContext(ctx, qr, dow, from.GetHour(), from.GetMinute(), to.GetHour(), to.GetMinute())
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var cs []*Event
+	for rows.Next() {
+		c := &Event{}
+		err := rows.StructScan(c)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		cs = append(cs, c)
+	}
+	return cs, nil
 }
 
 func EventsToTimeables(es []*Event) (ts []schedule.Scheduleable) {

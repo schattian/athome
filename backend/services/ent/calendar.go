@@ -2,8 +2,10 @@ package ent
 
 import (
 	"context"
+	"time"
 
 	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -118,6 +120,52 @@ func (c *Calendar) Detail(ctx context.Context, db *sqlx.DB) (*pbservices.Calenda
 		calDetail.Events[e.Id] = e.ToPb()
 	}
 	return calDetail, nil
+}
+
+func calendarIdsAvailablesInRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]uint64, error) {
+	avs, err := availabilitiesContainingRange(ctx, db, dow, from, to)
+	if err != nil {
+		return nil, errors.Wrap(err, "availabilitiesContainingRange")
+	}
+	evs, err := eventsWithNonNullIntersectionInRange(ctx, db, dow, from, to)
+	if err != nil {
+		return nil, errors.Wrap(err, "eventsWithNonNullIntersectionInRange")
+	}
+	var cIds []uint64
+	for _, av := range avs {
+		var isAvailable = true
+		for _, ev := range evs {
+			if ev.CalendarId == av.CalendarId {
+				isAvailable = false
+			}
+		}
+		if isAvailable {
+			cIds = append(cIds, av.CalendarId)
+		}
+	}
+	return cIds, nil
+}
+
+func CalendarsAvailablesInRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]*Calendar, error) {
+	ids, err := calendarIdsAvailablesInRange(ctx, db, dow, from, to)
+	if err != nil {
+		return nil, errors.Wrap(err, "calendarIdsAvailablesInRange")
+	}
+	rows, err := storeql.WhereMany(ctx, db, &Calendar{}, `id IN ($1)`, ids)
+	if err != nil {
+		return nil, errors.Wrap(err, "WhereMany")
+	}
+	defer rows.Close()
+	var cs []*Calendar
+	for rows.Next() {
+		c := &Calendar{}
+		err := rows.StructScan(c)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		cs = append(cs, c)
+	}
+	return cs, nil
 }
 
 func AvailabilitiesByUserGroup(ctx context.Context, db *sqlx.DB, uid, gid uint64) ([]*Availability, error) {

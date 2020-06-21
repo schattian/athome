@@ -2,9 +2,11 @@ package ent
 
 import (
 	"context"
+	"time"
 
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbservices"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/currency"
 	"github.com/jmoiron/sqlx"
@@ -39,10 +41,12 @@ func (s *Service) User(ctx context.Context, user pbusers.ViewerClient) (*pbservi
 		return nil, errors.Wrap(err, "user.RetrieveUser")
 	}
 	return &pbservices.User{
-		Name:    resp.GetUser().GetName(),
-		Surname: resp.GetUser().GetSurname(),
+		Name:     resp.GetUser().GetName(),
+		Surname:  resp.GetUser().GetSurname(),
+		ImageUrl: resp.GetImageUrl(),
 	}, nil
 }
+
 func (s *Service) Calendar(ctx context.Context, db *sqlx.DB) (*Calendar, error) {
 	c, err := FindCalendar(ctx, db, s.CalendarId)
 	if err != nil {
@@ -70,6 +74,32 @@ func (s *Service) PbPrice() *pbservices.Price {
 		Min: s.PriceMin.Float64(),
 		Max: s.PriceMax.Float64(),
 	}
+}
+
+func AvailableServicesByCategory(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay, cid uint64) ([]*Service, error) {
+	cIds, err := calendarIdsAvailablesInRange(ctx, db, dow, from, to)
+	if err != nil {
+		return nil, errors.Wrap(err, "calendarsWithAvailabilitiesInRange")
+	}
+	rows, err := db.QueryxContext(ctx,
+		`SELECT * FROM services WHERE calendar_id IN($1) AND category_id=$2`,
+		cIds, cid,
+	)
+	if err != nil {
+		return nil, errors.Wrap(err, "QueryxContext")
+	}
+	defer rows.Close()
+	var svcs []*Service
+	for rows.Next() {
+		svc := &Service{}
+		err = rows.StructScan(svc)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		svcs = append(svcs, svc)
+	}
+
+	return svcs, nil
 }
 
 func (s *Service) ToPbSearchResult(ctx context.Context, users pbusers.ViewerClient) (*pbservices.ServiceSearchResult, error) {
