@@ -122,6 +122,148 @@ var _ interface {
 	ErrorName() string
 } = AddressValidationError{}
 
+// Validate checks the field values on MeasureDistanceRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *MeasureDistanceRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AAddressId
+
+	// no validation rules for BAddressId
+
+	return nil
+}
+
+// MeasureDistanceRequestValidationError is the validation error returned by
+// MeasureDistanceRequest.Validate if the designated constraints aren't met.
+type MeasureDistanceRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasureDistanceRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasureDistanceRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasureDistanceRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasureDistanceRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasureDistanceRequestValidationError) ErrorName() string {
+	return "MeasureDistanceRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasureDistanceRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasureDistanceRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasureDistanceRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasureDistanceRequestValidationError{}
+
+// Validate checks the field values on MeasureDistanceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *MeasureDistanceResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ManhattanInKilometers
+
+	// no validation rules for HaversineInKilometers
+
+	return nil
+}
+
+// MeasureDistanceResponseValidationError is the validation error returned by
+// MeasureDistanceResponse.Validate if the designated constraints aren't met.
+type MeasureDistanceResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasureDistanceResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasureDistanceResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasureDistanceResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasureDistanceResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasureDistanceResponseValidationError) ErrorName() string {
+	return "MeasureDistanceResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasureDistanceResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasureDistanceResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasureDistanceResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasureDistanceResponseValidationError{}
+
 // Validate checks the field values on CreateAddressRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.

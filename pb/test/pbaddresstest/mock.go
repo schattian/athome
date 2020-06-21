@@ -95,6 +95,26 @@ func (mr *MockAddressesClientMockRecorder) RetrieveMyAddresses(ctx, in interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveMyAddresses", reflect.TypeOf((*MockAddressesClient)(nil).RetrieveMyAddresses), varargs...)
 }
 
+// MeasureDistance mocks base method
+func (m *MockAddressesClient) MeasureDistance(ctx context.Context, in *pbaddress.MeasureDistanceRequest, opts ...grpc.CallOption) (*pbaddress.MeasureDistanceResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "MeasureDistance", varargs...)
+	ret0, _ := ret[0].(*pbaddress.MeasureDistanceResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MeasureDistance indicates an expected call of MeasureDistance
+func (mr *MockAddressesClientMockRecorder) MeasureDistance(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MeasureDistance", reflect.TypeOf((*MockAddressesClient)(nil).MeasureDistance), varargs...)
+}
+
 // MockAddressesServer is a mock of AddressesServer interface
 type MockAddressesServer struct {
 	ctrl     *gomock.Controller
@@ -161,4 +181,19 @@ func (m *MockAddressesServer) RetrieveMyAddresses(arg0 context.Context, arg1 *pb
 func (mr *MockAddressesServerMockRecorder) RetrieveMyAddresses(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveMyAddresses", reflect.TypeOf((*MockAddressesServer)(nil).RetrieveMyAddresses), arg0, arg1)
+}
+
+// MeasureDistance mocks base method
+func (m *MockAddressesServer) MeasureDistance(arg0 context.Context, arg1 *pbaddress.MeasureDistanceRequest) (*pbaddress.MeasureDistanceResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MeasureDistance", arg0, arg1)
+	ret0, _ := ret[0].(*pbaddress.MeasureDistanceResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MeasureDistance indicates an expected call of MeasureDistance
+func (mr *MockAddressesServerMockRecorder) MeasureDistance(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MeasureDistance", reflect.TypeOf((*MockAddressesServer)(nil).MeasureDistance), arg0, arg1)
 }
