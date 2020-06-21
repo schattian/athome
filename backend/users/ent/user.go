@@ -17,6 +17,8 @@ import (
 type User struct {
 	Id uint64 `json:"id,omitempty"`
 
+	ImageId string `json:"image_id,omitempty"`
+
 	Email        field.Email `json:"email,omitempty"`
 	PasswordHash string      `json:"password_hash,omitempty"`
 
@@ -44,6 +46,7 @@ func (u *User) ToPb() *pbusers.User {
 		Name:       string(u.Name),
 		Surname:    string(u.Surname),
 		CategoryId: u.CategoryId,
+		ImageId:    u.ImageId,
 	}
 }
 
