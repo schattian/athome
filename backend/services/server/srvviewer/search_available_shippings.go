@@ -62,12 +62,12 @@ func (s *Server) searchAvailableShippings(ctx context.Context, db *sqlx.DB,
 	}
 	startInMinutes := in.GetStart().GetMinute() + in.GetStart().GetHour()*60
 	endInMinutes := in.GetEnd().GetMinute() + in.GetEnd().GetHour()*60
-	maxDuration := endInMinutes - startInMinutes
+	maxDuration := float64(endInMinutes - startInMinutes)
 
 	var svcs []*ent.Service
 	for _, svc := range candidates {
-		realDuration := svc.DurationInMinutes * in.GetDistanceInKilometers()
-		if int64(realDuration) <= maxDuration {
+		realDuration := float64(svc.DurationInMinutes) * in.GetDistanceInKilometers()
+		if realDuration <= maxDuration {
 			svcs = append(svcs, svc)
 		}
 	}

@@ -41,9 +41,10 @@ func (s *Service) User(ctx context.Context, user pbusers.ViewerClient) (*pbservi
 		return nil, errors.Wrap(err, "user.RetrieveUser")
 	}
 	return &pbservices.User{
-		Name:     resp.GetUser().GetName(),
-		Surname:  resp.GetUser().GetSurname(),
-		ImageUrl: resp.GetImageUrl(),
+		Name:      resp.GetUser().GetName(),
+		Surname:   resp.GetUser().GetSurname(),
+		ImageUrl:  resp.GetImageUrl(),
+		AddressId: resp.GetUser().GetAddressId(),
 	}, nil
 }
 
