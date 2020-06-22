@@ -2943,6 +2943,8 @@ func (m *ServiceSearchResult_Service) Validate() error {
 
 	// no validation rules for DurationInMinutes
 
+	// no validation rules for UserId
+
 	return nil
 }
 
