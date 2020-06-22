@@ -40,6 +40,7 @@ github.com/alicebob/miniredis v2.5.0+incompatible/go.mod h1:8HZjEj4yU0dwhYHky+Dx
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/athomecomar/athome v0.5.0 h1:r//24BiT9SX1JCOW0BoCJwVGYZLgAI8ZfG0kR8iZNyI=
 github.com/athomecomar/athome/backend/address v0.0.0-20200622184852-65d2646a9366 h1:rSP0uPKkyk7aPMjUxqwkvtefdpfUxQ9Ngptn22Tzc2U=
+github.com/athomecomar/athome/backend/address v0.0.0-20200622201155-dc3e0f5bb24f h1:SOxiVh05Hgg3kMGD0vpSS9afsfWEHlHnUq0Jqr8LCOg=
 github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c h1:XBkqnbwZFAWA1wkWk2EUBVGHXEOzxMI2xVrbHw7OkRc=
 github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c/go.mod h1:C1th0ptuW0qRaNFFc++HXRQU5xrPvLbTQIG4iHHLQAY=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22/go.mod h1:jqHG9LUZ/NrYhU2GYQwmz/y64oFAavLI+/jxIpXzXvI=
@@ -103,6 +104,10 @@ github.com/athomecomar/athome/pb v0.0.0-20200622184852-65d2646a9366 h1:JUumwFRn5
 github.com/athomecomar/athome/pb v0.0.0-20200622184852-65d2646a9366/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/athome/pb v0.0.0-20200622201155-dc3e0f5bb24f h1:rS/il9+ihtOI8K01xqCKxubwXLytjYmgL7Ko86k9H2Y=
 github.com/athomecomar/athome/pb v0.0.0-20200622201155-dc3e0f5bb24f/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
+github.com/athomecomar/athome/pb v0.0.0-20200622210903-72b0d1fd13c3 h1:Q2ugr1oLEt7ued9YY67g68mQ0tDi028PyIedXkj0bSw=
+github.com/athomecomar/athome/pb v0.0.0-20200622210903-72b0d1fd13c3/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
+github.com/athomecomar/athome/pb v0.0.0-20200622212926-980ee46a9a41 h1:fTEMux1+ADD/9P410xpeNiTfUxMKz5ONcIPjIxgWz6o=
+github.com/athomecomar/athome/pb v0.0.0-20200622212926-980ee46a9a41/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=
 github.com/athomecomar/currency v0.1.0/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
