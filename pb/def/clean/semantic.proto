@@ -32,6 +32,7 @@ service Products {
 
   rpc RetrieveCategory (RetrieveCategoryRequest) returns (Category) {}
   rpc RetrieveCategories (google.protobuf.Empty) returns (RetrieveCategoriesResponse) {}
+  rpc RetrieveCategoriesById (RetrieveCategoriesByIdRequest) returns (RetrieveCategoriesResponse) {}
   rpc RetrieveAttributeSchemas(RetrieveAttributeSchemasRequest) returns (RetrieveAttributeSchemasResponse) {}
   rpc RetrieveAttributeDatas(RetrieveAttributeDatasRequest) returns (RetrieveAttributeDatasResponse) {}
 
@@ -39,6 +40,10 @@ service Products {
   rpc ChangeEntityAttributeDatas(ChangeEntityAttributeDatasRequest) returns (google.protobuf.Empty) {}
   rpc CloneAttributeDatas(CloneAttributeDatasRequest) returns (CloneAttributeDatasResponse) {}
   rpc DeleteAttributeDatas(DeleteAttributeDatasRequest) returns (google.protobuf.Empty) {}
+}
+
+message RetrieveCategoriesByIdRequest {
+  repeated uint64 categories_id = 1;
 }
 
 message RetrieveCategoryRequest {

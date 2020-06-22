@@ -14,8 +14,13 @@ package products;
 service Viewer {
   rpc SearchProducts (SearchProductsRequest) returns (SearchProductsResponse){}
   rpc RetrieveProducts (RetrieveProductsRequest) returns (RetrieveProductsResponse){}
+  rpc RetrieveProductsMaxVolWeight (RetrieveProductsRequest) returns (RetrieveProductsMalVolWeightResponse){}
 
   rpc RetrieveProductDetail (RetrieveProductDetailRequest) returns (ProductDetail){}
+}
+
+message RetrieveProductsMalVolWeightResponse{
+  map<uint64, uint64> max_vol_weights = 1;
 }
 
 message RetrieveProductsRequest {
@@ -39,7 +44,6 @@ message SearchProductsResponse {
 message RetrieveProductDetailRequest {
   uint64 product_id = 1;
 }
-
 
 message Product {
   string title = 1;
