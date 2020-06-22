@@ -39,10 +39,12 @@ service Purchases {
   rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
 
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
+  
+  rpc AssignShippingMethod(AssignShippingMethodRequest) returns (google.protobuf.Empty){}
+  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
-  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
   rpc Prev(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
   rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
@@ -52,7 +54,6 @@ service Purchases {
 
 message UpdateOrderStateRequest{
   string access_token = 1;
-//  uint64 order_id = 2;
 }
 
 message RetrieveReservationResponse{
@@ -75,6 +76,11 @@ message AssignDestAddressRequest{
   uint64 dest_address_id = 2;
 }
 
+message AssignShippingMethodRequest{
+  string access_token = 1;
+  uint64 service_id = 2;
+}
+
 message RetrieveShippingMethodsRequest {
   string access_token = 1;
   shared.TimeOfDay time = 2;
@@ -84,9 +90,8 @@ message RetrieveShippingMethodsRequest {
 }
 
 message ShippingMethod{
-  uint64 shipping_method_id = 1;
-  Shipping service = 2;
-  User user = 3;
+  Shipping service = 1;
+  User user = 2;
 }
 
 message Shipping  {
