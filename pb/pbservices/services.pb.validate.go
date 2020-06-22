@@ -182,6 +182,8 @@ func (m *CreateShippingEventRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for ServiceId
+
 	return nil
 }
 
