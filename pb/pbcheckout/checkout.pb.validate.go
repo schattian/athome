@@ -519,6 +519,8 @@ func (m *ShippingMethod) Validate() error {
 		return nil
 	}
 
+	// no validation rules for ShippingMethodId
+
 	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ShippingMethodValidationError{
@@ -596,9 +598,9 @@ var _ interface {
 	ErrorName() string
 } = ShippingMethodValidationError{}
 
-// Validate checks the field values on Service with the rules defined in the
+// Validate checks the field values on Shipping with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
-func (m *Service) Validate() error {
+func (m *Shipping) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -612,9 +614,9 @@ func (m *Service) Validate() error {
 	return nil
 }
 
-// ServiceValidationError is the validation error returned by Service.Validate
-// if the designated constraints aren't met.
-type ServiceValidationError struct {
+// ShippingValidationError is the validation error returned by
+// Shipping.Validate if the designated constraints aren't met.
+type ShippingValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -622,22 +624,22 @@ type ServiceValidationError struct {
 }
 
 // Field function returns field value.
-func (e ServiceValidationError) Field() string { return e.field }
+func (e ShippingValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ServiceValidationError) Reason() string { return e.reason }
+func (e ShippingValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ServiceValidationError) Cause() error { return e.cause }
+func (e ShippingValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ServiceValidationError) Key() bool { return e.key }
+func (e ShippingValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ServiceValidationError) ErrorName() string { return "ServiceValidationError" }
+func (e ShippingValidationError) ErrorName() string { return "ShippingValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ServiceValidationError) Error() string {
+func (e ShippingValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -649,14 +651,14 @@ func (e ServiceValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sService.%s: %s%s",
+		"invalid %sShipping.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ServiceValidationError{}
+var _ error = ShippingValidationError{}
 
 var _ interface {
 	Field() string
@@ -664,7 +666,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ServiceValidationError{}
+} = ShippingValidationError{}
 
 // Validate checks the field values on User with the rules defined in the proto
 // definition for this message. If any rules are violated, an error is returned.
