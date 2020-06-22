@@ -588,6 +588,46 @@ func (mr *MockPurchasesClientMockRecorder) AssignDestAddress(ctx, in interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesClient)(nil).AssignDestAddress), varargs...)
 }
 
+// AssignShippingMethod mocks base method
+func (m *MockPurchasesClient) AssignShippingMethod(ctx context.Context, in *pbcheckout.AssignShippingMethodRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AssignShippingMethod", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AssignShippingMethod indicates an expected call of AssignShippingMethod
+func (mr *MockPurchasesClientMockRecorder) AssignShippingMethod(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignShippingMethod", reflect.TypeOf((*MockPurchasesClient)(nil).AssignShippingMethod), varargs...)
+}
+
+// RetrieveShippingMethods mocks base method
+func (m *MockPurchasesClient) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.RetrieveShippingMethodsRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveShippingMethods", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingMethodsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveShippingMethods indicates an expected call of RetrieveShippingMethods
+func (mr *MockPurchasesClientMockRecorder) RetrieveShippingMethods(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesClient)(nil).RetrieveShippingMethods), varargs...)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockPurchasesClient) RetrieveCurrent(ctx context.Context, in *pbcheckout.RetrieveCurrentRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
@@ -626,26 +666,6 @@ func (mr *MockPurchasesClientMockRecorder) StateMachine(ctx, in interface{}, opt
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesClient)(nil).StateMachine), varargs...)
-}
-
-// RetrieveShippingMethods mocks base method
-func (m *MockPurchasesClient) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.RetrieveShippingMethodsRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{ctx, in}
-	for _, a := range opts {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "RetrieveShippingMethods", varargs...)
-	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingMethodsResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// RetrieveShippingMethods indicates an expected call of RetrieveShippingMethods
-func (mr *MockPurchasesClientMockRecorder) RetrieveShippingMethods(ctx, in interface{}, opts ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesClient)(nil).RetrieveShippingMethods), varargs...)
 }
 
 // Prev mocks base method
@@ -761,6 +781,36 @@ func (mr *MockPurchasesServerMockRecorder) AssignDestAddress(arg0, arg1 interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesServer)(nil).AssignDestAddress), arg0, arg1)
 }
 
+// AssignShippingMethod mocks base method
+func (m *MockPurchasesServer) AssignShippingMethod(arg0 context.Context, arg1 *pbcheckout.AssignShippingMethodRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AssignShippingMethod", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AssignShippingMethod indicates an expected call of AssignShippingMethod
+func (mr *MockPurchasesServerMockRecorder) AssignShippingMethod(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignShippingMethod", reflect.TypeOf((*MockPurchasesServer)(nil).AssignShippingMethod), arg0, arg1)
+}
+
+// RetrieveShippingMethods mocks base method
+func (m *MockPurchasesServer) RetrieveShippingMethods(arg0 context.Context, arg1 *pbcheckout.RetrieveShippingMethodsRequest) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveShippingMethods", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingMethodsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveShippingMethods indicates an expected call of RetrieveShippingMethods
+func (mr *MockPurchasesServerMockRecorder) RetrieveShippingMethods(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesServer)(nil).RetrieveShippingMethods), arg0, arg1)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockPurchasesServer) RetrieveCurrent(arg0 context.Context, arg1 *pbcheckout.RetrieveCurrentRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
@@ -789,21 +839,6 @@ func (m *MockPurchasesServer) StateMachine(arg0 context.Context, arg1 *empty.Emp
 func (mr *MockPurchasesServerMockRecorder) StateMachine(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesServer)(nil).StateMachine), arg0, arg1)
-}
-
-// RetrieveShippingMethods mocks base method
-func (m *MockPurchasesServer) RetrieveShippingMethods(arg0 context.Context, arg1 *pbcheckout.RetrieveShippingMethodsRequest) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RetrieveShippingMethods", arg0, arg1)
-	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingMethodsResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// RetrieveShippingMethods indicates an expected call of RetrieveShippingMethods
-func (mr *MockPurchasesServerMockRecorder) RetrieveShippingMethods(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesServer)(nil).RetrieveShippingMethods), arg0, arg1)
 }
 
 // Prev mocks base method
