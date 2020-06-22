@@ -84,11 +84,12 @@ message RetrieveShippingMethodsRequest {
 }
 
 message ShippingMethod{
-  Service service = 1;
-  User user = 2;
+  uint64 shipping_method_id = 1;
+  Shipping service = 2;
+  User user = 3;
 }
 
-message Service  {
+message Shipping  {
   double price = 1;
   uint64 duration_in_minutes = 2;
   string title = 3;

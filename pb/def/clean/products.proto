@@ -20,7 +20,7 @@ service Viewer {
 }
 
 message RetrieveProductsMalVolWeightResponse{
-  map<uint64, uint64> max_vol_weights = 1;
+  map<uint64, double> max_vol_weights = 1;
 }
 
 message RetrieveProductsRequest {
