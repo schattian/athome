@@ -554,6 +554,26 @@ func (mr *MockViewerClientMockRecorder) RetrieveProducts(arg0, arg1 interface{},
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveProducts", reflect.TypeOf((*MockViewerClient)(nil).RetrieveProducts), varargs...)
 }
 
+// RetrieveProductsMaxVolWeight mocks base method
+func (m *MockViewerClient) RetrieveProductsMaxVolWeight(arg0 context.Context, arg1 *pbproducts.RetrieveProductsRequest, arg2 ...grpc.CallOption) (*pbproducts.RetrieveProductsMalVolWeightResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveProductsMaxVolWeight", varargs...)
+	ret0, _ := ret[0].(*pbproducts.RetrieveProductsMalVolWeightResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveProductsMaxVolWeight indicates an expected call of RetrieveProductsMaxVolWeight
+func (mr *MockViewerClientMockRecorder) RetrieveProductsMaxVolWeight(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveProductsMaxVolWeight", reflect.TypeOf((*MockViewerClient)(nil).RetrieveProductsMaxVolWeight), varargs...)
+}
+
 // SearchProducts mocks base method
 func (m *MockViewerClient) SearchProducts(arg0 context.Context, arg1 *pbproducts.SearchProductsRequest, arg2 ...grpc.CallOption) (*pbproducts.SearchProductsResponse, error) {
 	m.ctrl.T.Helper()
