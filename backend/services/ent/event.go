@@ -32,11 +32,11 @@ type Event struct {
 
 func eventsWithNonNullIntersectionInRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]*Event, error) {
 	qr := `
-        SELECT * FROM events WHERE 
-        dow = $1 
+        SELECT * FROM events WHERE
+        dow = $1
         AND
         ((start_hour > $2 AND start_minute > $3) AND (start_hour < $4 AND start_minute > $5))
-        OR 
+        OR
         ((end_hour > $2 AND end_minute > $3) AND (end_hour < $4 AND end_minute > $5))
     `
 	rows, err := db.QueryxContext(ctx, qr, dow, from.GetHour(), from.GetMinute(), to.GetHour(), to.GetMinute())
@@ -63,16 +63,14 @@ func EventsToTimeables(es []*Event) (ts []schedule.Scheduleable) {
 	return
 }
 
-func EventFromPb(in *pbservices.Event) (*Event, error) {
-	in.GetDow()
-
+func EventFromPb(in *pbservices.Event, claimantId uint64, calendarId uint64) (*Event, error) {
 	dow, err := DayOfWeekByName(in.GetDow())
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "DayOfWeekByName: %v", err)
 	}
 	return &Event{
-		CalendarId: in.GetCalendarId(),
-		ClaimantId: in.GetClaimantId(),
+		CalendarId: calendarId,
+		ClaimantId: claimantId,
 
 		DayOfWeek:   dow,
 		OrderId:     in.GetOrderId(),

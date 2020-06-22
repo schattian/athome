@@ -49,14 +49,23 @@ func (s *Server) createEvent(
 	if err != nil {
 		return nil, err
 	}
-	u, err := users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: claimantId})
+	e, err := ent.EventFromPb(in.GetEvent(), claimantId, in.GetCalendarId())
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "EventFromPb: %v", err)
+	}
+	claimant, err := users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: e.ClaimantId})
 	if err != nil {
 		return nil, err
 	}
-	if role := u.GetUser().GetRole(); role != "consumer" {
+
+	return insertEvent(ctx, db, claimant.GetUser(), e)
+}
+
+func insertEvent(ctx context.Context, db *sqlx.DB, claimant *pbusers.User, event *ent.Event) (*pbservices.CreateEventResponse, error) {
+	if role := claimant.GetRole(); role != "consumer" {
 		return nil, status.Errorf(xerrors.PermissionDenied, "user with role %v cant create events", role)
 	}
-	c, err := ent.FindCalendar(ctx, db, in.GetCalendarId())
+	c, err := ent.FindCalendar(ctx, db, event.CalendarId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindCalendar: %v", err)
 	}
@@ -64,18 +73,13 @@ func (s *Server) createEvent(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Availabilities: %v", err)
 	}
-	e, err := ent.EventFromPb(in.GetEvent())
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "EventFromPb: %v", err)
-	}
-	e.ClaimantId = claimantId
-	if !schedule.CompareWithSlice(schedule.IsContained, e, ent.AvailabilitiesToTimeables(avs)...) {
+	if !schedule.CompareWithSlice(schedule.IsContained, event, ent.AvailabilitiesToTimeables(avs)...) {
 		return nil, status.Errorf(xerrors.InvalidArgument, "there is no availability to store the event")
 	}
-	err = storeql.InsertIntoDB(ctx, db, e)
+	err = storeql.InsertIntoDB(ctx, db, event)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
-	resp := &pbservices.CreateEventResponse{EventId: e.Id, Event: e.ToPb()}
+	resp := &pbservices.CreateEventResponse{EventId: event.Id, Event: event.ToPb()}
 	return resp, nil
 }
