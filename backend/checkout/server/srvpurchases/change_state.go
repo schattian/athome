@@ -76,11 +76,15 @@ func (s *Server) changeState(
 	}
 	state, err := stateChanger(o.StateMachine(), sc.GetState())
 	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "StateMachine.Prev: %v", err)
+		return nil, status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
+	}
+	err = o.ValidateStateChange(ctx, db, state)
+	if err != nil {
+		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
 	sc, err = order.NewPurchaseStateChange(ctx, o.Id, state.Name)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "NewPuchaseStateChange: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
 	}
 	err = storeql.InsertIntoDB(ctx, db, sc)
 	if err != nil {

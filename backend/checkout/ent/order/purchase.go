@@ -161,6 +161,21 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	return pb, nil
 }
 
+func (o *Purchase) ValidateStateChange(ctx context.Context, db *sqlx.DB, newState *sm.State) (err error) {
+	switch newState.Name {
+	case sm.PurchaseAddress:
+		err = o.validateStateChangeAddress(ctx, db)
+	}
+	return
+}
+
+func (o *Purchase) validateStateChangeAddress(ctx context.Context, db *sqlx.DB) error {
+	if o.DestAddressId == 0 {
+		return errors.New("nil dest address id")
+	}
+	return nil
+}
+
 func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient) error {
 	if o.MerchantId == 0 {
 		return errors.New("no merchant assigned")

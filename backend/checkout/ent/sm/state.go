@@ -22,8 +22,12 @@ func (s *State) ToPb(stage int64) *pbcheckout.StateMachineResponse_StateDefiniti
 }
 
 const (
-	Cancelled       StateName = "cancelled"
-	PurchaseAddress StateName = "address"
+	Cancelled              StateName = "cancelled"
+	PurchaseInit           StateName = "init"
+	PurchaseAddress        StateName = "address"
+	PurchaseShippingMethod StateName = "shipping_method"
+	PurchasePayment        StateName = "payment"
+	// Purchase StateName = "payment"
 )
 
 var (
