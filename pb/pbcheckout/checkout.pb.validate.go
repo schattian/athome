@@ -426,6 +426,23 @@ func (m *AssignShippingMethodRequest) Validate() error {
 
 	// no validation rules for ServiceId
 
+	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AssignShippingMethodRequestValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _AssignShippingMethodRequest_Dow_InLookup[m.GetDow()]; !ok {
+		return AssignShippingMethodRequestValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
 	return nil
 }
 
@@ -485,6 +502,16 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AssignShippingMethodRequestValidationError{}
+
+var _AssignShippingMethodRequest_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
 
 // Validate checks the field values on RetrieveShippingMethodsRequest with the
 // rules defined in the proto definition for this message. If any rules are
