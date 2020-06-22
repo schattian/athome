@@ -383,6 +383,26 @@ func (mr *MockProductsClientMockRecorder) RetrieveCategories(arg0, arg1 interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCategories", reflect.TypeOf((*MockProductsClient)(nil).RetrieveCategories), varargs...)
 }
 
+// RetrieveCategoriesById mocks base method
+func (m *MockProductsClient) RetrieveCategoriesById(arg0 context.Context, arg1 *pbsemantic.RetrieveCategoriesByIdRequest, arg2 ...grpc.CallOption) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveCategoriesById", varargs...)
+	ret0, _ := ret[0].(*pbsemantic.RetrieveCategoriesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveCategoriesById indicates an expected call of RetrieveCategoriesById
+func (mr *MockProductsClientMockRecorder) RetrieveCategoriesById(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveCategoriesById", reflect.TypeOf((*MockProductsClient)(nil).RetrieveCategoriesById), varargs...)
+}
+
 // RetrieveCategory mocks base method
 func (m *MockProductsClient) RetrieveCategory(arg0 context.Context, arg1 *pbsemantic.RetrieveCategoryRequest, arg2 ...grpc.CallOption) (*pbsemantic.Category, error) {
 	m.ctrl.T.Helper()
