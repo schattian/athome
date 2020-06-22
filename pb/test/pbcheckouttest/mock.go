@@ -568,24 +568,24 @@ func (mr *MockPurchasesClientMockRecorder) CreatePurchase(ctx, in interface{}, o
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePurchase", reflect.TypeOf((*MockPurchasesClient)(nil).CreatePurchase), varargs...)
 }
 
-// AssignAddress mocks base method
-func (m *MockPurchasesClient) AssignAddress(ctx context.Context, in *pbcheckout.AssignAddressRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+// AssignDestAddress mocks base method
+func (m *MockPurchasesClient) AssignDestAddress(ctx context.Context, in *pbcheckout.AssignDestAddressRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "AssignAddress", varargs...)
+	ret := m.ctrl.Call(m, "AssignDestAddress", varargs...)
 	ret0, _ := ret[0].(*empty.Empty)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// AssignAddress indicates an expected call of AssignAddress
-func (mr *MockPurchasesClientMockRecorder) AssignAddress(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+// AssignDestAddress indicates an expected call of AssignDestAddress
+func (mr *MockPurchasesClientMockRecorder) AssignDestAddress(ctx, in interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignAddress", reflect.TypeOf((*MockPurchasesClient)(nil).AssignAddress), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesClient)(nil).AssignDestAddress), varargs...)
 }
 
 // RetrieveCurrent mocks base method
@@ -746,19 +746,19 @@ func (mr *MockPurchasesServerMockRecorder) CreatePurchase(arg0, arg1 interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePurchase", reflect.TypeOf((*MockPurchasesServer)(nil).CreatePurchase), arg0, arg1)
 }
 
-// AssignAddress mocks base method
-func (m *MockPurchasesServer) AssignAddress(arg0 context.Context, arg1 *pbcheckout.AssignAddressRequest) (*empty.Empty, error) {
+// AssignDestAddress mocks base method
+func (m *MockPurchasesServer) AssignDestAddress(arg0 context.Context, arg1 *pbcheckout.AssignDestAddressRequest) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AssignAddress", arg0, arg1)
+	ret := m.ctrl.Call(m, "AssignDestAddress", arg0, arg1)
 	ret0, _ := ret[0].(*empty.Empty)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// AssignAddress indicates an expected call of AssignAddress
-func (mr *MockPurchasesServerMockRecorder) AssignAddress(arg0, arg1 interface{}) *gomock.Call {
+// AssignDestAddress indicates an expected call of AssignDestAddress
+func (mr *MockPurchasesServerMockRecorder) AssignDestAddress(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignAddress", reflect.TypeOf((*MockPurchasesServer)(nil).AssignAddress), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesServer)(nil).AssignDestAddress), arg0, arg1)
 }
 
 // RetrieveCurrent mocks base method

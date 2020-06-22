@@ -343,24 +343,24 @@ var _ interface {
 	ErrorName() string
 } = RetrievePurchaseResponseValidationError{}
 
-// Validate checks the field values on AssignAddressRequest with the rules
+// Validate checks the field values on AssignDestAddressRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *AssignAddressRequest) Validate() error {
+func (m *AssignDestAddressRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	// no validation rules for AccessToken
 
-	// no validation rules for AddressId
+	// no validation rules for DestAddressId
 
 	return nil
 }
 
-// AssignAddressRequestValidationError is the validation error returned by
-// AssignAddressRequest.Validate if the designated constraints aren't met.
-type AssignAddressRequestValidationError struct {
+// AssignDestAddressRequestValidationError is the validation error returned by
+// AssignDestAddressRequest.Validate if the designated constraints aren't met.
+type AssignDestAddressRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -368,24 +368,24 @@ type AssignAddressRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AssignAddressRequestValidationError) Field() string { return e.field }
+func (e AssignDestAddressRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AssignAddressRequestValidationError) Reason() string { return e.reason }
+func (e AssignDestAddressRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AssignAddressRequestValidationError) Cause() error { return e.cause }
+func (e AssignDestAddressRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AssignAddressRequestValidationError) Key() bool { return e.key }
+func (e AssignDestAddressRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AssignAddressRequestValidationError) ErrorName() string {
-	return "AssignAddressRequestValidationError"
+func (e AssignDestAddressRequestValidationError) ErrorName() string {
+	return "AssignDestAddressRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AssignAddressRequestValidationError) Error() string {
+func (e AssignDestAddressRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -397,14 +397,14 @@ func (e AssignAddressRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAssignAddressRequest.%s: %s%s",
+		"invalid %sAssignDestAddressRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AssignAddressRequestValidationError{}
+var _ error = AssignDestAddressRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -412,7 +412,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AssignAddressRequestValidationError{}
+} = AssignDestAddressRequestValidationError{}
 
 // Validate checks the field values on RetrieveShippingMethodsRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -1499,7 +1499,9 @@ func (m *Purchase) Validate() error {
 
 	// no validation rules for Amount
 
-	// no validation rules for AddressId
+	// no validation rules for SrcAddressId
+
+	// no validation rules for DestAddressId
 
 	// no validation rules for MerchantId
 
