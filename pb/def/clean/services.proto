@@ -81,6 +81,7 @@ message ServiceSearchResult {
     uint64 address_id = 3;
     uint64 calendar_id = 4;
     uint64 duration_in_minutes = 5;
+    uint64 user_id = 6;
   }
   Service service = 1;
   User user = 2;
