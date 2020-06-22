@@ -38,7 +38,7 @@ service Bookings {
 service Purchases {
   rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
 
-  rpc AssignAddress(AssignAddressRequest) returns (google.protobuf.Empty){}
+  rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
@@ -70,9 +70,9 @@ message RetrievePurchaseResponse{
   Purchase purchase = 2;
 }
 
-message AssignAddressRequest{
+message AssignDestAddressRequest{
   string access_token = 1;
-  uint64 address_id = 2;
+  uint64 dest_address_id = 2;
 }
 
 message RetrieveShippingMethodsRequest {
@@ -161,8 +161,9 @@ message Purchase {
   Timestamp timestamp = 3;
   map<uint64,uint64> items = 4; // { product_id: quantity }
   double amount = 5;  // calculated at req time
-  uint64 address_id = 6;
-  uint64 merchant_id = 7;
+  uint64 src_address_id = 6;
+  uint64 dest_address_id = 7;
+  uint64 merchant_id = 8;
 }
 
 message Booking {

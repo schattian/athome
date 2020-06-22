@@ -38,6 +38,8 @@ github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5 h1:P5U+E4x5OkVEK
 github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5/go.mod h1:976q2ETgjT2snVCf2ZaBnyBbVoPERGjUz+0sofzEfro=
 github.com/alicebob/miniredis v2.5.0+incompatible/go.mod h1:8HZjEj4yU0dwhYHky+DxYx+6BMjkBbe5ONFIF1MXffk=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
+github.com/athomecomar/athome v0.5.0 h1:r//24BiT9SX1JCOW0BoCJwVGYZLgAI8ZfG0kR8iZNyI=
+github.com/athomecomar/athome/backend/address v0.0.0-20200622184852-65d2646a9366 h1:rSP0uPKkyk7aPMjUxqwkvtefdpfUxQ9Ngptn22Tzc2U=
 github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c h1:XBkqnbwZFAWA1wkWk2EUBVGHXEOzxMI2xVrbHw7OkRc=
 github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c/go.mod h1:C1th0ptuW0qRaNFFc++HXRQU5xrPvLbTQIG4iHHLQAY=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22/go.mod h1:jqHG9LUZ/NrYhU2GYQwmz/y64oFAavLI+/jxIpXzXvI=

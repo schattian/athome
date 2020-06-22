@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) AssignAddress(ctx context.Context, in *pbcheckout.AssignAddressRequest) (*emptypb.Empty, error) {
+func (s *Server) AssignDestAddress(ctx context.Context, in *pbcheckout.AssignDestAddressRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -55,18 +55,18 @@ func (s *Server) AssignAddress(ctx context.Context, in *pbcheckout.AssignAddress
 func (s *Server) assignAddress(
 	ctx context.Context,
 	db *sqlx.DB,
-	in *pbcheckout.AssignAddressRequest,
+	in *pbcheckout.AssignDestAddressRequest,
 	addrs pbaddress.AddressesClient,
 	o *order.Purchase,
 ) (*emptypb.Empty, error) {
-	resp, err := addrs.RetrieveAddress(ctx, &pbaddress.RetrieveAddressRequest{AddressId: in.GetAddressId()})
+	resp, err := addrs.RetrieveAddress(ctx, &pbaddress.RetrieveAddressRequest{AddressId: in.GetDestAddressId()})
 	if err != nil {
 		return nil, err
 	}
 	if resp.GetUserId() != o.UserId {
 		return nil, status.Errorf(xerrors.PermissionDenied, "the address' user id mismatch order's user id")
 	}
-	o.AddressId = in.GetAddressId()
+	o.DestAddressId = in.GetDestAddressId()
 	err = storeql.UpdateIntoDB(ctx, db, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.UpdateIntoDB: %v", err)

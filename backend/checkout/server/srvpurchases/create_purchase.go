@@ -8,6 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -43,11 +44,18 @@ func (s *Server) CreatePurchase(ctx context.Context, in *pbcheckout.CreatePurcha
 	}
 	defer prodsCloser()
 
-	return s.createPurchase(ctx, db, in, prods, uid)
+	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer usersCloser()
+
+	return s.createPurchase(ctx, db, in, users, prods, uid)
 }
 
 func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	in *pbcheckout.CreatePurchaseRequest,
+	users pbusers.ViewerClient,
 	prods pbproducts.ViewerClient,
 	userId uint64,
 ) (*pbcheckout.CreatePurchaseResponse, error) {
@@ -59,6 +67,10 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	err = o.AssignMerchant(ctx, products)
 	if err != nil {
 		return nil, status.Errorf(xerrors.ResourceExhausted, "ValidateStock")
+	}
+	err = o.AssignSrcAddress(ctx, users)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "AssignSrcAddress")
 	}
 
 	err = storeql.InsertIntoDB(ctx, db, o)

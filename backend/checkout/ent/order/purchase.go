@@ -17,13 +17,16 @@ import (
 )
 
 type Purchase struct {
-	Id         uint64   `json:"id,omitempty"`
-	UserId     uint64   `json:"user_id,omitempty"`
-	AddressId  uint64   `json:"address_id,omitempty"`
-	CreatedAt  ent.Time `json:"created_at,omitempty"`
-	MerchantId uint64
-	UpdatedAt  ent.Time          `json:"updated_at,omitempty"`
-	Items      map[uint64]uint64 `json:"items,omitempty"`
+	Id            uint64 `json:"id,omitempty"`
+	UserId        uint64 `json:"user_id,omitempty"`
+	DestAddressId uint64 `json:"dest_address_id,omitempty"`
+
+	SrcAddressId uint64   `json:"src_address_id,omitempty"`
+	CreatedAt    ent.Time `json:"created_at,omitempty"`
+	MerchantId   uint64
+	UpdatedAt    ent.Time          `json:"updated_at,omitempty"`
+	Items        map[uint64]uint64 `json:"items,omitempty"`
+	ShippingId   uint64
 }
 
 func (o *Purchase) GetCreatedAt() time.Time { return o.CreatedAt.Time }
@@ -42,6 +45,27 @@ func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return order, nil
+}
+
+func FindPurchasesByUser(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Purchase, error) {
+	rows, err := storeql.WhereMany(ctx, db, &Purchase{}, `user_id=$1`, uid)
+	if err != nil {
+		return nil, errors.Wrap(err, "WhereMany")
+	}
+	var orders []*Purchase
+	for rows.Next() {
+		order := &Purchase{}
+		err = rows.StructScan(order)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		orders = append(orders, order)
+	}
+	return orders, nil
+}
+
+func (p *Purchase) Shipping(ctx context.Context, db *sqlx.DB) (*Shipping, error) {
+	return FindShipping(ctx, db, p.ShippingId)
 }
 
 func FindLatestPurchase(ctx context.Context, db *sqlx.DB, userId uint64) (*Purchase, error) {
@@ -73,9 +97,21 @@ func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient) (*pbuse
 func (o *Purchase) Products(ctx context.Context, c pbproducts.ViewerClient) (map[uint64]*pbproducts.Product, error) {
 	prods, err := c.RetrieveProducts(ctx, &pbproducts.RetrieveProductsRequest{Ids: o.ProductIds()})
 	if err != nil {
-		return nil, errors.Wrap(err, "RetrieveProducts")
+		return nil, errors.Wrap(err, "products.RetrieveProducts")
 	}
 	return prods.Products, nil
+}
+
+func (o *Purchase) MaxVolWeight(ctx context.Context, c pbproducts.ViewerClient) (float64, error) {
+	resp, err := c.RetrieveProductsMaxVolWeight(ctx, &pbproducts.RetrieveProductsRequest{Ids: o.ProductIds()})
+	if err != nil {
+		return 0, errors.Wrap(err, "products.RetrieveProductsMaxColWeight")
+	}
+	var totalMaxVolWeight float64
+	for prodId, maxVolWeight := range resp.GetMaxVolWeights() {
+		totalMaxVolWeight += float64(o.Items[prodId]) * maxVolWeight
+	}
+	return totalMaxVolWeight, nil
 }
 
 func (o *Purchase) ProductIds() (ids []uint64) {
@@ -125,6 +161,18 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	return pb, nil
 }
 
+func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient) error {
+	if o.MerchantId == 0 {
+		return errors.New("no merchant assigned")
+	}
+	u, err := users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: o.MerchantId})
+	if err != nil {
+		return errors.Wrap(err, "users.RetrieveUser")
+	}
+	o.SrcAddressId = u.GetUser().AddressId
+	return nil
+}
+
 func (o *Purchase) AssignMerchant(ctx context.Context, prods map[uint64]*pbproducts.Product) error {
 	for id, prod := range prods {
 		if o.MerchantId == 0 {
@@ -166,12 +214,13 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 	}
 
 	return &pbcheckout.Purchase{
-		UserId:       o.UserId,
-		Items:        o.Items,
-		AddressId:    o.AddressId,
-		Amount:       amount,
-		Timestamp:    ts,
-		MerchantId:   o.MerchantId,
-		StateChanges: pbScs,
+		UserId:        o.UserId,
+		Items:         o.Items,
+		DestAddressId: o.DestAddressId,
+		SrcAddressId:  o.SrcAddressId,
+		Amount:        amount,
+		Timestamp:     ts,
+		MerchantId:    o.MerchantId,
+		StateChanges:  pbScs,
 	}, nil
 }
