@@ -155,16 +155,6 @@ func (m *CreateShippingEventRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateShippingEventRequestValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreateShippingEventRequestValidationError{
