@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/semantic
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200621231549-8d6851c058fd
+	github.com/athomecomar/athome/pb v0.0.0-20200622164728-f0c3439635bd
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
