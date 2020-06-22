@@ -267,6 +267,26 @@ func (mr *MockCalendarsClientMockRecorder) CreateEvent(ctx, in interface{}, opts
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEvent", reflect.TypeOf((*MockCalendarsClient)(nil).CreateEvent), varargs...)
 }
 
+// CreateShippingEvent mocks base method
+func (m *MockCalendarsClient) CreateShippingEvent(ctx context.Context, in *pbservices.CreateShippingEventRequest, opts ...grpc.CallOption) (*pbservices.CreateEventResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateShippingEvent", varargs...)
+	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateShippingEvent indicates an expected call of CreateShippingEvent
+func (mr *MockCalendarsClientMockRecorder) CreateShippingEvent(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateShippingEvent", reflect.TypeOf((*MockCalendarsClient)(nil).CreateShippingEvent), varargs...)
+}
+
 // ConfirmEvent mocks base method
 func (m *MockCalendarsClient) ConfirmEvent(ctx context.Context, in *pbservices.ConfirmEventRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
@@ -368,6 +388,21 @@ func (m *MockCalendarsServer) CreateEvent(arg0 context.Context, arg1 *pbservices
 func (mr *MockCalendarsServerMockRecorder) CreateEvent(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEvent", reflect.TypeOf((*MockCalendarsServer)(nil).CreateEvent), arg0, arg1)
+}
+
+// CreateShippingEvent mocks base method
+func (m *MockCalendarsServer) CreateShippingEvent(arg0 context.Context, arg1 *pbservices.CreateShippingEventRequest) (*pbservices.CreateEventResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateShippingEvent", arg0, arg1)
+	ret0, _ := ret[0].(*pbservices.CreateEventResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateShippingEvent indicates an expected call of CreateShippingEvent
+func (mr *MockCalendarsServerMockRecorder) CreateShippingEvent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateShippingEvent", reflect.TypeOf((*MockCalendarsServer)(nil).CreateShippingEvent), arg0, arg1)
 }
 
 // ConfirmEvent mocks base method

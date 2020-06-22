@@ -145,6 +145,112 @@ var _SearchAvailableShippingsRequest_Dow_InLookup = map[string]struct{}{
 	"sunday":    {},
 }
 
+// Validate checks the field values on CreateShippingEventRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateShippingEventRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateShippingEventRequestValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateShippingEventRequestValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _CreateShippingEventRequest_Dow_InLookup[m.GetDow()]; !ok {
+		return CreateShippingEventRequestValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
+	return nil
+}
+
+// CreateShippingEventRequestValidationError is the validation error returned
+// by CreateShippingEventRequest.Validate if the designated constraints aren't met.
+type CreateShippingEventRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateShippingEventRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateShippingEventRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateShippingEventRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateShippingEventRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateShippingEventRequestValidationError) ErrorName() string {
+	return "CreateShippingEventRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateShippingEventRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateShippingEventRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateShippingEventRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateShippingEventRequestValidationError{}
+
+var _CreateShippingEventRequest_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
+
 // Validate checks the field values on SearchAvailableShippingsResponse with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, an error is returned.
