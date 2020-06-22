@@ -23,6 +23,7 @@ service Calendars{
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 
   rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse){}
+  rpc CreateShippingEvent(CreateShippingEventRequest) returns (CreateEventResponse){}
 
   rpc ConfirmEvent(ConfirmEventRequest) returns (google.protobuf.Empty){}
 }
@@ -44,6 +45,14 @@ message SearchAvailableShippingsRequest {
   string dow = 3;
   double max_vol_weight = 4;
   double distance_in_kilometers = 5;
+}
+
+message CreateShippingEventRequest {
+  string access_token = 1;
+  shared.TimeOfDay start = 2; // it'll validate if end-start == duration * kilometers
+  // and if max_vol_weight is allowed for svc's category
+  shared.TimeOfDay end = 3;
+  string dow = 4;
 }
 
 message SearchAvailableShippingsResponse {

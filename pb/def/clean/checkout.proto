@@ -39,7 +39,7 @@ service Purchases {
   rpc CreatePurchase (CreatePurchaseRequest) returns (CreatePurchaseResponse){}
 
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
-  
+
   rpc AssignShippingMethod(AssignShippingMethodRequest) returns (google.protobuf.Empty){}
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
@@ -167,6 +167,8 @@ message Purchase {
   uint64 src_address_id = 6;
   uint64 dest_address_id = 7;
   uint64 merchant_id = 8;
+  double distance_in_kilometers = 9;
+  uint64 shipping_id = 10;
 }
 
 message Booking {
