@@ -79,6 +79,8 @@ message AssignDestAddressRequest{
 message AssignShippingMethodRequest{
   string access_token = 1;
   uint64 service_id = 2;
+  shared.TimeOfDay time = 3;
+  string dow = 4;
 }
 
 message RetrieveShippingMethodsRequest {

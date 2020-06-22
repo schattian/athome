@@ -53,6 +53,7 @@ message CreateShippingEventRequest {
   // and if max_vol_weight is allowed for svc's category
   shared.TimeOfDay end = 3;
   string dow = 4;
+  uint64 service_id = 5;
 }
 
 message SearchAvailableShippingsResponse {

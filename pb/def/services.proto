@@ -57,6 +57,7 @@ message CreateShippingEventRequest {
   string dow = 4 [(validate.rules).string = {in:
     ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   }];
+  uint64 service_id = 5;
 }
 
 message SearchAvailableShippingsResponse {
