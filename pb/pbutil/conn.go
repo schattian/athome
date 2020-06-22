@@ -98,6 +98,7 @@ func ConnCheckoutReservations(ctx context.Context) (pbcheckout.ReservationsClien
 	c := pbcheckout.NewReservationsClient(conn)
 	return c, conn.Close, nil
 }
+
 func ConnIdentifier(ctx context.Context) (pbidentifier.IdentifierClient, func() error, error) {
 	host := pbconf.Mailer.GetHost()
 	conn, err := conn(ctx, host)
@@ -174,6 +175,16 @@ func ConnServicesRegister(ctx context.Context) (pbservices.RegisterClient, func(
 		return nil, nil, err
 	}
 	c := pbservices.NewRegisterClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnServicesCalendars(ctx context.Context) (pbservices.CalendarsClient, func() error, error) {
+	host := pbconf.Services.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbservices.NewCalendarsClient(conn)
 	return c, conn.Close, nil
 }
 
