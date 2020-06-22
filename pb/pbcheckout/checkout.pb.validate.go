@@ -1575,6 +1575,10 @@ func (m *Purchase) Validate() error {
 
 	// no validation rules for MerchantId
 
+	// no validation rules for DistanceInKilometers
+
+	// no validation rules for ShippingId
+
 	return nil
 }
 
