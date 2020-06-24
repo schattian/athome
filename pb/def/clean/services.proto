@@ -48,12 +48,12 @@ message SearchAvailableShippingsRequest {
 }
 
 message CreateShippingEventRequest {
-  string access_token = 1;
-  shared.TimeOfDay start = 2; // it'll validate if end-start == duration * kilometers
+  // it'll create end doing end - start = duration * kilometers
   // and if max_vol_weight is allowed for svc's category
-  shared.TimeOfDay end = 3;
-  string dow = 4;
-  uint64 service_id = 5;
+  string access_token = 1;
+  shared.TimeOfDay end = 2;
+  string dow = 3;
+  uint64 service_id = 4;
 }
 
 message SearchAvailableShippingsResponse {

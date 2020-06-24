@@ -11,6 +11,12 @@ option go_package = "./pbcheckout";
 
 package checkout;
 
+service Cards {
+  rpc CreateCard(CreateCardRequest) returns (CreateCardResponse){}
+  rpc VerifyCVV(VerifyCVVRequest) returns (google.protobuf.Empty){}
+  rpc RetrieveMyCards(RetrieveMyCardsRequest) returns (RetrieveMyCardsResponse){}
+}
+
 service Reservations {
   rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse){}
 
@@ -40,8 +46,10 @@ service Purchases {
 
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
-  rpc AssignShippingMethod(AssignShippingMethodRequest) returns (google.protobuf.Empty){}
-  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
+  rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
+  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {} 
+
+  rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
@@ -50,6 +58,41 @@ service Purchases {
   rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
 
   rpc Cancel(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message VerifyCVVRequest{
+  string access_token = 1;
+  uint64 card_id = 2;
+  uint64 cvv = 3;
+}
+
+message RetrieveMyCardsRequest{
+  string access_token = 1;
+}
+
+message RetrieveMyCardsResponse{
+  map<uint64, Card> cards = 1; 
+}
+
+message CreateCardRequest{
+  string access_token = 1;
+  CardInput card = 2;
+}
+
+message CreatePaymentRequest{
+  string access_token = 1;
+  PaymentInput payment = 2;
+}
+
+message CreatePaymentResponse{
+  uint64 payment_id = 1;
+  Payment payment = 2;
+}
+
+message CreateCardResponse{
+  string access_token = 1;
+  uint64 card_id = 2;
+  Card card = 3;
 }
 
 message UpdateOrderStateRequest{
@@ -76,13 +119,23 @@ message AssignDestAddressRequest{
   uint64 dest_address_id = 2;
 }
 
-message AssignShippingMethodRequest{
+message CreateShippingRequest{
   string access_token = 1;
   uint64 service_id = 2;
   shared.TimeOfDay time = 3;
   string dow = 4 [(validate.rules).string = {in:
     ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   }];
+}
+
+message CreateShippingResponse{
+  string access_token = 1;
+  uint64 service_id = 2;
+  shared.TimeOfDay time = 3;
+  string dow = 4 [(validate.rules).string = {in:
+    ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  }];
+  double amount = 5;
 }
 
 message RetrieveShippingMethodsRequest {
@@ -94,12 +147,13 @@ message RetrieveShippingMethodsRequest {
 }
 
 message ShippingMethod{
-  Shipping service = 1;
-  User user = 2;
+  uint64 shipping_method_id = 1;
+  Shipping service = 2;
+  User user = 3;
 }
 
 message Shipping  {
-  double price = 1;
+  double amount = 1;
   uint64 duration_in_minutes = 2;
   string title = 3;
 }
@@ -207,8 +261,16 @@ message Timestamp{
   google.protobuf.Timestamp updated_at = 2;
 }
 
+message PaymentInput {
+  // amount will be inferred through payment_method_id:installments
+  shared.Entity Entity = 1;
+  uint64 payment_method_id = 2;
+  uint64 installments = 3;
+  uint64 card_id = 4;
+}
+
 message Payment {
-  shared.Entity entity = 1;
+  shared.Entity Entity = 1;
   uint64 user_id = 2;
   double amount = 3;
   Timestamp timestamp = 4;
@@ -216,12 +278,19 @@ message Payment {
   map<uint64, StateChange> state_changes = 6;
 }
 
-message Card {
+message CardInput {
   uint64 number = 1;
   uint64 cvv = 2;
   uint64 expiry_month = 3;
   uint64 expiry_year = 4;
   CardHolder holder = 5;
+}
+
+message Card {
+  uint64 last_four_digits = 1;
+  uint64 expiry_month = 2;
+  uint64 expiry_year = 3;
+  CardHolder holder = 4;
 }
 
 message CardHolder {
