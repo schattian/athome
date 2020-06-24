@@ -505,8 +505,6 @@ func (m *CreateCardResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for AccessToken
-
 	// no validation rules for CardId
 
 	if v, ok := interface{}(m.GetCard()).(interface{ Validate() error }); ok {
@@ -2820,33 +2818,6 @@ func (m *Payment) Validate() error {
 				cause:  err,
 			}
 		}
-	}
-
-	if v, ok := interface{}(m.GetCard()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PaymentValidationError{
-				field:  "Card",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	for key, val := range m.GetStateChanges() {
-		_ = val
-
-		// no validation rules for StateChanges[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return PaymentValidationError{
-					field:  fmt.Sprintf("StateChanges[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	// no validation rules for PaymentMethodId
