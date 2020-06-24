@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/images
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200624233746-35ba926ca8eb
+	github.com/athomecomar/athome/pb v0.0.0-20200624234424-85c6e2afca95
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.2.0
