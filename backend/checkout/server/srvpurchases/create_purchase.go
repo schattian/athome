@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
+	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
@@ -50,12 +51,19 @@ func (s *Server) CreatePurchase(ctx context.Context, in *pbcheckout.CreatePurcha
 	}
 	defer usersCloser()
 
-	return s.createPurchase(ctx, db, in, users, prods, uid)
+	addrs, addrsCloser, err := pbutil.ConnAddresses(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer addrsCloser()
+
+	return s.createPurchase(ctx, db, in, users, addrs, prods, uid)
 }
 
 func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	in *pbcheckout.CreatePurchaseRequest,
 	users pbusers.ViewerClient,
+	addr pbaddress.AddressesClient,
 	prods pbproducts.ViewerClient,
 	userId uint64,
 ) (*pbcheckout.CreatePurchaseResponse, error) {
@@ -68,7 +76,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	if err != nil {
 		return nil, status.Errorf(xerrors.ResourceExhausted, "ValidateStock")
 	}
-	err = o.AssignSrcAddress(ctx, users)
+	err = o.AssignSrcAddress(ctx, users, addr)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "AssignSrcAddress")
 	}

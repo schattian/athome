@@ -8,6 +8,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/checkout/ent"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
+	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
@@ -21,12 +22,13 @@ type Purchase struct {
 	UserId        uint64 `json:"user_id,omitempty"`
 	DestAddressId uint64 `json:"dest_address_id,omitempty"`
 
-	SrcAddressId uint64   `json:"src_address_id,omitempty"`
-	CreatedAt    ent.Time `json:"created_at,omitempty"`
-	MerchantId   uint64
-	UpdatedAt    ent.Time          `json:"updated_at,omitempty"`
-	Items        map[uint64]uint64 `json:"items,omitempty"`
-	ShippingId   uint64
+	DistanceInKilometers float64           `json:"distance_in_kilometers,omitempty"`
+	SrcAddressId         uint64            `json:"src_address_id,omitempty"`
+	CreatedAt            ent.Time          `json:"created_at,omitempty"`
+	MerchantId           uint64            `json:"merchant_id,omitempty"`
+	UpdatedAt            ent.Time          `json:"updated_at,omitempty"`
+	Items                map[uint64]uint64 `json:"items,omitempty"`
+	ShippingId           uint64            `json:"shipping_id,omitempty"`
 }
 
 func (o *Purchase) GetCreatedAt() time.Time { return o.CreatedAt.Time }
@@ -36,6 +38,21 @@ func (o *Purchase) SetCreatedAt(t time.Time) {
 	o.SetUpdatedAt(t)
 }
 func (o *Purchase) SetUpdatedAt(t time.Time) { o.UpdatedAt = ent.Time{NullTime: sql.NullTime{Time: t}} }
+
+func (o *Purchase) State(ctx context.Context, db *sqlx.DB) (*PurchaseStateChange, error) {
+	row := db.QueryRowxContext(ctx, `SELECT * FROM purchase_state_changes WHERE order_id IN (
+                SELECT id FROM purchases WHERE id = $1
+            )
+             ORDER BY stage ASC, created_at DESC`,
+		o.Id,
+	)
+	sc := &PurchaseStateChange{}
+	err := row.StructScan(sc)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return sc, nil
+}
 
 func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (*Purchase, error) {
 	order := &Purchase{}
@@ -176,7 +193,7 @@ func (o *Purchase) validateStateChangeAddress(ctx context.Context, db *sqlx.DB) 
 	return nil
 }
 
-func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient) error {
+func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient, addr pbaddress.AddressesClient) error {
 	if o.MerchantId == 0 {
 		return errors.New("no merchant assigned")
 	}
@@ -184,7 +201,12 @@ func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerCli
 	if err != nil {
 		return errors.Wrap(err, "users.RetrieveUser")
 	}
-	o.SrcAddressId = u.GetUser().AddressId
+	resp, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{BAddressId: o.SrcAddressId, AAddressId: u.GetUser().GetAddressId()})
+	if err != nil {
+		return errors.Wrap(err, "addr.MeasureDistance")
+	}
+	o.SrcAddressId = u.GetUser().GetAddressId()
+	o.DistanceInKilometers = resp.ManhattanInKilometers
 	return nil
 }
 
@@ -236,6 +258,7 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 		Amount:        amount,
 		Timestamp:     ts,
 		MerchantId:    o.MerchantId,
+		ShippingId:    o.ShippingId,
 		StateChanges:  pbScs,
 	}, nil
 }

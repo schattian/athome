@@ -5,7 +5,6 @@ import (
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/server"
-	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbservices"
@@ -47,12 +46,6 @@ func (s *Server) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.Ret
 	}
 	defer prodsCloser()
 
-	addrs, addrsCloser, err := pbutil.ConnAddresses(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer addrsCloser()
-
 	svcs, svcsCloser, err := pbutil.ConnServicesViewer(ctx)
 	if err != nil {
 		return nil, err
@@ -60,7 +53,7 @@ func (s *Server) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.Ret
 	defer svcsCloser()
 
 	return s.retrieveShippingMethods(ctx, db,
-		prods, svcs, addrs,
+		prods, svcs,
 		in, o,
 	)
 }
@@ -71,7 +64,6 @@ func (s *Server) retrieveShippingMethods(
 
 	prods pbproducts.ViewerClient,
 	svcs pbservices.ViewerClient,
-	addr pbaddress.AddressesClient,
 
 	in *pbcheckout.RetrieveShippingMethodsRequest,
 	p *order.Purchase,
@@ -82,14 +74,6 @@ func (s *Server) retrieveShippingMethods(
 		return nil, err
 	}
 
-	dist, err := addr.MeasureDistance(ctx,
-		&pbaddress.MeasureDistanceRequest{
-			AAddressId: p.DestAddressId, BAddressId: p.SrcAddressId,
-		})
-
-	if err != nil {
-		return nil, err
-	}
 	maxVolWeight, err := p.MaxVolWeight(ctx, prods)
 	if err != nil {
 		return nil, err
@@ -97,7 +81,7 @@ func (s *Server) retrieveShippingMethods(
 
 	shippings, err := svcs.SearchAvailableShippings(ctx, &pbservices.SearchAvailableShippingsRequest{
 		MaxVolWeight:         maxVolWeight,
-		DistanceInKilometers: dist.GetManhattanInKilometers(),
+		DistanceInKilometers: p.DistanceInKilometers,
 
 		Dow:   in.GetDow(),
 		Start: start,
@@ -114,7 +98,7 @@ func (s *Server) retrieveShippingMethods(
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 		}
-		price := ppkm.Float64() * dist.GetManhattanInKilometers()
+		price := ppkm.Float64() * p.DistanceInKilometers
 		resp.ShippingMethods[id] = serviceSearchResultToShippingMethod(ship, price)
 	}
 

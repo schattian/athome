@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
@@ -42,6 +43,10 @@ func (s *Server) AssignDestAddress(ctx context.Context, in *pbcheckout.AssignDes
 	if err != nil {
 		return nil, err
 	}
+	err = mustPrevState(ctx, db, o, sm.PurchaseAddress)
+	if err != nil {
+		return nil, err
+	}
 
 	addrs, addrsCloser, err := pbutil.ConnAddresses(ctx)
 	if err != nil {
@@ -59,6 +64,7 @@ func (s *Server) assignAddress(
 	addrs pbaddress.AddressesClient,
 	o *order.Purchase,
 ) (*emptypb.Empty, error) {
+
 	resp, err := addrs.RetrieveAddress(ctx, &pbaddress.RetrieveAddressRequest{AddressId: in.GetDestAddressId()})
 	if err != nil {
 		return nil, err

@@ -21,15 +21,31 @@ type Shipping struct {
 	ManhattanDistance float64
 
 	OrderPrice             currency.ARS
-	OrderDurationInMinutes float64
+	OrderDurationInMinutes uint64
 
 	RealPrice             currency.ARS
-	RealDurationInMinutes float64
+	RealDurationInMinutes uint64
 }
 
-func (s *Shipping) DiffDurationInMinutes() float64 {
+func NewShipping(ctx context.Context, db *sqlx.DB,
+	p *Purchase, eventId uint64, providerId uint64,
+	orderPrice currency.ARS, orderDuration uint64,
+) *Shipping {
+	return &Shipping{
+		EventId:                eventId,
+		OrderPrice:             orderPrice,
+		OrderDurationInMinutes: orderDuration,
+		SrcAddressId:           p.SrcAddressId,
+		DestAddressId:          p.DestAddressId,
+		ManhattanDistance:      p.DistanceInKilometers,
+		UserId:                 providerId,
+	}
+}
+
+func (s *Shipping) DiffDurationInMinutes() uint64 {
 	return s.OrderDurationInMinutes - s.RealDurationInMinutes
 }
+
 func (s *Shipping) DiffPricePerKilometer() float64 {
 	return s.OrderPricePerKilometer() - s.RealPricePerKilometer()
 }
