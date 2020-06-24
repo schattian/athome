@@ -36,6 +36,548 @@ var (
 // define the regex for a UUID once up-front
 var _checkout_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on VerifyCVVRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *VerifyCVVRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for CardId
+
+	// no validation rules for Cvv
+
+	return nil
+}
+
+// VerifyCVVRequestValidationError is the validation error returned by
+// VerifyCVVRequest.Validate if the designated constraints aren't met.
+type VerifyCVVRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyCVVRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyCVVRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyCVVRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyCVVRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyCVVRequestValidationError) ErrorName() string { return "VerifyCVVRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e VerifyCVVRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyCVVRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyCVVRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyCVVRequestValidationError{}
+
+// Validate checks the field values on RetrieveMyCardsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveMyCardsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	return nil
+}
+
+// RetrieveMyCardsRequestValidationError is the validation error returned by
+// RetrieveMyCardsRequest.Validate if the designated constraints aren't met.
+type RetrieveMyCardsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveMyCardsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveMyCardsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveMyCardsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveMyCardsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveMyCardsRequestValidationError) ErrorName() string {
+	return "RetrieveMyCardsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveMyCardsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveMyCardsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveMyCardsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveMyCardsRequestValidationError{}
+
+// Validate checks the field values on RetrieveMyCardsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveMyCardsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetCards() {
+		_ = val
+
+		// no validation rules for Cards[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RetrieveMyCardsResponseValidationError{
+					field:  fmt.Sprintf("Cards[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// RetrieveMyCardsResponseValidationError is the validation error returned by
+// RetrieveMyCardsResponse.Validate if the designated constraints aren't met.
+type RetrieveMyCardsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveMyCardsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveMyCardsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveMyCardsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveMyCardsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveMyCardsResponseValidationError) ErrorName() string {
+	return "RetrieveMyCardsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveMyCardsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveMyCardsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveMyCardsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveMyCardsResponseValidationError{}
+
+// Validate checks the field values on CreateCardRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *CreateCardRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	if v, ok := interface{}(m.GetCard()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateCardRequestValidationError{
+				field:  "Card",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateCardRequestValidationError is the validation error returned by
+// CreateCardRequest.Validate if the designated constraints aren't met.
+type CreateCardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCardRequestValidationError) ErrorName() string {
+	return "CreateCardRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCardRequestValidationError{}
+
+// Validate checks the field values on CreatePaymentRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreatePaymentRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	if v, ok := interface{}(m.GetPayment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreatePaymentRequestValidationError{
+				field:  "Payment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreatePaymentRequestValidationError is the validation error returned by
+// CreatePaymentRequest.Validate if the designated constraints aren't met.
+type CreatePaymentRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreatePaymentRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreatePaymentRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreatePaymentRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreatePaymentRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreatePaymentRequestValidationError) ErrorName() string {
+	return "CreatePaymentRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreatePaymentRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreatePaymentRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreatePaymentRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreatePaymentRequestValidationError{}
+
+// Validate checks the field values on CreatePaymentResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreatePaymentResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for PaymentId
+
+	if v, ok := interface{}(m.GetPayment()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreatePaymentResponseValidationError{
+				field:  "Payment",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreatePaymentResponseValidationError is the validation error returned by
+// CreatePaymentResponse.Validate if the designated constraints aren't met.
+type CreatePaymentResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreatePaymentResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreatePaymentResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreatePaymentResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreatePaymentResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreatePaymentResponseValidationError) ErrorName() string {
+	return "CreatePaymentResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreatePaymentResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreatePaymentResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreatePaymentResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreatePaymentResponseValidationError{}
+
+// Validate checks the field values on CreateCardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateCardResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for CardId
+
+	if v, ok := interface{}(m.GetCard()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateCardResponseValidationError{
+				field:  "Card",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateCardResponseValidationError is the validation error returned by
+// CreateCardResponse.Validate if the designated constraints aren't met.
+type CreateCardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCardResponseValidationError) ErrorName() string {
+	return "CreateCardResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCardResponseValidationError{}
+
 // Validate checks the field values on UpdateOrderStateRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -414,10 +956,10 @@ var _ interface {
 	ErrorName() string
 } = AssignDestAddressRequestValidationError{}
 
-// Validate checks the field values on AssignShippingMethodRequest with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on CreateShippingRequest with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *AssignShippingMethodRequest) Validate() error {
+func (m *CreateShippingRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -428,7 +970,7 @@ func (m *AssignShippingMethodRequest) Validate() error {
 
 	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return AssignShippingMethodRequestValidationError{
+			return CreateShippingRequestValidationError{
 				field:  "Time",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -436,8 +978,8 @@ func (m *AssignShippingMethodRequest) Validate() error {
 		}
 	}
 
-	if _, ok := _AssignShippingMethodRequest_Dow_InLookup[m.GetDow()]; !ok {
-		return AssignShippingMethodRequestValidationError{
+	if _, ok := _CreateShippingRequest_Dow_InLookup[m.GetDow()]; !ok {
+		return CreateShippingRequestValidationError{
 			field:  "Dow",
 			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
 		}
@@ -446,10 +988,9 @@ func (m *AssignShippingMethodRequest) Validate() error {
 	return nil
 }
 
-// AssignShippingMethodRequestValidationError is the validation error returned
-// by AssignShippingMethodRequest.Validate if the designated constraints
-// aren't met.
-type AssignShippingMethodRequestValidationError struct {
+// CreateShippingRequestValidationError is the validation error returned by
+// CreateShippingRequest.Validate if the designated constraints aren't met.
+type CreateShippingRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -457,24 +998,24 @@ type AssignShippingMethodRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e AssignShippingMethodRequestValidationError) Field() string { return e.field }
+func (e CreateShippingRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AssignShippingMethodRequestValidationError) Reason() string { return e.reason }
+func (e CreateShippingRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AssignShippingMethodRequestValidationError) Cause() error { return e.cause }
+func (e CreateShippingRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AssignShippingMethodRequestValidationError) Key() bool { return e.key }
+func (e CreateShippingRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AssignShippingMethodRequestValidationError) ErrorName() string {
-	return "AssignShippingMethodRequestValidationError"
+func (e CreateShippingRequestValidationError) ErrorName() string {
+	return "CreateShippingRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e AssignShippingMethodRequestValidationError) Error() string {
+func (e CreateShippingRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -486,14 +1027,14 @@ func (e AssignShippingMethodRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAssignShippingMethodRequest.%s: %s%s",
+		"invalid %sCreateShippingRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AssignShippingMethodRequestValidationError{}
+var _ error = CreateShippingRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -501,9 +1042,109 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AssignShippingMethodRequestValidationError{}
+} = CreateShippingRequestValidationError{}
 
-var _AssignShippingMethodRequest_Dow_InLookup = map[string]struct{}{
+var _CreateShippingRequest_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
+
+// Validate checks the field values on CreateShippingResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateShippingResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for ServiceId
+
+	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateShippingResponseValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _CreateShippingResponse_Dow_InLookup[m.GetDow()]; !ok {
+		return CreateShippingResponseValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
+	// no validation rules for Amount
+
+	return nil
+}
+
+// CreateShippingResponseValidationError is the validation error returned by
+// CreateShippingResponse.Validate if the designated constraints aren't met.
+type CreateShippingResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateShippingResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateShippingResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateShippingResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateShippingResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateShippingResponseValidationError) ErrorName() string {
+	return "CreateShippingResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateShippingResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateShippingResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateShippingResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateShippingResponseValidationError{}
+
+var _CreateShippingResponse_Dow_InLookup = map[string]struct{}{
 	"monday":    {},
 	"tuesday":   {},
 	"wednesday": {},
@@ -618,6 +1259,8 @@ func (m *ShippingMethod) Validate() error {
 		return nil
 	}
 
+	// no validation rules for ShippingMethodId
+
 	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ShippingMethodValidationError{
@@ -702,7 +1345,7 @@ func (m *Shipping) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Price
+	// no validation rules for Amount
 
 	// no validation rules for DurationInMinutes
 
@@ -2087,6 +2730,87 @@ var _ interface {
 	ErrorName() string
 } = TimestampValidationError{}
 
+// Validate checks the field values on PaymentInput with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PaymentInput) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaymentInputValidationError{
+				field:  "Entity",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for PaymentMethodId
+
+	// no validation rules for Installments
+
+	// no validation rules for CardId
+
+	return nil
+}
+
+// PaymentInputValidationError is the validation error returned by
+// PaymentInput.Validate if the designated constraints aren't met.
+type PaymentInputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PaymentInputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PaymentInputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PaymentInputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PaymentInputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PaymentInputValidationError) ErrorName() string { return "PaymentInputValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PaymentInputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPaymentInput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PaymentInputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PaymentInputValidationError{}
+
 // Validate checks the field values on Payment with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *Payment) Validate() error {
@@ -2202,9 +2926,9 @@ var _ interface {
 	ErrorName() string
 } = PaymentValidationError{}
 
-// Validate checks the field values on Card with the rules defined in the proto
-// definition for this message. If any rules are violated, an error is returned.
-func (m *Card) Validate() error {
+// Validate checks the field values on CardInput with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *CardInput) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -2212,6 +2936,86 @@ func (m *Card) Validate() error {
 	// no validation rules for Number
 
 	// no validation rules for Cvv
+
+	// no validation rules for ExpiryMonth
+
+	// no validation rules for ExpiryYear
+
+	if v, ok := interface{}(m.GetHolder()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CardInputValidationError{
+				field:  "Holder",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CardInputValidationError is the validation error returned by
+// CardInput.Validate if the designated constraints aren't met.
+type CardInputValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CardInputValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CardInputValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CardInputValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CardInputValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CardInputValidationError) ErrorName() string { return "CardInputValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CardInputValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCardInput.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CardInputValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CardInputValidationError{}
+
+// Validate checks the field values on Card with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *Card) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for LastFourDigits
 
 	// no validation rules for ExpiryMonth
 

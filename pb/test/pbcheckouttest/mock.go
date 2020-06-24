@@ -13,6 +13,157 @@ import (
 	reflect "reflect"
 )
 
+// MockCardsClient is a mock of CardsClient interface
+type MockCardsClient struct {
+	ctrl     *gomock.Controller
+	recorder *MockCardsClientMockRecorder
+}
+
+// MockCardsClientMockRecorder is the mock recorder for MockCardsClient
+type MockCardsClientMockRecorder struct {
+	mock *MockCardsClient
+}
+
+// NewMockCardsClient creates a new mock instance
+func NewMockCardsClient(ctrl *gomock.Controller) *MockCardsClient {
+	mock := &MockCardsClient{ctrl: ctrl}
+	mock.recorder = &MockCardsClientMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use
+func (m *MockCardsClient) EXPECT() *MockCardsClientMockRecorder {
+	return m.recorder
+}
+
+// CreateCard mocks base method
+func (m *MockCardsClient) CreateCard(ctx context.Context, in *pbcheckout.CreateCardRequest, opts ...grpc.CallOption) (*pbcheckout.CreateCardResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateCard", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.CreateCardResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateCard indicates an expected call of CreateCard
+func (mr *MockCardsClientMockRecorder) CreateCard(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCard", reflect.TypeOf((*MockCardsClient)(nil).CreateCard), varargs...)
+}
+
+// VerifyCVV mocks base method
+func (m *MockCardsClient) VerifyCVV(ctx context.Context, in *pbcheckout.VerifyCVVRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "VerifyCVV", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// VerifyCVV indicates an expected call of VerifyCVV
+func (mr *MockCardsClientMockRecorder) VerifyCVV(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VerifyCVV", reflect.TypeOf((*MockCardsClient)(nil).VerifyCVV), varargs...)
+}
+
+// RetrieveMyCards mocks base method
+func (m *MockCardsClient) RetrieveMyCards(ctx context.Context, in *pbcheckout.RetrieveMyCardsRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveMyCardsResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveMyCards", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveMyCardsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveMyCards indicates an expected call of RetrieveMyCards
+func (mr *MockCardsClientMockRecorder) RetrieveMyCards(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveMyCards", reflect.TypeOf((*MockCardsClient)(nil).RetrieveMyCards), varargs...)
+}
+
+// MockCardsServer is a mock of CardsServer interface
+type MockCardsServer struct {
+	ctrl     *gomock.Controller
+	recorder *MockCardsServerMockRecorder
+}
+
+// MockCardsServerMockRecorder is the mock recorder for MockCardsServer
+type MockCardsServerMockRecorder struct {
+	mock *MockCardsServer
+}
+
+// NewMockCardsServer creates a new mock instance
+func NewMockCardsServer(ctrl *gomock.Controller) *MockCardsServer {
+	mock := &MockCardsServer{ctrl: ctrl}
+	mock.recorder = &MockCardsServerMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use
+func (m *MockCardsServer) EXPECT() *MockCardsServerMockRecorder {
+	return m.recorder
+}
+
+// CreateCard mocks base method
+func (m *MockCardsServer) CreateCard(arg0 context.Context, arg1 *pbcheckout.CreateCardRequest) (*pbcheckout.CreateCardResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateCard", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.CreateCardResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateCard indicates an expected call of CreateCard
+func (mr *MockCardsServerMockRecorder) CreateCard(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateCard", reflect.TypeOf((*MockCardsServer)(nil).CreateCard), arg0, arg1)
+}
+
+// VerifyCVV mocks base method
+func (m *MockCardsServer) VerifyCVV(arg0 context.Context, arg1 *pbcheckout.VerifyCVVRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "VerifyCVV", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// VerifyCVV indicates an expected call of VerifyCVV
+func (mr *MockCardsServerMockRecorder) VerifyCVV(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VerifyCVV", reflect.TypeOf((*MockCardsServer)(nil).VerifyCVV), arg0, arg1)
+}
+
+// RetrieveMyCards mocks base method
+func (m *MockCardsServer) RetrieveMyCards(arg0 context.Context, arg1 *pbcheckout.RetrieveMyCardsRequest) (*pbcheckout.RetrieveMyCardsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveMyCards", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveMyCardsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveMyCards indicates an expected call of RetrieveMyCards
+func (mr *MockCardsServerMockRecorder) RetrieveMyCards(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveMyCards", reflect.TypeOf((*MockCardsServer)(nil).RetrieveMyCards), arg0, arg1)
+}
+
 // MockReservationsClient is a mock of ReservationsClient interface
 type MockReservationsClient struct {
 	ctrl     *gomock.Controller
@@ -588,24 +739,24 @@ func (mr *MockPurchasesClientMockRecorder) AssignDestAddress(ctx, in interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesClient)(nil).AssignDestAddress), varargs...)
 }
 
-// AssignShippingMethod mocks base method
-func (m *MockPurchasesClient) AssignShippingMethod(ctx context.Context, in *pbcheckout.AssignShippingMethodRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+// CreateShipping mocks base method
+func (m *MockPurchasesClient) CreateShipping(ctx context.Context, in *pbcheckout.CreateShippingRequest, opts ...grpc.CallOption) (*pbcheckout.CreateShippingResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "AssignShippingMethod", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret := m.ctrl.Call(m, "CreateShipping", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.CreateShippingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// AssignShippingMethod indicates an expected call of AssignShippingMethod
-func (mr *MockPurchasesClientMockRecorder) AssignShippingMethod(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+// CreateShipping indicates an expected call of CreateShipping
+func (mr *MockPurchasesClientMockRecorder) CreateShipping(ctx, in interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignShippingMethod", reflect.TypeOf((*MockPurchasesClient)(nil).AssignShippingMethod), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateShipping", reflect.TypeOf((*MockPurchasesClient)(nil).CreateShipping), varargs...)
 }
 
 // RetrieveShippingMethods mocks base method
@@ -626,6 +777,26 @@ func (mr *MockPurchasesClientMockRecorder) RetrieveShippingMethods(ctx, in inter
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesClient)(nil).RetrieveShippingMethods), varargs...)
+}
+
+// CreatePayment mocks base method
+func (m *MockPurchasesClient) CreatePayment(ctx context.Context, in *pbcheckout.CreatePaymentRequest, opts ...grpc.CallOption) (*pbcheckout.CreatePaymentResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreatePayment", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.CreatePaymentResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreatePayment indicates an expected call of CreatePayment
+func (mr *MockPurchasesClientMockRecorder) CreatePayment(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePayment", reflect.TypeOf((*MockPurchasesClient)(nil).CreatePayment), varargs...)
 }
 
 // RetrieveCurrent mocks base method
@@ -781,19 +952,19 @@ func (mr *MockPurchasesServerMockRecorder) AssignDestAddress(arg0, arg1 interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesServer)(nil).AssignDestAddress), arg0, arg1)
 }
 
-// AssignShippingMethod mocks base method
-func (m *MockPurchasesServer) AssignShippingMethod(arg0 context.Context, arg1 *pbcheckout.AssignShippingMethodRequest) (*empty.Empty, error) {
+// CreateShipping mocks base method
+func (m *MockPurchasesServer) CreateShipping(arg0 context.Context, arg1 *pbcheckout.CreateShippingRequest) (*pbcheckout.CreateShippingResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AssignShippingMethod", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
+	ret := m.ctrl.Call(m, "CreateShipping", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.CreateShippingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// AssignShippingMethod indicates an expected call of AssignShippingMethod
-func (mr *MockPurchasesServerMockRecorder) AssignShippingMethod(arg0, arg1 interface{}) *gomock.Call {
+// CreateShipping indicates an expected call of CreateShipping
+func (mr *MockPurchasesServerMockRecorder) CreateShipping(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignShippingMethod", reflect.TypeOf((*MockPurchasesServer)(nil).AssignShippingMethod), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateShipping", reflect.TypeOf((*MockPurchasesServer)(nil).CreateShipping), arg0, arg1)
 }
 
 // RetrieveShippingMethods mocks base method
@@ -809,6 +980,21 @@ func (m *MockPurchasesServer) RetrieveShippingMethods(arg0 context.Context, arg1
 func (mr *MockPurchasesServerMockRecorder) RetrieveShippingMethods(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveShippingMethods", reflect.TypeOf((*MockPurchasesServer)(nil).RetrieveShippingMethods), arg0, arg1)
+}
+
+// CreatePayment mocks base method
+func (m *MockPurchasesServer) CreatePayment(arg0 context.Context, arg1 *pbcheckout.CreatePaymentRequest) (*pbcheckout.CreatePaymentResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreatePayment", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.CreatePaymentResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreatePayment indicates an expected call of CreatePayment
+func (mr *MockPurchasesServerMockRecorder) CreatePayment(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePayment", reflect.TypeOf((*MockPurchasesServer)(nil).CreatePayment), arg0, arg1)
 }
 
 // RetrieveCurrent mocks base method
