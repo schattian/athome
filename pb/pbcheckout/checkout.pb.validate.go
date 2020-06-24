@@ -2849,6 +2849,10 @@ func (m *Payment) Validate() error {
 
 	}
 
+	// no validation rules for PaymentMethodId
+
+	// no validation rules for Installments
+
 	return nil
 }
 
