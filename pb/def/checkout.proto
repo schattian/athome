@@ -90,9 +90,8 @@ message CreatePaymentResponse{
 }
 
 message CreateCardResponse{
-  string access_token = 1;
-  uint64 card_id = 2;
-  Card card = 3;
+  uint64 card_id = 1;
+  Card card = 2;
 }
 
 message UpdateOrderStateRequest{
@@ -263,19 +262,17 @@ message Timestamp{
 
 message PaymentInput {
   // amount will be inferred through payment_method_id:installments
-  shared.Entity Entity = 1;
-  uint64 payment_method_id = 2;
-  uint64 installments = 3;
-  uint64 card_id = 4;
+  uint64 payment_method_id = 1;
+  uint64 installments = 2;
+  uint64 card_id = 3; 
 }
 
 message Payment {
-  shared.Entity Entity = 1;
-  uint64 user_id = 2;
-  double amount = 3;
-  Timestamp timestamp = 4;
-  Card card = 5;
-  map<uint64, StateChange> state_changes = 6;
+  uint64 user_id = 1;
+  double amount = 2;
+  Timestamp timestamp = 3;
+  uint64 payment_method_id = 6;
+  uint64 installments = 7;
 }
 
 message CardInput {
