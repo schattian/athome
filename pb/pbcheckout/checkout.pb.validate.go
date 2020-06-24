@@ -2738,16 +2738,6 @@ func (m *PaymentInput) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PaymentInputValidationError{
-				field:  "Entity",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	// no validation rules for PaymentMethodId
 
 	// no validation rules for Installments
@@ -2816,16 +2806,6 @@ var _ interface {
 func (m *Payment) Validate() error {
 	if m == nil {
 		return nil
-	}
-
-	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PaymentValidationError{
-				field:  "Entity",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
 	}
 
 	// no validation rules for UserId
