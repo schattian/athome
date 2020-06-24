@@ -1330,6 +1330,8 @@ func (m *Shipping) Validate() error {
 
 	// no validation rules for UserId
 
+	// no validation rules for Title
+
 	return nil
 }
 
