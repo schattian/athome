@@ -3056,8 +3056,6 @@ func (m *CardHolder) Validate() error {
 
 	// no validation rules for Name
 
-	// no validation rules for Surname
-
 	return nil
 }
 
