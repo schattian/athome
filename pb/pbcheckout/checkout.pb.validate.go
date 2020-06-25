@@ -2090,23 +2090,6 @@ func (m *Reservation) Validate() error {
 
 	// no validation rules for UserId
 
-	for key, val := range m.GetStateChanges() {
-		_ = val
-
-		// no validation rules for StateChanges[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ReservationValidationError{
-					field:  fmt.Sprintf("StateChanges[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
 	if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ReservationValidationError{
@@ -2188,23 +2171,6 @@ func (m *Purchase) Validate() error {
 	}
 
 	// no validation rules for UserId
-
-	for key, val := range m.GetStateChanges() {
-		_ = val
-
-		// no validation rules for StateChanges[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return PurchaseValidationError{
-					field:  fmt.Sprintf("StateChanges[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
 
 	if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -2295,23 +2261,6 @@ func (m *Booking) Validate() error {
 	}
 
 	// no validation rules for UserId
-
-	for key, val := range m.GetStateChanges() {
-		_ = val
-
-		// no validation rules for StateChanges[key]
-
-		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return BookingValidationError{
-					field:  fmt.Sprintf("StateChanges[%v]", key),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
 
 	if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
