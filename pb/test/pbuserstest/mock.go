@@ -72,14 +72,14 @@ func (m *MockViewerClient) EXPECT() *MockViewerClientMockRecorder {
 }
 
 // RetrieveUser mocks base method
-func (m *MockViewerClient) RetrieveUser(ctx context.Context, in *pbusers.RetrieveUserRequest, opts ...grpc.CallOption) (*pbusers.UserDetail, error) {
+func (m *MockViewerClient) RetrieveUser(ctx context.Context, in *pbusers.RetrieveUserRequest, opts ...grpc.CallOption) (*pbusers.User, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveUser", varargs...)
-	ret0, _ := ret[0].(*pbusers.UserDetail)
+	ret0, _ := ret[0].(*pbusers.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -115,10 +115,10 @@ func (m *MockViewerServer) EXPECT() *MockViewerServerMockRecorder {
 }
 
 // RetrieveUser mocks base method
-func (m *MockViewerServer) RetrieveUser(arg0 context.Context, arg1 *pbusers.RetrieveUserRequest) (*pbusers.UserDetail, error) {
+func (m *MockViewerServer) RetrieveUser(arg0 context.Context, arg1 *pbusers.RetrieveUserRequest) (*pbusers.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveUser", arg0, arg1)
-	ret0, _ := ret[0].(*pbusers.UserDetail)
+	ret0, _ := ret[0].(*pbusers.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -353,14 +353,14 @@ func (mr *MockSignClientMockRecorder) RetrieveSelectableCategories(ctx, in inter
 }
 
 // RetrieveOnboarding mocks base method
-func (m *MockSignClient) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest, opts ...grpc.CallOption) (*pbusers.OnboardingDetail, error) {
+func (m *MockSignClient) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest, opts ...grpc.CallOption) (*pbusers.Onboarding, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveOnboarding", varargs...)
-	ret0, _ := ret[0].(*pbusers.OnboardingDetail)
+	ret0, _ := ret[0].(*pbusers.Onboarding)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -586,10 +586,10 @@ func (mr *MockSignServerMockRecorder) RetrieveSelectableCategories(arg0, arg1 in
 }
 
 // RetrieveOnboarding mocks base method
-func (m *MockSignServer) RetrieveOnboarding(arg0 context.Context, arg1 *pbusers.RetrieveOnboardingRequest) (*pbusers.OnboardingDetail, error) {
+func (m *MockSignServer) RetrieveOnboarding(arg0 context.Context, arg1 *pbusers.RetrieveOnboardingRequest) (*pbusers.Onboarding, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveOnboarding", arg0, arg1)
-	ret0, _ := ret[0].(*pbusers.OnboardingDetail)
+	ret0, _ := ret[0].(*pbusers.Onboarding)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
