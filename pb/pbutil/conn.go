@@ -148,6 +148,7 @@ func ConnProductsCreator(ctx context.Context) (pbproducts.CreatorClient, func() 
 	c := pbproducts.NewCreatorClient(conn)
 	return c, conn.Close, nil
 }
+
 func ConnProductsViewer(ctx context.Context) (pbproducts.ViewerClient, func() error, error) {
 	host := pbconf.Products.GetHost()
 	conn, err := conn(ctx, host)
@@ -155,6 +156,16 @@ func ConnProductsViewer(ctx context.Context) (pbproducts.ViewerClient, func() er
 		return nil, nil, err
 	}
 	c := pbproducts.NewViewerClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnProductsManager(ctx context.Context) (pbproducts.ManagerClient, func() error, error) {
+	host := pbconf.Products.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbproducts.NewManagerClient(conn)
 	return c, conn.Close, nil
 }
 
