@@ -207,6 +207,26 @@ func (mr *MockReservationsClientMockRecorder) CreateReservation(ctx, in interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateReservation", reflect.TypeOf((*MockReservationsClient)(nil).CreateReservation), varargs...)
 }
 
+// Retrieve mocks base method
+func (m *MockReservationsClient) Retrieve(ctx context.Context, in *pbcheckout.RetrieveOrderRequest, opts ...grpc.CallOption) (*pbcheckout.Reservation, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Retrieve", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.Reservation)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockReservationsClientMockRecorder) Retrieve(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockReservationsClient)(nil).Retrieve), varargs...)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockReservationsClient) RetrieveCurrent(ctx context.Context, in *pbcheckout.RetrieveCurrentRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveReservationResponse, error) {
 	m.ctrl.T.Helper()
@@ -345,6 +365,21 @@ func (mr *MockReservationsServerMockRecorder) CreateReservation(arg0, arg1 inter
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateReservation", reflect.TypeOf((*MockReservationsServer)(nil).CreateReservation), arg0, arg1)
 }
 
+// Retrieve mocks base method
+func (m *MockReservationsServer) Retrieve(arg0 context.Context, arg1 *pbcheckout.RetrieveOrderRequest) (*pbcheckout.Reservation, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Retrieve", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.Reservation)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockReservationsServerMockRecorder) Retrieve(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockReservationsServer)(nil).Retrieve), arg0, arg1)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockReservationsServer) RetrieveCurrent(arg0 context.Context, arg1 *pbcheckout.RetrieveCurrentRequest) (*pbcheckout.RetrieveReservationResponse, error) {
 	m.ctrl.T.Helper()
@@ -461,6 +496,26 @@ func (mr *MockBookingsClientMockRecorder) CreateBooking(ctx, in interface{}, opt
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBooking", reflect.TypeOf((*MockBookingsClient)(nil).CreateBooking), varargs...)
+}
+
+// Retrieve mocks base method
+func (m *MockBookingsClient) Retrieve(ctx context.Context, in *pbcheckout.RetrieveOrderRequest, opts ...grpc.CallOption) (*pbcheckout.Booking, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Retrieve", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.Booking)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockBookingsClientMockRecorder) Retrieve(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockBookingsClient)(nil).Retrieve), varargs...)
 }
 
 // RetrieveCurrent mocks base method
@@ -601,6 +656,21 @@ func (mr *MockBookingsServerMockRecorder) CreateBooking(arg0, arg1 interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBooking", reflect.TypeOf((*MockBookingsServer)(nil).CreateBooking), arg0, arg1)
 }
 
+// Retrieve mocks base method
+func (m *MockBookingsServer) Retrieve(arg0 context.Context, arg1 *pbcheckout.RetrieveOrderRequest) (*pbcheckout.Booking, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Retrieve", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.Booking)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockBookingsServerMockRecorder) Retrieve(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockBookingsServer)(nil).Retrieve), arg0, arg1)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockBookingsServer) RetrieveCurrent(arg0 context.Context, arg1 *pbcheckout.RetrieveCurrentRequest) (*pbcheckout.RetrieveBookingResponse, error) {
 	m.ctrl.T.Helper()
@@ -737,6 +807,26 @@ func (mr *MockPurchasesClientMockRecorder) AssignDestAddress(ctx, in interface{}
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesClient)(nil).AssignDestAddress), varargs...)
+}
+
+// Retrieve mocks base method
+func (m *MockPurchasesClient) Retrieve(ctx context.Context, in *pbcheckout.RetrieveOrderRequest, opts ...grpc.CallOption) (*pbcheckout.Purchase, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Retrieve", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.Purchase)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockPurchasesClientMockRecorder) Retrieve(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockPurchasesClient)(nil).Retrieve), varargs...)
 }
 
 // CreateShipping mocks base method
@@ -970,6 +1060,21 @@ func (m *MockPurchasesServer) AssignDestAddress(arg0 context.Context, arg1 *pbch
 func (mr *MockPurchasesServerMockRecorder) AssignDestAddress(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignDestAddress", reflect.TypeOf((*MockPurchasesServer)(nil).AssignDestAddress), arg0, arg1)
+}
+
+// Retrieve mocks base method
+func (m *MockPurchasesServer) Retrieve(arg0 context.Context, arg1 *pbcheckout.RetrieveOrderRequest) (*pbcheckout.Purchase, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Retrieve", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.Purchase)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Retrieve indicates an expected call of Retrieve
+func (mr *MockPurchasesServerMockRecorder) Retrieve(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockPurchasesServer)(nil).Retrieve), arg0, arg1)
 }
 
 // CreateShipping mocks base method
