@@ -1299,8 +1299,6 @@ func (m *ShippingMethod) Validate() error {
 
 	// no validation rules for DurationInMinutes
 
-	// no validation rules for ServiceId
-
 	// no validation rules for UserId
 
 	// no validation rules for Title
