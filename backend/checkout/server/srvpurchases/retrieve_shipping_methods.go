@@ -103,30 +103,9 @@ func (s *Server) retrieveShippingMethods(
 		resp.ShippingMethods[id] = &pbcheckout.ShippingMethod{
 			Amount:            price,
 			DurationInMinutes: uint64(math.Ceil(p.DistanceInKilometers * float64(svc.DurationInMinutes))),
+			UserId:            svc.GetUserId(),
+			Title:             svc.GetTitle(),
 		}
 	}
-
 	return resp, nil
 }
-
-// func serviceToPbShippingMethod(svc *pbservices.Service, totalPrice float64) *pbcheckout.ShippingMethod {
-// return &pbcheckout.ShippingMethod{
-// 	Amount  : totalPrice,
-// 	DurationInMinutes  : svc.DurationInMinutes,
-// 	ServiceId           : svc.GetId
-// 	UserId
-// 	Title
-
-// }
-// Service: &pbcheckout.Shipping{
-// Title:             svc.GetTitle(),
-// Amount:            totalPrice,
-// DurationInMinutes: svc.GetDurationInMinutes(),
-// },
-// User: &pbcheckout.User{
-// 	Name:      user.GetName(),
-// 	Surname:   user.GetSurname(),
-// 	ImageUrl:  user.GetImageUrl(),
-// 	AddressId: user.GetAddressId(),
-// },
-// }
