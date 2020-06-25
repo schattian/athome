@@ -5,7 +5,6 @@ import (
 	"database/sql"
 
 	"github.com/athomecomar/athome/backend/users/ent"
-	"github.com/athomecomar/athome/backend/users/internal/xpbsemantic"
 	"github.com/athomecomar/athome/backend/users/server"
 	"github.com/athomecomar/athome/pb/pbusers"
 	"github.com/athomecomar/xerrors"
@@ -15,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest) (*pbusers.OnboardingDetail, error) {
+func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnboardingRequest) (*pbusers.Onboarding, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -29,29 +28,11 @@ func (s *Server) RetrieveOnboarding(ctx context.Context, in *pbusers.RetrieveOnb
 		return nil, err
 	}
 
-	sem, semCloser, err := server.ConnCategories(ctx, o.Role)
-	if err != nil {
-		return nil, err
-	}
-	defer semCloser()
-
-	return s.retrieveOnboarding(ctx, db, sem, o)
+	return s.retrieveOnboarding(ctx, db, o)
 }
 
-func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, sem xpbsemantic.CategoriesClient, onboarding *ent.Onboarding) (*pbusers.OnboardingDetail, error) {
-	cat, err := onboarding.Category(ctx, sem)
-	if err != nil {
-		return nil, err
-	}
-	iden, err := onboarding.Identification(ctx, db)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "Identification: %v", err)
-	}
-	return &pbusers.OnboardingDetail{
-		Onboarding:     onboarding.ToPb(),
-		Category:       server.PbSemanticCategoryToPbUserCategory(cat),
-		Identification: iden.ToPb(),
-	}, nil
+func (s *Server) retrieveOnboarding(ctx context.Context, db *sqlx.DB, onboarding *ent.Onboarding) (*pbusers.Onboarding, error) {
+	return onboarding.ToPb(), nil
 }
 
 func retrieveOnboardingByToken(ctx context.Context, db *sqlx.DB, token uint64) (*ent.Onboarding, error) {
