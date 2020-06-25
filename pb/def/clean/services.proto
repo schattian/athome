@@ -13,13 +13,13 @@ service Viewer{
 
   rpc SearchAvailableShippings (SearchAvailableShippingsRequest) returns (SearchAvailableShippingsResponse){}
 
-  rpc RetrieveServiceDetail (RetrieveServiceDetailRequest) returns (ServiceDetail){}
+  rpc RetrieveService (RetrieveServiceRequest) returns (Service){}
 }
 
 
 service Calendars{
   rpc CreateCalendar (CreateCalendarRequest) returns (CreateCalendarResponse) {}
-  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (CalendarDetail) {}
+  rpc RetrieveCalendar (RetrieveCalendarRequest) returns (Calendar) {}
   rpc RetrieveMyCalendars (RetrieveMyCalendarsRequest) returns (RetrieveMyCalendarsResponse) {}
 
   rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse){}
@@ -29,7 +29,7 @@ service Calendars{
 }
 
 service Register{
-  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (RegistryDetail) {}
+  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (Registry) {}
   rpc DeleteRegistry (DeleteRegistryRequest) returns (google.protobuf.Empty) {}
 
   rpc Prev (PrevRequest) returns (google.protobuf.Empty) {}
@@ -57,7 +57,7 @@ message CreateShippingEventRequest {
 }
 
 message SearchAvailableShippingsResponse {
-  map <uint64, ServiceSearchResult> services = 1;
+  map <uint64, Service> services = 1;
 }
 
 message SearchServicesRequest {
@@ -66,7 +66,7 @@ message SearchServicesRequest {
 }
 
 message SearchServicesResponse {
-  map <uint64, ServiceSearchResult> services = 1;
+  map <uint64, Service> services = 1;
   PageResponse page = 2;
 }
 
@@ -80,43 +80,8 @@ message PageResponse {
   uint64 total_size = 2;
 }
 
-message RetrieveServiceDetailRequest {
+message RetrieveServiceRequest {
   uint64 service_id = 1;
-}
-
-message ServiceSearchResult {
-  message Service{
-    string title = 1;
-    Price price = 2;
-    uint64 address_id = 3;
-    uint64 calendar_id = 4;
-    uint64 duration_in_minutes = 5;
-    uint64 user_id = 6;
-  }
-  Service service = 1;
-  User user = 2;
-}
-
-message ServiceDetail {
-  Service service = 1;
-  User user = 2;
-  Address address = 3;
-  CalendarDetail calendar = 4;
-}
-
-message User {
-  string name = 1;
-  string surname = 2;
-  string image_url = 3;
-  uint64 address_id = 4;
-}
-
-message Address {
-  string zipcode = 1;
-  string street = 2;
-  uint64 number = 3;
-  uint64 floor = 4;
-  string department = 5;
 }
 
 message RetrieveCalendarRequest {
@@ -128,7 +93,7 @@ message RetrieveMyCalendarsRequest {
 }
 
 message RetrieveMyCalendarsResponse {
-  map<uint64, CalendarDetail> calendars = 1;
+  map<uint64, Calendar> calendars = 1;
 }
 
 message Event {
@@ -154,13 +119,6 @@ message Registry{
   FirstRequest.Body first = 2;
   SecondRequest.Body second = 3;
   ThirdRequest.Body third = 4;
-}
-
-message RegistryDetail {
-  uint64 registry_id = 1;
-  Registry registry = 2;
-  Calendar calendar = 3;
-  map<uint64, Availability> availabilities = 4;
 }
 
 message Service {
@@ -222,12 +180,6 @@ message Calendar {
   string name = 1;
   uint64 group_id = 2;
   uint64 user_id = 3;
-}
-
-message CalendarDetail{
-  Calendar calendar = 1;
-  map<uint64,Availability> availabilities = 2;
-  map<uint64,Event> events = 3;
 }
 
 message CreateEventRequest {

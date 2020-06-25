@@ -8,7 +8,7 @@ option go_package = "./pbusers";
 package users;
 
 service Viewer {
-  rpc RetrieveUser (RetrieveUserRequest) returns (UserDetail) {}
+  rpc RetrieveUser (RetrieveUserRequest) returns (User) {}
 }
 
 service Sign {
@@ -29,7 +29,7 @@ service Sign {
 
   rpc RetrieveSelectableCategories (RetrieveSelectableCategoriesRequest) returns (RetrieveSelectableCategoriesResponse) {}
 
-  rpc RetrieveOnboarding (RetrieveOnboardingRequest) returns (OnboardingDetail) {}
+  rpc RetrieveOnboarding (RetrieveOnboardingRequest) returns (Onboarding) {}
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {}
   rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {}
@@ -114,19 +114,6 @@ message RetrieveUserRequest {
   uint64 user_id = 1;
 }
 
-message UserDetail{
-  User user = 1;
-  Category category = 2;
-  Identification identification = 3;
-  string image_url = 4;
-}
-
-message OnboardingDetail{
-  Onboarding onboarding = 1;
-  Category category = 2;
-  Identification identification = 3;
-}
-
 message Identification {
   uint64 user_id = 1;
   uint64 dni = 2;
@@ -149,7 +136,7 @@ message Onboarding {
   string name = 3;
   string surname = 4;
   int64 stage = 5;
-uint64 address_id = 6;
+  uint64 address_id = 6;
 }
 
 message SignUpStartRequest {

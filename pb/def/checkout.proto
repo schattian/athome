@@ -207,32 +207,29 @@ message StateMachineResponse {
 
 message Reservation {
   uint64 user_id = 1;
-  map<uint64, StateChange> state_changes = 2;
-  Timestamp timestamp = 3;
-  uint64 product_id = 4;
-  uint64 days = 5;
-  double amount = 6;  // calculated at req time
+  Timestamp timestamp = 2;
+  uint64 product_id = 3;
+  uint64 days = 4;
+  double amount = 5;  // calculated at req time
 }
 
 message Purchase {
   uint64 user_id = 1;
-  map<uint64, StateChange> state_changes = 2;
-  Timestamp timestamp = 3;
-  map<uint64,uint64> items = 4; // { product_id: quantity }
-  double amount = 5;  // calculated at req time
-  uint64 src_address_id = 6;
-  uint64 dest_address_id = 7;
-  uint64 merchant_id = 8;
-  double distance_in_kilometers = 9;
-  uint64 shipping_id = 10;
+  Timestamp timestamp = 2;
+  map<uint64,uint64> items = 3; // { product_id: quantity }
+  double amount = 4;  // calculated at req time
+  uint64 src_address_id = 5;
+  uint64 dest_address_id = 6;
+  uint64 merchant_id = 7;
+  double distance_in_kilometers = 8;
+  uint64 shipping_id = 9;
 }
 
 message Booking {
   uint64 user_id = 1;
-  map<uint64, StateChange> state_changes = 2;
-  Timestamp timestamp = 3;
-  uint64 service_id = 4;
-  double amount = 5;  // calculated at req time
+  Timestamp timestamp = 2;
+  uint64 service_id = 3;
+  double amount = 4;  // calculated at req time
 }
 
 message RetrieveCurrentRequest {
