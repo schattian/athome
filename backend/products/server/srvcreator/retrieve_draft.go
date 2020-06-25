@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraftRequest) (*pbproducts.Draft, error) {
+func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraftRequest) (*pbproducts.RetrieveDraftResponse, error) {
 	err := in.Validate()
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (s *Server) RetrieveDraft(ctx context.Context, in *pbproducts.RetrieveDraft
 	return s.retrieveDraft(ctx, draft)
 }
 
-func (s *Server) retrieveDraft(ctx context.Context, d *ent.Draft) (*pbproducts.Draft, error) {
-	return d.ToPb(), nil
+func (s *Server) retrieveDraft(ctx context.Context, d *ent.Draft) (*pbproducts.RetrieveDraftResponse, error) {
+	return &pbproducts.RetrieveDraftResponse{DraftId: d.Id, Draft: d.ToPb()}, nil
 }
 
 func (s *Server) RetrieveDraftLines(ctx context.Context, in *pbproducts.RetrieveDraftLinesRequest) (*pbproducts.RetrieveDraftLinesResponse, error) {
