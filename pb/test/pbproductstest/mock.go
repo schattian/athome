@@ -158,14 +158,14 @@ func (mr *MockCreatorClientMockRecorder) Prev(arg0, arg1 interface{}, arg2 ...in
 }
 
 // RetrieveDraft mocks base method
-func (m *MockCreatorClient) RetrieveDraft(arg0 context.Context, arg1 *pbproducts.RetrieveDraftRequest, arg2 ...grpc.CallOption) (*pbproducts.Draft, error) {
+func (m *MockCreatorClient) RetrieveDraft(arg0 context.Context, arg1 *pbproducts.RetrieveDraftRequest, arg2 ...grpc.CallOption) (*pbproducts.RetrieveDraftResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveDraft", varargs...)
-	ret0, _ := ret[0].(*pbproducts.Draft)
+	ret0, _ := ret[0].(*pbproducts.RetrieveDraftResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
