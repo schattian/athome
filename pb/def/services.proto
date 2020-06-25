@@ -29,7 +29,7 @@ service Calendars{
 }
 
 service Register{
-  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (Registry) {}
+  rpc RetrieveRegistry (RetrieveRegistryRequest) returns (RetrieveRegistryResponse) {}
   rpc DeleteRegistry (DeleteRegistryRequest) returns (google.protobuf.Empty) {}
 
   rpc Prev (PrevRequest) returns (google.protobuf.Empty) {}
@@ -86,6 +86,11 @@ message PageResponse {
 
 message RetrieveServiceRequest {
   uint64 service_id = 1;
+}
+
+message RetrieveRegistryResponse {
+  uint64 registry_id = 1;
+  Registry registry = 2;
 }
 
 message RetrieveCalendarRequest {
