@@ -6,6 +6,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/images/store"
 	"github.com/athomecomar/athome/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/xerrors"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
@@ -73,5 +74,5 @@ func (s *Server) cloneImages(
 	go s.deleteImage(ctx, dd, errCh, wg)
 	lock.Lock()
 	defer lock.Unlock()
-	resp.Images[destDd.Id()] = &pbimages.Image{Uri: destDd.URI(), Entity: &pbimages.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
+	resp.Images[destDd.Id()] = &pbimages.Image{Uri: destDd.URI(), Entity: &pbshared.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
 }

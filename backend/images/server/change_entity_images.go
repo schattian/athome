@@ -9,6 +9,7 @@ import (
 	"github.com/athomecomar/athome/backend/images/img"
 	"github.com/athomecomar/athome/backend/images/store"
 	"github.com/athomecomar/athome/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/xerrors"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/status"
@@ -87,7 +88,7 @@ func (s *Server) copyImages(ctx context.Context,
 	return destDd, meta, nil
 }
 
-func (s *Server) changeEntityImages(ctx context.Context, dest *pbimages.Entity,
+func (s *Server) changeEntityImages(ctx context.Context, dest *pbshared.Entity,
 	dd store.Data,
 	wg *sync.WaitGroup,
 	errCh chan<- error,

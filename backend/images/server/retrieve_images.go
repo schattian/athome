@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/athomecomar/athome/pb/pbimages"
+	"github.com/athomecomar/athome/pb/pbshared"
 	"github.com/athomecomar/xerrors"
 	"google.golang.org/grpc/status"
 )
@@ -43,5 +44,5 @@ func (s *Server) retrieveImage(ctx context.Context, id string, respCh chan<- *pb
 		return
 	}
 
-	respCh <- &pbimages.Image{Uri: dd.URI(), Entity: &pbimages.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
+	respCh <- &pbimages.Image{Uri: dd.URI(), Entity: &pbshared.Entity{EntityId: meta.Entity.Id, EntityTable: meta.Entity.Table}}
 }

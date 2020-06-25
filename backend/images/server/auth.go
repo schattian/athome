@@ -55,11 +55,11 @@ func authorizeProductsProducts(ctx context.Context, access string, entityId uint
 		return 0, err
 	}
 	defer closer()
-	prod, err := c.RetrieveProductDetail(ctx, &pbproducts.RetrieveProductDetailRequest{ProductId: entityId})
+	prod, err := c.RetrieveProduct(ctx, &pbproducts.RetrieveProductRequest{ProductId: entityId})
 	if err != nil {
 		return 0, err
 	}
-	if prod.GetProduct().GetUserId() != userId {
+	if prod.GetUserId() != userId {
 		return 0, status.Error(xerrors.PermissionDenied, "product isnt yours")
 	}
 	return userId, nil
