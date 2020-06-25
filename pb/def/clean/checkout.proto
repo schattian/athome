@@ -119,15 +119,28 @@ message AssignDestAddressRequest{
 }
 
 message CreateShippingRequest{
+  message Shipping {
+    uint64 service_id = 1;
+    shared.TimeOfDay time = 2;
+    string dow = 3;
+  }
   string access_token = 1;
-  uint64 service_id = 2;
-  shared.TimeOfDay time = 3;
-  string dow = 4;
+  Shipping shipping = 2;
 }
 
 message CreateShippingResponse{
   uint64 shipping_id = 1;
   Shipping shipping = 2;
+}
+
+message Shipping{
+  uint64 amount = 1;
+  uint64 event_id = 2;
+  uint64 duration_in_minutes = 3;
+  uint64 src_address_id = 4;
+  uint64 dest_address_id = 5;
+  double distance_in_kilometers = 6;
+  uint64 user_id = 7;
 }
 
 message RetrieveShippingMethodsRequest {
@@ -136,25 +149,12 @@ message RetrieveShippingMethodsRequest {
   string dow = 3;
 }
 
-message ShippingMethod{
-  uint64 shipping_method_id = 1;
-  Shipping service = 2;
-  User user = 3;
-}
-
-message Shipping  {
+message ShippingMethod  {
   double amount = 1;
   uint64 duration_in_minutes = 2;
   uint64 service_id = 3;
   uint64 user_id = 4;
   string title = 5;
-}
-
-message User {
-  string name = 1;
-  string surname = 2;
-  string image_url = 3;
-  uint64 address_id = 4;
 }
 
 message RetrieveShippingMethodsResponse {
