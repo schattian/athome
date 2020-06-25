@@ -47,7 +47,7 @@ service Purchases {
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
   rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
-  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {} 
+  rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
   rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
 
@@ -71,7 +71,7 @@ message RetrieveMyCardsRequest{
 }
 
 message RetrieveMyCardsResponse{
-  map<uint64, Card> cards = 1; 
+  map<uint64, Card> cards = 1;
 }
 
 message CreateCardRequest{
@@ -126,11 +126,8 @@ message CreateShippingRequest{
 }
 
 message CreateShippingResponse{
-  string access_token = 1;
-  uint64 service_id = 2;
-  shared.TimeOfDay time = 3;
-  string dow = 4;
-  double amount = 5;
+  uint64 shipping_id = 1;
+  Shipping shipping = 2;
 }
 
 message RetrieveShippingMethodsRequest {
@@ -148,7 +145,9 @@ message ShippingMethod{
 message Shipping  {
   double amount = 1;
   uint64 duration_in_minutes = 2;
-  string title = 3;
+  uint64 service_id = 3;
+  uint64 user_id = 4;
+  string title = 5;
 }
 
 message User {
@@ -258,7 +257,7 @@ message PaymentInput {
   // amount will be inferred through payment_method_id:installments
   uint64 payment_method_id = 1;
   uint64 installments = 2;
-  uint64 card_id = 3; 
+  uint64 card_id = 3;
 }
 
 message Payment {
@@ -267,6 +266,7 @@ message Payment {
   Timestamp timestamp = 3;
   uint64 payment_method_id = 6;
   uint64 installments = 7;
+  uint64 card_id = 8;
 }
 
 message CardInput {
@@ -287,6 +287,5 @@ message Card {
 message CardHolder {
   uint64 dni = 1;
   string name = 2;
-  string surname = 3;
 }
 

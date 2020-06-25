@@ -138,12 +138,25 @@ func (o *Purchase) ProductIds() (ids []uint64) {
 	return
 }
 
-func (o *Purchase) Amount(ctx context.Context, c pbproducts.ViewerClient) (float64, error) {
+func (o *Purchase) Amount(ctx context.Context, db *sqlx.DB, c pbproducts.ViewerClient) (float64, error) {
 	prods, err := o.Products(ctx, c)
 	if err != nil {
 		return 0, errors.Wrap(err, "Products")
 	}
-	return o.AmountFromProducts(ctx, prods)
+	amount, err := o.AmountFromProducts(ctx, prods)
+	if err != nil {
+		return 0, errors.Wrap(err, "AmountFromProducts")
+	}
+
+	if o.ShippingId == 0 {
+		return amount, nil
+	}
+
+	ship, err := o.Shipping(ctx, db)
+	if err != nil {
+		return 0, errors.Wrap(err, "Shipping")
+	}
+	return amount + ship.OrderPrice.Float64(), nil
 }
 
 func (o *Purchase) AmountFromProducts(ctx context.Context, prods map[uint64]*pbproducts.Product) (float64, error) {
@@ -167,7 +180,7 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	if err != nil {
 		return nil, errors.Wrap(err, "StateChanges")
 	}
-	amount, err := o.Amount(ctx, prods)
+	amount, err := o.Amount(ctx, db, prods)
 	if err != nil {
 		return nil, errors.Wrap(err, "Amount")
 	}

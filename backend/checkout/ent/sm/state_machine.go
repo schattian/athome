@@ -59,8 +59,11 @@ func (sm *StateMachine) StageByName(s StateName) int64 {
 var (
 	PurchaseStateMachine = &StateMachine{
 		States: []*State{
-			{Name: PurchaseInit, Description: "init a purchase", prevable: true, nextable: true, cancellable: true},
-			{Name: PurchaseAddress, Description: "address fulfill is needed", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchaseInit, Description: "draft was initialized", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchaseAddress, Description: "address fulfill is completed", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchaseShippingMethod, Description: "shipping method was selected", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchasePayment, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
+			{Name: PurchaseConfirmed, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
 		},
 	}
 )

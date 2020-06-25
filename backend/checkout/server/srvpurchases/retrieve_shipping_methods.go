@@ -110,7 +110,7 @@ func serviceSearchResultToShippingMethod(ship *pbservices.ServiceSearchResult, t
 	return &pbcheckout.ShippingMethod{
 		Service: &pbcheckout.Shipping{
 			Title:             svc.GetTitle(),
-			Price:             totalPrice,
+			Amount:            totalPrice,
 			DurationInMinutes: svc.GetDurationInMinutes(),
 		},
 		User: &pbcheckout.User{

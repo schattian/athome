@@ -27,6 +27,7 @@ const (
 	PurchaseAddress        StateName = "address"
 	PurchaseShippingMethod StateName = "shipping_method"
 	PurchasePayment        StateName = "payment"
+	PurchaseConfirmed      StateName = "confirmed"
 	// Purchase StateName = "payment"
 )
 

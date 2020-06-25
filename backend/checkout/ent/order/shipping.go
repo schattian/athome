@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 
+	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
@@ -39,6 +40,16 @@ func NewShipping(ctx context.Context, db *sqlx.DB,
 		DestAddressId:          p.DestAddressId,
 		ManhattanDistance:      p.DistanceInKilometers,
 		UserId:                 providerId,
+	}
+}
+
+func (s *Shipping) ToPb(svcId uint64, svcTitle string) *pbcheckout.Shipping {
+	return &pbcheckout.Shipping{
+		UserId:            s.UserId,
+		ServiceId:         svcId,
+		Title:             svcTitle,
+		DurationInMinutes: s.OrderDurationInMinutes,
+		Amount:            s.OrderPrice.Float64(),
 	}
 }
 
