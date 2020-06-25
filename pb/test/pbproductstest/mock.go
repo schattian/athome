@@ -158,14 +158,14 @@ func (mr *MockCreatorClientMockRecorder) Prev(arg0, arg1 interface{}, arg2 ...in
 }
 
 // RetrieveDraft mocks base method
-func (m *MockCreatorClient) RetrieveDraft(arg0 context.Context, arg1 *pbproducts.RetrieveDraftRequest, arg2 ...grpc.CallOption) (*pbproducts.DraftDetail, error) {
+func (m *MockCreatorClient) RetrieveDraft(arg0 context.Context, arg1 *pbproducts.RetrieveDraftRequest, arg2 ...grpc.CallOption) (*pbproducts.Draft, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveDraft", varargs...)
-	ret0, _ := ret[0].(*pbproducts.DraftDetail)
+	ret0, _ := ret[0].(*pbproducts.Draft)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -514,24 +514,24 @@ func (m *MockViewerClient) EXPECT() *MockViewerClientMockRecorder {
 	return m.recorder
 }
 
-// RetrieveProductDetail mocks base method
-func (m *MockViewerClient) RetrieveProductDetail(arg0 context.Context, arg1 *pbproducts.RetrieveProductDetailRequest, arg2 ...grpc.CallOption) (*pbproducts.ProductDetail, error) {
+// RetrieveProduct mocks base method
+func (m *MockViewerClient) RetrieveProduct(arg0 context.Context, arg1 *pbproducts.RetrieveProductRequest, arg2 ...grpc.CallOption) (*pbproducts.Product, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{arg0, arg1}
 	for _, a := range arg2 {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "RetrieveProductDetail", varargs...)
-	ret0, _ := ret[0].(*pbproducts.ProductDetail)
+	ret := m.ctrl.Call(m, "RetrieveProduct", varargs...)
+	ret0, _ := ret[0].(*pbproducts.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// RetrieveProductDetail indicates an expected call of RetrieveProductDetail
-func (mr *MockViewerClientMockRecorder) RetrieveProductDetail(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+// RetrieveProduct indicates an expected call of RetrieveProduct
+func (mr *MockViewerClientMockRecorder) RetrieveProduct(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveProductDetail", reflect.TypeOf((*MockViewerClient)(nil).RetrieveProductDetail), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveProduct", reflect.TypeOf((*MockViewerClient)(nil).RetrieveProduct), varargs...)
 }
 
 // RetrieveProducts mocks base method
