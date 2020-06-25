@@ -2406,7 +2406,7 @@ func (m *Shipment) Validate() error {
 
 	}
 
-	// no validation rules for ServiceId
+	// no validation rules for ShippingMethodId
 
 	if v, ok := interface{}(m.GetTimestamp()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -2952,7 +2952,7 @@ func (m *CreateShippingRequest_Shipping) Validate() error {
 		return nil
 	}
 
-	// no validation rules for ServiceId
+	// no validation rules for ShippingMethodId
 
 	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
