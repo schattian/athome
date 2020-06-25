@@ -49,16 +49,16 @@ func (ln *DraftLine) finish(ctx context.Context, db *sqlx.DB, imgs pbimages.Imag
 
 	_, err = sem.ChangeEntityAttributeDatas(ctx, &pbsemantic.ChangeEntityAttributeDatasRequest{
 		AccessToken: access,
-		From:        pbutil.ToPbSemanticEntity(ln),
-		Dest:        pbutil.ToPbSemanticEntity(prod),
+		From:        pbutil.ToPbEntity(ln),
+		Dest:        pbutil.ToPbEntity(prod),
 	})
 	if err != nil {
 		return nil, err
 	}
 	_, err = imgs.ChangeEntityImages(ctx, &pbimages.ChangeEntityImagesRequest{
 		AccessToken: access,
-		From:        pbutil.ToPbImagesEntity(ln),
-		Dest:        pbutil.ToPbImagesEntity(prod),
+		From:        pbutil.ToPbEntity(ln),
+		Dest:        pbutil.ToPbEntity(prod),
 	})
 	if err != nil {
 		return nil, err

@@ -63,41 +63,18 @@ func (p *Product) ToPb() *pbproducts.Product {
 	}
 }
 
-func (p *Product) ToPbSearchResult(ctx context.Context, users pbusers.ViewerClient, img pbimages.ImagesClient) (*pbproducts.ProductSearchResult, error) {
-	var err error
-	resp := &pbproducts.ProductSearchResult{Product: &pbproducts.ProductSearchResult_Product{Title: p.Title, Price: p.Price.Float64()}}
-	resp.User, err = p.GetUser(ctx, users)
-	if err != nil {
-		return nil, errors.Wrap(err, "GetUser")
-	}
-	resp.Images, err = p.GetImages(ctx, img)
-	if err != nil {
-		return nil, errors.Wrap(err, "GetImages")
-	}
-	return resp, nil
+func (p *Product) User(ctx context.Context, users pbusers.ViewerClient) (*pbusers.User, error) {
+	return users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: p.UserId})
 }
 
-func (p *Product) GetUser(ctx context.Context, users pbusers.ViewerClient) (*pbproducts.User, error) {
-	resp, err := users.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: p.UserId})
-	if err != nil {
-		return nil, errors.Wrap(err, "ViewUser")
-	}
-	return &pbproducts.User{Name: resp.GetUser().GetName(), Surname: resp.GetUser().GetSurname()}, nil
-}
-
-func (p *Product) GetImages(ctx context.Context, img pbimages.ImagesClient) (map[string]*pbproducts.Image, error) {
+func (p *Product) Images(ctx context.Context, img pbimages.ImagesClient) (map[string]*pbimages.Image, error) {
 	resp, err := img.RetrieveImages(ctx, &pbimages.RetrieveImagesRequest{
-		Entity: &pbimages.Entity{EntityTable: p.SQLTable(), EntityId: p.Id},
+		Entity: pbutil.ToPbEntity(p),
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "RetrieveImages")
 	}
-
-	images := make(map[string]*pbproducts.Image)
-	for id, image := range resp.GetImages() {
-		images[id] = &pbproducts.Image{Uri: image.Uri}
-	}
-	return images, nil
+	return resp.GetImages(), nil
 }
 
 func (p *Product) GetAttributes(ctx context.Context, sem pbsemantic.ProductsClient) (map[uint64]*pbproducts.Attribute, error) {
@@ -106,7 +83,7 @@ func (p *Product) GetAttributes(ctx context.Context, sem pbsemantic.ProductsClie
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesSchema")
 	}
 	datas, err := sem.RetrieveAttributeDatas(ctx, &pbsemantic.RetrieveAttributeDatasRequest{
-		Entity: pbutil.ToPbSemanticEntity(p),
+		Entity: pbutil.ToPbEntity(p),
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "sem.RetrieveAttributesData")

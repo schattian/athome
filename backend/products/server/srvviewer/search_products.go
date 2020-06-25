@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"strconv"
 	"strings"
-	"sync"
 	"unicode"
 
 	"github.com/athomecomar/athome/backend/products/ent"
@@ -105,38 +104,11 @@ func (s *Server) searchProducts(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		resp.Page.NextCursor = b64EncodeId(prods[len(prods)-1].Id)
 	}
 
-	var wg sync.WaitGroup
-	errCh := make(chan error, 1)
-	done := make(chan struct{})
-	resp.Products = make(map[uint64]*pbproducts.ProductSearchResult)
-	var lock sync.RWMutex
+	resp.Products = make(map[uint64]*pbproducts.Product)
 	for _, pr := range prods {
-		wg.Add(1)
-		pr := pr
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			res, err := pr.ToPbSearchResult(ctx, users, img)
-			if err != nil {
-				errCh <- status.Errorf(xerrors.Internal, "ToPbSearchResult: %v", err)
-			}
-			lock.Lock()
-			defer lock.Unlock()
-			resp.Products[pr.Id] = res
-		}(&wg)
+		resp.Products[pr.Id] = pr.ToPb()
 	}
-	go func() {
-		wg.Wait()
-		close(done)
-	}()
-
-	for {
-		select {
-		case err := <-errCh:
-			return nil, err
-		case <-done:
-			return resp, nil
-		}
-	}
+	return resp, nil
 }
 
 func toNormal(s string) (string, error) {

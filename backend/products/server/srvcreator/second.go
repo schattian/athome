@@ -92,7 +92,7 @@ func (s *Server) second(ctx context.Context, db *sqlx.DB, sem pbsemantic.Product
 		Corpus: &pbsemantic.SetAttributeDatasRequest_Authorization_{
 			Authorization: &pbsemantic.SetAttributeDatasRequest_Authorization{
 				AccessToken: access,
-				Entity:      pbutil.ToPbSemanticEntity(ln),
+				Entity:      pbutil.ToPbEntity(ln),
 			},
 		},
 	}
