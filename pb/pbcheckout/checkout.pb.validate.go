@@ -2143,7 +2143,7 @@ func (m *Reservation) Validate() error {
 		}
 	}
 
-	// no validation rules for ProductId
+	// no validation rules for Items
 
 	// no validation rules for Days
 
