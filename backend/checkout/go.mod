@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/checkout
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200625200250-92e0145fdfee
+	github.com/athomecomar/athome/pb v0.0.0-20200625200715-b9a45faa20e6
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4

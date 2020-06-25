@@ -71,24 +71,31 @@ func (s *Server) createShipping(
 ) (*pbcheckout.CreateShippingResponse, error) {
 	eventResp, err := cals.CreateShippingEvent(ctx, &pbservices.CreateShippingEventRequest{
 		AccessToken: in.GetAccessToken(),
-		ServiceId:   in.GetServiceId(),
-		Dow:         in.GetDow(),
-		End:         in.GetTime(),
+		ServiceId:   in.GetShipping().GetShippingMethodId(),
+		Dow:         in.GetShipping().GetDow(),
+		End:         in.GetShipping().GetTime(),
 	})
 	if err != nil {
 		return nil, err
 	}
-	svcResp, err := svcs.RetrieveServiceDetail(ctx, &pbservices.RetrieveServiceDetailRequest{ServiceId: in.GetServiceId()})
+	svcResp, err := svcs.RetrieveService(ctx, &pbservices.RetrieveServiceRequest{ServiceId: in.GetShipping().GetShippingMethodId()})
 	if err != nil {
 		return nil, err
 	}
-	ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, svcResp.GetService().UserId, svcResp.GetService().GetPrice())
+	ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, svcResp.GetUserId(), svcResp.GetPrice())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 	}
 	price := ppkm.Float64() * p.DistanceInKilometers
 	duration := pbutil.DiffTimeOfDay(eventResp.GetEvent().GetStart(), eventResp.GetEvent().GetEnd())
-	ship := order.NewShipping(ctx, db, p, eventResp.GetEventId(), svcResp.Service.GetUserId(), currency.ToARS(price), uint64(duration))
+	ship := order.NewShipping(
+		ctx, db, p,
+		eventResp.GetEventId(),
+		svcResp.GetUserId(),
+		in.Shipping.GetShippingMethodId(),
+		currency.ToARS(price),
+		uint64(duration),
+	)
 	err = storeql.InsertIntoDB(ctx, db, ship)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
@@ -98,6 +105,8 @@ func (s *Server) createShipping(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.UpdateIntoDB: %v", err)
 	}
-
-	return &pbcheckout.CreateShippingResponse{ShippingId: ship.Id, Shipping: ship.ToPb(in.GetServiceId(), svcResp.Service.GetTitle())}, nil
+	return &pbcheckout.CreateShippingResponse{
+		ShippingId: ship.Id,
+		Shipping:   ship.ToPb(),
+	}, nil
 }

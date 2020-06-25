@@ -13,9 +13,10 @@ import (
 )
 
 type Shipping struct {
-	Id      uint64
-	UserId  uint64
-	EventId uint64
+	Id               uint64
+	UserId           uint64
+	EventId          uint64
+	ShippingMethodId uint64
 
 	SrcAddressId      uint64
 	DestAddressId     uint64
@@ -29,8 +30,12 @@ type Shipping struct {
 }
 
 func NewShipping(ctx context.Context, db *sqlx.DB,
-	p *Purchase, eventId uint64, providerId uint64,
-	orderPrice currency.ARS, orderDuration uint64,
+	p *Purchase,
+	eventId uint64,
+	providerId uint64,
+	shippingMethodId uint64,
+	orderPrice currency.ARS,
+	orderDuration uint64,
 ) *Shipping {
 	return &Shipping{
 		EventId:                eventId,
@@ -40,16 +45,19 @@ func NewShipping(ctx context.Context, db *sqlx.DB,
 		DestAddressId:          p.DestAddressId,
 		ManhattanDistance:      p.DistanceInKilometers,
 		UserId:                 providerId,
+		ShippingMethodId:       shippingMethodId,
 	}
 }
 
-func (s *Shipping) ToPb(svcId uint64, svcTitle string) *pbcheckout.Shipping {
+func (s *Shipping) ToPb() *pbcheckout.Shipping {
 	return &pbcheckout.Shipping{
-		UserId:            s.UserId,
-		ServiceId:         svcId,
-		Title:             svcTitle,
-		DurationInMinutes: s.OrderDurationInMinutes,
-		Amount:            s.OrderPrice.Float64(),
+		UserId:               s.UserId,
+		DurationInMinutes:    s.OrderDurationInMinutes,
+		Amount:               s.OrderPrice.Float64(),
+		EventId:              s.EventId,
+		SrcAddressId:         s.SrcAddressId,
+		DestAddressId:        s.DestAddressId,
+		DistanceInKilometers: s.ManhattanDistance,
 	}
 }
 

@@ -107,7 +107,7 @@ func (o *Purchase) OrderClass() class {
 	return Purchases
 }
 
-func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient) (*pbusers.UserDetail, error) {
+func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient) (*pbusers.User, error) {
 	return c.RetrieveUser(ctx, &pbusers.RetrieveUserRequest{UserId: o.MerchantId})
 }
 
@@ -214,11 +214,11 @@ func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerCli
 	if err != nil {
 		return errors.Wrap(err, "users.RetrieveUser")
 	}
-	resp, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{BAddressId: o.SrcAddressId, AAddressId: u.GetUser().GetAddressId()})
+	resp, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{BAddressId: o.SrcAddressId, AAddressId: u.GetAddressId()})
 	if err != nil {
 		return errors.Wrap(err, "addr.MeasureDistance")
 	}
-	o.SrcAddressId = u.GetUser().GetAddressId()
+	o.SrcAddressId = u.GetAddressId()
 	o.DistanceInKilometers = resp.ManhattanInKilometers
 	return nil
 }
@@ -272,6 +272,5 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 		Timestamp:     ts,
 		MerchantId:    o.MerchantId,
 		ShippingId:    o.ShippingId,
-		StateChanges:  pbScs,
 	}, nil
 }

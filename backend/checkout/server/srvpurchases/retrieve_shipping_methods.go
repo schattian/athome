@@ -2,6 +2,7 @@ package srvpurchases
 
 import (
 	"context"
+	"math"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/server"
@@ -79,7 +80,7 @@ func (s *Server) retrieveShippingMethods(
 		return nil, err
 	}
 
-	shippings, err := svcs.SearchAvailableShippings(ctx, &pbservices.SearchAvailableShippingsRequest{
+	services, err := svcs.SearchAvailableShippings(ctx, &pbservices.SearchAvailableShippingsRequest{
 		MaxVolWeight:         maxVolWeight,
 		DistanceInKilometers: p.DistanceInKilometers,
 
@@ -93,31 +94,39 @@ func (s *Server) retrieveShippingMethods(
 
 	resp := &pbcheckout.RetrieveShippingMethodsResponse{}
 	resp.ShippingMethods = make(map[uint64]*pbcheckout.ShippingMethod)
-	for id, ship := range shippings.GetServices() {
-		ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, ship.GetService().GetUserId(), ship.GetService().GetPrice())
+	for id, svc := range services.GetServices() {
+		ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, svc.GetUserId(), svc.GetPrice())
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 		}
 		price := ppkm.Float64() * p.DistanceInKilometers
-		resp.ShippingMethods[id] = serviceSearchResultToShippingMethod(ship, price)
+		resp.ShippingMethods[id] = &pbcheckout.ShippingMethod{
+			Amount:            price,
+			DurationInMinutes: uint64(math.Ceil(p.DistanceInKilometers * float64(svc.DurationInMinutes))),
+		}
 	}
 
 	return resp, nil
 }
 
-func serviceSearchResultToShippingMethod(ship *pbservices.ServiceSearchResult, totalPrice float64) *pbcheckout.ShippingMethod {
-	svc, user := ship.GetService(), ship.GetUser()
-	return &pbcheckout.ShippingMethod{
-		Service: &pbcheckout.Shipping{
-			Title:             svc.GetTitle(),
-			Amount:            totalPrice,
-			DurationInMinutes: svc.GetDurationInMinutes(),
-		},
-		User: &pbcheckout.User{
-			Name:      user.GetName(),
-			Surname:   user.GetSurname(),
-			ImageUrl:  user.GetImageUrl(),
-			AddressId: user.GetAddressId(),
-		},
-	}
-}
+// func serviceToPbShippingMethod(svc *pbservices.Service, totalPrice float64) *pbcheckout.ShippingMethod {
+// return &pbcheckout.ShippingMethod{
+// 	Amount  : totalPrice,
+// 	DurationInMinutes  : svc.DurationInMinutes,
+// 	ServiceId           : svc.GetId
+// 	UserId
+// 	Title
+
+// }
+// Service: &pbcheckout.Shipping{
+// Title:             svc.GetTitle(),
+// Amount:            totalPrice,
+// DurationInMinutes: svc.GetDurationInMinutes(),
+// },
+// User: &pbcheckout.User{
+// 	Name:      user.GetName(),
+// 	Surname:   user.GetSurname(),
+// 	ImageUrl:  user.GetImageUrl(),
+// 	AddressId: user.GetAddressId(),
+// },
+// }
