@@ -76,24 +76,24 @@ func (mr *MockViewerClientMockRecorder) SearchAvailableShippings(ctx, in interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchAvailableShippings", reflect.TypeOf((*MockViewerClient)(nil).SearchAvailableShippings), varargs...)
 }
 
-// RetrieveServiceDetail mocks base method
-func (m *MockViewerClient) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest, opts ...grpc.CallOption) (*pbservices.ServiceDetail, error) {
+// RetrieveService mocks base method
+func (m *MockViewerClient) RetrieveService(ctx context.Context, in *pbservices.RetrieveServiceRequest, opts ...grpc.CallOption) (*pbservices.Service, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "RetrieveServiceDetail", varargs...)
-	ret0, _ := ret[0].(*pbservices.ServiceDetail)
+	ret := m.ctrl.Call(m, "RetrieveService", varargs...)
+	ret0, _ := ret[0].(*pbservices.Service)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// RetrieveServiceDetail indicates an expected call of RetrieveServiceDetail
-func (mr *MockViewerClientMockRecorder) RetrieveServiceDetail(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+// RetrieveService indicates an expected call of RetrieveService
+func (mr *MockViewerClientMockRecorder) RetrieveService(ctx, in interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveServiceDetail", reflect.TypeOf((*MockViewerClient)(nil).RetrieveServiceDetail), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveService", reflect.TypeOf((*MockViewerClient)(nil).RetrieveService), varargs...)
 }
 
 // MockViewerServer is a mock of ViewerServer interface
@@ -149,19 +149,19 @@ func (mr *MockViewerServerMockRecorder) SearchAvailableShippings(arg0, arg1 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchAvailableShippings", reflect.TypeOf((*MockViewerServer)(nil).SearchAvailableShippings), arg0, arg1)
 }
 
-// RetrieveServiceDetail mocks base method
-func (m *MockViewerServer) RetrieveServiceDetail(arg0 context.Context, arg1 *pbservices.RetrieveServiceDetailRequest) (*pbservices.ServiceDetail, error) {
+// RetrieveService mocks base method
+func (m *MockViewerServer) RetrieveService(arg0 context.Context, arg1 *pbservices.RetrieveServiceRequest) (*pbservices.Service, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RetrieveServiceDetail", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.ServiceDetail)
+	ret := m.ctrl.Call(m, "RetrieveService", arg0, arg1)
+	ret0, _ := ret[0].(*pbservices.Service)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// RetrieveServiceDetail indicates an expected call of RetrieveServiceDetail
-func (mr *MockViewerServerMockRecorder) RetrieveServiceDetail(arg0, arg1 interface{}) *gomock.Call {
+// RetrieveService indicates an expected call of RetrieveService
+func (mr *MockViewerServerMockRecorder) RetrieveService(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveServiceDetail", reflect.TypeOf((*MockViewerServer)(nil).RetrieveServiceDetail), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveService", reflect.TypeOf((*MockViewerServer)(nil).RetrieveService), arg0, arg1)
 }
 
 // MockCalendarsClient is a mock of CalendarsClient interface
@@ -208,14 +208,14 @@ func (mr *MockCalendarsClientMockRecorder) CreateCalendar(ctx, in interface{}, o
 }
 
 // RetrieveCalendar mocks base method
-func (m *MockCalendarsClient) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest, opts ...grpc.CallOption) (*pbservices.CalendarDetail, error) {
+func (m *MockCalendarsClient) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest, opts ...grpc.CallOption) (*pbservices.Calendar, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveCalendar", varargs...)
-	ret0, _ := ret[0].(*pbservices.CalendarDetail)
+	ret0, _ := ret[0].(*pbservices.Calendar)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -346,10 +346,10 @@ func (mr *MockCalendarsServerMockRecorder) CreateCalendar(arg0, arg1 interface{}
 }
 
 // RetrieveCalendar mocks base method
-func (m *MockCalendarsServer) RetrieveCalendar(arg0 context.Context, arg1 *pbservices.RetrieveCalendarRequest) (*pbservices.CalendarDetail, error) {
+func (m *MockCalendarsServer) RetrieveCalendar(arg0 context.Context, arg1 *pbservices.RetrieveCalendarRequest) (*pbservices.Calendar, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveCalendar", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.CalendarDetail)
+	ret0, _ := ret[0].(*pbservices.Calendar)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -444,14 +444,14 @@ func (m *MockRegisterClient) EXPECT() *MockRegisterClientMockRecorder {
 }
 
 // RetrieveRegistry mocks base method
-func (m *MockRegisterClient) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest, opts ...grpc.CallOption) (*pbservices.RegistryDetail, error) {
+func (m *MockRegisterClient) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest, opts ...grpc.CallOption) (*pbservices.Registry, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveRegistry", varargs...)
-	ret0, _ := ret[0].(*pbservices.RegistryDetail)
+	ret0, _ := ret[0].(*pbservices.Registry)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -587,10 +587,10 @@ func (m *MockRegisterServer) EXPECT() *MockRegisterServerMockRecorder {
 }
 
 // RetrieveRegistry mocks base method
-func (m *MockRegisterServer) RetrieveRegistry(arg0 context.Context, arg1 *pbservices.RetrieveRegistryRequest) (*pbservices.RegistryDetail, error) {
+func (m *MockRegisterServer) RetrieveRegistry(arg0 context.Context, arg1 *pbservices.RetrieveRegistryRequest) (*pbservices.Registry, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveRegistry", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.RegistryDetail)
+	ret0, _ := ret[0].(*pbservices.Registry)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
