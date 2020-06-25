@@ -5,7 +5,6 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 import "shared/time.proto";
-import "shared/entity.proto";
 
 option go_package = "./pbcheckout";
 
@@ -20,6 +19,8 @@ service Cards {
 service Reservations {
   rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse){}
 
+  rpc Retrieve (RetrieveOrderRequest) returns (Reservation){}
+
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveReservationResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
@@ -31,6 +32,8 @@ service Reservations {
 
 service Bookings {
   rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse){}
+
+  rpc Retrieve (RetrieveOrderRequest) returns (Booking){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveBookingResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
@@ -46,10 +49,14 @@ service Purchases {
 
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
+  rpc Retrieve (RetrieveOrderRequest) returns (Purchase){}
+
   rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
   rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
+
+  rpc ConfirmPurchase(CreatePurchaseRequest) returns(google.protobuf.Empty){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
@@ -58,6 +65,16 @@ service Purchases {
   rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
 
   rpc Cancel(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrieveOrderRequest {
+  string access_token = 1;
+  uint64 order_id = 2;
+}
+
+message ConfirmPurchaseRequest {
+  string access_token = 1;
+  uint64 purchase_id = 2;
 }
 
 message VerifyCVVRequest{

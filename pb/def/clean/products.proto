@@ -2,14 +2,20 @@ syntax = "proto3";
 
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
+import "shared/entity.proto";
 
 option go_package = "./pbproducts";
 
 package products;
 
-//service Manager {
-// rpc
-//}
+service Manager {
+  rpc ReserveStock(ReserveStockRequest) returns (google.protobuf.Empty){}
+}
+
+message ReserveStockRequest{
+  string access_token  = 1;
+  shared.Entity order = 2;
+}
 
 service Viewer {
   rpc SearchProducts (SearchProductsRequest) returns (SearchProductsResponse){}
