@@ -117,7 +117,7 @@ func (n *Notification) ToPb() (*pbnotifier.Notification, error) {
 	return &pbnotifier.Notification{
 		UserId: n.UserId,
 		Body:   n.Body,
-		Entity: pbutil.ToPbNotifierEntity(n),
+		Entity: pbutil.ToPbEntity(n),
 		Status: status,
 	}, nil
 }
