@@ -964,22 +964,13 @@ func (m *CreateShippingRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
-	// no validation rules for ServiceId
-
-	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetShipping()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreateShippingRequestValidationError{
-				field:  "Time",
+				field:  "Shipping",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
-		}
-	}
-
-	if _, ok := _CreateShippingRequest_Dow_InLookup[m.GetDow()]; !ok {
-		return CreateShippingRequestValidationError{
-			field:  "Dow",
-			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
 		}
 	}
 
@@ -1041,16 +1032,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateShippingRequestValidationError{}
-
-var _CreateShippingRequest_Dow_InLookup = map[string]struct{}{
-	"monday":    {},
-	"tuesday":   {},
-	"wednesday": {},
-	"thursday":  {},
-	"friday":    {},
-	"saturday":  {},
-	"sunday":    {},
-}
 
 // Validate checks the field values on CreateShippingResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1130,6 +1111,84 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateShippingResponseValidationError{}
+
+// Validate checks the field values on Shipping with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Shipping) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Amount
+
+	// no validation rules for EventId
+
+	// no validation rules for DurationInMinutes
+
+	// no validation rules for SrcAddressId
+
+	// no validation rules for DestAddressId
+
+	// no validation rules for DistanceInKilometers
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// ShippingValidationError is the validation error returned by
+// Shipping.Validate if the designated constraints aren't met.
+type ShippingValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ShippingValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ShippingValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ShippingValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ShippingValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ShippingValidationError) ErrorName() string { return "ShippingValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ShippingValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sShipping.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ShippingValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ShippingValidationError{}
 
 // Validate checks the field values on RetrieveShippingMethodsRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -1236,27 +1295,15 @@ func (m *ShippingMethod) Validate() error {
 		return nil
 	}
 
-	// no validation rules for ShippingMethodId
+	// no validation rules for Amount
 
-	if v, ok := interface{}(m.GetService()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ShippingMethodValidationError{
-				field:  "Service",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for DurationInMinutes
 
-	if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ShippingMethodValidationError{
-				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for ServiceId
+
+	// no validation rules for UserId
+
+	// no validation rules for Title
 
 	return nil
 }
@@ -1314,152 +1361,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ShippingMethodValidationError{}
-
-// Validate checks the field values on Shipping with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Shipping) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Amount
-
-	// no validation rules for DurationInMinutes
-
-	// no validation rules for ServiceId
-
-	// no validation rules for UserId
-
-	// no validation rules for Title
-
-	return nil
-}
-
-// ShippingValidationError is the validation error returned by
-// Shipping.Validate if the designated constraints aren't met.
-type ShippingValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ShippingValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ShippingValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ShippingValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ShippingValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ShippingValidationError) ErrorName() string { return "ShippingValidationError" }
-
-// Error satisfies the builtin error interface
-func (e ShippingValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sShipping.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ShippingValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ShippingValidationError{}
-
-// Validate checks the field values on User with the rules defined in the proto
-// definition for this message. If any rules are violated, an error is returned.
-func (m *User) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Name
-
-	// no validation rules for Surname
-
-	// no validation rules for ImageUrl
-
-	// no validation rules for AddressId
-
-	return nil
-}
-
-// UserValidationError is the validation error returned by User.Validate if the
-// designated constraints aren't met.
-type UserValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UserValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UserValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UserValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UserValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UserValidationError) ErrorName() string { return "UserValidationError" }
-
-// Error satisfies the builtin error interface
-func (e UserValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUser.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UserValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UserValidationError{}
 
 // Validate checks the field values on RetrieveShippingMethodsResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -3044,6 +2945,103 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CardHolderValidationError{}
+
+// Validate checks the field values on CreateShippingRequest_Shipping with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateShippingRequest_Shipping) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ServiceId
+
+	if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateShippingRequest_ShippingValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if _, ok := _CreateShippingRequest_Shipping_Dow_InLookup[m.GetDow()]; !ok {
+		return CreateShippingRequest_ShippingValidationError{
+			field:  "Dow",
+			reason: "value must be in list [monday tuesday wednesday thursday friday saturday sunday]",
+		}
+	}
+
+	return nil
+}
+
+// CreateShippingRequest_ShippingValidationError is the validation error
+// returned by CreateShippingRequest_Shipping.Validate if the designated
+// constraints aren't met.
+type CreateShippingRequest_ShippingValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateShippingRequest_ShippingValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateShippingRequest_ShippingValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateShippingRequest_ShippingValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateShippingRequest_ShippingValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateShippingRequest_ShippingValidationError) ErrorName() string {
+	return "CreateShippingRequest_ShippingValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateShippingRequest_ShippingValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateShippingRequest_Shipping.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateShippingRequest_ShippingValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateShippingRequest_ShippingValidationError{}
+
+var _CreateShippingRequest_Shipping_Dow_InLookup = map[string]struct{}{
+	"monday":    {},
+	"tuesday":   {},
+	"wednesday": {},
+	"thursday":  {},
+	"friday":    {},
+	"saturday":  {},
+	"sunday":    {},
+}
 
 // Validate checks the field values on StateMachineResponse_StateDefinition
 // with the rules defined in the proto definition for this message. If any
