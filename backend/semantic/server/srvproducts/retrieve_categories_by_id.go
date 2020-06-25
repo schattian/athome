@@ -9,20 +9,19 @@ import (
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) RetrieveCategories(ctx context.Context, _ *emptypb.Empty) (*pbsemantic.RetrieveCategoriesResponse, error) {
+func (s *Server) RetrieveCategoriesById(ctx context.Context, in *pbsemantic.RetrieveCategoriesByIdRequest) (*pbsemantic.RetrieveCategoriesResponse, error) {
 	db, err := server.ConnDB()
 	if err != nil {
 		return nil, err
 	}
 	defer db.Close()
-	return s.retrieveCategories(ctx, db)
+	return s.retrieveCategoriesById(ctx, db, in)
 }
 
-func (s *Server) retrieveCategories(ctx context.Context, db *sqlx.DB) (*pbsemantic.RetrieveCategoriesResponse, error) {
-	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_categories ORDER BY parent_id`)
+func (s *Server) retrieveCategoriesById(ctx context.Context, db *sqlx.DB, in *pbsemantic.RetrieveCategoriesByIdRequest) (*pbsemantic.RetrieveCategoriesResponse, error) {
+	rows, err := db.QueryxContext(ctx, `SELECT * FROM product_categories WHERE id IN($1) ORDER BY parent_id`, in.GetCategoryIds())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "QueryxContext: %v", err)
 	}

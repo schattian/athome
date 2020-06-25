@@ -43,7 +43,7 @@ service Products {
 }
 
 message RetrieveCategoriesByIdRequest {
-  repeated uint64 categories_id = 1;
+  repeated uint64 category_ids = 1;
 }
 
 message RetrieveCategoryRequest {
