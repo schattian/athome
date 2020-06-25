@@ -444,14 +444,14 @@ func (m *MockRegisterClient) EXPECT() *MockRegisterClientMockRecorder {
 }
 
 // RetrieveRegistry mocks base method
-func (m *MockRegisterClient) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest, opts ...grpc.CallOption) (*pbservices.Registry, error) {
+func (m *MockRegisterClient) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest, opts ...grpc.CallOption) (*pbservices.RetrieveRegistryResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "RetrieveRegistry", varargs...)
-	ret0, _ := ret[0].(*pbservices.Registry)
+	ret0, _ := ret[0].(*pbservices.RetrieveRegistryResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -587,10 +587,10 @@ func (m *MockRegisterServer) EXPECT() *MockRegisterServerMockRecorder {
 }
 
 // RetrieveRegistry mocks base method
-func (m *MockRegisterServer) RetrieveRegistry(arg0 context.Context, arg1 *pbservices.RetrieveRegistryRequest) (*pbservices.Registry, error) {
+func (m *MockRegisterServer) RetrieveRegistry(arg0 context.Context, arg1 *pbservices.RetrieveRegistryRequest) (*pbservices.RetrieveRegistryResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RetrieveRegistry", arg0, arg1)
-	ret0, _ := ret[0].(*pbservices.Registry)
+	ret0, _ := ret[0].(*pbservices.RetrieveRegistryResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
