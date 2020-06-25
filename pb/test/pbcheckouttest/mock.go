@@ -799,6 +799,26 @@ func (mr *MockPurchasesClientMockRecorder) CreatePayment(ctx, in interface{}, op
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePayment", reflect.TypeOf((*MockPurchasesClient)(nil).CreatePayment), varargs...)
 }
 
+// ConfirmPurchase mocks base method
+func (m *MockPurchasesClient) ConfirmPurchase(ctx context.Context, in *pbcheckout.CreatePurchaseRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ConfirmPurchase", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ConfirmPurchase indicates an expected call of ConfirmPurchase
+func (mr *MockPurchasesClientMockRecorder) ConfirmPurchase(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfirmPurchase", reflect.TypeOf((*MockPurchasesClient)(nil).ConfirmPurchase), varargs...)
+}
+
 // RetrieveCurrent mocks base method
 func (m *MockPurchasesClient) RetrieveCurrent(ctx context.Context, in *pbcheckout.RetrieveCurrentRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
@@ -995,6 +1015,21 @@ func (m *MockPurchasesServer) CreatePayment(arg0 context.Context, arg1 *pbchecko
 func (mr *MockPurchasesServerMockRecorder) CreatePayment(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePayment", reflect.TypeOf((*MockPurchasesServer)(nil).CreatePayment), arg0, arg1)
+}
+
+// ConfirmPurchase mocks base method
+func (m *MockPurchasesServer) ConfirmPurchase(arg0 context.Context, arg1 *pbcheckout.CreatePurchaseRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ConfirmPurchase", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ConfirmPurchase indicates an expected call of ConfirmPurchase
+func (mr *MockPurchasesServerMockRecorder) ConfirmPurchase(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfirmPurchase", reflect.TypeOf((*MockPurchasesServer)(nil).ConfirmPurchase), arg0, arg1)
 }
 
 // RetrieveCurrent mocks base method
