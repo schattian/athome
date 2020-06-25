@@ -9,7 +9,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func (s *Server) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest) (*pbservices.Registry, error) {
+func (s *Server) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRegistryRequest) (*pbservices.RetrieveRegistryResponse, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -27,10 +27,10 @@ func (s *Server) RetrieveRegistry(ctx context.Context, in *pbservices.RetrieveRe
 	return s.retrieveRegistry(ctx, db, server.GetUserFromAccessToken(auth, in.GetAccessToken()))
 }
 
-func (s *Server) retrieveRegistry(ctx context.Context, db *sqlx.DB, authFn server.AuthFunc) (*pbservices.Registry, error) {
+func (s *Server) retrieveRegistry(ctx context.Context, db *sqlx.DB, authFn server.AuthFunc) (*pbservices.RetrieveRegistryResponse, error) {
 	reg, err := retrieveRegistryByUser(ctx, db, authFn)
 	if err != nil {
 		return nil, err
 	}
-	return reg.ToPb(), nil
+	return &pbservices.RetrieveRegistryResponse{RegistryId: reg.Id, Registry: reg.ToPb()}, nil
 }
