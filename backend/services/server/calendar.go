@@ -12,11 +12,11 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func RetrieveCalendarDetail(
+func RetrieveCalendar(
 	ctx context.Context,
 	db *sqlx.DB,
 	id uint64,
-) (*pbservices.CalendarDetail, error) {
+) (*pbservices.Calendar, error) {
 	c, err := ent.FindCalendar(ctx, db, id)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "can't find calendar with id: %v", id)
@@ -24,9 +24,5 @@ func RetrieveCalendarDetail(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindCalendar: %v", err)
 	}
-	detail, err := c.Detail(ctx, db)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "Detail: %v", err)
-	}
-	return detail, nil
+	return c.ToPb(), nil
 }

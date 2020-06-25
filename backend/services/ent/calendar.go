@@ -99,29 +99,6 @@ func (c *Calendar) Events(ctx context.Context, db *sqlx.DB) ([]*Event, error) {
 	return avs, nil
 }
 
-func (c *Calendar) Detail(ctx context.Context, db *sqlx.DB) (*pbservices.CalendarDetail, error) {
-	avs, err := c.Availabilities(ctx, db)
-	if err != nil {
-		return nil, errors.Wrap(err, "Availabilities")
-	}
-	es, err := c.Events(ctx, db)
-	if err != nil {
-		return nil, errors.Wrap(err, "Events")
-	}
-
-	calDetail := &pbservices.CalendarDetail{Calendar: c.ToPb()}
-	calDetail.Availabilities = make(map[uint64]*pbservices.Availability)
-	for _, av := range avs {
-		calDetail.Availabilities[av.Id] = av.ToPb()
-	}
-
-	calDetail.Events = make(map[uint64]*pbservices.Event)
-	for _, e := range es {
-		calDetail.Events[e.Id] = e.ToPb()
-	}
-	return calDetail, nil
-}
-
 func calendarIdsAvailablesInRange(ctx context.Context, db *sqlx.DB, dow time.Weekday, from, to *pbshared.TimeOfDay) ([]uint64, error) {
 	avs, err := availabilitiesContainingRange(ctx, db, dow, from, to)
 	if err != nil {

@@ -8,7 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func (s *Server) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest) (*pbservices.CalendarDetail, error) {
+func (s *Server) RetrieveCalendar(ctx context.Context, in *pbservices.RetrieveCalendarRequest) (*pbservices.Calendar, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -24,6 +24,6 @@ func (s *Server) retrieveCalendar(
 	ctx context.Context,
 	db *sqlx.DB,
 	in *pbservices.RetrieveCalendarRequest,
-) (*pbservices.CalendarDetail, error) {
-	return server.RetrieveCalendarDetail(ctx, db, in.GetCalendarId())
+) (*pbservices.Calendar, error) {
+	return server.RetrieveCalendar(ctx, db, in.GetCalendarId())
 }

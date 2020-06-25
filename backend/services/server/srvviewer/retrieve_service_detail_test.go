@@ -24,7 +24,7 @@ import (
 func TestServer_retrieveServiceDetail(t *testing.T) {
 	type usersStub struct {
 		req  *pbusers.RetrieveUserRequest
-		resp *pbusers.UserDetail
+		resp *pbusers.User
 		err  error
 	}
 	type addrStub struct {
@@ -34,7 +34,7 @@ func TestServer_retrieveServiceDetail(t *testing.T) {
 	}
 	type args struct {
 		ctx context.Context
-		in  *pbservices.RetrieveServiceDetailRequest
+		in  *pbservices.RetrieveServiceRequest
 	}
 	tests := []struct {
 		name       string
@@ -42,7 +42,7 @@ func TestServer_retrieveServiceDetail(t *testing.T) {
 		users      usersStub
 		queryStubs []*sqlassist.QueryStubber
 		args       args
-		want       *pbservices.ServiceDetail
+		want       *pbservices.Service
 		wantCode   xerrors.Code
 	}{
 
@@ -50,7 +50,7 @@ func TestServer_retrieveServiceDetail(t *testing.T) {
 			name: "not found",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbservices.RetrieveServiceDetailRequest{ServiceId: gServices.Foo.Id},
+				in:  &pbservices.RetrieveServiceRequest{ServiceId: gServices.Foo.Id},
 			},
 			queryStubs: []*sqlassist.QueryStubber{
 				{

@@ -2,7 +2,6 @@ package srvviewer
 
 import (
 	"context"
-	"sync"
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
@@ -73,36 +72,9 @@ func (s *Server) searchAvailableShippings(ctx context.Context, db *sqlx.DB,
 	}
 
 	resp := &pbservices.SearchAvailableShippingsResponse{}
-	var wg sync.WaitGroup
-	errCh := make(chan error, 1)
-	done := make(chan struct{})
-	resp.Services = make(map[uint64]*pbservices.ServiceSearchResult)
-	var lock sync.RWMutex
+	resp.Services = make(map[uint64]*pbservices.Service)
 	for _, svc := range svcs {
-		wg.Add(1)
-		svc := svc
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			res, err := svc.ToPbSearchResult(ctx, users)
-			if err != nil {
-				errCh <- status.Errorf(xerrors.Internal, "ToPbSearchResult: %v", err)
-			}
-			lock.Lock()
-			defer lock.Unlock()
-			resp.Services[svc.Id] = res
-		}(&wg)
+		resp.Services[svc.Id] = svc.ToPb()
 	}
-	go func() {
-		wg.Wait()
-		close(done)
-	}()
-
-	for {
-		select {
-		case err := <-errCh:
-			return nil, err
-		case <-done:
-			return resp, nil
-		}
-	}
+	return resp, nil
 }

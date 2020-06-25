@@ -7,16 +7,13 @@ import (
 
 	"github.com/athomecomar/athome/backend/services/ent"
 	"github.com/athomecomar/athome/backend/services/server"
-	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbservices"
-	"github.com/athomecomar/athome/pb/pbusers"
-	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/xerrors"
 	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.RetrieveServiceDetailRequest) (*pbservices.ServiceDetail, error) {
+func (s *Server) RetrieveService(ctx context.Context, in *pbservices.RetrieveServiceRequest) (*pbservices.Service, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -25,26 +22,14 @@ func (s *Server) RetrieveServiceDetail(ctx context.Context, in *pbservices.Retri
 		return nil, err
 	}
 	defer db.Close()
-	addr, addrCloser, err := pbutil.ConnAddresses(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer addrCloser()
-	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer usersCloser()
-	return s.retrieveServiceDetail(ctx, db, addr, users, in)
+	return s.retrieveService(ctx, db, in)
 }
 
-func (s *Server) retrieveServiceDetail(
+func (s *Server) retrieveService(
 	ctx context.Context,
 	db *sqlx.DB,
-	addr pbaddress.AddressesClient,
-	users pbusers.ViewerClient,
-	in *pbservices.RetrieveServiceDetailRequest,
-) (*pbservices.ServiceDetail, error) {
+	in *pbservices.RetrieveServiceRequest,
+) (*pbservices.Service, error) {
 	svc, err := ent.FindService(ctx, db, in.GetServiceId())
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "FindService with id: %v", in.GetServiceId())
@@ -52,23 +37,5 @@ func (s *Server) retrieveServiceDetail(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindService: %v", err)
 	}
-	c, err := server.RetrieveCalendarDetail(ctx, db, svc.CalendarId)
-	if err != nil {
-		return nil, err
-	}
-	user, err := svc.User(ctx, users)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "svc.User: %v", err)
-	}
-	address, err := svc.Address(ctx, addr)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "svc.Address: %v", err)
-	}
-
-	return &pbservices.ServiceDetail{
-		Service:  svc.ToPb(),
-		Address:  address,
-		User:     user,
-		Calendar: c,
-	}, nil
+	return svc.ToPb(), nil
 }

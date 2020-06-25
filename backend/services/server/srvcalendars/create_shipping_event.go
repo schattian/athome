@@ -93,7 +93,7 @@ func (s *Server) createShippingEvent(
 	if err != nil {
 		return nil, err
 	}
-	if !containsCategoryId(claimant.GetUser().GetCategoryId(), cats.GetCategories()) {
+	if !containsCategoryId(claimant.GetCategoryId(), cats.GetCategories()) {
 		return nil, status.Errorf(xerrors.InvalidArgument, "invalid category for user that holds the svc. Max vol weight is out he's range")
 	}
 	totalDuration := order.GetPurchase().GetDistanceInKilometers() * float64(svc.DurationInMinutes)
@@ -113,7 +113,7 @@ func (s *Server) createShippingEvent(
 		return nil, status.Errorf(xerrors.Internal, "EventFromPb: %v", err)
 	}
 
-	return insertEvent(ctx, db, claimant.GetUser(), event)
+	return insertEvent(ctx, db, claimant, event)
 }
 
 func containsCategoryId(i uint64, sl map[uint64]*pbsemantic.Category) bool {

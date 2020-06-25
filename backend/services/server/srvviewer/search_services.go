@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"strconv"
 	"strings"
-	"sync"
 	"unicode"
 
 	"github.com/athomecomar/athome/backend/services/ent"
@@ -101,38 +100,11 @@ func (s *Server) searchServices(ctx context.Context, db *sqlx.DB, sem pbsemantic
 		resp.Page.NextCursor = b64EncodeId(svcs[len(svcs)-1].Id)
 	}
 
-	var wg sync.WaitGroup
-	errCh := make(chan error, 1)
-	done := make(chan struct{})
-	resp.Services = make(map[uint64]*pbservices.ServiceSearchResult)
-	var lock sync.RWMutex
+	resp.Services = make(map[uint64]*pbservices.Service)
 	for _, svc := range svcs {
-		wg.Add(1)
-		svc := svc
-		go func(wg *sync.WaitGroup) {
-			defer wg.Done()
-			res, err := svc.ToPbSearchResult(ctx, users)
-			if err != nil {
-				errCh <- status.Errorf(xerrors.Internal, "ToPbSearchResult: %v", err)
-			}
-			lock.Lock()
-			defer lock.Unlock()
-			resp.Services[svc.Id] = res
-		}(&wg)
+		resp.Services[svc.Id] = svc.ToPb()
 	}
-	go func() {
-		wg.Wait()
-		close(done)
-	}()
-
-	for {
-		select {
-		case err := <-errCh:
-			return nil, err
-		case <-done:
-			return resp, nil
-		}
-	}
+	return resp, nil
 }
 
 func toNormal(s string) (string, error) {

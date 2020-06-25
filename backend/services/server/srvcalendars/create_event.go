@@ -57,8 +57,7 @@ func (s *Server) createEvent(
 	if err != nil {
 		return nil, err
 	}
-
-	return insertEvent(ctx, db, claimant.GetUser(), e)
+	return insertEvent(ctx, db, claimant, e)
 }
 
 func insertEvent(ctx context.Context, db *sqlx.DB, claimant *pbusers.User, event *ent.Event) (*pbservices.CreateEventResponse, error) {
