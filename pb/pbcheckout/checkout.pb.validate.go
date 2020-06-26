@@ -2149,6 +2149,8 @@ func (m *Reservation) Validate() error {
 
 	// no validation rules for Amount
 
+	// no validation rules for MerchantId
+
 	return nil
 }
 
