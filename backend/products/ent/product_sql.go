@@ -22,7 +22,8 @@ func (u *Product) SQLMap() map[string]driver.Value {
 		"category_id": u.CategoryId,
 		"title":       u.Title,
 
-		"price": u.Price,
-		"stock": u.Stock,
+		"price":          u.Price,
+		"stock":          u.Stock,
+		"reserved_stock": u.ReservedStock,
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/athomecomar/athome/backend/products/server/srvcreator"
+	"github.com/athomecomar/athome/backend/products/server/srvmanager"
 	"github.com/athomecomar/athome/backend/products/server/srvviewer"
 	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -21,6 +22,7 @@ func main() {
 	s := grpc.NewServer()
 	log.Println("listening on port " + port)
 
+	pbproducts.RegisterManagerServer(s, &srvmanager.Server{})
 	pbproducts.RegisterViewerServer(s, &srvviewer.Server{})
 	pbproducts.RegisterCreatorServer(s, &srvcreator.Server{})
 	if err := s.Serve(lis); err != nil {

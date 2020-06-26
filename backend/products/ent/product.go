@@ -22,8 +22,35 @@ type Product struct {
 	Title      string `json:"title,omitempty"`
 	CategoryId uint64 `json:"category_id,omitempty"`
 
-	Price currency.ARS `json:"price,omitempty"`
-	Stock uint64       `json:"stock,omitempty"`
+	Price         currency.ARS `json:"price,omitempty"`
+	Stock         uint64       `json:"stock,omitempty"`
+	ReservedStock uint64       `json:"reserved_stock,omitempty"`
+}
+
+func (p *Product) ReserveStock(qt uint64) error {
+	if p.Stock < qt {
+		return fmt.Errorf("qt to reserve: %d while got: %v", qt, p.Stock)
+	}
+	p.Stock -= qt
+	p.ReservedStock += qt
+	return nil
+}
+
+func (p *Product) UndoStockReserve(qt uint64) error {
+	if p.ReservedStock < qt {
+		return fmt.Errorf("qt to undo: %d while got: %v", qt, p.ReservedStock)
+	}
+	p.ReservedStock -= qt
+	p.Stock += qt
+	return nil
+}
+
+func (p *Product) ConsumeStockReserve(qt uint64) error {
+	if p.ReservedStock < qt {
+		return fmt.Errorf("qt to consume: %d while got: %v", qt, p.ReservedStock)
+	}
+	p.ReservedStock -= qt
+	return nil
 }
 
 func FindProduct(ctx context.Context, db *sqlx.DB, id uint64) (*Product, error) {

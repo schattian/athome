@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS products(
     category_id int not null,
     price int not null,
     stock int not null,
-    image_ids varchar(200) []
+    reserved_stock int
 );
