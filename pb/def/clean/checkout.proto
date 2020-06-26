@@ -56,7 +56,7 @@ service Purchases {
 
   rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
 
-  rpc ConfirmPurchase(CreatePurchaseRequest) returns(google.protobuf.Empty){}
+  rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(RetrievePurchaseResponse){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
@@ -221,10 +221,11 @@ message StateMachineResponse {
 message Reservation {
   uint64 user_id = 1;
   Timestamp timestamp = 2;
-  uint64 product_id = 3;
+  map<uint64,uint64> items = 3; // { product_id: quantity }
   uint64 days = 4;
   double amount = 5;  // calculated at req time
-}
+  uint64 merchant_id = 6;
+ }
 
 message Purchase {
   uint64 user_id = 1;

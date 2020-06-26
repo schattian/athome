@@ -9,7 +9,9 @@ option go_package = "./pbproducts";
 package products;
 
 service Manager {
-  rpc ReserveStock(ReserveStockRequest) returns (google.protobuf.Empty){}
+  rpc CreateReserveStock(ReserveStockRequest) returns (google.protobuf.Empty){}
+  rpc ConfirmReserveStock(ReserveStockRequest) returns (google.protobuf.Empty){}
+  rpc DeleteReserveStock(ReserveStockRequest) returns (google.protobuf.Empty){}
 }
 
 message ReserveStockRequest{
