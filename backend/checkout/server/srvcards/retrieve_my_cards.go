@@ -42,7 +42,7 @@ func (s *Server) RetrieveMyCards(ctx context.Context, in *pbcheckout.RetrieveMyC
 func (s *Server) retrieveMyCards(ctx context.Context, db *sqlx.DB, uid uint64) (*pbcheckout.RetrieveMyCardsResponse, error) {
 	cards, err := order.FindUserCards(ctx, db, uid)
 	if errors.Is(err, sql.ErrNoRows) {
-		cards = nil
+		err = nil
 	}
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindUserCards: %v", err)

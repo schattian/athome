@@ -39,11 +39,17 @@ func (s *Server) CreatePurchase(ctx context.Context, in *pbcheckout.CreatePurcha
 		return nil, err
 	}
 
-	prods, prodsCloser, err := pbutil.ConnProductsViewer(ctx)
+	prodsViewer, prodsViewerCloser, err := pbutil.ConnProductsViewer(ctx)
 	if err != nil {
 		return nil, err
 	}
-	defer prodsCloser()
+	defer prodsViewerCloser()
+
+	prodsManager, prodsManagerCloser, err := pbutil.ConnProductsManager(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer prodsManagerCloser()
 
 	users, usersCloser, err := pbutil.ConnUsersViewer(ctx)
 	if err != nil {
@@ -57,18 +63,19 @@ func (s *Server) CreatePurchase(ctx context.Context, in *pbcheckout.CreatePurcha
 	}
 	defer addrsCloser()
 
-	return s.createPurchase(ctx, db, in, users, addrs, prods, uid)
+	return s.createPurchase(ctx, db, in, users, addrs, prodsViewer, prodsManager, uid)
 }
 
 func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	in *pbcheckout.CreatePurchaseRequest,
 	users pbusers.ViewerClient,
 	addr pbaddress.AddressesClient,
-	prods pbproducts.ViewerClient,
+	prodsViewer pbproducts.ViewerClient,
+	prodsManager pbproducts.ManagerClient,
 	userId uint64,
 ) (*pbcheckout.CreatePurchaseResponse, error) {
 	o := order.NewPurchase(ctx, in.GetItems(), userId)
-	products, err := o.Products(ctx, prods)
+	products, err := o.Products(ctx, prodsViewer)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Products")
 	}
@@ -80,7 +87,10 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "AssignSrcAddress")
 	}
-
+	_, err = prodsManager.CreateReserveStock(ctx, &pbproducts.ReserveStockRequest{AccessToken: in.GetAccessToken(), Order: pbutil.ToPbEntity(o)})
+	if err != nil {
+		return nil, err
+	}
 	err = storeql.InsertIntoDB(ctx, db, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "o InsertIntoDB")

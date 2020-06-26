@@ -12,7 +12,7 @@ import (
 )
 
 func FindPurchase(ctx context.Context, db *sqlx.DB, oId, uId uint64) (*order.Purchase, error) {
-	order, err := order.FindPurchase(ctx, db, oId, uId)
+	order, err := order.FindPurchaseUserScoped(ctx, db, oId, uId)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "FindPurchase with order_id: %v", oId)
 	}

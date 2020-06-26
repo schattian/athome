@@ -12,6 +12,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
+	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
@@ -54,7 +55,17 @@ func (o *Purchase) State(ctx context.Context, db *sqlx.DB) (*PurchaseStateChange
 	return sc, nil
 }
 
-func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (*Purchase, error) {
+func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64) (*Purchase, error) {
+	order := &Purchase{}
+	row := storeql.Where(ctx, db, order, `id=$1`, oId)
+	err := row.StructScan(order)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return order, nil
+}
+
+func FindPurchaseUserScoped(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (*Purchase, error) {
 	order := &Purchase{}
 	row := storeql.Where(ctx, db, order, `id=$1 AND user_id=$2`, oId, userId)
 	err := row.StructScan(order)
@@ -62,6 +73,55 @@ func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (
 		return nil, errors.Wrap(err, "StructScan")
 	}
 	return order, nil
+}
+
+func (p *Purchase) AmountPaid(ctx context.Context, db *sqlx.DB) (currency.ARS, error) {
+	pys, err := p.Payments(ctx, db)
+	if errors.Is(err, sql.ErrNoRows) {
+		err = nil
+	}
+	if err != nil {
+		return 0, errors.Wrap(err, "Payments")
+	}
+	var total currency.ARS
+	for _, py := range pys {
+		total += py.Amount
+	}
+	return total, nil
+}
+
+func (p *Purchase) CanView(ctx context.Context, db *sqlx.DB, userId uint64) (bool, error) {
+	if p.MerchantId == userId {
+		return true, nil
+	}
+	if p.UserId == userId {
+		return true, nil
+	}
+	ship, err := p.Shipping(ctx, db)
+	if err != nil {
+		return false, errors.Wrap(err, "Shipping")
+	}
+	if ship.UserId == userId {
+		return true, nil
+	}
+	return false, nil
+}
+
+func (p *Purchase) Payments(ctx context.Context, db *sqlx.DB) ([]*Payment, error) {
+	rows, err := storeql.WhereMany(ctx, db, &Payment{}, `entity_id=$1 AND entity_table=$2`, p.Id, p.SQLTable())
+	if err != nil {
+		return nil, errors.Wrap(err, "WhereMany")
+	}
+	var orders []*Payment
+	for rows.Next() {
+		order := &Payment{}
+		err = rows.StructScan(order)
+		if err != nil {
+			return nil, errors.Wrap(err, "StructScan")
+		}
+		orders = append(orders, order)
+	}
+	return orders, nil
 }
 
 func FindPurchasesByUser(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Purchase, error) {
@@ -102,7 +162,6 @@ func FindLatestPurchase(ctx context.Context, db *sqlx.DB, userId uint64) (*Purch
 	return order, nil
 }
 
-// Amount               float64                 `protobuf:"fixed64,5,opt,name=amount,proto3" json:"amount,omitempty"`
 func (o *Purchase) OrderClass() class {
 	return Purchases
 }
