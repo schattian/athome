@@ -890,7 +890,7 @@ func (mr *MockPurchasesClientMockRecorder) CreatePayment(ctx, in interface{}, op
 }
 
 // ConfirmPurchase mocks base method
-func (m *MockPurchasesClient) ConfirmPurchase(ctx context.Context, in *pbcheckout.CreatePurchaseRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (m *MockPurchasesClient) ConfirmPurchase(ctx context.Context, in *pbcheckout.ConfirmPurchaseRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
@@ -1123,7 +1123,7 @@ func (mr *MockPurchasesServerMockRecorder) CreatePayment(arg0, arg1 interface{})
 }
 
 // ConfirmPurchase mocks base method
-func (m *MockPurchasesServer) ConfirmPurchase(arg0 context.Context, arg1 *pbcheckout.CreatePurchaseRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (m *MockPurchasesServer) ConfirmPurchase(arg0 context.Context, arg1 *pbcheckout.ConfirmPurchaseRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ConfirmPurchase", arg0, arg1)
 	ret0, _ := ret[0].(*pbcheckout.RetrievePurchaseResponse)
