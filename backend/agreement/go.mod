@@ -1,16 +1,17 @@
-module github.com/athomecomar/athome/backend/auth
+module github.com/athomecomar/athome/backend/agreement
 
 go 1.14
 
 require (
 	github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6 // indirect
 	github.com/alicebob/miniredis v2.5.0+incompatible
-	github.com/athomecomar/athome/pb v0.0.0-20200630203156-1815a2bc7b29
+	github.com/athomecomar/athome/pb v0.0.0-20200630211118-747311a409c2
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.2.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-redis/redis/v8 v8.0.0-beta.2
+	github.com/golang/protobuf v1.4.2
 	github.com/gomodule/redigo v1.7.1-0.20190322064113-39e2c31b7ca3 // indirect
 	github.com/google/go-cmp v0.4.1
 	github.com/pkg/errors v0.9.1
