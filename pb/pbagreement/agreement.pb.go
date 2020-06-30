@@ -7,7 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	empty "github.com/golang/protobuf/ptypes/empty"
+	_ "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -26,7 +26,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type RetrieveRequest struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	UserId               uint64   `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -57,11 +57,11 @@ func (m *RetrieveRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RetrieveRequest proto.InternalMessageInfo
 
-func (m *RetrieveRequest) GetAccessToken() string {
+func (m *RetrieveRequest) GetUserId() uint64 {
 	if m != nil {
-		return m.AccessToken
+		return m.UserId
 	}
-	return ""
+	return 0
 }
 
 type RetrieveResponse struct {
@@ -111,65 +111,9 @@ func (m *RetrieveResponse) GetAgreementTokenExpNs() uint64 {
 	return 0
 }
 
-type ValidateRequest struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	AgreementToken       uint64   `protobuf:"varint,2,opt,name=agreement_token,json=agreementToken,proto3" json:"agreement_token,omitempty"`
-	AgreedUserId         uint64   `protobuf:"varint,3,opt,name=agreed_user_id,json=agreedUserId,proto3" json:"agreed_user_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ValidateRequest) Reset()         { *m = ValidateRequest{} }
-func (m *ValidateRequest) String() string { return proto.CompactTextString(m) }
-func (*ValidateRequest) ProtoMessage()    {}
-func (*ValidateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_92312855cad1e50f, []int{2}
-}
-
-func (m *ValidateRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ValidateRequest.Unmarshal(m, b)
-}
-func (m *ValidateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ValidateRequest.Marshal(b, m, deterministic)
-}
-func (m *ValidateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ValidateRequest.Merge(m, src)
-}
-func (m *ValidateRequest) XXX_Size() int {
-	return xxx_messageInfo_ValidateRequest.Size(m)
-}
-func (m *ValidateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ValidateRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ValidateRequest proto.InternalMessageInfo
-
-func (m *ValidateRequest) GetAccessToken() string {
-	if m != nil {
-		return m.AccessToken
-	}
-	return ""
-}
-
-func (m *ValidateRequest) GetAgreementToken() uint64 {
-	if m != nil {
-		return m.AgreementToken
-	}
-	return 0
-}
-
-func (m *ValidateRequest) GetAgreedUserId() uint64 {
-	if m != nil {
-		return m.AgreedUserId
-	}
-	return 0
-}
-
 func init() {
 	proto.RegisterType((*RetrieveRequest)(nil), "agreement.RetrieveRequest")
 	proto.RegisterType((*RetrieveResponse)(nil), "agreement.RetrieveResponse")
-	proto.RegisterType((*ValidateRequest)(nil), "agreement.ValidateRequest")
 }
 
 func init() {
@@ -177,25 +121,21 @@ func init() {
 }
 
 var fileDescriptor_92312855cad1e50f = []byte{
-	// 283 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x91, 0x41, 0x4b, 0xc3, 0x40,
-	0x10, 0x85, 0x1b, 0x15, 0x69, 0xc6, 0x6a, 0x64, 0x85, 0x12, 0xd2, 0x4b, 0x5d, 0x04, 0x7b, 0xda,
-	0x80, 0xf5, 0x07, 0xa8, 0x90, 0x83, 0x17, 0x0f, 0x41, 0x3d, 0x78, 0x59, 0x92, 0x66, 0x0c, 0xc1,
-	0x36, 0xbb, 0xee, 0x6e, 0xa4, 0x9e, 0xfd, 0x0b, 0xfe, 0x60, 0x69, 0x96, 0xa4, 0x26, 0xf4, 0xd2,
-	0xeb, 0x9b, 0xf7, 0x66, 0x3e, 0xe6, 0x81, 0x97, 0xe4, 0x0a, 0x71, 0x85, 0xa5, 0x61, 0x52, 0x09,
-	0x23, 0x88, 0xdb, 0x0a, 0xc1, 0x24, 0x17, 0x22, 0x5f, 0x62, 0x58, 0x0f, 0xd2, 0xea, 0x3d, 0xc4,
-	0x95, 0x34, 0xdf, 0xd6, 0x47, 0x6f, 0xc1, 0x8b, 0xd1, 0xa8, 0x02, 0xbf, 0x30, 0xc6, 0xcf, 0x0a,
-	0xb5, 0x21, 0x97, 0x30, 0x4a, 0x16, 0x0b, 0xd4, 0x9a, 0x1b, 0xf1, 0x81, 0xa5, 0xef, 0x4c, 0x9d,
-	0x99, 0x1b, 0x9f, 0x58, 0xed, 0x79, 0x23, 0x51, 0x09, 0xe7, 0xdb, 0x94, 0x96, 0xa2, 0xd4, 0x48,
-	0xae, 0xff, 0x41, 0x74, 0x92, 0x67, 0xad, 0x5c, 0x87, 0xc9, 0x1c, 0xc6, 0x3d, 0x23, 0xc7, 0xb5,
-	0xe4, 0xa5, 0xf6, 0x0f, 0xa6, 0xce, 0xec, 0x28, 0xbe, 0xe8, 0xfa, 0xa3, 0xb5, 0x7c, 0xd2, 0xf4,
-	0xc7, 0x01, 0xef, 0x35, 0x59, 0x16, 0x59, 0x62, 0xf6, 0x00, 0xdd, 0x05, 0x65, 0x8f, 0xf4, 0xa1,
-	0xae, 0xc0, 0x2a, 0x19, 0xaf, 0x34, 0x2a, 0x5e, 0x64, 0xfe, 0x61, 0xed, 0x1b, 0x59, 0xf5, 0x45,
-	0xa3, 0x7a, 0xcc, 0x6e, 0x7e, 0x1d, 0x70, 0xef, 0x9b, 0x20, 0xb9, 0x83, 0x61, 0x83, 0x44, 0x02,
-	0xb6, 0x6d, 0xa0, 0xc7, 0x19, 0x8c, 0x99, 0x6d, 0x80, 0x35, 0x0d, 0xb0, 0x68, 0xd3, 0x00, 0x1d,
-	0x90, 0x08, 0x86, 0xcd, 0x1f, 0x3b, 0x1b, 0x7a, 0x95, 0x04, 0x93, 0x9d, 0x33, 0xfb, 0x78, 0x3a,
-	0x78, 0xf0, 0xde, 0x4e, 0x59, 0x28, 0xd3, 0xd6, 0x93, 0x1e, 0xd7, 0x97, 0xe6, 0x7f, 0x01, 0x00,
-	0x00, 0xff, 0xff, 0x8e, 0xc3, 0x4e, 0x2b, 0x17, 0x02, 0x00, 0x00,
+	// 210 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4f, 0x4c, 0x2f, 0x4a,
+	0x4d, 0xcd, 0x4d, 0xcd, 0x2b, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x84, 0x0b, 0x48,
+	0x49, 0xa7, 0xe7, 0xe7, 0xa7, 0xe7, 0xa4, 0xea, 0x83, 0x25, 0x92, 0x4a, 0xd3, 0xf4, 0x53, 0x73,
+	0x0b, 0x4a, 0x2a, 0x21, 0xea, 0x94, 0xb4, 0xb8, 0xf8, 0x83, 0x52, 0x4b, 0x8a, 0x32, 0x53, 0xcb,
+	0x52, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0xc4, 0xb9, 0xd8, 0x4b, 0x8b, 0x53, 0x8b,
+	0xe2, 0x33, 0x53, 0x24, 0x18, 0x15, 0x18, 0x35, 0x58, 0x82, 0xd8, 0x40, 0x5c, 0xcf, 0x14, 0xa5,
+	0x02, 0x2e, 0x01, 0x84, 0xda, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x75, 0x24, 0xab, 0xe3,
+	0x4b, 0xf2, 0xb3, 0x53, 0xf3, 0xc0, 0x9a, 0x38, 0x83, 0xf8, 0xe0, 0xc2, 0x21, 0x20, 0x51, 0x21,
+	0x63, 0x2e, 0x31, 0x34, 0x85, 0xf1, 0xa9, 0x15, 0x05, 0xf1, 0x79, 0xc5, 0x12, 0x4c, 0x60, 0x4b,
+	0x84, 0x51, 0xd5, 0xbb, 0x56, 0x14, 0xf8, 0x15, 0x1b, 0x05, 0x71, 0x71, 0x3a, 0xc2, 0x84, 0x85,
+	0x5c, 0xb9, 0x38, 0x60, 0xd6, 0x0b, 0x49, 0xe9, 0x21, 0x3c, 0x8c, 0xe6, 0x7e, 0x29, 0x69, 0xac,
+	0x72, 0x10, 0xf7, 0x2a, 0x31, 0x38, 0xf1, 0x47, 0xf1, 0xea, 0xe9, 0x17, 0x24, 0xc1, 0xd5, 0x24,
+	0xb1, 0x81, 0x43, 0xc2, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xed, 0xda, 0x01, 0xae, 0x44, 0x01,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -210,7 +150,6 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AgreementClient interface {
-	Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	Retrieve(ctx context.Context, in *RetrieveRequest, opts ...grpc.CallOption) (*RetrieveResponse, error)
 }
 
@@ -220,15 +159,6 @@ type agreementClient struct {
 
 func NewAgreementClient(cc grpc.ClientConnInterface) AgreementClient {
 	return &agreementClient{cc}
-}
-
-func (c *agreementClient) Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/agreement.Agreement/Validate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *agreementClient) Retrieve(ctx context.Context, in *RetrieveRequest, opts ...grpc.CallOption) (*RetrieveResponse, error) {
@@ -242,7 +172,6 @@ func (c *agreementClient) Retrieve(ctx context.Context, in *RetrieveRequest, opt
 
 // AgreementServer is the server API for Agreement service.
 type AgreementServer interface {
-	Validate(context.Context, *ValidateRequest) (*empty.Empty, error)
 	Retrieve(context.Context, *RetrieveRequest) (*RetrieveResponse, error)
 }
 
@@ -250,33 +179,12 @@ type AgreementServer interface {
 type UnimplementedAgreementServer struct {
 }
 
-func (*UnimplementedAgreementServer) Validate(ctx context.Context, req *ValidateRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Validate not implemented")
-}
 func (*UnimplementedAgreementServer) Retrieve(ctx context.Context, req *RetrieveRequest) (*RetrieveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
 }
 
 func RegisterAgreementServer(s *grpc.Server, srv AgreementServer) {
 	s.RegisterService(&_Agreement_serviceDesc, srv)
-}
-
-func _Agreement_Validate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ValidateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AgreementServer).Validate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/agreement.Agreement/Validate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgreementServer).Validate(ctx, req.(*ValidateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Agreement_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -301,10 +209,6 @@ var _Agreement_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "agreement.Agreement",
 	HandlerType: (*AgreementServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Validate",
-			Handler:    _Agreement_Validate_Handler,
-		},
 		{
 			MethodName: "Retrieve",
 			Handler:    _Agreement_Retrieve_Handler,

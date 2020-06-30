@@ -8,7 +8,6 @@ import (
 	context "context"
 	pbagreement "github.com/athomecomar/athome/pb/pbagreement"
 	gomock "github.com/golang/mock/gomock"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	reflect "reflect"
 )
@@ -34,26 +33,6 @@ func NewMockAgreementClient(ctrl *gomock.Controller) *MockAgreementClient {
 // EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockAgreementClient) EXPECT() *MockAgreementClientMockRecorder {
 	return m.recorder
-}
-
-// Validate mocks base method
-func (m *MockAgreementClient) Validate(ctx context.Context, in *pbagreement.ValidateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{ctx, in}
-	for _, a := range opts {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Validate", varargs...)
-	ret0, _ := ret[0].(*empty.Empty)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Validate indicates an expected call of Validate
-func (mr *MockAgreementClientMockRecorder) Validate(ctx, in interface{}, opts ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Validate", reflect.TypeOf((*MockAgreementClient)(nil).Validate), varargs...)
 }
 
 // Retrieve mocks base method
@@ -97,21 +76,6 @@ func NewMockAgreementServer(ctrl *gomock.Controller) *MockAgreementServer {
 // EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockAgreementServer) EXPECT() *MockAgreementServerMockRecorder {
 	return m.recorder
-}
-
-// Validate mocks base method
-func (m *MockAgreementServer) Validate(arg0 context.Context, arg1 *pbagreement.ValidateRequest) (*empty.Empty, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Validate", arg0, arg1)
-	ret0, _ := ret[0].(*empty.Empty)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Validate indicates an expected call of Validate
-func (mr *MockAgreementServerMockRecorder) Validate(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Validate", reflect.TypeOf((*MockAgreementServer)(nil).Validate), arg0, arg1)
 }
 
 // Retrieve mocks base method
