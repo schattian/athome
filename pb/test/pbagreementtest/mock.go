@@ -8,6 +8,7 @@ import (
 	context "context"
 	pbagreement "github.com/athomecomar/athome/pb/pbagreement"
 	gomock "github.com/golang/mock/gomock"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	reflect "reflect"
 )
@@ -55,6 +56,26 @@ func (mr *MockAgreementClientMockRecorder) Retrieve(ctx, in interface{}, opts ..
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockAgreementClient)(nil).Retrieve), varargs...)
 }
 
+// Verify mocks base method
+func (m *MockAgreementClient) Verify(ctx context.Context, in *pbagreement.VerifyRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Verify", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Verify indicates an expected call of Verify
+func (mr *MockAgreementClientMockRecorder) Verify(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Verify", reflect.TypeOf((*MockAgreementClient)(nil).Verify), varargs...)
+}
+
 // MockAgreementServer is a mock of AgreementServer interface
 type MockAgreementServer struct {
 	ctrl     *gomock.Controller
@@ -91,4 +112,19 @@ func (m *MockAgreementServer) Retrieve(arg0 context.Context, arg1 *pbagreement.R
 func (mr *MockAgreementServerMockRecorder) Retrieve(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockAgreementServer)(nil).Retrieve), arg0, arg1)
+}
+
+// Verify mocks base method
+func (m *MockAgreementServer) Verify(arg0 context.Context, arg1 *pbagreement.VerifyRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Verify", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Verify indicates an expected call of Verify
+func (mr *MockAgreementServerMockRecorder) Verify(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Verify", reflect.TypeOf((*MockAgreementServer)(nil).Verify), arg0, arg1)
 }

@@ -7,7 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/golang/protobuf/ptypes/empty"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -111,9 +111,57 @@ func (m *RetrieveResponse) GetAgreementTokenExpNs() uint64 {
 	return 0
 }
 
+type VerifyRequest struct {
+	AgreedUserId         uint64   `protobuf:"varint,1,opt,name=agreed_user_id,json=agreedUserId,proto3" json:"agreed_user_id,omitempty"`
+	AgreementToken       string   `protobuf:"bytes,2,opt,name=agreement_token,json=agreementToken,proto3" json:"agreement_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *VerifyRequest) Reset()         { *m = VerifyRequest{} }
+func (m *VerifyRequest) String() string { return proto.CompactTextString(m) }
+func (*VerifyRequest) ProtoMessage()    {}
+func (*VerifyRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_92312855cad1e50f, []int{2}
+}
+
+func (m *VerifyRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_VerifyRequest.Unmarshal(m, b)
+}
+func (m *VerifyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_VerifyRequest.Marshal(b, m, deterministic)
+}
+func (m *VerifyRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VerifyRequest.Merge(m, src)
+}
+func (m *VerifyRequest) XXX_Size() int {
+	return xxx_messageInfo_VerifyRequest.Size(m)
+}
+func (m *VerifyRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_VerifyRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VerifyRequest proto.InternalMessageInfo
+
+func (m *VerifyRequest) GetAgreedUserId() uint64 {
+	if m != nil {
+		return m.AgreedUserId
+	}
+	return 0
+}
+
+func (m *VerifyRequest) GetAgreementToken() string {
+	if m != nil {
+		return m.AgreementToken
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*RetrieveRequest)(nil), "agreement.RetrieveRequest")
 	proto.RegisterType((*RetrieveResponse)(nil), "agreement.RetrieveResponse")
+	proto.RegisterType((*VerifyRequest)(nil), "agreement.VerifyRequest")
 }
 
 func init() {
@@ -121,7 +169,7 @@ func init() {
 }
 
 var fileDescriptor_92312855cad1e50f = []byte{
-	// 210 bytes of a gzipped FileDescriptorProto
+	// 272 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4f, 0x4c, 0x2f, 0x4a,
 	0x4d, 0xcd, 0x4d, 0xcd, 0x2b, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x84, 0x0b, 0x48,
 	0x49, 0xa7, 0xe7, 0xe7, 0xa7, 0xe7, 0xa4, 0xea, 0x83, 0x25, 0x92, 0x4a, 0xd3, 0xf4, 0x53, 0x73,
@@ -131,11 +179,14 @@ var fileDescriptor_92312855cad1e50f = []byte{
 	0x02, 0x2e, 0x01, 0x84, 0xda, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x75, 0x24, 0xab, 0xe3,
 	0x4b, 0xf2, 0xb3, 0x53, 0xf3, 0xc0, 0x9a, 0x38, 0x83, 0xf8, 0xe0, 0xc2, 0x21, 0x20, 0x51, 0x21,
 	0x63, 0x2e, 0x31, 0x34, 0x85, 0xf1, 0xa9, 0x15, 0x05, 0xf1, 0x79, 0xc5, 0x12, 0x4c, 0x60, 0x4b,
-	0x84, 0x51, 0xd5, 0xbb, 0x56, 0x14, 0xf8, 0x15, 0x1b, 0x05, 0x71, 0x71, 0x3a, 0xc2, 0x84, 0x85,
-	0x5c, 0xb9, 0x38, 0x60, 0xd6, 0x0b, 0x49, 0xe9, 0x21, 0x3c, 0x8c, 0xe6, 0x7e, 0x29, 0x69, 0xac,
-	0x72, 0x10, 0xf7, 0x2a, 0x31, 0x38, 0xf1, 0x47, 0xf1, 0xea, 0xe9, 0x17, 0x24, 0xc1, 0xd5, 0x24,
-	0xb1, 0x81, 0x43, 0xc2, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xed, 0xda, 0x01, 0xae, 0x44, 0x01,
-	0x00, 0x00,
+	0x84, 0x51, 0xd5, 0xbb, 0x56, 0x14, 0xf8, 0x15, 0x2b, 0xc5, 0x71, 0xf1, 0x86, 0xa5, 0x16, 0x65,
+	0xa6, 0x55, 0xc2, 0xdc, 0xa6, 0xc2, 0x05, 0x31, 0x37, 0x25, 0x1e, 0xd5, 0x89, 0x3c, 0x10, 0xd1,
+	0x50, 0xb0, 0x43, 0xb1, 0x39, 0x8a, 0x09, 0x9b, 0xa3, 0x8c, 0x26, 0x30, 0x72, 0x71, 0x3a, 0xc2,
+	0x84, 0x84, 0x5c, 0xb9, 0x38, 0x60, 0xfe, 0x13, 0x92, 0xd2, 0x43, 0x84, 0x28, 0x5a, 0x00, 0x49,
+	0x49, 0x63, 0x95, 0x83, 0x04, 0x88, 0x12, 0x83, 0x90, 0x0d, 0x17, 0x1b, 0xc4, 0xd1, 0x42, 0x12,
+	0x48, 0x0a, 0x51, 0xfc, 0x21, 0x25, 0xa6, 0x07, 0x89, 0x14, 0x3d, 0x58, 0xa4, 0xe8, 0xb9, 0x82,
+	0x22, 0x45, 0x89, 0xc1, 0x89, 0x3f, 0x8a, 0x57, 0x4f, 0xbf, 0x20, 0x09, 0xae, 0x31, 0x89, 0x0d,
+	0xac, 0xc4, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x2b, 0x85, 0xa1, 0x06, 0xe3, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -151,6 +202,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AgreementClient interface {
 	Retrieve(ctx context.Context, in *RetrieveRequest, opts ...grpc.CallOption) (*RetrieveResponse, error)
+	Verify(ctx context.Context, in *VerifyRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type agreementClient struct {
@@ -170,9 +222,19 @@ func (c *agreementClient) Retrieve(ctx context.Context, in *RetrieveRequest, opt
 	return out, nil
 }
 
+func (c *agreementClient) Verify(ctx context.Context, in *VerifyRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/agreement.Agreement/Verify", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AgreementServer is the server API for Agreement service.
 type AgreementServer interface {
 	Retrieve(context.Context, *RetrieveRequest) (*RetrieveResponse, error)
+	Verify(context.Context, *VerifyRequest) (*empty.Empty, error)
 }
 
 // UnimplementedAgreementServer can be embedded to have forward compatible implementations.
@@ -181,6 +243,9 @@ type UnimplementedAgreementServer struct {
 
 func (*UnimplementedAgreementServer) Retrieve(ctx context.Context, req *RetrieveRequest) (*RetrieveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
+}
+func (*UnimplementedAgreementServer) Verify(ctx context.Context, req *VerifyRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
 }
 
 func RegisterAgreementServer(s *grpc.Server, srv AgreementServer) {
@@ -205,6 +270,24 @@ func _Agreement_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Agreement_Verify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgreementServer).Verify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/agreement.Agreement/Verify",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgreementServer).Verify(ctx, req.(*VerifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Agreement_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "agreement.Agreement",
 	HandlerType: (*AgreementServer)(nil),
@@ -212,6 +295,10 @@ var _Agreement_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Retrieve",
 			Handler:    _Agreement_Retrieve_Handler,
+		},
+		{
+			MethodName: "Verify",
+			Handler:    _Agreement_Verify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
