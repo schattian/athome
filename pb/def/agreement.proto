@@ -8,6 +8,7 @@ package agreement;
 
 service Agreement {
   rpc Retrieve (RetrieveRequest) returns (RetrieveResponse) {}
+  rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
 }
 
 message RetrieveRequest {
@@ -19,3 +20,7 @@ message RetrieveResponse {
   uint64 agreement_token_exp_ns = 2;
 }
 
+message VerifyRequest {
+  uint64 agreed_user_id = 1;
+  string agreement_token = 2;
+}

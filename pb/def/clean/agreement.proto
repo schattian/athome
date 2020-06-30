@@ -7,22 +7,21 @@ option go_package = "./pbagreement";
 package agreement;
 
 service Agreement {
-  rpc Validate (ValidateRequest) returns (google.protobuf.Empty) {}
   rpc Retrieve (RetrieveRequest) returns (RetrieveResponse) {}
+  rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
 }
 
 message RetrieveRequest {
-  string access_token = 1;
+  uint64 user_id = 1;
 }
 
 message RetrieveResponse {
-    string agreement_token = 1;
-    uint64 agreement_token_exp_ns = 2;
+  string agreement_token = 1;
+  uint64 agreement_token_exp_ns = 2;
 }
 
-message ValidateRequest {
-  string access_token = 1;
-  uint64 agreement_token =2;
-  uint64 agreed_user_id = 3;
+message VerifyRequest {
+  uint64 agreed_user_id = 1;
+  string agreement_token = 2;
 }
 
