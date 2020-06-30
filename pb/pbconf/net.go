@@ -47,6 +47,7 @@ var devPorts = map[string]string{
 	"auth":       ":9900",
 	"mailer":     ":9901",
 	"identifier": ":9902",
+	"agreement":  ":9903",
 
 	"users":     ":9990",
 	"semantic":  ":9991",
@@ -57,5 +58,4 @@ var devPorts = map[string]string{
 	"notifier":  ":9996",
 	"messenger": ":9997",
 	"checkout":  ":9998",
-	"agreement": ":9999",
 }
