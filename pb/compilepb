@@ -4,7 +4,7 @@ cd $DIR/def
 
 export DIR=$(pwd)
 export BACKEND_DIR=$DIR/../../backend
-svcs="checkout messenger notifier users semantic address identifier auth mailer products images services"
+svcs="agreement checkout messenger notifier users semantic address identifier auth mailer products images services"
 #  --js_out="library=pb_$1,binary:js" \
 
 pbsharedcompile()
