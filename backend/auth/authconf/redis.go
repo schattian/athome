@@ -6,8 +6,6 @@ import (
 	"github.com/athomecomar/envconf"
 )
 
-const DATABASE_SCHEME = "postgres"
-
 func GetDATABASE_PORT() (port string) {
 	return ":6379"
 }
