@@ -63,7 +63,9 @@ var (
 			{Name: PurchaseAddress, Description: "address fulfill is completed", prevable: true, nextable: true, cancellable: true},
 			{Name: PurchaseShippingMethod, Description: "shipping method was selected", prevable: true, nextable: true, cancellable: true},
 			{Name: PurchasePayment, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
-			{Name: PurchaseConfirmed, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
+			{Name: PurchaseConfirmed, Description: "purchase was confirmed by merchant", prevable: false, nextable: false, cancellable: false},
+			{Name: PurchaseInDelivery, Description: "purchase is on deliveror's hand", prevable: false, nextable: false, cancellable: false}, // only exists when shipments = 1
+			{Name: PurchaseFinished, Description: "purchase is finished", prevable: false, nextable: false, cancellable: false},
 		},
 	}
 )

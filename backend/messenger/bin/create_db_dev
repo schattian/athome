@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T messenger_db psql -U postgres -c "create database messenger_dev"

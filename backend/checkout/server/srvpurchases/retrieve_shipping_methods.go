@@ -5,6 +5,7 @@ import (
 	"math"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -37,6 +38,10 @@ func (s *Server) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.Ret
 		return nil, err
 	}
 	o, err := server.FindLatestPurchase(ctx, db, uid)
+	if err != nil {
+		return nil, err
+	}
+	err = mustPrevState(ctx, db, o, sm.PurchaseShippingMethod)
 	if err != nil {
 		return nil, err
 	}

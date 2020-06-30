@@ -1,6 +1,6 @@
-local messager = import './messager.jsonnet';
+local messenger = import './messenger.jsonnet';
 
 {
-  foo: messager.foo { id: 4325 },
-  bar: messager.foo { id: 342423 },
+  foo: messenger.foo { id: 4325 },
+  bar: messenger.foo { id: 342423 },
 }

@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../../
+docker-compose exec -T messenger_db psql -U postgres -c "drop database messenger_dev"

@@ -9,7 +9,7 @@ local users = import './users.jsonnet';
     calendar_id: calendars.foo.medic.a.id,
     address_id: addresses.service_providers.medic.foo.id,
 
-    title: 'foomessagerName',
+    title: 'foomessengerName',
     duration_in_minutes: 120,
     price_min: 20000,
     price_max: 100000,

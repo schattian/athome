@@ -16,7 +16,9 @@ Exposed svcs:
  - **9994**: services 
  - **9995**: address
  - **9996**: notifier 
- - **9997**: messager 
+ - **9997**: messenger 
+ - **9998**: checkout 
+ - **9999**: agreement
 
 ## Naming
 

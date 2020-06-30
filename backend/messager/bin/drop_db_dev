@@ -1,3 +1,0 @@
-#!/bin/sh
-cd ../../
-docker-compose exec -T messager_db psql -U postgres -c "drop database messager_dev"
