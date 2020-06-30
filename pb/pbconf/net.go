@@ -32,7 +32,7 @@ var (
 	Identifier = &service{Name: "identifier"}
 	Users      = &service{Name: "users"}
 	Notifier   = &service{Name: "notifier"}
-	Messager   = &service{Name: "messager"}
+	Messager   = &service{Name: "messenger"}
 
 	Semantic  = &service{Name: "semantic"}
 	Products  = &service{Name: "products"}
@@ -40,6 +40,7 @@ var (
 	Services  = &service{Name: "services"}
 	Addresses = &service{Name: "address"}
 	Checkout  = &service{Name: "checkout"}
+	Agreement = &service{Name: "agreement"}
 )
 
 var devPorts = map[string]string{
@@ -47,13 +48,14 @@ var devPorts = map[string]string{
 	"mailer":     ":9901",
 	"identifier": ":9902",
 
-	"users":    ":9990",
-	"semantic": ":9991",
-	"products": ":9992",
-	"images":   ":9993",
-	"services": ":9994",
-	"address":  ":9995",
-	"notifier": ":9996",
-	"messager": ":9997",
-	"checkout": ":9998",
+	"users":     ":9990",
+	"semantic":  ":9991",
+	"products":  ":9992",
+	"images":    ":9993",
+	"services":  ":9994",
+	"address":   ":9995",
+	"notifier":  ":9996",
+	"messenger": ":9997",
+	"checkout":  ":9998",
+	"agreement": ":9999",
 }

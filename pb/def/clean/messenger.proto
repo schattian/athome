@@ -4,9 +4,9 @@ import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "./pbmessager";
+option go_package = "./pbmessenger";
 
-package messager;
+package messenger;
 
 service Messages {
   rpc Create (CreateRequest) returns (CreateResponse){}
@@ -71,3 +71,4 @@ message Message {
   string body = 3;
   Status status = 4;
 }
+

@@ -10,7 +10,7 @@ import (
 	"github.com/athomecomar/athome/pb/pbidentifier"
 	"github.com/athomecomar/athome/pb/pbimages"
 	"github.com/athomecomar/athome/pb/pbmailer"
-	"github.com/athomecomar/athome/pb/pbmessager"
+	"github.com/athomecomar/athome/pb/pbmessenger"
 	"github.com/athomecomar/athome/pb/pbnotifier"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbsemantic"
@@ -29,13 +29,13 @@ func conn(ctx context.Context, host string) (*grpc.ClientConn, error) {
 	return conn, nil
 }
 
-func ConnMessager(ctx context.Context) (pbmessager.MessagesClient, func() error, error) {
+func ConnMessager(ctx context.Context) (pbmessenger.MessagesClient, func() error, error) {
 	host := pbconf.Messager.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err
 	}
-	c := pbmessager.NewMessagesClient(conn)
+	c := pbmessenger.NewMessagesClient(conn)
 	return c, conn.Close, nil
 }
 
