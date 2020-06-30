@@ -29,8 +29,8 @@ func conn(ctx context.Context, host string) (*grpc.ClientConn, error) {
 	return conn, nil
 }
 
-func ConnMessager(ctx context.Context) (pbmessenger.MessagesClient, func() error, error) {
-	host := pbconf.Messager.GetHost()
+func ConnMessenger(ctx context.Context) (pbmessenger.MessagesClient, func() error, error) {
+	host := pbconf.Messenger.GetHost()
 	conn, err := conn(ctx, host)
 	if err != nil {
 		return nil, nil, err

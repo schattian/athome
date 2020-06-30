@@ -32,7 +32,7 @@ var (
 	Identifier = &service{Name: "identifier"}
 	Users      = &service{Name: "users"}
 	Notifier   = &service{Name: "notifier"}
-	Messager   = &service{Name: "messenger"}
+	Messenger  = &service{Name: "messenger"}
 
 	Semantic  = &service{Name: "semantic"}
 	Products  = &service{Name: "products"}

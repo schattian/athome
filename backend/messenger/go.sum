@@ -37,6 +37,7 @@ github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5/go.mod h1:976q2E
 github.com/alicebob/miniredis v2.5.0+incompatible h1:yBHoLpsyjupjz3NL3MhKMVkR41j82Yjf3KFv7ApYzUI=
 github.com/alicebob/miniredis v2.5.0+incompatible/go.mod h1:8HZjEj4yU0dwhYHky+DxYx+6BMjkBbe5ONFIF1MXffk=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
+github.com/athomecomar/athome v0.5.0 h1:r//24BiT9SX1JCOW0BoCJwVGYZLgAI8ZfG0kR8iZNyI=
 github.com/athomecomar/athome/backend/notifier v0.0.0-20200616193155-c40466666c9c/go.mod h1:C1th0ptuW0qRaNFFc++HXRQU5xrPvLbTQIG4iHHLQAY=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22 h1:hdDLdUStpfZNcGeuv2fiTquJfZuqoM/qQAQW6/H0ejM=
 github.com/athomecomar/athome/backend/products v0.0.0-20200613144549-ef445669ca22/go.mod h1:jqHG9LUZ/NrYhU2GYQwmz/y64oFAavLI+/jxIpXzXvI=
@@ -138,6 +139,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200625223514-4eec4ee4ca31 h1:o2xlDpK/Z
 github.com/athomecomar/athome/pb v0.0.0-20200625223514-4eec4ee4ca31/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/athome/pb v0.0.0-20200626172433-a1168111e542 h1:WB7x3ab8OQBncJYboiSBVry1U9BeIIqrV4S1V5fzh4U=
 github.com/athomecomar/athome/pb v0.0.0-20200626172433-a1168111e542/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
+github.com/athomecomar/athome/pb v0.0.0-20200630202933-023149a6a777 h1:aHoNhvtGBxYl9kfYuKZgTqo0F7v0TJ2vci9475lT4Jg=
+github.com/athomecomar/athome/pb v0.0.0-20200630202933-023149a6a777/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=
 github.com/athomecomar/currency v0.1.0/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=

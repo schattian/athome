@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	svc := pbconf.Messager
+	svc := pbconf.Messenger
 	port := svc.GetPort()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
