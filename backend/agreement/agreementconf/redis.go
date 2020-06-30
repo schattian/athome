@@ -1,12 +1,10 @@
-package authconf
+package agreementconf
 
 import (
 	"os"
 
 	"github.com/athomecomar/envconf"
 )
-
-const DATABASE_SCHEME = "postgres"
 
 func GetDATABASE_PORT() (port string) {
 	return ":6379"
@@ -17,7 +15,7 @@ func GetDATABASE_NUMBER() (dbnum int) {
 }
 
 func GetDATABASE_HOST() (host string) {
-	return "auth_redis"
+	return "agreement_redis"
 }
 
 func GetDATABASE_PASSWORD() (pwd string) {

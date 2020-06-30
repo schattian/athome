@@ -4,9 +4,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/athomecomar/athome/backend/auth/authconf"
-	"github.com/athomecomar/athome/backend/auth/server"
-	"github.com/athomecomar/athome/pb/pbauth"
+	"github.com/athomecomar/athome/backend/agreement/agreementconf"
+	"github.com/athomecomar/athome/backend/agreement/server"
+	"github.com/athomecomar/athome/pb/pbagreement"
 	"github.com/athomecomar/athome/pb/pbconf"
 	"github.com/go-redis/redis/v8"
 
@@ -22,7 +22,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	log.Println("listening on port " + port)
-	pbauth.RegisterAuthServer(s, &server.Server{Redis: redisCli()})
+	pbagreement.RegisterAgreementServer(s, &server.Server{Redis: redisCli()})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
@@ -30,8 +30,8 @@ func main() {
 
 func redisCli() *redis.Client {
 	return redis.NewClient(&redis.Options{
-		Addr:     authconf.GetDATABASE_HOST() + authconf.GetDATABASE_PORT(),
-		Password: authconf.GetDATABASE_PASSWORD(),
-		DB:       authconf.GetDATABASE_NUMBER(),
+		Addr:     agreementconf.GetDATABASE_HOST() + agreementconf.GetDATABASE_PORT(),
+		Password: agreementconf.GetDATABASE_PASSWORD(),
+		DB:       agreementconf.GetDATABASE_NUMBER(),
 	})
 }

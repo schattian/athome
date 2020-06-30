@@ -35,4 +35,4 @@ WORKDIR /${svc_name}
 
 COPY --from=builder /${svc_name}/${svc_name} ./${svc_name}
 
-CMD ["/auth/auth"]
+CMD ["/agreement/agreement"]
