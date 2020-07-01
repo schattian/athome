@@ -43,7 +43,7 @@ func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePayment
 	if err != nil {
 		return nil, err
 	}
-	err = mustPrevState(ctx, db, o, sm.PurchasePayment)
+	err = mustPrevState(ctx, db, o, sm.PurchasePaid)
 	if err != nil {
 		return nil, err
 	}

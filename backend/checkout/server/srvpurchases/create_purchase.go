@@ -96,9 +96,9 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "o InsertIntoDB")
 	}
 
-	sc, err := order.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseInit)
+	sc, err := order.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseCreated)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "InsertIntoDB")
+		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange")
 	}
 	err = storeql.InsertIntoDB(ctx, db, sc)
 	if err != nil {

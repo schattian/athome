@@ -34,9 +34,10 @@ func NewPurchaseStateChange(ctx context.Context, oId uint64, stateName sm.StateN
 	if state == nil {
 		return nil, fmt.Errorf("state named %s doesn't exists", stateName)
 	}
+	stage := sm.PurchaseStateMachine.StageByName(stateName)
 	p := &PurchaseStateChange{
 		OrderId: oId,
-		Stage:   0,
+		Stage:   stage,
 		Name:    state.Name,
 	}
 	p.SetCreatedAt(time.Now())

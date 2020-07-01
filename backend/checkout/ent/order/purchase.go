@@ -252,13 +252,13 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 
 func (o *Purchase) ValidateStateChange(ctx context.Context, db *sqlx.DB, newState *sm.State) (err error) {
 	switch newState.Name {
-	case sm.PurchaseAddress:
-		err = o.validateStateChangeAddress(ctx, db)
+	case sm.PurchaseAddressed:
+		err = o.validateStateChangeAddressed(ctx, db)
 	}
 	return
 }
 
-func (o *Purchase) validateStateChangeAddress(ctx context.Context, db *sqlx.DB) error {
+func (o *Purchase) validateStateChangeAddressed(ctx context.Context, db *sqlx.DB) error {
 	if o.DestAddressId == 0 {
 		return errors.New("nil dest address id")
 	}

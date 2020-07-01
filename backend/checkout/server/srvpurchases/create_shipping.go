@@ -43,7 +43,7 @@ func (s *Server) CreateShipping(ctx context.Context, in *pbcheckout.CreateShippi
 	if err != nil {
 		return nil, err
 	}
-	err = mustPrevState(ctx, db, o, sm.PurchaseShippingMethod)
+	err = mustPrevState(ctx, db, o, sm.PurchaseShippingMethodSelected)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,17 @@ func (s *Server) createShipping(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
-	p.ShippingId = ship.GetId()
+
+	sc, err := order.NewShippingStateChange(ctx, ship.Id, sm.ShippingCreated)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange")
+	}
+	err = storeql.InsertIntoDB(ctx, db, sc)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB")
+	}
+
+	p.ShippingId = ship.Id
 	err = storeql.UpdateIntoDB(ctx, db, p)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.UpdateIntoDB: %v", err)

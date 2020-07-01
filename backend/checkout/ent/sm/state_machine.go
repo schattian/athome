@@ -59,13 +59,22 @@ func (sm *StateMachine) StageByName(s StateName) int64 {
 var (
 	PurchaseStateMachine = &StateMachine{
 		States: []*State{
-			{Name: PurchaseInit, Description: "draft was initialized", prevable: true, nextable: true, cancellable: true},
-			{Name: PurchaseAddress, Description: "address fulfill is completed", prevable: true, nextable: true, cancellable: true},
-			{Name: PurchaseShippingMethod, Description: "shipping method was selected", prevable: true, nextable: true, cancellable: true},
-			{Name: PurchasePayment, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
+			{Name: PurchaseCreated, Description: "draft was initialized", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchaseAddressed, Description: "address fulfill is completed", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchaseShippingMethodSelected, Description: "shipping method was selected", prevable: true, nextable: true, cancellable: true},
+			{Name: PurchasePaid, Description: "purchase was paid", prevable: false, nextable: false, cancellable: false},
 			{Name: PurchaseConfirmed, Description: "purchase was confirmed by merchant", prevable: false, nextable: false, cancellable: false},
-			{Name: PurchaseInDelivery, Description: "purchase is on deliveror's hand", prevable: false, nextable: false, cancellable: false}, // only exists when shipments = 1
+			{Name: PurchaseShipped, Description: "purchase is on shipping's state's hand", prevable: false, nextable: false, cancellable: false}, // only exists when shippings = 1
 			{Name: PurchaseFinished, Description: "purchase is finished", prevable: false, nextable: false, cancellable: false},
+		},
+	}
+
+	ShippingStateMachine = &StateMachine{
+		States: []*State{
+			{Name: ShippingCreated, Description: "waiting for dispatch time (service starts)", prevable: false, nextable: false, cancellable: false},
+			{Name: ShippingDispatched, Description: "waiting for dispatch", prevable: false, nextable: false, cancellable: false},
+			{Name: ShippingTaken, Description: "the deliverer's is coming", prevable: false, nextable: false, cancellable: false},
+			{Name: ShippingFinished, Description: "shipping was finished", prevable: false, nextable: false, cancellable: false},
 		},
 	}
 )
