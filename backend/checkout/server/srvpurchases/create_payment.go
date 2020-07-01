@@ -76,6 +76,16 @@ func (s *Server) createPayment(
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "Card: %v", err)
 	}
+
+	sc, err := order.NewPaymentStateChange(ctx, py.Id, sm.PaymentCreated)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "NewPaymentStateChange")
+	}
+	err = storeql.InsertIntoDB(ctx, db, sc)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB")
+	}
+
 	pyPb, err := py.ToPb()
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "ToPb: %v", err)
