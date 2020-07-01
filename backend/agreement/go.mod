@@ -10,6 +10,7 @@ require (
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/athomecomar/xtest v0.2.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/go-redis/redis/v8 v8.0.0-beta.2
 	github.com/golang/protobuf v1.4.2
 	github.com/gomodule/redigo v1.7.1-0.20190322064113-39e2c31b7ca3 // indirect
