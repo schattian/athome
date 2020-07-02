@@ -52,15 +52,15 @@ service Payments {
 service Shippings {
   rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
   rpc Retrieve (RetrieveShippingRequest) returns (Shipping){}
- 
+
   rpc Prev(UpdateStateRequest) returns (RetrieveShippingResponse){}
   rpc Next(UpdateStateRequest) returns (RetrieveShippingResponse){}
   rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
 }
 
 message RetrieveShippingResponse {
-    uint64 shipping_id = 1;
-    Shipping shipping = 2;
+  uint64 shipping_id = 1;
+  Shipping shipping = 2;
 }
 
 service Purchases {
@@ -69,7 +69,7 @@ service Purchases {
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
   rpc Retrieve (RetrieveOrderRequest) returns (Purchase){}
-  
+
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
   rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(RetrievePurchaseResponse){}
@@ -255,7 +255,7 @@ message Reservation {
   uint64 days = 4;
   double amount = 5;  // calculated at req time
   uint64 merchant_id = 6;
- }
+}
 
 message Purchase {
   uint64 user_id = 1;
