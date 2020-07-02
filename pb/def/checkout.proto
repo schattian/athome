@@ -24,10 +24,10 @@ service Reservations {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveReservationResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrieveReservationResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveReservationResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveReservationResponse){}
 }
 
 service Bookings {
@@ -38,10 +38,29 @@ service Bookings {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveBookingResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrieveBookingResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveBookingResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveBookingResponse){}
+}
+
+service Payments {
+  rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
+  rpc Retrieve (RetrievePaymentRequest) returns (Payment){}
+}
+
+service Shippings {
+  rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
+  rpc Retrieve (RetrieveShippingRequest) returns (Shipping){}
+ 
+  rpc Prev(UpdateStateRequest) returns (RetrieveShippingResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveShippingResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrieveShippingResponse {
+    uint64 shipping_id = 1;
+    Shipping shipping = 2;
 }
 
 service Purchases {
@@ -50,21 +69,28 @@ service Purchases {
   rpc AssignDestAddress(AssignDestAddressRequest) returns (google.protobuf.Empty){}
 
   rpc Retrieve (RetrieveOrderRequest) returns (Purchase){}
-
-  rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
+  
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
-
-  rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
 
   rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(RetrievePurchaseResponse){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrievePurchaseResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrievePaymentRequest {
+  string access_token = 1;
+  uint64 payment_id = 2;
+}
+
+message RetrieveShippingRequest {
+  string access_token = 1;
+  uint64 shipping_id = 2;
 }
 
 message RetrieveOrderRequest {
@@ -111,7 +137,7 @@ message CreateCardResponse{
   Card card = 2;
 }
 
-message UpdateOrderStateRequest{
+message UpdateStateRequest{
   string access_token = 1;
 }
 
