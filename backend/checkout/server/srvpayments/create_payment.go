@@ -1,4 +1,4 @@
-package srvpurchases
+package srvpayments
 
 import (
 	"context"
