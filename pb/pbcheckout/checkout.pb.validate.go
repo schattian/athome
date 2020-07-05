@@ -2940,6 +2940,16 @@ func (m *PaymentInput) Validate() error {
 
 	// no validation rules for CardId
 
+	if v, ok := interface{}(m.GetOrder()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaymentInputValidationError{
+				field:  "Order",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
