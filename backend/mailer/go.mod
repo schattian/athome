@@ -8,7 +8,7 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible // indirect
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
 	github.com/andybalholm/cascadia v1.2.0 // indirect
-	github.com/athomecomar/athome/pb v0.0.0-20200705135002-cf1b196e1b24
+	github.com/athomecomar/athome/pb v0.0.0-20200705141824-8e0070d4bc44
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/xerrors v1.2.1
 	github.com/google/uuid v1.1.1 // indirect
