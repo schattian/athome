@@ -1,4 +1,4 @@
-package order
+package shipping
 
 import "database/sql/driver"
 

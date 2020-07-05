@@ -3,7 +3,8 @@ package srvpayments
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/orderable"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -44,11 +45,11 @@ func (s *Server) retrieve(
 	in *pbcheckout.RetrievePaymentRequest,
 	userId uint64,
 ) (*pbcheckout.Payment, error) {
-	py, err := order.FindPayment(ctx, db, in.GetPaymentId(), userId)
+	py, err := payment.FindPayment(ctx, db, in.GetPaymentId(), userId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindPayment: %v", err)
 	}
-	order, err := py.Order(ctx, db)
+	order, err := orderable.FromOrderable(ctx, db, py)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "py.Order: %v", err)
 	}

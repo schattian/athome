@@ -3,7 +3,7 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
@@ -62,7 +62,7 @@ func (s *Server) assignAddress(
 	db *sqlx.DB,
 	in *pbcheckout.AssignDestAddressRequest,
 	addrs pbaddress.AddressesClient,
-	o *order.Purchase,
+	o *purchase.Purchase,
 ) (*emptypb.Empty, error) {
 
 	resp, err := addrs.RetrieveAddress(ctx, &pbaddress.RetrieveAddressRequest{AddressId: in.GetDestAddressId()})

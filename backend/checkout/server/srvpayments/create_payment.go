@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/backend/checkout/server/srvpurchases"
@@ -70,9 +72,9 @@ func (s *Server) createPurchasePayment(
 	db *sqlx.DB,
 	in *pbcheckout.CreatePaymentRequest,
 	prods pbproducts.ViewerClient,
-	p *order.Purchase,
+	p *purchase.Purchase,
 ) (*pbcheckout.CreatePaymentResponse, error) {
-	py := order.PaymentFromPb(in.GetPayment())
+	py := payment.PaymentFromPb(in.GetPayment())
 	amount, err := p.Amount(ctx, db, prods)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Amount: %v", err)
@@ -87,7 +89,7 @@ func (s *Server) createPurchasePayment(
 		return nil, status.Errorf(xerrors.InvalidArgument, "Card: %v", err)
 	}
 
-	sc, err := order.NewPaymentStateChange(ctx, py.Id, sm.PaymentCreated)
+	sc, err := payment.NewPaymentStateChange(ctx, py.Id, sm.PaymentCreated)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewPaymentStateChange")
 	}

@@ -3,7 +3,8 @@ package srvshippings
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/backend/checkout/server/srvpurchases"
@@ -68,7 +69,7 @@ func (s *Server) createShipping(
 	in *pbcheckout.CreateShippingRequest,
 	svcs pbservices.ViewerClient,
 	cals pbservices.CalendarsClient,
-	p *order.Purchase,
+	p *purchase.Purchase,
 ) (*pbcheckout.CreateShippingResponse, error) {
 	eventResp, err := cals.CreateShippingEvent(ctx, &pbservices.CreateShippingEventRequest{
 		AccessToken: in.GetAccessToken(),
@@ -83,14 +84,14 @@ func (s *Server) createShipping(
 	if err != nil {
 		return nil, err
 	}
-	ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, svcResp.GetUserId(), svcResp.GetPrice())
+	ppkm, err := shipping.CalculateShippingPricePerKilometer(ctx, db, svcResp.GetUserId(), svcResp.GetPrice())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 	}
 	price := ppkm.Float64() * p.DistanceInKilometers
 	duration := pbutil.DiffTimeOfDay(eventResp.GetEvent().GetStart(), eventResp.GetEvent().GetEnd())
-	ship := order.NewShipping(
-		ctx, db, p,
+	ship := p.NewShipping(
+		ctx, db,
 		eventResp.GetEventId(),
 		svcResp.GetUserId(),
 		in.Shipping.GetShippingMethodId(),
@@ -102,7 +103,7 @@ func (s *Server) createShipping(
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
 
-	sc, err := order.NewShippingStateChange(ctx, ship.Id, sm.ShippingCreated)
+	sc, err := shipping.NewShippingStateChange(ctx, ship.Id, sm.ShippingCreated)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange")
 	}

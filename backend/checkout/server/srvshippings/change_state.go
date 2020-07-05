@@ -3,7 +3,7 @@ package srvshippings
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
@@ -49,7 +49,7 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 	if err != nil {
 		return nil, err
 	}
-	sh, err := order.FindShipping(ctx, db, in.GetEntityId())
+	sh, err := shipping.FindShipping(ctx, db, in.GetEntityId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindShipping: %v", err)
 	}
@@ -61,7 +61,7 @@ func (s *Server) changeState(
 	ctx context.Context,
 	db *sqlx.DB,
 	stateChanger sm.StateChanger,
-	sh *order.Shipping,
+	sh *shipping.Shipping,
 	uid uint64,
 ) (*pbcheckout.RetrieveShippingResponse, error) {
 	sc, err := sm.LatestStateChange(ctx, db, sh)
@@ -76,7 +76,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
-	sc, err = order.NewShippingStateChange(ctx, sh.Id, state.Name)
+	sc, err = shipping.NewShippingStateChange(ctx, sh.Id, state.Name)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange: %v", err)
 	}

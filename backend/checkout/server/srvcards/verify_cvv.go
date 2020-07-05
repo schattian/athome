@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -43,7 +43,7 @@ func (s *Server) VerifyCVV(ctx context.Context, in *pbcheckout.VerifyCVVRequest)
 }
 
 func (s *Server) verifyCVV(ctx context.Context, db *sqlx.DB, in *pbcheckout.VerifyCVVRequest, uid uint64) (*emptypb.Empty, error) {
-	card, err := order.FindCard(ctx, db, in.GetCardId(), uid)
+	card, err := payment.FindCard(ctx, db, in.GetCardId(), uid)
 	if errors.Is(err, sql.ErrNoRows) {
 		return nil, status.Errorf(xerrors.NotFound, "FindCard: %v", err)
 	}

@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -40,7 +40,7 @@ func (s *Server) RetrieveMyCards(ctx context.Context, in *pbcheckout.RetrieveMyC
 }
 
 func (s *Server) retrieveMyCards(ctx context.Context, db *sqlx.DB, uid uint64) (*pbcheckout.RetrieveMyCardsResponse, error) {
-	cards, err := order.FindUserCards(ctx, db, uid)
+	cards, err := payment.FindUserCards(ctx, db, uid)
 	if errors.Is(err, sql.ErrNoRows) {
 		err = nil
 	}

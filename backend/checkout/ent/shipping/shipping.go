@@ -1,4 +1,4 @@
-package order
+package shipping
 
 import (
 	"context"
@@ -29,26 +29,6 @@ type Shipping struct {
 	RealDurationInMinutes uint64
 }
 
-func NewShipping(ctx context.Context, db *sqlx.DB,
-	p *Purchase,
-	eventId uint64,
-	providerId uint64,
-	shippingMethodId uint64,
-	orderPrice currency.ARS,
-	orderDuration uint64,
-) *Shipping {
-	return &Shipping{
-		EventId:                eventId,
-		OrderPrice:             orderPrice,
-		OrderDurationInMinutes: orderDuration,
-		SrcAddressId:           p.SrcAddressId,
-		DestAddressId:          p.DestAddressId,
-		ManhattanDistance:      p.DistanceInKilometers,
-		UserId:                 providerId,
-		ShippingMethodId:       shippingMethodId,
-	}
-}
-
 func (s *Shipping) ToPb() *pbcheckout.Shipping {
 	return &pbcheckout.Shipping{
 		UserId:               s.UserId,
@@ -71,16 +51,6 @@ func (s *Shipping) DiffPricePerKilometer() float64 {
 
 func (s *Shipping) DiffPrice() float64 {
 	return (s.OrderPrice - s.RealPrice).Float64()
-}
-
-func (s *Shipping) Purchase(ctx context.Context, db *sqlx.DB) (p *Purchase, err error) {
-	row := storeql.Where(ctx, db, p, "shipping_id=$1", s.Id)
-	err = row.StructScan(p)
-	if err != nil {
-		err = errors.Wrap(err, "storeql.Where")
-		return
-	}
-	return
 }
 
 func FindShipping(ctx context.Context, db *sqlx.DB, id uint64) (*Shipping, error) {

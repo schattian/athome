@@ -3,7 +3,7 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -49,7 +49,7 @@ func (s *Server) retrieve(
 	prods pbproducts.ViewerClient,
 	uid uint64,
 ) (*pbcheckout.Purchase, error) {
-	p, err := order.FindPurchase(ctx, db, in.GetOrderId())
+	p, err := purchase.FindPurchase(ctx, db, in.GetOrderId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindPurchase: %v", err)
 	}

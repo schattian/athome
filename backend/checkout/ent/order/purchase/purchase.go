@@ -1,4 +1,4 @@
-package order
+package purchase
 
 import (
 	"context"
@@ -7,6 +7,9 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/checkout/ent"
+	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
+	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
@@ -40,6 +43,25 @@ func (o *Purchase) SetCreatedAt(t time.Time) {
 }
 func (o *Purchase) SetUpdatedAt(t time.Time) { o.UpdatedAt = ent.Time{NullTime: sql.NullTime{Time: t}} }
 
+func (p *Purchase) NewShipping(ctx context.Context, db *sqlx.DB,
+	eventId uint64,
+	providerId uint64,
+	shippingMethodId uint64,
+	orderPrice currency.ARS,
+	orderDuration uint64,
+) *shipping.Shipping {
+	return &shipping.Shipping{
+		EventId:                eventId,
+		OrderPrice:             orderPrice,
+		OrderDurationInMinutes: orderDuration,
+		SrcAddressId:           p.SrcAddressId,
+		DestAddressId:          p.DestAddressId,
+		ManhattanDistance:      p.DistanceInKilometers,
+		UserId:                 providerId,
+		ShippingMethodId:       shippingMethodId,
+	}
+}
+
 func (o *Purchase) State(ctx context.Context, db *sqlx.DB) (*PurchaseStateChange, error) {
 	row := db.QueryRowxContext(ctx, `SELECT * FROM purchase_state_changes WHERE order_id IN (
                 SELECT id FROM purchases WHERE id = $1
@@ -58,6 +80,16 @@ func (o *Purchase) State(ctx context.Context, db *sqlx.DB) (*PurchaseStateChange
 func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64) (*Purchase, error) {
 	order := &Purchase{}
 	row := storeql.Where(ctx, db, order, `id=$1`, oId)
+	err := row.StructScan(order)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return order, nil
+}
+
+func FindPurchaseByShipping(ctx context.Context, db *sqlx.DB, oId uint64) (*Purchase, error) {
+	order := &Purchase{}
+	row := storeql.Where(ctx, db, order, `shipping_id=$1`, oId)
 	err := row.StructScan(order)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")
@@ -107,14 +139,14 @@ func (p *Purchase) CanView(ctx context.Context, db *sqlx.DB, userId uint64) (boo
 	return false, nil
 }
 
-func (p *Purchase) Payments(ctx context.Context, db *sqlx.DB) ([]*Payment, error) {
-	rows, err := storeql.WhereMany(ctx, db, &Payment{}, `entity_id=$1 AND entity_table=$2`, p.Id, p.SQLTable())
+func (p *Purchase) Payments(ctx context.Context, db *sqlx.DB) ([]*payment.Payment, error) {
+	rows, err := storeql.WhereMany(ctx, db, &payment.Payment{}, `entity_id=$1 AND entity_table=$2`, p.Id, p.SQLTable())
 	if err != nil {
 		return nil, errors.Wrap(err, "WhereMany")
 	}
-	var orders []*Payment
+	var orders []*payment.Payment
 	for rows.Next() {
-		order := &Payment{}
+		order := &payment.Payment{}
 		err = rows.StructScan(order)
 		if err != nil {
 			return nil, errors.Wrap(err, "StructScan")
@@ -141,10 +173,6 @@ func FindPurchasesByUser(ctx context.Context, db *sqlx.DB, uid uint64) ([]*Purch
 	return orders, nil
 }
 
-func (p *Purchase) Shipping(ctx context.Context, db *sqlx.DB) (*Shipping, error) {
-	return FindShipping(ctx, db, p.ShippingId)
-}
-
 func FindLatestPurchase(ctx context.Context, db *sqlx.DB, userId uint64) (*Purchase, error) {
 	row := db.QueryRowxContext(ctx,
 		`SELECT * FROM purchases WHERE id=(
@@ -162,8 +190,8 @@ func FindLatestPurchase(ctx context.Context, db *sqlx.DB, userId uint64) (*Purch
 	return order, nil
 }
 
-func (o *Purchase) OrderClass() Class {
-	return Purchases
+func (o *Purchase) OrderClass() order.Class {
+	return order.Purchases
 }
 
 func (o *Purchase) Merchant(ctx context.Context, c pbusers.ViewerClient) (*pbusers.User, error) {
@@ -195,6 +223,10 @@ func (o *Purchase) ProductIds() (ids []uint64) {
 		ids = append(ids, pid)
 	}
 	return
+}
+
+func (o *Purchase) Shipping(ctx context.Context, db *sqlx.DB) (*shipping.Shipping, error) {
+	return shipping.FindShipping(ctx, db, o.ShippingId)
 }
 
 func (o *Purchase) Amount(ctx context.Context, db *sqlx.DB, c pbproducts.ViewerClient) (float64, error) {

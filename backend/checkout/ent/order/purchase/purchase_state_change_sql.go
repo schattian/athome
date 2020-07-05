@@ -1,4 +1,4 @@
-package order
+package purchase
 
 import "database/sql/driver"
 

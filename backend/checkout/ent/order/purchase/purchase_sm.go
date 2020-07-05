@@ -1,4 +1,4 @@
-package order
+package purchase
 
 import (
 	"context"
@@ -7,6 +7,10 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
+
+func (p *Purchase) GetMerchantId() uint64        { return p.MerchantId }
+func (p *Purchase) GetConsumerId() uint64        { return p.UserId }
+func (p *Purchase) GetServiceProviderId() uint64 { return 0 }
 
 func (o *Purchase) StateMachine() *sm.StateMachine {
 	return sm.PurchaseStateMachine

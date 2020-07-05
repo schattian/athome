@@ -4,7 +4,8 @@ import (
 	"context"
 	"math"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
@@ -72,7 +73,7 @@ func (s *Server) retrieveShippingMethods(
 	svcs pbservices.ViewerClient,
 
 	in *pbcheckout.RetrieveShippingMethodsRequest,
-	p *order.Purchase,
+	p *purchase.Purchase,
 
 ) (*pbcheckout.RetrieveShippingMethodsResponse, error) {
 	start, err := pbutil.RestTimeOfDay(in.GetTime(), dispatchDelayMinutes)
@@ -100,7 +101,7 @@ func (s *Server) retrieveShippingMethods(
 	resp := &pbcheckout.RetrieveShippingMethodsResponse{}
 	resp.ShippingMethods = make(map[uint64]*pbcheckout.ShippingMethod)
 	for id, svc := range services.GetServices() {
-		ppkm, err := order.CalculateShippingPricePerKilometer(ctx, db, svc.GetUserId(), svc.GetPrice())
+		ppkm, err := shipping.CalculateShippingPricePerKilometer(ctx, db, svc.GetUserId(), svc.GetPrice())
 		if err != nil {
 			return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 		}

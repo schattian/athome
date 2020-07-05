@@ -3,7 +3,7 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -51,7 +51,7 @@ func (s *Server) retrievePurchase(
 	ctx context.Context,
 	db *sqlx.DB,
 	prods pbproducts.ViewerClient,
-	order *order.Purchase,
+	order *purchase.Purchase,
 ) (*pbcheckout.RetrievePurchaseResponse, error) {
 	o, err := order.ToPbWrapped(ctx, db, prods)
 	if err != nil {

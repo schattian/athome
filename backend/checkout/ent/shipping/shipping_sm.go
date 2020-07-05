@@ -1,4 +1,4 @@
-package order
+package shipping
 
 import (
 	"context"
@@ -6,6 +6,10 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/jmoiron/sqlx"
 )
+
+func (s *Shipping) GetMerchantId() uint64        { return 0 }
+func (s *Shipping) GetConsumerId() uint64        { return 0 }
+func (s *Shipping) GetServiceProviderId() uint64 { return s.UserId }
 
 func (s *Shipping) StateMachine() *sm.StateMachine {
 	return sm.ShippingStateMachine

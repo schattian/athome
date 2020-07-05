@@ -3,7 +3,7 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbaddress"
@@ -74,7 +74,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 	prodsManager pbproducts.ManagerClient,
 	userId uint64,
 ) (*pbcheckout.CreatePurchaseResponse, error) {
-	o := order.NewPurchase(ctx, in.GetItems(), userId)
+	o := purchase.NewPurchase(ctx, in.GetItems(), userId)
 	products, err := o.Products(ctx, prodsViewer)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Products")
@@ -96,7 +96,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "o InsertIntoDB")
 	}
 
-	sc, err := order.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseCreated)
+	sc, err := purchase.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseCreated)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange")
 	}

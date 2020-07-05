@@ -3,7 +3,8 @@ package srvshippings
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -44,11 +45,12 @@ func (s *Server) retrieve(
 	in *pbcheckout.RetrieveShippingRequest,
 	userId uint64,
 ) (*pbcheckout.Shipping, error) {
-	sh, err := order.FindShipping(ctx, db, in.GetShippingId())
+	sh, err := shipping.FindShipping(ctx, db, in.GetShippingId())
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "FindPayment: %v", err)
 	}
-	order, err := sh.Purchase(ctx, db)
+
+	order, err := purchase.FindPurchaseByShipping(ctx, db, sh.Id)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "py.Order: %v", err)
 	}

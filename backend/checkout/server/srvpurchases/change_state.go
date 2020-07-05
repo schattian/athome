@@ -3,7 +3,7 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
@@ -68,7 +68,7 @@ func (s *Server) changeState(
 	db *sqlx.DB,
 	stateChanger sm.StateChanger,
 	prods pbproducts.ViewerClient,
-	o *order.Purchase,
+	o *purchase.Purchase,
 	uid uint64,
 ) (*pbcheckout.RetrievePurchaseResponse, error) {
 	sc, err := sm.LatestStateChange(ctx, db, o)
@@ -83,7 +83,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
-	sc, err = order.NewPurchaseStateChange(ctx, o.Id, state.Name)
+	sc, err = purchase.NewPurchaseStateChange(ctx, o.Id, state.Name)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
 	}

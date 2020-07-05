@@ -3,7 +3,7 @@ package srvcards
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -39,7 +39,7 @@ func (s *Server) CreateCard(ctx context.Context, in *pbcheckout.CreateCardReques
 }
 
 func (s *Server) createCard(ctx context.Context, db *sqlx.DB, in *pbcheckout.CreateCardRequest, userId uint64) (*pbcheckout.CreateCardResponse, error) {
-	card, err := order.NewCardFromPb(ctx, in.GetCard(), userId)
+	card, err := payment.NewCardFromPb(ctx, in.GetCard(), userId)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "NewCardFromPb: %v", err)
 	}
