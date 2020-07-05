@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
+	"github.com/athomecomar/athome/backend/checkout/server/srvpurchases"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -43,7 +44,7 @@ func (s *Server) CreateShipping(ctx context.Context, in *pbcheckout.CreateShippi
 	if err != nil {
 		return nil, err
 	}
-	err = mustPrevState(ctx, db, o, sm.PurchaseShippingMethodSelected)
+	err = srvpurchases.MustPrevState(ctx, db, o, sm.PurchaseShippingMethodSelected, uid)
 	if err != nil {
 		return nil, err
 	}
