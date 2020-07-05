@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePaymentRequest) (*pbcheckout.CreatePaymentResponse, error) {
+func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePaymentRequest) (r *pbcheckout.CreatePaymentResponse, err error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -40,22 +40,32 @@ func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePayment
 		return nil, err
 	}
 
-	o, err := server.FindLatestPurchase(ctx, db, uid)
+	switch order.Class(in.GetPayment().Order.GetEntityTable()) {
+	case order.Purchases:
+		r, err = s.CreatePurchasePayment(ctx, db, in, uid)
+	}
+	return
+}
+
+func (s *Server) CreatePurchasePayment(ctx context.Context, db *sqlx.DB, in *pbcheckout.CreatePaymentRequest, userId uint64) (*pbcheckout.CreatePaymentResponse, error) {
+	o, err := server.FindLatestPurchase(ctx, db, userId)
 	if err != nil {
 		return nil, err
 	}
-	err = srvpurchases.MustPrevState(ctx, db, o, sm.PurchasePaid)
+	err = srvpurchases.MustPrevState(ctx, db, o, sm.PurchasePaid, userId)
 	if err != nil {
 		return nil, err
 	}
+
 	prods, prodsCloser, err := pbutil.ConnProductsViewer(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer prodsCloser()
-	return s.createPayment(ctx, db, in, prods, o)
+	return s.createPurchasePayment(ctx, db, in, prods, o)
 }
-func (s *Server) createPayment(
+
+func (s *Server) createPurchasePayment(
 	ctx context.Context,
 	db *sqlx.DB,
 	in *pbcheckout.CreatePaymentRequest,
