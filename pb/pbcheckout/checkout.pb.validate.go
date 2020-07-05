@@ -949,6 +949,8 @@ func (m *UpdateStateRequest) Validate() error {
 
 	// no validation rules for AccessToken
 
+	// no validation rules for EntityId
+
 	return nil
 }
 
