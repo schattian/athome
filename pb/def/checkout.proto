@@ -5,6 +5,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 import "shared/time.proto";
+import "shared/entity.proto";
 
 option go_package = "./pbcheckout";
 
@@ -303,6 +304,7 @@ message PaymentInput {
   uint64 payment_method_id = 1;
   uint64 installments = 2;
   uint64 card_id = 3;
+  shared.Entity order = 4;
 }
 
 message Payment {

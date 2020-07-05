@@ -5,6 +5,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 import "shared/time.proto";
+import "shared/entity.proto";
 
 option go_package = "./pbcheckout";
 
@@ -24,10 +25,10 @@ service Reservations {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveReservationResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrieveReservationResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveReservationResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveReservationResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveReservationResponse){}
 }
 
 service Bookings {
@@ -38,10 +39,29 @@ service Bookings {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrieveBookingResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrieveBookingResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveBookingResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrieveBookingResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveBookingResponse){}
+}
+
+service Payments {
+  rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
+  rpc Retrieve (RetrievePaymentRequest) returns (Payment){}
+}
+
+service Shippings {
+  rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
+  rpc Retrieve (RetrieveShippingRequest) returns (Shipping){}
+
+  rpc Prev(UpdateStateRequest) returns (RetrieveShippingResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrieveShippingResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrieveShippingResponse {
+  uint64 shipping_id = 1;
+  Shipping shipping = 2;
 }
 
 service Purchases {
@@ -51,20 +71,27 @@ service Purchases {
 
   rpc Retrieve (RetrieveOrderRequest) returns (Purchase){}
 
-  rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
-
-  rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
 
   rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(RetrievePurchaseResponse){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
-  rpc Prev(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
-  rpc Next(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Prev(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Next(UpdateStateRequest) returns (RetrievePurchaseResponse){}
 
-  rpc Cancel(UpdateOrderStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrievePaymentRequest {
+  string access_token = 1;
+  uint64 payment_id = 2;
+}
+
+message RetrieveShippingRequest {
+  string access_token = 1;
+  uint64 shipping_id = 2;
 }
 
 message RetrieveOrderRequest {
@@ -111,7 +138,7 @@ message CreateCardResponse{
   Card card = 2;
 }
 
-message UpdateOrderStateRequest{
+message UpdateStateRequest{
   string access_token = 1;
 }
 
@@ -225,7 +252,7 @@ message Reservation {
   uint64 days = 4;
   double amount = 5;  // calculated at req time
   uint64 merchant_id = 6;
- }
+}
 
 message Purchase {
   uint64 user_id = 1;
@@ -273,6 +300,7 @@ message PaymentInput {
   uint64 payment_method_id = 1;
   uint64 installments = 2;
   uint64 card_id = 3;
+  shared.Entity order = 4;
 }
 
 message Payment {
