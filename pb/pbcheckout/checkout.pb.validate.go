@@ -36,6 +36,227 @@ var (
 // define the regex for a UUID once up-front
 var _checkout_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on RetrieveShippingResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveShippingResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ShippingId
+
+	if v, ok := interface{}(m.GetShipping()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RetrieveShippingResponseValidationError{
+				field:  "Shipping",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// RetrieveShippingResponseValidationError is the validation error returned by
+// RetrieveShippingResponse.Validate if the designated constraints aren't met.
+type RetrieveShippingResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveShippingResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveShippingResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveShippingResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveShippingResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveShippingResponseValidationError) ErrorName() string {
+	return "RetrieveShippingResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveShippingResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveShippingResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveShippingResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveShippingResponseValidationError{}
+
+// Validate checks the field values on RetrievePaymentRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrievePaymentRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for PaymentId
+
+	return nil
+}
+
+// RetrievePaymentRequestValidationError is the validation error returned by
+// RetrievePaymentRequest.Validate if the designated constraints aren't met.
+type RetrievePaymentRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrievePaymentRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrievePaymentRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrievePaymentRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrievePaymentRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrievePaymentRequestValidationError) ErrorName() string {
+	return "RetrievePaymentRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrievePaymentRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrievePaymentRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrievePaymentRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrievePaymentRequestValidationError{}
+
+// Validate checks the field values on RetrieveShippingRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *RetrieveShippingRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for ShippingId
+
+	return nil
+}
+
+// RetrieveShippingRequestValidationError is the validation error returned by
+// RetrieveShippingRequest.Validate if the designated constraints aren't met.
+type RetrieveShippingRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RetrieveShippingRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RetrieveShippingRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RetrieveShippingRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RetrieveShippingRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RetrieveShippingRequestValidationError) ErrorName() string {
+	return "RetrieveShippingRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RetrieveShippingRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRetrieveShippingRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RetrieveShippingRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RetrieveShippingRequestValidationError{}
+
 // Validate checks the field values on RetrieveOrderRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -718,10 +939,10 @@ var _ interface {
 	ErrorName() string
 } = CreateCardResponseValidationError{}
 
-// Validate checks the field values on UpdateOrderStateRequest with the rules
+// Validate checks the field values on UpdateStateRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *UpdateOrderStateRequest) Validate() error {
+func (m *UpdateStateRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -731,9 +952,9 @@ func (m *UpdateOrderStateRequest) Validate() error {
 	return nil
 }
 
-// UpdateOrderStateRequestValidationError is the validation error returned by
-// UpdateOrderStateRequest.Validate if the designated constraints aren't met.
-type UpdateOrderStateRequestValidationError struct {
+// UpdateStateRequestValidationError is the validation error returned by
+// UpdateStateRequest.Validate if the designated constraints aren't met.
+type UpdateStateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -741,24 +962,24 @@ type UpdateOrderStateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateOrderStateRequestValidationError) Field() string { return e.field }
+func (e UpdateStateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateOrderStateRequestValidationError) Reason() string { return e.reason }
+func (e UpdateStateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateOrderStateRequestValidationError) Cause() error { return e.cause }
+func (e UpdateStateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateOrderStateRequestValidationError) Key() bool { return e.key }
+func (e UpdateStateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateOrderStateRequestValidationError) ErrorName() string {
-	return "UpdateOrderStateRequestValidationError"
+func (e UpdateStateRequestValidationError) ErrorName() string {
+	return "UpdateStateRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e UpdateOrderStateRequestValidationError) Error() string {
+func (e UpdateStateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -770,14 +991,14 @@ func (e UpdateOrderStateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateOrderStateRequest.%s: %s%s",
+		"invalid %sUpdateStateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateOrderStateRequestValidationError{}
+var _ error = UpdateStateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -785,7 +1006,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateOrderStateRequestValidationError{}
+} = UpdateStateRequestValidationError{}
 
 // Validate checks the field values on RetrieveReservationResponse with the
 // rules defined in the proto definition for this message. If any rules are

@@ -28,6 +28,147 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type RetrieveShippingResponse struct {
+	ShippingId           uint64    `protobuf:"varint,1,opt,name=shipping_id,json=shippingId,proto3" json:"shipping_id,omitempty"`
+	Shipping             *Shipping `protobuf:"bytes,2,opt,name=shipping,proto3" json:"shipping,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *RetrieveShippingResponse) Reset()         { *m = RetrieveShippingResponse{} }
+func (m *RetrieveShippingResponse) String() string { return proto.CompactTextString(m) }
+func (*RetrieveShippingResponse) ProtoMessage()    {}
+func (*RetrieveShippingResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{0}
+}
+
+func (m *RetrieveShippingResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveShippingResponse.Unmarshal(m, b)
+}
+func (m *RetrieveShippingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveShippingResponse.Marshal(b, m, deterministic)
+}
+func (m *RetrieveShippingResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveShippingResponse.Merge(m, src)
+}
+func (m *RetrieveShippingResponse) XXX_Size() int {
+	return xxx_messageInfo_RetrieveShippingResponse.Size(m)
+}
+func (m *RetrieveShippingResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveShippingResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveShippingResponse proto.InternalMessageInfo
+
+func (m *RetrieveShippingResponse) GetShippingId() uint64 {
+	if m != nil {
+		return m.ShippingId
+	}
+	return 0
+}
+
+func (m *RetrieveShippingResponse) GetShipping() *Shipping {
+	if m != nil {
+		return m.Shipping
+	}
+	return nil
+}
+
+type RetrievePaymentRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	PaymentId            uint64   `protobuf:"varint,2,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RetrievePaymentRequest) Reset()         { *m = RetrievePaymentRequest{} }
+func (m *RetrievePaymentRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrievePaymentRequest) ProtoMessage()    {}
+func (*RetrievePaymentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{1}
+}
+
+func (m *RetrievePaymentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrievePaymentRequest.Unmarshal(m, b)
+}
+func (m *RetrievePaymentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrievePaymentRequest.Marshal(b, m, deterministic)
+}
+func (m *RetrievePaymentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrievePaymentRequest.Merge(m, src)
+}
+func (m *RetrievePaymentRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrievePaymentRequest.Size(m)
+}
+func (m *RetrievePaymentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrievePaymentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrievePaymentRequest proto.InternalMessageInfo
+
+func (m *RetrievePaymentRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *RetrievePaymentRequest) GetPaymentId() uint64 {
+	if m != nil {
+		return m.PaymentId
+	}
+	return 0
+}
+
+type RetrieveShippingRequest struct {
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	ShippingId           uint64   `protobuf:"varint,2,opt,name=shipping_id,json=shippingId,proto3" json:"shipping_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RetrieveShippingRequest) Reset()         { *m = RetrieveShippingRequest{} }
+func (m *RetrieveShippingRequest) String() string { return proto.CompactTextString(m) }
+func (*RetrieveShippingRequest) ProtoMessage()    {}
+func (*RetrieveShippingRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{2}
+}
+
+func (m *RetrieveShippingRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RetrieveShippingRequest.Unmarshal(m, b)
+}
+func (m *RetrieveShippingRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RetrieveShippingRequest.Marshal(b, m, deterministic)
+}
+func (m *RetrieveShippingRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RetrieveShippingRequest.Merge(m, src)
+}
+func (m *RetrieveShippingRequest) XXX_Size() int {
+	return xxx_messageInfo_RetrieveShippingRequest.Size(m)
+}
+func (m *RetrieveShippingRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RetrieveShippingRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RetrieveShippingRequest proto.InternalMessageInfo
+
+func (m *RetrieveShippingRequest) GetAccessToken() string {
+	if m != nil {
+		return m.AccessToken
+	}
+	return ""
+}
+
+func (m *RetrieveShippingRequest) GetShippingId() uint64 {
+	if m != nil {
+		return m.ShippingId
+	}
+	return 0
+}
+
 type RetrieveOrderRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	OrderId              uint64   `protobuf:"varint,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
@@ -40,7 +181,7 @@ func (m *RetrieveOrderRequest) Reset()         { *m = RetrieveOrderRequest{} }
 func (m *RetrieveOrderRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveOrderRequest) ProtoMessage()    {}
 func (*RetrieveOrderRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{0}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{3}
 }
 
 func (m *RetrieveOrderRequest) XXX_Unmarshal(b []byte) error {
@@ -87,7 +228,7 @@ func (m *ConfirmPurchaseRequest) Reset()         { *m = ConfirmPurchaseRequest{}
 func (m *ConfirmPurchaseRequest) String() string { return proto.CompactTextString(m) }
 func (*ConfirmPurchaseRequest) ProtoMessage()    {}
 func (*ConfirmPurchaseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{1}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{4}
 }
 
 func (m *ConfirmPurchaseRequest) XXX_Unmarshal(b []byte) error {
@@ -135,7 +276,7 @@ func (m *VerifyCVVRequest) Reset()         { *m = VerifyCVVRequest{} }
 func (m *VerifyCVVRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyCVVRequest) ProtoMessage()    {}
 func (*VerifyCVVRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{2}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{5}
 }
 
 func (m *VerifyCVVRequest) XXX_Unmarshal(b []byte) error {
@@ -188,7 +329,7 @@ func (m *RetrieveMyCardsRequest) Reset()         { *m = RetrieveMyCardsRequest{}
 func (m *RetrieveMyCardsRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveMyCardsRequest) ProtoMessage()    {}
 func (*RetrieveMyCardsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{3}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{6}
 }
 
 func (m *RetrieveMyCardsRequest) XXX_Unmarshal(b []byte) error {
@@ -227,7 +368,7 @@ func (m *RetrieveMyCardsResponse) Reset()         { *m = RetrieveMyCardsResponse
 func (m *RetrieveMyCardsResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveMyCardsResponse) ProtoMessage()    {}
 func (*RetrieveMyCardsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{4}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{7}
 }
 
 func (m *RetrieveMyCardsResponse) XXX_Unmarshal(b []byte) error {
@@ -267,7 +408,7 @@ func (m *CreateCardRequest) Reset()         { *m = CreateCardRequest{} }
 func (m *CreateCardRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCardRequest) ProtoMessage()    {}
 func (*CreateCardRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{5}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{8}
 }
 
 func (m *CreateCardRequest) XXX_Unmarshal(b []byte) error {
@@ -314,7 +455,7 @@ func (m *CreatePaymentRequest) Reset()         { *m = CreatePaymentRequest{} }
 func (m *CreatePaymentRequest) String() string { return proto.CompactTextString(m) }
 func (*CreatePaymentRequest) ProtoMessage()    {}
 func (*CreatePaymentRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{6}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{9}
 }
 
 func (m *CreatePaymentRequest) XXX_Unmarshal(b []byte) error {
@@ -361,7 +502,7 @@ func (m *CreatePaymentResponse) Reset()         { *m = CreatePaymentResponse{} }
 func (m *CreatePaymentResponse) String() string { return proto.CompactTextString(m) }
 func (*CreatePaymentResponse) ProtoMessage()    {}
 func (*CreatePaymentResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{7}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{10}
 }
 
 func (m *CreatePaymentResponse) XXX_Unmarshal(b []byte) error {
@@ -408,7 +549,7 @@ func (m *CreateCardResponse) Reset()         { *m = CreateCardResponse{} }
 func (m *CreateCardResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCardResponse) ProtoMessage()    {}
 func (*CreateCardResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{8}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{11}
 }
 
 func (m *CreateCardResponse) XXX_Unmarshal(b []byte) error {
@@ -443,39 +584,39 @@ func (m *CreateCardResponse) GetCard() *Card {
 	return nil
 }
 
-type UpdateOrderStateRequest struct {
+type UpdateStateRequest struct {
 	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UpdateOrderStateRequest) Reset()         { *m = UpdateOrderStateRequest{} }
-func (m *UpdateOrderStateRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateOrderStateRequest) ProtoMessage()    {}
-func (*UpdateOrderStateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{9}
+func (m *UpdateStateRequest) Reset()         { *m = UpdateStateRequest{} }
+func (m *UpdateStateRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateStateRequest) ProtoMessage()    {}
+func (*UpdateStateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{12}
 }
 
-func (m *UpdateOrderStateRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateOrderStateRequest.Unmarshal(m, b)
+func (m *UpdateStateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateStateRequest.Unmarshal(m, b)
 }
-func (m *UpdateOrderStateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateOrderStateRequest.Marshal(b, m, deterministic)
+func (m *UpdateStateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateStateRequest.Marshal(b, m, deterministic)
 }
-func (m *UpdateOrderStateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateOrderStateRequest.Merge(m, src)
+func (m *UpdateStateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateStateRequest.Merge(m, src)
 }
-func (m *UpdateOrderStateRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateOrderStateRequest.Size(m)
+func (m *UpdateStateRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateStateRequest.Size(m)
 }
-func (m *UpdateOrderStateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateOrderStateRequest.DiscardUnknown(m)
+func (m *UpdateStateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateStateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UpdateOrderStateRequest proto.InternalMessageInfo
+var xxx_messageInfo_UpdateStateRequest proto.InternalMessageInfo
 
-func (m *UpdateOrderStateRequest) GetAccessToken() string {
+func (m *UpdateStateRequest) GetAccessToken() string {
 	if m != nil {
 		return m.AccessToken
 	}
@@ -494,7 +635,7 @@ func (m *RetrieveReservationResponse) Reset()         { *m = RetrieveReservation
 func (m *RetrieveReservationResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveReservationResponse) ProtoMessage()    {}
 func (*RetrieveReservationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{10}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{13}
 }
 
 func (m *RetrieveReservationResponse) XXX_Unmarshal(b []byte) error {
@@ -541,7 +682,7 @@ func (m *RetrieveBookingResponse) Reset()         { *m = RetrieveBookingResponse
 func (m *RetrieveBookingResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveBookingResponse) ProtoMessage()    {}
 func (*RetrieveBookingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{11}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{14}
 }
 
 func (m *RetrieveBookingResponse) XXX_Unmarshal(b []byte) error {
@@ -588,7 +729,7 @@ func (m *RetrievePurchaseResponse) Reset()         { *m = RetrievePurchaseRespon
 func (m *RetrievePurchaseResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrievePurchaseResponse) ProtoMessage()    {}
 func (*RetrievePurchaseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{12}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{15}
 }
 
 func (m *RetrievePurchaseResponse) XXX_Unmarshal(b []byte) error {
@@ -635,7 +776,7 @@ func (m *AssignDestAddressRequest) Reset()         { *m = AssignDestAddressReque
 func (m *AssignDestAddressRequest) String() string { return proto.CompactTextString(m) }
 func (*AssignDestAddressRequest) ProtoMessage()    {}
 func (*AssignDestAddressRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{13}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{16}
 }
 
 func (m *AssignDestAddressRequest) XXX_Unmarshal(b []byte) error {
@@ -682,7 +823,7 @@ func (m *CreateShippingRequest) Reset()         { *m = CreateShippingRequest{} }
 func (m *CreateShippingRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateShippingRequest) ProtoMessage()    {}
 func (*CreateShippingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{14}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{17}
 }
 
 func (m *CreateShippingRequest) XXX_Unmarshal(b []byte) error {
@@ -730,7 +871,7 @@ func (m *CreateShippingRequest_Shipping) Reset()         { *m = CreateShippingRe
 func (m *CreateShippingRequest_Shipping) String() string { return proto.CompactTextString(m) }
 func (*CreateShippingRequest_Shipping) ProtoMessage()    {}
 func (*CreateShippingRequest_Shipping) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{14, 0}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{17, 0}
 }
 
 func (m *CreateShippingRequest_Shipping) XXX_Unmarshal(b []byte) error {
@@ -784,7 +925,7 @@ func (m *CreateShippingResponse) Reset()         { *m = CreateShippingResponse{}
 func (m *CreateShippingResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateShippingResponse) ProtoMessage()    {}
 func (*CreateShippingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{15}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{18}
 }
 
 func (m *CreateShippingResponse) XXX_Unmarshal(b []byte) error {
@@ -837,7 +978,7 @@ func (m *Shipping) Reset()         { *m = Shipping{} }
 func (m *Shipping) String() string { return proto.CompactTextString(m) }
 func (*Shipping) ProtoMessage()    {}
 func (*Shipping) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{16}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{19}
 }
 
 func (m *Shipping) XXX_Unmarshal(b []byte) error {
@@ -927,7 +1068,7 @@ func (m *RetrieveShippingMethodsRequest) Reset()         { *m = RetrieveShipping
 func (m *RetrieveShippingMethodsRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveShippingMethodsRequest) ProtoMessage()    {}
 func (*RetrieveShippingMethodsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{17}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{20}
 }
 
 func (m *RetrieveShippingMethodsRequest) XXX_Unmarshal(b []byte) error {
@@ -983,7 +1124,7 @@ func (m *ShippingMethod) Reset()         { *m = ShippingMethod{} }
 func (m *ShippingMethod) String() string { return proto.CompactTextString(m) }
 func (*ShippingMethod) ProtoMessage()    {}
 func (*ShippingMethod) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{18}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{21}
 }
 
 func (m *ShippingMethod) XXX_Unmarshal(b []byte) error {
@@ -1043,7 +1184,7 @@ func (m *RetrieveShippingMethodsResponse) Reset()         { *m = RetrieveShippin
 func (m *RetrieveShippingMethodsResponse) String() string { return proto.CompactTextString(m) }
 func (*RetrieveShippingMethodsResponse) ProtoMessage()    {}
 func (*RetrieveShippingMethodsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{19}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{22}
 }
 
 func (m *RetrieveShippingMethodsResponse) XXX_Unmarshal(b []byte) error {
@@ -1083,7 +1224,7 @@ func (m *CreateReservationResponse) Reset()         { *m = CreateReservationResp
 func (m *CreateReservationResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateReservationResponse) ProtoMessage()    {}
 func (*CreateReservationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{20}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{23}
 }
 
 func (m *CreateReservationResponse) XXX_Unmarshal(b []byte) error {
@@ -1130,7 +1271,7 @@ func (m *CreatePurchaseResponse) Reset()         { *m = CreatePurchaseResponse{}
 func (m *CreatePurchaseResponse) String() string { return proto.CompactTextString(m) }
 func (*CreatePurchaseResponse) ProtoMessage()    {}
 func (*CreatePurchaseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{21}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{24}
 }
 
 func (m *CreatePurchaseResponse) XXX_Unmarshal(b []byte) error {
@@ -1177,7 +1318,7 @@ func (m *CreateBookingResponse) Reset()         { *m = CreateBookingResponse{} }
 func (m *CreateBookingResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateBookingResponse) ProtoMessage()    {}
 func (*CreateBookingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{22}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{25}
 }
 
 func (m *CreateBookingResponse) XXX_Unmarshal(b []byte) error {
@@ -1225,7 +1366,7 @@ func (m *CreateReservationRequest) Reset()         { *m = CreateReservationReque
 func (m *CreateReservationRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateReservationRequest) ProtoMessage()    {}
 func (*CreateReservationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{23}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{26}
 }
 
 func (m *CreateReservationRequest) XXX_Unmarshal(b []byte) error {
@@ -1279,7 +1420,7 @@ func (m *CreateBookingRequest) Reset()         { *m = CreateBookingRequest{} }
 func (m *CreateBookingRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateBookingRequest) ProtoMessage()    {}
 func (*CreateBookingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{24}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{27}
 }
 
 func (m *CreateBookingRequest) XXX_Unmarshal(b []byte) error {
@@ -1326,7 +1467,7 @@ func (m *CreatePurchaseRequest) Reset()         { *m = CreatePurchaseRequest{} }
 func (m *CreatePurchaseRequest) String() string { return proto.CompactTextString(m) }
 func (*CreatePurchaseRequest) ProtoMessage()    {}
 func (*CreatePurchaseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{25}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{28}
 }
 
 func (m *CreatePurchaseRequest) XXX_Unmarshal(b []byte) error {
@@ -1372,7 +1513,7 @@ func (m *StateMachineResponse) Reset()         { *m = StateMachineResponse{} }
 func (m *StateMachineResponse) String() string { return proto.CompactTextString(m) }
 func (*StateMachineResponse) ProtoMessage()    {}
 func (*StateMachineResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{26}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{29}
 }
 
 func (m *StateMachineResponse) XXX_Unmarshal(b []byte) error {
@@ -1413,7 +1554,7 @@ func (m *StateMachineResponse_StateDefinition) Reset()         { *m = StateMachi
 func (m *StateMachineResponse_StateDefinition) String() string { return proto.CompactTextString(m) }
 func (*StateMachineResponse_StateDefinition) ProtoMessage()    {}
 func (*StateMachineResponse_StateDefinition) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{26, 0}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{29, 0}
 }
 
 func (m *StateMachineResponse_StateDefinition) XXX_Unmarshal(b []byte) error {
@@ -1471,7 +1612,7 @@ func (m *Reservation) Reset()         { *m = Reservation{} }
 func (m *Reservation) String() string { return proto.CompactTextString(m) }
 func (*Reservation) ProtoMessage()    {}
 func (*Reservation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{27}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{30}
 }
 
 func (m *Reservation) XXX_Unmarshal(b []byte) error {
@@ -1553,7 +1694,7 @@ func (m *Purchase) Reset()         { *m = Purchase{} }
 func (m *Purchase) String() string { return proto.CompactTextString(m) }
 func (*Purchase) ProtoMessage()    {}
 func (*Purchase) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{28}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{31}
 }
 
 func (m *Purchase) XXX_Unmarshal(b []byte) error {
@@ -1651,7 +1792,7 @@ func (m *Booking) Reset()         { *m = Booking{} }
 func (m *Booking) String() string { return proto.CompactTextString(m) }
 func (*Booking) ProtoMessage()    {}
 func (*Booking) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{29}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{32}
 }
 
 func (m *Booking) XXX_Unmarshal(b []byte) error {
@@ -1711,7 +1852,7 @@ func (m *RetrieveCurrentRequest) Reset()         { *m = RetrieveCurrentRequest{}
 func (m *RetrieveCurrentRequest) String() string { return proto.CompactTextString(m) }
 func (*RetrieveCurrentRequest) ProtoMessage()    {}
 func (*RetrieveCurrentRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{30}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{33}
 }
 
 func (m *RetrieveCurrentRequest) XXX_Unmarshal(b []byte) error {
@@ -1752,7 +1893,7 @@ func (m *StateChange) Reset()         { *m = StateChange{} }
 func (m *StateChange) String() string { return proto.CompactTextString(m) }
 func (*StateChange) ProtoMessage()    {}
 func (*StateChange) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{31}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{34}
 }
 
 func (m *StateChange) XXX_Unmarshal(b []byte) error {
@@ -1808,7 +1949,7 @@ func (m *Shipment) Reset()         { *m = Shipment{} }
 func (m *Shipment) String() string { return proto.CompactTextString(m) }
 func (*Shipment) ProtoMessage()    {}
 func (*Shipment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{32}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{35}
 }
 
 func (m *Shipment) XXX_Unmarshal(b []byte) error {
@@ -1869,7 +2010,7 @@ func (m *Timestamp) Reset()         { *m = Timestamp{} }
 func (m *Timestamp) String() string { return proto.CompactTextString(m) }
 func (*Timestamp) ProtoMessage()    {}
 func (*Timestamp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{33}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{36}
 }
 
 func (m *Timestamp) XXX_Unmarshal(b []byte) error {
@@ -1918,7 +2059,7 @@ func (m *PaymentInput) Reset()         { *m = PaymentInput{} }
 func (m *PaymentInput) String() string { return proto.CompactTextString(m) }
 func (*PaymentInput) ProtoMessage()    {}
 func (*PaymentInput) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{34}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{37}
 }
 
 func (m *PaymentInput) XXX_Unmarshal(b []byte) error {
@@ -1976,7 +2117,7 @@ func (m *Payment) Reset()         { *m = Payment{} }
 func (m *Payment) String() string { return proto.CompactTextString(m) }
 func (*Payment) ProtoMessage()    {}
 func (*Payment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{35}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{38}
 }
 
 func (m *Payment) XXX_Unmarshal(b []byte) error {
@@ -2054,7 +2195,7 @@ func (m *CardInput) Reset()         { *m = CardInput{} }
 func (m *CardInput) String() string { return proto.CompactTextString(m) }
 func (*CardInput) ProtoMessage()    {}
 func (*CardInput) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{36}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{39}
 }
 
 func (m *CardInput) XXX_Unmarshal(b []byte) error {
@@ -2124,7 +2265,7 @@ func (m *Card) Reset()         { *m = Card{} }
 func (m *Card) String() string { return proto.CompactTextString(m) }
 func (*Card) ProtoMessage()    {}
 func (*Card) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{37}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{40}
 }
 
 func (m *Card) XXX_Unmarshal(b []byte) error {
@@ -2185,7 +2326,7 @@ func (m *CardHolder) Reset()         { *m = CardHolder{} }
 func (m *CardHolder) String() string { return proto.CompactTextString(m) }
 func (*CardHolder) ProtoMessage()    {}
 func (*CardHolder) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a95bdbc7e39fe4fd, []int{38}
+	return fileDescriptor_a95bdbc7e39fe4fd, []int{41}
 }
 
 func (m *CardHolder) XXX_Unmarshal(b []byte) error {
@@ -2221,6 +2362,9 @@ func (m *CardHolder) GetName() string {
 }
 
 func init() {
+	proto.RegisterType((*RetrieveShippingResponse)(nil), "checkout.RetrieveShippingResponse")
+	proto.RegisterType((*RetrievePaymentRequest)(nil), "checkout.RetrievePaymentRequest")
+	proto.RegisterType((*RetrieveShippingRequest)(nil), "checkout.RetrieveShippingRequest")
 	proto.RegisterType((*RetrieveOrderRequest)(nil), "checkout.RetrieveOrderRequest")
 	proto.RegisterType((*ConfirmPurchaseRequest)(nil), "checkout.ConfirmPurchaseRequest")
 	proto.RegisterType((*VerifyCVVRequest)(nil), "checkout.VerifyCVVRequest")
@@ -2231,7 +2375,7 @@ func init() {
 	proto.RegisterType((*CreatePaymentRequest)(nil), "checkout.CreatePaymentRequest")
 	proto.RegisterType((*CreatePaymentResponse)(nil), "checkout.CreatePaymentResponse")
 	proto.RegisterType((*CreateCardResponse)(nil), "checkout.CreateCardResponse")
-	proto.RegisterType((*UpdateOrderStateRequest)(nil), "checkout.UpdateOrderStateRequest")
+	proto.RegisterType((*UpdateStateRequest)(nil), "checkout.UpdateStateRequest")
 	proto.RegisterType((*RetrieveReservationResponse)(nil), "checkout.RetrieveReservationResponse")
 	proto.RegisterType((*RetrieveBookingResponse)(nil), "checkout.RetrieveBookingResponse")
 	proto.RegisterType((*RetrievePurchaseResponse)(nil), "checkout.RetrievePurchaseResponse")
@@ -2275,139 +2419,143 @@ func init() {
 }
 
 var fileDescriptor_a95bdbc7e39fe4fd = []byte{
-	// 2100 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x59, 0xcd, 0x6f, 0x1c, 0x49,
-	0x15, 0x77, 0x7b, 0xc6, 0xe3, 0x99, 0x37, 0x8e, 0x1d, 0xd7, 0x3a, 0x8e, 0xb7, 0xc3, 0xc6, 0xde,
-	0x22, 0x01, 0xb3, 0x1b, 0x4d, 0xc0, 0x8b, 0x60, 0x17, 0x10, 0xc4, 0x1f, 0x59, 0x65, 0x84, 0x9c,
-	0x8f, 0x8e, 0x37, 0x6c, 0x50, 0x60, 0x68, 0x4f, 0x97, 0x3d, 0x2d, 0xcf, 0x74, 0x0f, 0x5d, 0xd5,
-	0xce, 0x8e, 0x10, 0x07, 0x4e, 0x08, 0x89, 0x3f, 0x80, 0x33, 0x1c, 0xf6, 0xc8, 0x09, 0xb4, 0x12,
-	0xe2, 0xc4, 0xff, 0x80, 0xc4, 0xbf, 0xc0, 0x85, 0x3b, 0x27, 0x54, 0x5f, 0xdd, 0xd5, 0x1f, 0x63,
-	0xf7, 0xb0, 0x5e, 0xed, 0xad, 0xeb, 0x55, 0xd5, 0x7b, 0xaf, 0xde, 0xfb, 0xbd, 0x57, 0xaf, 0x5e,
-	0xc3, 0x72, 0x7f, 0x40, 0xfa, 0x67, 0x61, 0xcc, 0x3a, 0xe3, 0x28, 0x64, 0x21, 0x6a, 0xea, 0xb1,
-	0x7d, 0xf3, 0xdc, 0x1d, 0xfa, 0x9e, 0xcb, 0xc8, 0x7d, 0xfd, 0x21, 0x97, 0xd8, 0xb7, 0x4e, 0xc3,
-	0xf0, 0x74, 0x48, 0xee, 0x8b, 0xd1, 0x71, 0x7c, 0x72, 0x9f, 0x8c, 0xc6, 0x6c, 0xa2, 0x26, 0x37,
-	0xf3, 0x93, 0xcc, 0x1f, 0x11, 0xca, 0xdc, 0xd1, 0x58, 0x2d, 0x58, 0xa5, 0x03, 0x37, 0x22, 0x9e,
-	0xa0, 0x4b, 0x12, 0x3e, 0x82, 0x35, 0x87, 0xb0, 0xc8, 0x27, 0xe7, 0xe4, 0x49, 0xe4, 0x91, 0xc8,
-	0x21, 0xbf, 0x8c, 0x09, 0x65, 0xe8, 0x6d, 0x58, 0x72, 0xfb, 0x7d, 0x42, 0x69, 0x8f, 0x85, 0x67,
-	0x24, 0xd8, 0xb0, 0xb6, 0xac, 0xed, 0x96, 0xd3, 0x96, 0xb4, 0x23, 0x4e, 0x42, 0x6f, 0x42, 0x33,
-	0xe4, 0x5b, 0x7a, 0xbe, 0xb7, 0x31, 0xbf, 0x65, 0x6d, 0xd7, 0x9d, 0x45, 0x31, 0xee, 0x7a, 0xf8,
-	0x15, 0xac, 0xef, 0x87, 0xc1, 0x89, 0x1f, 0x8d, 0x9e, 0xc6, 0x51, 0x7f, 0xe0, 0x52, 0x32, 0x03,
-	0xdf, 0x4d, 0x68, 0x8f, 0xd5, 0xae, 0x94, 0x35, 0x68, 0x52, 0xd7, 0xc3, 0xbf, 0x80, 0xeb, 0x2f,
-	0x48, 0xe4, 0x9f, 0x4c, 0xf6, 0x5f, 0xbc, 0x98, 0x81, 0xef, 0x4d, 0x58, 0xec, 0xbb, 0x91, 0x97,
-	0xf2, 0x6c, 0xf0, 0x61, 0xd7, 0x43, 0xd7, 0xa1, 0xd6, 0x3f, 0x3f, 0xdf, 0xa8, 0x09, 0x22, 0xff,
-	0xc4, 0xdf, 0x87, 0x75, 0x6d, 0x95, 0xc3, 0xc9, 0xbe, 0x1b, 0x79, 0xb4, 0xba, 0x1c, 0xfc, 0xa9,
-	0x05, 0x37, 0x0b, 0xbb, 0xe9, 0x38, 0x0c, 0x28, 0x41, 0x7b, 0xb0, 0xc0, 0x85, 0xd2, 0x0d, 0x6b,
-	0xab, 0xb6, 0xdd, 0xde, 0xb9, 0xd7, 0x49, 0x20, 0x30, 0x65, 0x47, 0x47, 0x8c, 0x1e, 0x06, 0x2c,
-	0x9a, 0x38, 0x72, 0xab, 0xfd, 0x08, 0x20, 0x25, 0x72, 0xe5, 0xcf, 0xc8, 0x44, 0xe8, 0x51, 0x77,
-	0xf8, 0x27, 0xba, 0x03, 0x0b, 0xe7, 0xee, 0x30, 0x26, 0xe2, 0x94, 0xed, 0x9d, 0xe5, 0x54, 0x06,
-	0xdf, 0xe6, 0xc8, 0xc9, 0xef, 0xcd, 0xbf, 0x6f, 0xe1, 0x1e, 0xac, 0xee, 0x47, 0xc4, 0x65, 0x44,
-	0x4c, 0x54, 0xb7, 0xe4, 0xd7, 0xa1, 0xce, 0x55, 0x51, 0x02, 0xde, 0xc8, 0x0a, 0xe8, 0x06, 0xe3,
-	0x98, 0x39, 0x62, 0x01, 0x3e, 0x83, 0x35, 0x29, 0xe0, 0xa9, 0x3b, 0x19, 0x91, 0x80, 0xcd, 0x20,
-	0xe3, 0x9b, 0xb0, 0x38, 0x96, 0x9b, 0x94, 0x98, 0xf5, 0x54, 0x8c, 0xe2, 0x26, 0x25, 0xe9, 0x65,
-	0xb8, 0x0f, 0x37, 0x72, 0xc2, 0x94, 0xd1, 0xdf, 0x02, 0x50, 0x6b, 0xb8, 0xef, 0xa5, 0xa5, 0x5a,
-	0x8a, 0xd2, 0xf5, 0xd0, 0xbb, 0x79, 0x49, 0xab, 0x05, 0x49, 0xa9, 0x90, 0x67, 0x80, 0x4c, 0x93,
-	0x29, 0x09, 0x06, 0xb4, 0xac, 0x0c, 0xb4, 0x70, 0xc6, 0x52, 0x79, 0x57, 0x48, 0x23, 0xfd, 0x00,
-	0x6e, 0x7e, 0x34, 0xe6, 0x31, 0x2e, 0x02, 0xf0, 0x39, 0x73, 0xd9, 0x0c, 0xd1, 0x82, 0x7f, 0x0d,
-	0xb7, 0x34, 0x74, 0x1c, 0x42, 0x49, 0x74, 0xee, 0x32, 0x3f, 0x0c, 0x12, 0xcd, 0xee, 0xc2, 0x72,
-	0x94, 0x92, 0x53, 0x05, 0xaf, 0x19, 0xd4, 0xae, 0x87, 0xbe, 0x0b, 0x6d, 0x83, 0xa0, 0xd4, 0xbd,
-	0x61, 0xa2, 0x33, 0x65, 0x6d, 0xae, 0xc4, 0x24, 0xc5, 0xfa, 0x5e, 0x18, 0x9e, 0xf9, 0xc1, 0xa9,
-	0x69, 0xf6, 0x63, 0x49, 0x32, 0xcc, 0xae, 0x28, 0xd2, 0xec, 0x6a, 0x50, 0x34, 0xbb, 0x66, 0xa5,
-	0x57, 0xe0, 0x33, 0xd8, 0xd0, 0x62, 0xd2, 0x8c, 0xa2, 0xe4, 0xe4, 0xf2, 0x85, 0x95, 0xcf, 0x17,
-	0xa8, 0x03, 0x4d, 0x3d, 0x52, 0xa2, 0x90, 0xe1, 0x61, 0xcd, 0x2e, 0x59, 0x83, 0x09, 0x6c, 0xec,
-	0x52, 0xea, 0x9f, 0x06, 0x07, 0x84, 0xb2, 0x5d, 0xcf, 0x8b, 0x08, 0x9d, 0x21, 0xfe, 0xd1, 0xd7,
-	0x60, 0xc5, 0x23, 0x94, 0xf5, 0x5c, 0xb9, 0x33, 0xcd, 0x37, 0xd7, 0xbc, 0x94, 0x5f, 0xd7, 0xc3,
-	0x7f, 0x9b, 0xd7, 0x80, 0x7d, 0x3e, 0xf0, 0xc7, 0x63, 0x61, 0xba, 0xca, 0x42, 0x0e, 0xa0, 0x49,
-	0xd5, 0x2e, 0x75, 0xa6, 0x6d, 0x03, 0x5c, 0x65, 0x5c, 0x3b, 0xc9, 0x38, 0xd9, 0x69, 0x7f, 0x66,
-	0x41, 0x53, 0x93, 0xd1, 0x3d, 0x40, 0x7a, 0xa2, 0x37, 0x22, 0x6c, 0x10, 0x1a, 0x78, 0xbe, 0xae,
-	0x67, 0x0e, 0xc5, 0x44, 0xd7, 0x43, 0x77, 0xa1, 0xce, 0xaf, 0x91, 0xc4, 0x77, 0xf2, 0x6a, 0xe9,
-	0x1c, 0xf9, 0x23, 0xf2, 0xe4, 0xe4, 0xc0, 0x9d, 0x38, 0x62, 0x1a, 0xfd, 0x04, 0x6a, 0x5e, 0xf8,
-	0x5a, 0xe4, 0xd6, 0xd6, 0xde, 0xc3, 0xff, 0xee, 0xed, 0x45, 0x0f, 0x9c, 0xc6, 0x28, 0x0c, 0x3c,
-	0x77, 0xe2, 0x2c, 0xb2, 0x98, 0x50, 0xfe, 0xd1, 0x7a, 0x4d, 0xbc, 0x40, 0x7e, 0x36, 0xd9, 0x20,
-	0x8e, 0xc4, 0x57, 0xe3, 0x24, 0xf2, 0x05, 0x85, 0xba, 0x2c, 0x8e, 0x04, 0x85, 0xc6, 0x62, 0x1f,
-	0xe7, 0x88, 0x7d, 0x58, 0xcf, 0x1f, 0x33, 0xc5, 0x43, 0x72, 0x8e, 0x14, 0x0f, 0x9a, 0x24, 0xf1,
-	0x90, 0xb3, 0x9d, 0x81, 0x87, 0xa2, 0x95, 0xf0, 0x67, 0xf3, 0x86, 0x95, 0xd6, 0xa1, 0xe1, 0x8e,
-	0xc2, 0x38, 0x60, 0x82, 0xb1, 0xe5, 0xa8, 0x11, 0xbf, 0x0d, 0xc9, 0xb9, 0x4a, 0x31, 0xea, 0x36,
-	0x14, 0x63, 0x21, 0xef, 0x0d, 0x2f, 0x8e, 0x54, 0x00, 0x06, 0xbd, 0x91, 0x1f, 0xc4, 0x8c, 0x50,
-	0x75, 0xdf, 0xac, 0xea, 0xa9, 0x6e, 0x70, 0x28, 0x27, 0xd0, 0x1d, 0x58, 0xa6, 0x51, 0xdf, 0xc4,
-	0x4f, 0x5d, 0x2c, 0x5d, 0xa2, 0x51, 0x3f, 0x81, 0x4f, 0x19, 0xcc, 0x16, 0x4a, 0x60, 0x86, 0xbe,
-	0x0d, 0xeb, 0x9e, 0x4f, 0x99, 0x1b, 0xf4, 0x09, 0x97, 0x7e, 0xe6, 0x0f, 0xc3, 0x11, 0x61, 0x24,
-	0xa2, 0x1b, 0x0d, 0x71, 0x80, 0x35, 0x3d, 0xdb, 0x0d, 0x7e, 0x9c, 0xcc, 0xf1, 0x8c, 0x16, 0x53,
-	0x79, 0xb7, 0x2f, 0xca, 0x8c, 0xc6, 0x87, 0x5d, 0x6f, 0x0a, 0x4a, 0x9a, 0xe5, 0x28, 0xc1, 0xff,
-	0xb0, 0xe0, 0xb6, 0x0e, 0xdc, 0xe7, 0x99, 0xc9, 0x59, 0x22, 0xea, 0xcb, 0xc6, 0xda, 0x6f, 0x2d,
-	0x58, 0xce, 0x6a, 0x3f, 0x15, 0x06, 0x53, 0x7c, 0x3d, 0x3f, 0xcd, 0xd7, 0x86, 0x9d, 0x6b, 0x19,
-	0x3b, 0xaf, 0xc1, 0x02, 0xf3, 0xd9, 0x90, 0x08, 0xdf, 0xb7, 0x1c, 0x39, 0xc0, 0xff, 0xb6, 0x60,
-	0x73, 0xaa, 0x3d, 0x15, 0xfe, 0x7d, 0xb8, 0x9e, 0xf3, 0x90, 0x2e, 0x37, 0x7e, 0x58, 0x2c, 0x37,
-	0xa6, 0x30, 0xe9, 0xe4, 0xe8, 0xb2, 0x00, 0x59, 0xc9, 0xfa, 0x97, 0xda, 0xaf, 0x60, 0xad, 0x6c,
-	0x61, 0x49, 0x51, 0xd2, 0xc9, 0x16, 0x25, 0x1b, 0xc5, 0x80, 0x93, 0x0c, 0xcc, 0xf2, 0xe4, 0x57,
-	0xf0, 0xa6, 0x0c, 0xf1, 0x2f, 0xe3, 0x62, 0x4b, 0xf2, 0xcb, 0x17, 0x7f, 0xdf, 0x78, 0xfa, 0x1e,
-	0x98, 0xf1, 0x06, 0xbd, 0x97, 0xbf, 0x41, 0xcb, 0xc4, 0x24, 0x57, 0xe8, 0x18, 0x36, 0x4a, 0xac,
-	0x59, 0x39, 0x06, 0x79, 0x11, 0x15, 0x85, 0x5e, 0xdc, 0x37, 0x32, 0x5c, 0x4b, 0x51, 0xba, 0x1e,
-	0x42, 0x50, 0xf7, 0xdc, 0x89, 0x4e, 0x6a, 0xe2, 0x1b, 0x7f, 0xac, 0xab, 0xbf, 0xe4, 0x5c, 0xb3,
-	0x48, 0xe3, 0x4a, 0xfa, 0x7d, 0xe3, 0x09, 0xd0, 0x52, 0x94, 0xae, 0x87, 0xff, 0x6a, 0x25, 0xb5,
-	0xde, 0xec, 0xef, 0x8b, 0x07, 0xb0, 0xe0, 0x33, 0x32, 0xe2, 0x41, 0xc9, 0x83, 0xe2, 0x9d, 0xfc,
-	0xbd, 0x99, 0x63, 0xd9, 0xe9, 0xf2, 0xc5, 0xaa, 0x02, 0x17, 0x1b, 0xed, 0xf7, 0x01, 0x52, 0x62,
-	0x09, 0xd8, 0xd7, 0x4c, 0xb0, 0xd7, 0x4d, 0x48, 0xff, 0xdd, 0x82, 0x35, 0x51, 0xe1, 0x1d, 0xba,
-	0xfd, 0x81, 0x1f, 0xa4, 0xa0, 0xfa, 0x10, 0x1a, 0x94, 0xd3, 0x75, 0xa8, 0x76, 0x8c, 0x00, 0x29,
-	0x59, 0x2f, 0x89, 0x07, 0xe4, 0xc4, 0x0f, 0x7c, 0xe1, 0x48, 0xb5, 0xdb, 0xfe, 0x19, 0xac, 0xe4,
-	0xa6, 0xb8, 0x36, 0x94, 0xb9, 0xa7, 0x44, 0x68, 0x58, 0x73, 0xe4, 0x80, 0x3b, 0x2c, 0x70, 0x55,
-	0x4e, 0x6d, 0x39, 0xe2, 0x1b, 0x6d, 0x41, 0xdb, 0x23, 0xb4, 0x1f, 0xf9, 0x63, 0x11, 0x2c, 0x35,
-	0x69, 0x3b, 0x83, 0x84, 0xff, 0x30, 0x0f, 0x6d, 0x03, 0x3f, 0x66, 0xfa, 0xb2, 0x32, 0xe9, 0xeb,
-	0x5b, 0xd0, 0x4a, 0x5e, 0x9f, 0xc5, 0x77, 0xc2, 0x91, 0x9e, 0x72, 0xd2, 0x55, 0xe8, 0x3b, 0xda,
-	0x2f, 0x35, 0x61, 0x81, 0xad, 0xd2, 0x20, 0x2d, 0x7a, 0x23, 0x81, 0x5e, 0x3d, 0x85, 0x9e, 0x91,
-	0x9e, 0x17, 0x32, 0xe9, 0x79, 0x13, 0xda, 0x23, 0xc2, 0xdd, 0x2b, 0x2f, 0xea, 0x86, 0x8c, 0x5d,
-	0x4d, 0xea, 0x7a, 0x9f, 0xc3, 0xb5, 0x7f, 0xaa, 0x41, 0x53, 0x43, 0xe7, 0x4a, 0xed, 0xf2, 0x5e,
-	0xd6, 0x2e, 0x6f, 0x15, 0x83, 0xbc, 0xc4, 0x28, 0xa9, 0x01, 0xea, 0x19, 0x03, 0x14, 0x6b, 0x8b,
-	0x85, 0x6a, 0xb5, 0x45, 0xa3, 0xac, 0xb6, 0xc8, 0x99, 0x73, 0x31, 0x6f, 0xce, 0x0b, 0x8a, 0x8f,
-	0xe6, 0x05, 0xc5, 0x47, 0xae, 0x82, 0x6b, 0xe5, 0x2b, 0xb8, 0xcf, 0xe1, 0xa5, 0xdf, 0x5b, 0xb0,
-	0xa8, 0xd2, 0xd1, 0x95, 0x3a, 0x29, 0x9b, 0xb0, 0x6a, 0xb9, 0x84, 0x35, 0xcd, 0x1d, 0x66, 0xa3,
-	0x61, 0x3f, 0x8e, 0xa2, 0x99, 0x9e, 0xc8, 0x38, 0x82, 0xb6, 0x88, 0xf5, 0xfd, 0x81, 0x1b, 0x18,
-	0x11, 0x6d, 0x19, 0x11, 0xfd, 0x01, 0x40, 0x5f, 0x24, 0x35, 0xaf, 0xe7, 0xea, 0xe7, 0xad, 0xdd,
-	0x91, 0x7d, 0xa2, 0x8e, 0xee, 0x13, 0x99, 0x27, 0x52, 0xab, 0x77, 0x59, 0x9a, 0x36, 0x6a, 0x46,
-	0xda, 0xc0, 0x7f, 0x56, 0xb5, 0x30, 0x7f, 0x0c, 0x5f, 0x7e, 0x13, 0x76, 0xe1, 0x9a, 0xc8, 0x4b,
-	0xbd, 0xbe, 0x50, 0x51, 0xa7, 0xdc, 0x3b, 0xd9, 0xdb, 0x9f, 0xf3, 0xea, 0x18, 0x27, 0x51, 0x48,
-	0x5e, 0xa2, 0x06, 0x69, 0x4a, 0xdd, 0x59, 0x9b, 0xf2, 0x3a, 0xc9, 0x78, 0xb0, 0x5e, 0xc5, 0x83,
-	0xf6, 0x0b, 0x58, 0x2d, 0xe8, 0x50, 0x02, 0xad, 0x77, 0xb3, 0x85, 0xcc, 0x8d, 0x5c, 0x9e, 0x96,
-	0xbb, 0x4d, 0xc4, 0xfd, 0xc6, 0x82, 0x56, 0x22, 0x30, 0xe7, 0x10, 0x6b, 0x16, 0x87, 0x7c, 0x00,
-	0x10, 0x8b, 0x3e, 0x41, 0x55, 0x5f, 0xaa, 0xd5, 0xbb, 0x0c, 0xbf, 0x86, 0x25, 0xb3, 0x67, 0x82,
-	0xde, 0x81, 0x55, 0xdd, 0x11, 0xc9, 0xbf, 0xf4, 0x56, 0xd4, 0x44, 0x62, 0x4a, 0x0c, 0x4b, 0x7e,
-	0x40, 0x99, 0x3b, 0x1c, 0x72, 0xb2, 0x2e, 0x65, 0x33, 0x34, 0xb3, 0xff, 0x51, 0x33, 0xfb, 0x1f,
-	0xf8, 0x9f, 0x16, 0x2c, 0x2a, 0xc9, 0xd3, 0xc3, 0x2d, 0x0d, 0x8e, 0xf9, 0x4c, 0xae, 0xca, 0x38,
-	0xb1, 0x56, 0x29, 0x0c, 0x4b, 0x0f, 0xd6, 0xa8, 0x76, 0xb0, 0xc5, 0x8b, 0x0f, 0xd6, 0xcc, 0x1c,
-	0xec, 0x53, 0x0b, 0x5a, 0x49, 0xb7, 0x8b, 0x9f, 0x20, 0x88, 0x47, 0xc7, 0x24, 0xd2, 0x27, 0x93,
-	0x23, 0xdd, 0x59, 0x9c, 0x4f, 0x3a, 0x8b, 0x3c, 0xac, 0xc9, 0x27, 0x63, 0x3f, 0x9a, 0xf4, 0x46,
-	0x61, 0xc0, 0x06, 0xca, 0x5c, 0x6d, 0x49, 0x3b, 0xe4, 0x24, 0x1e, 0x55, 0x6a, 0xc9, 0x84, 0xb8,
-	0x91, 0xba, 0xd6, 0x40, 0x92, 0x5e, 0x12, 0x37, 0x42, 0xf7, 0xa0, 0x31, 0x08, 0x87, 0x1e, 0x89,
-	0x44, 0xee, 0x6e, 0xef, 0xac, 0x65, 0xdb, 0x4a, 0x8f, 0xc4, 0x9c, 0xa3, 0xd6, 0xe0, 0x3f, 0x5a,
-	0x50, 0xe7, 0x64, 0xb4, 0x0d, 0xd7, 0x87, 0x2e, 0x65, 0xbd, 0x93, 0x30, 0x8e, 0x7a, 0x9e, 0x7f,
-	0xea, 0x33, 0xaa, 0xd4, 0x5d, 0xe6, 0xf4, 0x0f, 0xc3, 0x38, 0x3a, 0x10, 0xd4, 0x82, 0x92, 0xf3,
-	0x97, 0x2a, 0x59, 0xbb, 0x40, 0xc9, 0x7a, 0x05, 0x25, 0x77, 0x64, 0x4f, 0x53, 0x52, 0xb9, 0xd9,
-	0xbc, 0xc0, 0xd7, 0x51, 0xe7, 0x05, 0x7e, 0x59, 0xb5, 0xb2, 0xf3, 0x1f, 0x0b, 0x16, 0x44, 0x23,
-	0x14, 0x75, 0x01, 0xd2, 0xa6, 0x1c, 0xba, 0x95, 0x2f, 0xe8, 0x8c, 0xee, 0xa6, 0xfd, 0x95, 0xf2,
-	0x49, 0x59, 0x55, 0xe1, 0x39, 0xb4, 0x0b, 0xad, 0xa4, 0xb7, 0x8c, 0xec, 0x74, 0x71, 0xbe, 0xe1,
-	0x6c, 0xaf, 0x17, 0x22, 0xef, 0xe1, 0x68, 0xcc, 0x26, 0x78, 0x0e, 0x7d, 0x0c, 0x2b, 0xb9, 0x66,
-	0x2e, 0xda, 0xba, 0xa0, 0xcf, 0x2b, 0xd9, 0xbd, 0x7d, 0x69, 0x27, 0x18, 0xcf, 0xed, 0xfc, 0xab,
-	0x0e, 0x4b, 0x46, 0x2d, 0x44, 0xd1, 0xcf, 0x75, 0x03, 0xd7, 0xac, 0xc9, 0x70, 0xfe, 0x88, 0xc5,
-	0x82, 0xdf, 0xfe, 0xea, 0x85, 0x6b, 0x12, 0x6b, 0xec, 0x43, 0x53, 0x6b, 0x83, 0x6e, 0x17, 0x35,
-	0x34, 0xff, 0x18, 0xd8, 0xe5, 0x8f, 0x2a, 0x3c, 0x87, 0x5e, 0xa5, 0xf6, 0x50, 0x77, 0x5c, 0x99,
-	0x3d, 0xb2, 0xd7, 0x9f, 0x7d, 0xb7, 0xb8, 0xa2, 0x5c, 0xc5, 0x47, 0xb0, 0x64, 0x16, 0xc8, 0x68,
-	0x8a, 0x5f, 0xec, 0xdb, 0x17, 0x17, 0xd4, 0x78, 0x0e, 0x39, 0x50, 0x7f, 0x1a, 0x91, 0x73, 0x64,
-	0xb8, 0x62, 0x4a, 0x5f, 0xb6, 0xba, 0x76, 0x0e, 0xd4, 0x1f, 0x93, 0x4f, 0xd8, 0x95, 0xf2, 0x3c,
-	0x82, 0xc6, 0x3e, 0x2f, 0x99, 0x86, 0x57, 0xc9, 0x75, 0xe7, 0x2f, 0x75, 0x68, 0xaa, 0xc2, 0x88,
-	0x22, 0x07, 0xae, 0x65, 0x5e, 0x6e, 0xa6, 0xf3, 0xcb, 0x9e, 0x74, 0xf6, 0xe6, 0xd4, 0xf9, 0x44,
-	0xed, 0x1f, 0xcd, 0x80, 0xa5, 0x62, 0x2b, 0x38, 0x1b, 0x57, 0xd5, 0x71, 0x54, 0x12, 0x57, 0x45,
-	0xd5, 0xae, 0x0e, 0x43, 0x8f, 0xab, 0x63, 0xa8, 0x92, 0x66, 0x8f, 0xab, 0xe3, 0xa7, 0x12, 0xbf,
-	0xa7, 0xb3, 0x60, 0xa7, 0x0a, 0xc7, 0x9d, 0xdf, 0x35, 0xa1, 0xa5, 0xdf, 0x21, 0x14, 0x7d, 0x04,
-	0xcb, 0xd9, 0x47, 0x34, 0xda, 0xbc, 0xe4, 0x79, 0x6d, 0x6f, 0x4d, 0x5f, 0x90, 0xa8, 0xfd, 0x0c,
-	0x56, 0x0b, 0x1d, 0x79, 0x33, 0xcf, 0x4d, 0x6b, 0xd7, 0x5f, 0x90, 0xa5, 0x1f, 0xcc, 0x00, 0xc7,
-	0x92, 0xbe, 0x0a, 0x9e, 0x4b, 0xcf, 0x9a, 0xf4, 0x86, 0x37, 0x2f, 0x69, 0xc1, 0x17, 0xcf, 0x9a,
-	0x6f, 0x5e, 0xe3, 0x39, 0x34, 0x4e, 0xff, 0xa8, 0xe4, 0x7a, 0x6b, 0x68, 0xbb, 0x42, 0xff, 0x4e,
-	0x0a, 0xfa, 0x46, 0xe5, 0x4e, 0x9f, 0x48, 0x52, 0xd7, 0x32, 0x3f, 0xce, 0x8a, 0xd1, 0x9e, 0xfd,
-	0x7d, 0x57, 0x8c, 0xf6, 0xdc, 0x1f, 0x37, 0x3c, 0x87, 0x5e, 0xc2, 0x4a, 0xee, 0x0f, 0xb0, 0x19,
-	0xac, 0xe5, 0x3f, 0x87, 0x6d, 0x5c, 0xd4, 0xba, 0x04, 0x0c, 0x2f, 0xff, 0x9f, 0x3c, 0x50, 0x8d,
-	0xf5, 0xd5, 0x25, 0x82, 0x27, 0xd5, 0x13, 0x41, 0x35, 0xd5, 0x9e, 0x54, 0xcf, 0x04, 0xd5, 0x18,
-	0x3e, 0x9b, 0x25, 0x15, 0x54, 0x62, 0xb9, 0xb7, 0xfc, 0xd3, 0xa5, 0xce, 0xfd, 0xf1, 0xb1, 0x5e,
-	0x7a, 0xdc, 0x10, 0x66, 0x7b, 0xef, 0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xb0, 0xde, 0xcd, 0x8b,
-	0xe9, 0x20, 0x00, 0x00,
+	// 2175 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x59, 0xcd, 0x73, 0x1c, 0x47,
+	0x15, 0xdf, 0xd9, 0x5d, 0xed, 0xc7, 0x5b, 0x59, 0xb2, 0x3a, 0x8a, 0xac, 0xac, 0xb1, 0x25, 0x37,
+	0x36, 0x88, 0xc4, 0xb5, 0x86, 0x0d, 0x45, 0x12, 0xa8, 0x02, 0xeb, 0xc3, 0x29, 0x4f, 0x82, 0xb0,
+	0x33, 0x71, 0x4c, 0x92, 0x72, 0x58, 0x46, 0x3b, 0x2d, 0xed, 0x94, 0x76, 0x67, 0x96, 0x99, 0x1e,
+	0x39, 0x5b, 0x14, 0x07, 0x4e, 0x5c, 0xe0, 0xce, 0x15, 0xa8, 0x22, 0x47, 0x6e, 0x54, 0xaa, 0x28,
+	0x4e, 0xdc, 0xb8, 0x70, 0xe3, 0x8f, 0xe0, 0xc2, 0x9d, 0x13, 0xd5, 0x5f, 0x33, 0x3d, 0x1f, 0x2b,
+	0xcd, 0x3a, 0x4a, 0xe5, 0x36, 0xfd, 0xba, 0xfb, 0xf5, 0xeb, 0xf7, 0x7e, 0xef, 0xa3, 0xdf, 0xc0,
+	0xca, 0x70, 0x44, 0x86, 0xa7, 0x7e, 0x44, 0x7b, 0xd3, 0xc0, 0xa7, 0x3e, 0x6a, 0xa9, 0x71, 0xf7,
+	0xda, 0x99, 0x3d, 0x76, 0x1d, 0x9b, 0x92, 0x7b, 0xea, 0x43, 0x2c, 0xe9, 0x5e, 0x3f, 0xf1, 0xfd,
+	0x93, 0x31, 0xb9, 0xc7, 0x47, 0x47, 0xd1, 0xf1, 0x3d, 0x32, 0x99, 0xd2, 0x99, 0x9c, 0xdc, 0xca,
+	0x4e, 0x52, 0x77, 0x42, 0x42, 0x6a, 0x4f, 0xa6, 0x72, 0xc1, 0x5a, 0x38, 0xb2, 0x03, 0xe2, 0x70,
+	0xba, 0x20, 0xe1, 0x53, 0xd8, 0xb4, 0x08, 0x0d, 0x5c, 0x72, 0x46, 0xde, 0x1f, 0xb9, 0xd3, 0xa9,
+	0xeb, 0x9d, 0x58, 0x24, 0x9c, 0xfa, 0x5e, 0x48, 0xd0, 0x16, 0x74, 0x42, 0x49, 0x1b, 0xb8, 0xce,
+	0xa6, 0xb1, 0x6d, 0xec, 0xd4, 0x2d, 0x50, 0x24, 0xd3, 0x41, 0x3d, 0x68, 0xa9, 0xd1, 0x66, 0x75,
+	0xdb, 0xd8, 0xe9, 0xf4, 0x51, 0x2f, 0xbe, 0x53, 0xcc, 0x2e, 0x5e, 0x83, 0x3f, 0x86, 0x0d, 0x75,
+	0xd8, 0x63, 0x7b, 0x36, 0x21, 0x1e, 0xb5, 0xc8, 0x2f, 0x22, 0x12, 0x52, 0x74, 0x0b, 0x96, 0xed,
+	0xe1, 0x90, 0x84, 0xe1, 0x80, 0xfa, 0xa7, 0xc4, 0xe3, 0x67, 0xb5, 0xad, 0x8e, 0xa0, 0x3d, 0x61,
+	0x24, 0x74, 0x03, 0x60, 0x2a, 0x36, 0x31, 0x61, 0xaa, 0x5c, 0x98, 0xb6, 0xa4, 0x98, 0x0e, 0xfe,
+	0x04, 0xae, 0xe5, 0x2f, 0x52, 0x9a, 0x79, 0xe6, 0xaa, 0xd5, 0xec, 0x55, 0xf1, 0x13, 0x58, 0x57,
+	0xec, 0x1f, 0x05, 0x0e, 0x09, 0x16, 0xe0, 0xfd, 0x0a, 0xb4, 0x7c, 0xb6, 0x25, 0x61, 0xdc, 0xe4,
+	0x63, 0xd3, 0xc1, 0xcf, 0x60, 0x63, 0xdf, 0xf7, 0x8e, 0xdd, 0x60, 0xf2, 0x38, 0x0a, 0x86, 0x23,
+	0x3b, 0x24, 0x8b, 0xc9, 0x3c, 0x95, 0xbb, 0x34, 0x99, 0x15, 0xc9, 0x74, 0xf0, 0xcf, 0xe1, 0xea,
+	0x53, 0x12, 0xb8, 0xc7, 0xb3, 0xfd, 0xa7, 0x4f, 0x17, 0xe0, 0x7b, 0x0d, 0x9a, 0x43, 0x3b, 0x70,
+	0x12, 0x9e, 0x0d, 0x36, 0x34, 0x1d, 0x74, 0x15, 0x6a, 0xc3, 0xb3, 0xb3, 0xcd, 0x1a, 0x27, 0xb2,
+	0x4f, 0xfc, 0x83, 0xc4, 0xa0, 0x87, 0xb3, 0x7d, 0x3b, 0x70, 0xc2, 0xf2, 0xe7, 0xe0, 0xcf, 0x8c,
+	0xc4, 0x64, 0xf1, 0x6e, 0x09, 0xbd, 0x3d, 0x58, 0x62, 0x87, 0x86, 0x9b, 0xc6, 0x76, 0x6d, 0xa7,
+	0xd3, 0xbf, 0x9b, 0xc0, 0x6a, 0xce, 0x8e, 0x1e, 0x1f, 0x3d, 0xf0, 0x68, 0x30, 0xb3, 0xc4, 0xd6,
+	0xee, 0x43, 0x80, 0x84, 0xc8, 0x84, 0x3f, 0x25, 0x33, 0x09, 0x62, 0xf6, 0x89, 0x6e, 0xc3, 0xd2,
+	0x99, 0x3d, 0x8e, 0x88, 0x84, 0xee, 0x4a, 0x72, 0x06, 0xdb, 0x66, 0x89, 0xc9, 0xef, 0x57, 0xdf,
+	0x34, 0xf0, 0x00, 0xd6, 0xf6, 0x03, 0x62, 0x53, 0xc2, 0x27, 0xca, 0x6b, 0xf2, 0x9b, 0x50, 0x67,
+	0xa2, 0xc8, 0x03, 0x5e, 0x4a, 0x1f, 0x60, 0x7a, 0xd3, 0x88, 0x5a, 0x7c, 0x01, 0x3e, 0x85, 0x75,
+	0x71, 0xc0, 0xe2, 0x6e, 0xf1, 0x6d, 0x68, 0x4a, 0x27, 0x90, 0xc7, 0x6c, 0x24, 0xc7, 0x48, 0x6e,
+	0xe2, 0x24, 0xb5, 0x0c, 0x0f, 0xe1, 0xe5, 0xcc, 0x61, 0x52, 0xe9, 0x69, 0x0f, 0x33, 0x32, 0x1e,
+	0x86, 0x5e, 0xcb, 0x9e, 0xb4, 0x96, 0x3b, 0x29, 0x39, 0xe4, 0x3d, 0x40, 0xba, 0xca, 0xe4, 0x09,
+	0x1a, 0xb4, 0x8c, 0x14, 0xb4, 0x70, 0x4a, 0x53, 0x59, 0x53, 0x08, 0x25, 0xbd, 0x01, 0xe8, 0x83,
+	0x29, 0x8b, 0x85, 0xef, 0x53, 0x9b, 0x2e, 0xe0, 0x28, 0xf8, 0x57, 0x70, 0x5d, 0xa1, 0xc6, 0x22,
+	0x21, 0x09, 0xce, 0x6c, 0xea, 0xfa, 0x5e, 0x2c, 0xd4, 0x1d, 0x58, 0x09, 0x12, 0x72, 0x22, 0xdb,
+	0x15, 0x8d, 0x6a, 0x3a, 0xe8, 0x0d, 0xe8, 0x68, 0x04, 0x29, 0xe9, 0xcb, 0x3a, 0x30, 0x13, 0xd6,
+	0xfa, 0x4a, 0x4c, 0x12, 0x98, 0xef, 0xf9, 0xfe, 0xa9, 0x1e, 0x61, 0x6f, 0x00, 0x1c, 0x09, 0x92,
+	0xa6, 0x71, 0x49, 0x11, 0x1a, 0x97, 0x83, 0xbc, 0xc6, 0x15, 0x2b, 0xb5, 0x42, 0x8f, 0xe4, 0x49,
+	0x30, 0x49, 0x22, 0xb9, 0x1e, 0x2a, 0x8c, 0x6c, 0xa8, 0x60, 0x91, 0x5c, 0x8d, 0xf2, 0x91, 0x3c,
+	0x66, 0x17, 0xaf, 0xc1, 0x04, 0x36, 0x77, 0xc3, 0xd0, 0x3d, 0xf1, 0x0e, 0x48, 0x48, 0x77, 0x1d,
+	0x27, 0x20, 0xe1, 0x02, 0xae, 0x8f, 0xbe, 0x01, 0xab, 0x0e, 0x09, 0xe9, 0xc0, 0x16, 0x3b, 0x93,
+	0x50, 0x73, 0xc5, 0x49, 0xf8, 0x99, 0x0e, 0xfe, 0x5b, 0x55, 0x61, 0xf5, 0x05, 0x62, 0xfa, 0x41,
+	0x2e, 0x3b, 0xed, 0x68, 0xb8, 0x2a, 0xe2, 0x5a, 0x90, 0xb3, 0xba, 0x9f, 0x1b, 0xd0, 0x52, 0x64,
+	0x74, 0x17, 0x50, 0x9c, 0x26, 0x26, 0x84, 0x8e, 0x7c, 0x0d, 0xca, 0x57, 0xd5, 0xcc, 0x21, 0x9f,
+	0x30, 0x1d, 0x74, 0x07, 0xea, 0x2c, 0xd3, 0xc6, 0xb6, 0x13, 0xd9, 0xb7, 0xf7, 0xc4, 0x9d, 0x90,
+	0x47, 0xc7, 0x07, 0xf6, 0xcc, 0xe2, 0xd3, 0xe8, 0xa7, 0x50, 0x73, 0xfc, 0xe7, 0x3c, 0xac, 0xb6,
+	0xf7, 0x1e, 0xfc, 0x6f, 0x6f, 0x2f, 0xb8, 0x6f, 0x35, 0x26, 0xbe, 0xe7, 0xd8, 0x33, 0xab, 0x49,
+	0x23, 0x12, 0xb2, 0x8f, 0xf6, 0x73, 0xe2, 0x78, 0xe2, 0xb3, 0x45, 0x47, 0x51, 0xc0, 0xbf, 0x1a,
+	0xc7, 0x81, 0xcb, 0x29, 0xa1, 0x4d, 0xa3, 0x80, 0x53, 0xc2, 0x88, 0xef, 0x63, 0x1c, 0xb1, 0x0b,
+	0x1b, 0xd9, 0x6b, 0x7e, 0x59, 0x99, 0xfd, 0xf3, 0xaa, 0xa6, 0xa5, 0x0d, 0x68, 0xd8, 0x13, 0x3f,
+	0xf2, 0x28, 0x67, 0x6c, 0x58, 0x72, 0xc4, 0x12, 0x21, 0x39, 0x4b, 0xe5, 0xef, 0x26, 0x1f, 0xf3,
+	0xf3, 0x5e, 0x72, 0xa2, 0x40, 0x3a, 0xa0, 0x37, 0x98, 0xb8, 0x5e, 0x44, 0x49, 0x28, 0x53, 0xcd,
+	0x9a, 0x9a, 0x32, 0xbd, 0x43, 0x31, 0x81, 0x6e, 0xc3, 0x4a, 0x18, 0x0c, 0x75, 0xfc, 0xd4, 0xf9,
+	0xd2, 0xe5, 0x30, 0x18, 0xc6, 0xf0, 0x29, 0x82, 0xd9, 0x52, 0x01, 0xcc, 0xd0, 0x77, 0x61, 0xc3,
+	0x71, 0x43, 0x6a, 0x7b, 0x43, 0xc2, 0x4e, 0x3f, 0x75, 0xc7, 0xfe, 0x84, 0x50, 0x12, 0x84, 0x9b,
+	0x0d, 0x7e, 0x81, 0x75, 0x35, 0x6b, 0x7a, 0xef, 0xc6, 0x73, 0x2c, 0x98, 0x45, 0xa1, 0x48, 0xeb,
+	0x4d, 0x11, 0xcc, 0xd8, 0xd0, 0x74, 0xe6, 0xa0, 0xa4, 0x55, 0x8c, 0x12, 0xfc, 0x0f, 0x03, 0x6e,
+	0x66, 0x2b, 0x17, 0x31, 0xb9, 0x88, 0x47, 0x7d, 0xd5, 0x58, 0xfb, 0x8d, 0x01, 0x2b, 0x69, 0xe9,
+	0xe7, 0xc2, 0x60, 0x8e, 0xad, 0xab, 0xf3, 0x6c, 0xad, 0xe9, 0xb9, 0x96, 0xd2, 0xf3, 0x3a, 0x2c,
+	0x51, 0x97, 0x8e, 0x09, 0xb7, 0x7d, 0xdb, 0x12, 0x03, 0xfc, 0x1f, 0x03, 0xb6, 0xe6, 0xea, 0x53,
+	0xe2, 0xdf, 0x85, 0xab, 0x19, 0x0b, 0xa9, 0x4a, 0xe3, 0x87, 0xf9, 0x4a, 0x63, 0x0e, 0x93, 0x5e,
+	0x86, 0x2e, 0x6a, 0x8f, 0xd5, 0xb4, 0x7d, 0xc3, 0xee, 0x33, 0x58, 0x2f, 0x5a, 0x58, 0x50, 0x8f,
+	0xf4, 0xd2, 0xf5, 0xc8, 0x66, 0xde, 0xe1, 0x04, 0x03, 0xbd, 0x32, 0xf9, 0x25, 0xbc, 0x22, 0x5c,
+	0xfc, 0xab, 0x48, 0x6c, 0x71, 0x7c, 0xf9, 0xf2, 0xf3, 0x8d, 0xa3, 0xf2, 0xc0, 0x82, 0x19, 0xf4,
+	0x6e, 0x36, 0x83, 0x16, 0x1d, 0x13, 0xa7, 0xd0, 0x29, 0x6c, 0x16, 0x68, 0x73, 0xa1, 0x17, 0x4a,
+	0xe0, 0x3b, 0xd1, 0x30, 0xf5, 0x42, 0x11, 0x14, 0xd3, 0x41, 0x08, 0xea, 0x8e, 0x3d, 0x53, 0x41,
+	0x8d, 0x7f, 0xe3, 0x0f, 0x55, 0xe1, 0x17, 0xdf, 0x6b, 0x91, 0xd3, 0x98, 0x90, 0xee, 0x50, 0xab,
+	0xfe, 0xdb, 0x92, 0x62, 0x3a, 0xf8, 0xaf, 0x46, 0x5c, 0xe6, 0x2d, 0xfe, 0xb4, 0xb8, 0x0f, 0x4b,
+	0x2e, 0x25, 0x13, 0xe6, 0x94, 0xcc, 0x29, 0x5e, 0xcd, 0xe6, 0xcd, 0x0c, 0xcb, 0x9e, 0xc9, 0x16,
+	0xcb, 0xe2, 0x9b, 0x6f, 0xec, 0xbe, 0x09, 0x90, 0x10, 0x0b, 0xc0, 0xbe, 0xae, 0x83, 0xbd, 0xae,
+	0x43, 0xfa, 0xef, 0x06, 0xac, 0xf3, 0x0a, 0xef, 0xd0, 0x1e, 0x8e, 0x5c, 0x2f, 0x01, 0xd5, 0xdb,
+	0xd0, 0x08, 0x19, 0x5d, 0xb9, 0x6a, 0x4f, 0x73, 0x90, 0x82, 0xf5, 0x82, 0x78, 0x40, 0x8e, 0x5d,
+	0xcf, 0xe5, 0x86, 0x94, 0xbb, 0xbb, 0x9f, 0xc0, 0x6a, 0x66, 0x8a, 0x49, 0x13, 0x52, 0xfb, 0x84,
+	0x70, 0x09, 0x6b, 0x96, 0x18, 0x30, 0x83, 0x79, 0xb6, 0x8c, 0xa9, 0x6d, 0x8b, 0x7f, 0xa3, 0x6d,
+	0xe8, 0x38, 0x24, 0x1c, 0x06, 0xee, 0x94, 0x3b, 0x4b, 0x4d, 0xe8, 0x4e, 0x23, 0xe1, 0xdf, 0x57,
+	0xa1, 0xa3, 0xe1, 0x47, 0x0f, 0x5f, 0x46, 0x2a, 0x7c, 0x7d, 0x07, 0xda, 0xf1, 0x03, 0x3d, 0xff,
+	0x44, 0x78, 0xa2, 0xa6, 0xac, 0x64, 0x15, 0xfa, 0x9e, 0xb2, 0x4b, 0x8d, 0x6b, 0x60, 0xbb, 0xd0,
+	0x49, 0xf3, 0xd6, 0x88, 0xa1, 0x57, 0x4f, 0xa0, 0xa7, 0x85, 0xe7, 0xa5, 0x54, 0x78, 0xde, 0x82,
+	0xce, 0x84, 0x30, 0xf3, 0x8a, 0x44, 0xdd, 0x10, 0xbe, 0xab, 0x48, 0xa6, 0xf3, 0x05, 0x4c, 0xfb,
+	0xa7, 0x1a, 0xb4, 0x14, 0x74, 0x2e, 0x55, 0x2f, 0xaf, 0xa7, 0xf5, 0x72, 0x23, 0xef, 0xe4, 0x05,
+	0x4a, 0x49, 0x14, 0x50, 0x4f, 0x29, 0x20, 0x5f, 0x5b, 0x2c, 0x95, 0xab, 0x2d, 0x1a, 0x45, 0xb5,
+	0x45, 0x46, 0x9d, 0xcd, 0xac, 0x3a, 0xcf, 0x29, 0x3e, 0x5a, 0xe7, 0x14, 0x1f, 0x99, 0x0a, 0xae,
+	0x9d, 0xad, 0xe0, 0xbe, 0x80, 0x95, 0x7e, 0x6b, 0x40, 0x53, 0x86, 0xa3, 0x4b, 0x35, 0x52, 0x3a,
+	0x60, 0xd5, 0x32, 0x01, 0x6b, 0x9e, 0x39, 0xf4, 0x1e, 0xc3, 0x7e, 0x14, 0x04, 0x0b, 0xbd, 0x8e,
+	0x71, 0x00, 0x1d, 0xee, 0xeb, 0xfb, 0x23, 0xdb, 0xd3, 0x3c, 0xda, 0xd0, 0x3c, 0xfa, 0x2d, 0x80,
+	0x21, 0x0f, 0x6a, 0xce, 0xc0, 0x56, 0x2f, 0xdb, 0x6e, 0x4f, 0xb4, 0xd2, 0x7a, 0xaa, 0x95, 0xa6,
+	0xdf, 0x48, 0xae, 0xde, 0xa5, 0x49, 0xd8, 0xa8, 0x69, 0x61, 0x03, 0xff, 0x45, 0xd6, 0xc2, 0xec,
+	0x1d, 0x7c, 0x71, 0x26, 0x34, 0xe1, 0x0a, 0x8f, 0x4b, 0x83, 0x21, 0x17, 0x51, 0x85, 0xdc, 0xdb,
+	0xe9, 0xec, 0xcf, 0x78, 0xf5, 0xb4, 0x9b, 0x48, 0x24, 0x2f, 0x87, 0x1a, 0x69, 0x4e, 0xdd, 0x59,
+	0x9b, 0xf3, 0x3a, 0x49, 0x59, 0xb0, 0x5e, 0xc6, 0x82, 0xdd, 0xa7, 0xb0, 0x96, 0x93, 0xa1, 0x00,
+	0x5a, 0xaf, 0xa5, 0x0b, 0x99, 0x97, 0x33, 0x71, 0x5a, 0xec, 0xd6, 0x11, 0xf7, 0x6b, 0x03, 0xda,
+	0xf1, 0x81, 0x19, 0x83, 0x18, 0x8b, 0x18, 0xe4, 0x2d, 0x80, 0x88, 0xb7, 0x08, 0xca, 0xda, 0x52,
+	0xae, 0xde, 0xa5, 0xf8, 0x39, 0x2c, 0xeb, 0xed, 0x12, 0xf4, 0x2a, 0xac, 0xa9, 0x66, 0x48, 0xf6,
+	0xa5, 0xb7, 0x2a, 0x27, 0x62, 0x55, 0x62, 0x58, 0x76, 0xbd, 0x90, 0xda, 0xe3, 0x31, 0x23, 0xab,
+	0x52, 0x36, 0x45, 0xd3, 0x5b, 0x1f, 0x35, 0xbd, 0xf5, 0x81, 0xff, 0x6d, 0x40, 0x53, 0x9e, 0x3c,
+	0xdf, 0xdd, 0x12, 0xe7, 0xa8, 0xa6, 0x62, 0x55, 0xca, 0x88, 0xb5, 0x52, 0x6e, 0x58, 0x78, 0xb1,
+	0x46, 0xb9, 0x8b, 0x35, 0xcf, 0xbf, 0x58, 0x2b, 0x75, 0xb1, 0xcf, 0x0c, 0x68, 0xc7, 0x8d, 0x2e,
+	0x76, 0x03, 0x2f, 0x9a, 0x1c, 0x91, 0x40, 0xdd, 0x4c, 0x8c, 0x54, 0x53, 0xb1, 0x1a, 0x37, 0x15,
+	0x99, 0x5b, 0x93, 0x4f, 0xa7, 0x6e, 0x30, 0x1b, 0x4c, 0x7c, 0x8f, 0x8e, 0xa4, 0xba, 0x3a, 0x82,
+	0x76, 0xc8, 0x48, 0xcc, 0xab, 0xe4, 0x92, 0x19, 0xb1, 0x03, 0x99, 0xd6, 0x40, 0x90, 0x3e, 0x22,
+	0x76, 0x80, 0xee, 0x42, 0x63, 0xe4, 0x8f, 0x1d, 0x12, 0xf0, 0xd8, 0xdd, 0xe9, 0xaf, 0xa7, 0x3b,
+	0x4a, 0x0f, 0xf9, 0x9c, 0x25, 0xd7, 0xe0, 0x3f, 0x1a, 0x50, 0x67, 0x64, 0xb4, 0x03, 0x57, 0xc7,
+	0x76, 0x48, 0x07, 0xc7, 0x7e, 0x14, 0x0c, 0x1c, 0xf7, 0xc4, 0xa5, 0xa1, 0x14, 0x77, 0x85, 0xd1,
+	0xdf, 0xf6, 0xa3, 0xe0, 0x80, 0x53, 0x73, 0x42, 0x56, 0x2f, 0x14, 0xb2, 0x76, 0x8e, 0x90, 0xf5,
+	0x12, 0x42, 0xf6, 0x45, 0x3b, 0x53, 0x50, 0x99, 0xda, 0x1c, 0xcf, 0x55, 0x5e, 0xe7, 0x78, 0x6e,
+	0x51, 0xb5, 0xd2, 0xff, 0xaf, 0x01, 0x4b, 0xbc, 0x07, 0x8a, 0x4c, 0x80, 0xa4, 0x1f, 0x87, 0xae,
+	0x67, 0x0b, 0x3a, 0xad, 0xb1, 0xd9, 0xfd, 0x5a, 0xf1, 0xa4, 0xa8, 0xaa, 0x70, 0x05, 0xed, 0x42,
+	0x3b, 0x6e, 0x2b, 0xa3, 0x6e, 0xb2, 0x38, 0xdb, 0x6b, 0xee, 0x6e, 0xe4, 0x3c, 0xef, 0xc1, 0x64,
+	0x4a, 0x67, 0xb8, 0x82, 0x3e, 0x84, 0xd5, 0x4c, 0x1f, 0x17, 0x6d, 0x9f, 0xd3, 0xe2, 0x15, 0xec,
+	0x6e, 0x5d, 0xd8, 0x04, 0xc6, 0x95, 0xfe, 0x3f, 0xeb, 0xb0, 0xac, 0xd5, 0x42, 0x21, 0xfa, 0x99,
+	0xea, 0xdd, 0xea, 0x35, 0x19, 0xce, 0x5e, 0x31, 0x5f, 0xf0, 0x77, 0xbf, 0x7e, 0xee, 0x9a, 0x58,
+	0x1b, 0xfb, 0xd0, 0x52, 0xd2, 0xa0, 0x9b, 0x79, 0x09, 0xf5, 0x9f, 0x05, 0xdd, 0xe2, 0x47, 0x15,
+	0xae, 0xa0, 0x67, 0x89, 0x3e, 0x64, 0x8e, 0x2b, 0xd2, 0x47, 0x3a, 0xfd, 0x75, 0xef, 0xe4, 0x57,
+	0x14, 0x8b, 0xf8, 0x10, 0x96, 0xf5, 0x02, 0x19, 0xcd, 0xb1, 0x4b, 0xf7, 0xe6, 0xf9, 0x05, 0x35,
+	0xae, 0xa0, 0x43, 0xa8, 0x3f, 0x0e, 0xc8, 0x19, 0xd2, 0x20, 0x92, 0x6f, 0xc9, 0x96, 0x17, 0xec,
+	0x10, 0xea, 0x3f, 0x21, 0x9f, 0xd2, 0xcb, 0x62, 0xf7, 0x08, 0x1a, 0xfb, 0xac, 0x50, 0x1a, 0x5f,
+	0x12, 0xc3, 0xfe, 0x9f, 0xeb, 0xd0, 0x92, 0x95, 0x50, 0x88, 0x2c, 0xb8, 0x92, 0x7a, 0xaa, 0xe9,
+	0xd6, 0x2e, 0x7a, 0xc3, 0x75, 0xb7, 0xe6, 0xce, 0xc7, 0x12, 0xff, 0x68, 0x01, 0xf0, 0xe4, 0x7b,
+	0xbf, 0x69, 0x47, 0x2a, 0x0f, 0x9c, 0x02, 0x47, 0xca, 0x8b, 0x76, 0x79, 0xa0, 0x31, 0x4b, 0x81,
+	0xa6, 0x94, 0x50, 0x66, 0x29, 0xc0, 0x94, 0x62, 0xf5, 0x6e, 0x49, 0xb0, 0x94, 0x61, 0xd6, 0xff,
+	0x83, 0x01, 0x2d, 0x99, 0xc3, 0x35, 0xa0, 0xa8, 0xac, 0x9e, 0x03, 0x4a, 0xfa, 0x2f, 0x4f, 0x1e,
+	0x28, 0x99, 0x1f, 0x33, 0x3c, 0xe6, 0x26, 0x40, 0x29, 0x30, 0x70, 0x86, 0x61, 0xfe, 0xc7, 0x0c,
+	0xae, 0xf4, 0x7f, 0x57, 0x83, 0xb6, 0x6a, 0x24, 0x85, 0xe8, 0x03, 0x58, 0x49, 0xf7, 0x86, 0xd1,
+	0xd6, 0x05, 0xcd, 0xf1, 0xee, 0xf6, 0xfc, 0x05, 0x85, 0xd1, 0xf0, 0xd6, 0xfc, 0x56, 0x9a, 0x62,
+	0x59, 0xd0, 0x54, 0xc6, 0x15, 0xf4, 0x4e, 0x29, 0xc0, 0xe0, 0xf3, 0xd8, 0xc7, 0x02, 0xbd, 0x53,
+	0x0a, 0x31, 0xe5, 0x78, 0xfd, 0xb8, 0x24, 0x64, 0x0a, 0xb8, 0x65, 0x3b, 0x64, 0xb8, 0xd2, 0xff,
+	0x57, 0x03, 0xda, 0x8a, 0xac, 0xd9, 0x23, 0x7e, 0x1f, 0x6f, 0x5d, 0xd0, 0x74, 0xc9, 0xdb, 0x23,
+	0x7f, 0x08, 0x7a, 0x0f, 0xd6, 0x72, 0xff, 0x69, 0xf4, 0xec, 0x37, 0xef, 0x27, 0xce, 0x39, 0xb9,
+	0xfb, 0xfe, 0x02, 0x31, 0xab, 0xa0, 0xdb, 0x86, 0x2b, 0x68, 0x9a, 0xff, 0x55, 0x2f, 0x5b, 0xa3,
+	0x68, 0xa7, 0x44, 0xfb, 0x55, 0xb0, 0xfe, 0x56, 0xe9, 0x46, 0x2d, 0xae, 0xa0, 0x8f, 0x60, 0x35,
+	0xf3, 0x9f, 0x5d, 0xf7, 0xa2, 0xe2, 0x5f, 0xf0, 0xe5, 0xcc, 0xc8, 0x58, 0x2f, 0x1e, 0x81, 0xcb,
+	0xb1, 0xbe, 0xbc, 0x10, 0xfc, 0xc2, 0x1e, 0x55, 0x20, 0xd5, 0x0b, 0x7b, 0x54, 0x01, 0xaf, 0x4b,
+	0xf5, 0xa8, 0xbd, 0x95, 0x8f, 0x97, 0x7b, 0xf7, 0xa6, 0x47, 0x6a, 0xe9, 0x51, 0x83, 0xeb, 0xe9,
+	0xf5, 0xff, 0x07, 0x00, 0x00, 0xff, 0xff, 0x28, 0x0a, 0x6d, 0x59, 0x68, 0x23, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2570,9 +2718,9 @@ type ReservationsClient interface {
 	Retrieve(ctx context.Context, in *RetrieveOrderRequest, opts ...grpc.CallOption) (*Reservation, error)
 	RetrieveCurrent(ctx context.Context, in *RetrieveCurrentRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
 	StateMachine(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*StateMachineResponse, error)
-	Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
-	Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
-	Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
+	Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
+	Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
+	Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error)
 }
 
 type reservationsClient struct {
@@ -2619,7 +2767,7 @@ func (c *reservationsClient) StateMachine(ctx context.Context, in *empty.Empty, 
 	return out, nil
 }
 
-func (c *reservationsClient) Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
+func (c *reservationsClient) Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
 	out := new(RetrieveReservationResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Reservations/Prev", in, out, opts...)
 	if err != nil {
@@ -2628,7 +2776,7 @@ func (c *reservationsClient) Prev(ctx context.Context, in *UpdateOrderStateReque
 	return out, nil
 }
 
-func (c *reservationsClient) Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
+func (c *reservationsClient) Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
 	out := new(RetrieveReservationResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Reservations/Next", in, out, opts...)
 	if err != nil {
@@ -2637,7 +2785,7 @@ func (c *reservationsClient) Next(ctx context.Context, in *UpdateOrderStateReque
 	return out, nil
 }
 
-func (c *reservationsClient) Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
+func (c *reservationsClient) Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveReservationResponse, error) {
 	out := new(RetrieveReservationResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Reservations/Cancel", in, out, opts...)
 	if err != nil {
@@ -2652,9 +2800,9 @@ type ReservationsServer interface {
 	Retrieve(context.Context, *RetrieveOrderRequest) (*Reservation, error)
 	RetrieveCurrent(context.Context, *RetrieveCurrentRequest) (*RetrieveReservationResponse, error)
 	StateMachine(context.Context, *empty.Empty) (*StateMachineResponse, error)
-	Prev(context.Context, *UpdateOrderStateRequest) (*RetrieveReservationResponse, error)
-	Next(context.Context, *UpdateOrderStateRequest) (*RetrieveReservationResponse, error)
-	Cancel(context.Context, *UpdateOrderStateRequest) (*RetrieveReservationResponse, error)
+	Prev(context.Context, *UpdateStateRequest) (*RetrieveReservationResponse, error)
+	Next(context.Context, *UpdateStateRequest) (*RetrieveReservationResponse, error)
+	Cancel(context.Context, *UpdateStateRequest) (*RetrieveReservationResponse, error)
 }
 
 // UnimplementedReservationsServer can be embedded to have forward compatible implementations.
@@ -2673,13 +2821,13 @@ func (*UnimplementedReservationsServer) RetrieveCurrent(ctx context.Context, req
 func (*UnimplementedReservationsServer) StateMachine(ctx context.Context, req *empty.Empty) (*StateMachineResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StateMachine not implemented")
 }
-func (*UnimplementedReservationsServer) Prev(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveReservationResponse, error) {
+func (*UnimplementedReservationsServer) Prev(ctx context.Context, req *UpdateStateRequest) (*RetrieveReservationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Prev not implemented")
 }
-func (*UnimplementedReservationsServer) Next(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveReservationResponse, error) {
+func (*UnimplementedReservationsServer) Next(ctx context.Context, req *UpdateStateRequest) (*RetrieveReservationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
 }
-func (*UnimplementedReservationsServer) Cancel(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveReservationResponse, error) {
+func (*UnimplementedReservationsServer) Cancel(ctx context.Context, req *UpdateStateRequest) (*RetrieveReservationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
 }
 
@@ -2760,7 +2908,7 @@ func _Reservations_StateMachine_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _Reservations_Prev_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -2772,13 +2920,13 @@ func _Reservations_Prev_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/checkout.Reservations/Prev",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReservationsServer).Prev(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(ReservationsServer).Prev(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Reservations_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -2790,13 +2938,13 @@ func _Reservations_Next_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/checkout.Reservations/Next",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReservationsServer).Next(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(ReservationsServer).Next(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Reservations_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -2808,7 +2956,7 @@ func _Reservations_Cancel_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/checkout.Reservations/Cancel",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReservationsServer).Cancel(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(ReservationsServer).Cancel(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2858,9 +3006,9 @@ type BookingsClient interface {
 	Retrieve(ctx context.Context, in *RetrieveOrderRequest, opts ...grpc.CallOption) (*Booking, error)
 	RetrieveCurrent(ctx context.Context, in *RetrieveCurrentRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
 	StateMachine(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*StateMachineResponse, error)
-	Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
-	Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
-	Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
+	Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
+	Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
+	Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error)
 }
 
 type bookingsClient struct {
@@ -2907,7 +3055,7 @@ func (c *bookingsClient) StateMachine(ctx context.Context, in *empty.Empty, opts
 	return out, nil
 }
 
-func (c *bookingsClient) Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
+func (c *bookingsClient) Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
 	out := new(RetrieveBookingResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Bookings/Prev", in, out, opts...)
 	if err != nil {
@@ -2916,7 +3064,7 @@ func (c *bookingsClient) Prev(ctx context.Context, in *UpdateOrderStateRequest, 
 	return out, nil
 }
 
-func (c *bookingsClient) Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
+func (c *bookingsClient) Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
 	out := new(RetrieveBookingResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Bookings/Next", in, out, opts...)
 	if err != nil {
@@ -2925,7 +3073,7 @@ func (c *bookingsClient) Next(ctx context.Context, in *UpdateOrderStateRequest, 
 	return out, nil
 }
 
-func (c *bookingsClient) Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
+func (c *bookingsClient) Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveBookingResponse, error) {
 	out := new(RetrieveBookingResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Bookings/Cancel", in, out, opts...)
 	if err != nil {
@@ -2940,9 +3088,9 @@ type BookingsServer interface {
 	Retrieve(context.Context, *RetrieveOrderRequest) (*Booking, error)
 	RetrieveCurrent(context.Context, *RetrieveCurrentRequest) (*RetrieveBookingResponse, error)
 	StateMachine(context.Context, *empty.Empty) (*StateMachineResponse, error)
-	Prev(context.Context, *UpdateOrderStateRequest) (*RetrieveBookingResponse, error)
-	Next(context.Context, *UpdateOrderStateRequest) (*RetrieveBookingResponse, error)
-	Cancel(context.Context, *UpdateOrderStateRequest) (*RetrieveBookingResponse, error)
+	Prev(context.Context, *UpdateStateRequest) (*RetrieveBookingResponse, error)
+	Next(context.Context, *UpdateStateRequest) (*RetrieveBookingResponse, error)
+	Cancel(context.Context, *UpdateStateRequest) (*RetrieveBookingResponse, error)
 }
 
 // UnimplementedBookingsServer can be embedded to have forward compatible implementations.
@@ -2961,13 +3109,13 @@ func (*UnimplementedBookingsServer) RetrieveCurrent(ctx context.Context, req *Re
 func (*UnimplementedBookingsServer) StateMachine(ctx context.Context, req *empty.Empty) (*StateMachineResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StateMachine not implemented")
 }
-func (*UnimplementedBookingsServer) Prev(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveBookingResponse, error) {
+func (*UnimplementedBookingsServer) Prev(ctx context.Context, req *UpdateStateRequest) (*RetrieveBookingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Prev not implemented")
 }
-func (*UnimplementedBookingsServer) Next(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveBookingResponse, error) {
+func (*UnimplementedBookingsServer) Next(ctx context.Context, req *UpdateStateRequest) (*RetrieveBookingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
 }
-func (*UnimplementedBookingsServer) Cancel(ctx context.Context, req *UpdateOrderStateRequest) (*RetrieveBookingResponse, error) {
+func (*UnimplementedBookingsServer) Cancel(ctx context.Context, req *UpdateStateRequest) (*RetrieveBookingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
 }
 
@@ -3048,7 +3196,7 @@ func _Bookings_StateMachine_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _Bookings_Prev_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3060,13 +3208,13 @@ func _Bookings_Prev_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/checkout.Bookings/Prev",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookingsServer).Prev(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(BookingsServer).Prev(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Bookings_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3078,13 +3226,13 @@ func _Bookings_Next_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/checkout.Bookings/Next",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookingsServer).Next(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(BookingsServer).Next(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Bookings_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3096,7 +3244,7 @@ func _Bookings_Cancel_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/checkout.Bookings/Cancel",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookingsServer).Cancel(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(BookingsServer).Cancel(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3138,6 +3286,330 @@ var _Bookings_serviceDesc = grpc.ServiceDesc{
 	Metadata: "checkout.proto",
 }
 
+// PaymentsClient is the client API for Payments service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type PaymentsClient interface {
+	CreatePayment(ctx context.Context, in *CreatePaymentRequest, opts ...grpc.CallOption) (*CreatePaymentResponse, error)
+	Retrieve(ctx context.Context, in *RetrievePaymentRequest, opts ...grpc.CallOption) (*Payment, error)
+}
+
+type paymentsClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPaymentsClient(cc grpc.ClientConnInterface) PaymentsClient {
+	return &paymentsClient{cc}
+}
+
+func (c *paymentsClient) CreatePayment(ctx context.Context, in *CreatePaymentRequest, opts ...grpc.CallOption) (*CreatePaymentResponse, error) {
+	out := new(CreatePaymentResponse)
+	err := c.cc.Invoke(ctx, "/checkout.Payments/CreatePayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentsClient) Retrieve(ctx context.Context, in *RetrievePaymentRequest, opts ...grpc.CallOption) (*Payment, error) {
+	out := new(Payment)
+	err := c.cc.Invoke(ctx, "/checkout.Payments/Retrieve", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PaymentsServer is the server API for Payments service.
+type PaymentsServer interface {
+	CreatePayment(context.Context, *CreatePaymentRequest) (*CreatePaymentResponse, error)
+	Retrieve(context.Context, *RetrievePaymentRequest) (*Payment, error)
+}
+
+// UnimplementedPaymentsServer can be embedded to have forward compatible implementations.
+type UnimplementedPaymentsServer struct {
+}
+
+func (*UnimplementedPaymentsServer) CreatePayment(ctx context.Context, req *CreatePaymentRequest) (*CreatePaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePayment not implemented")
+}
+func (*UnimplementedPaymentsServer) Retrieve(ctx context.Context, req *RetrievePaymentRequest) (*Payment, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
+}
+
+func RegisterPaymentsServer(s *grpc.Server, srv PaymentsServer) {
+	s.RegisterService(&_Payments_serviceDesc, srv)
+}
+
+func _Payments_CreatePayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentsServer).CreatePayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Payments/CreatePayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentsServer).CreatePayment(ctx, req.(*CreatePaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Payments_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrievePaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentsServer).Retrieve(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Payments/Retrieve",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentsServer).Retrieve(ctx, req.(*RetrievePaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Payments_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "checkout.Payments",
+	HandlerType: (*PaymentsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreatePayment",
+			Handler:    _Payments_CreatePayment_Handler,
+		},
+		{
+			MethodName: "Retrieve",
+			Handler:    _Payments_Retrieve_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "checkout.proto",
+}
+
+// ShippingsClient is the client API for Shippings service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ShippingsClient interface {
+	CreateShipping(ctx context.Context, in *CreateShippingRequest, opts ...grpc.CallOption) (*CreateShippingResponse, error)
+	Retrieve(ctx context.Context, in *RetrieveShippingRequest, opts ...grpc.CallOption) (*Shipping, error)
+	Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveShippingResponse, error)
+	Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveShippingResponse, error)
+	Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
+}
+
+type shippingsClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewShippingsClient(cc grpc.ClientConnInterface) ShippingsClient {
+	return &shippingsClient{cc}
+}
+
+func (c *shippingsClient) CreateShipping(ctx context.Context, in *CreateShippingRequest, opts ...grpc.CallOption) (*CreateShippingResponse, error) {
+	out := new(CreateShippingResponse)
+	err := c.cc.Invoke(ctx, "/checkout.Shippings/CreateShipping", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shippingsClient) Retrieve(ctx context.Context, in *RetrieveShippingRequest, opts ...grpc.CallOption) (*Shipping, error) {
+	out := new(Shipping)
+	err := c.cc.Invoke(ctx, "/checkout.Shippings/Retrieve", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shippingsClient) Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveShippingResponse, error) {
+	out := new(RetrieveShippingResponse)
+	err := c.cc.Invoke(ctx, "/checkout.Shippings/Prev", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shippingsClient) Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrieveShippingResponse, error) {
+	out := new(RetrieveShippingResponse)
+	err := c.cc.Invoke(ctx, "/checkout.Shippings/Next", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shippingsClient) Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
+	out := new(RetrievePurchaseResponse)
+	err := c.cc.Invoke(ctx, "/checkout.Shippings/Cancel", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ShippingsServer is the server API for Shippings service.
+type ShippingsServer interface {
+	CreateShipping(context.Context, *CreateShippingRequest) (*CreateShippingResponse, error)
+	Retrieve(context.Context, *RetrieveShippingRequest) (*Shipping, error)
+	Prev(context.Context, *UpdateStateRequest) (*RetrieveShippingResponse, error)
+	Next(context.Context, *UpdateStateRequest) (*RetrieveShippingResponse, error)
+	Cancel(context.Context, *UpdateStateRequest) (*RetrievePurchaseResponse, error)
+}
+
+// UnimplementedShippingsServer can be embedded to have forward compatible implementations.
+type UnimplementedShippingsServer struct {
+}
+
+func (*UnimplementedShippingsServer) CreateShipping(ctx context.Context, req *CreateShippingRequest) (*CreateShippingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateShipping not implemented")
+}
+func (*UnimplementedShippingsServer) Retrieve(ctx context.Context, req *RetrieveShippingRequest) (*Shipping, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
+}
+func (*UnimplementedShippingsServer) Prev(ctx context.Context, req *UpdateStateRequest) (*RetrieveShippingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Prev not implemented")
+}
+func (*UnimplementedShippingsServer) Next(ctx context.Context, req *UpdateStateRequest) (*RetrieveShippingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
+}
+func (*UnimplementedShippingsServer) Cancel(ctx context.Context, req *UpdateStateRequest) (*RetrievePurchaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
+}
+
+func RegisterShippingsServer(s *grpc.Server, srv ShippingsServer) {
+	s.RegisterService(&_Shippings_serviceDesc, srv)
+}
+
+func _Shippings_CreateShipping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateShippingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShippingsServer).CreateShipping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Shippings/CreateShipping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShippingsServer).CreateShipping(ctx, req.(*CreateShippingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shippings_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveShippingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShippingsServer).Retrieve(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Shippings/Retrieve",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShippingsServer).Retrieve(ctx, req.(*RetrieveShippingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shippings_Prev_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShippingsServer).Prev(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Shippings/Prev",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShippingsServer).Prev(ctx, req.(*UpdateStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shippings_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShippingsServer).Next(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Shippings/Next",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShippingsServer).Next(ctx, req.(*UpdateStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shippings_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShippingsServer).Cancel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/checkout.Shippings/Cancel",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShippingsServer).Cancel(ctx, req.(*UpdateStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Shippings_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "checkout.Shippings",
+	HandlerType: (*ShippingsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateShipping",
+			Handler:    _Shippings_CreateShipping_Handler,
+		},
+		{
+			MethodName: "Retrieve",
+			Handler:    _Shippings_Retrieve_Handler,
+		},
+		{
+			MethodName: "Prev",
+			Handler:    _Shippings_Prev_Handler,
+		},
+		{
+			MethodName: "Next",
+			Handler:    _Shippings_Next_Handler,
+		},
+		{
+			MethodName: "Cancel",
+			Handler:    _Shippings_Cancel_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "checkout.proto",
+}
+
 // PurchasesClient is the client API for Purchases service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
@@ -3145,15 +3617,13 @@ type PurchasesClient interface {
 	CreatePurchase(ctx context.Context, in *CreatePurchaseRequest, opts ...grpc.CallOption) (*CreatePurchaseResponse, error)
 	AssignDestAddress(ctx context.Context, in *AssignDestAddressRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	Retrieve(ctx context.Context, in *RetrieveOrderRequest, opts ...grpc.CallOption) (*Purchase, error)
-	CreateShipping(ctx context.Context, in *CreateShippingRequest, opts ...grpc.CallOption) (*CreateShippingResponse, error)
 	RetrieveShippingMethods(ctx context.Context, in *RetrieveShippingMethodsRequest, opts ...grpc.CallOption) (*RetrieveShippingMethodsResponse, error)
-	CreatePayment(ctx context.Context, in *CreatePaymentRequest, opts ...grpc.CallOption) (*CreatePaymentResponse, error)
 	ConfirmPurchase(ctx context.Context, in *ConfirmPurchaseRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
 	RetrieveCurrent(ctx context.Context, in *RetrieveCurrentRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
 	StateMachine(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*StateMachineResponse, error)
-	Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
-	Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
-	Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
+	Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
+	Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
+	Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error)
 }
 
 type purchasesClient struct {
@@ -3191,27 +3661,9 @@ func (c *purchasesClient) Retrieve(ctx context.Context, in *RetrieveOrderRequest
 	return out, nil
 }
 
-func (c *purchasesClient) CreateShipping(ctx context.Context, in *CreateShippingRequest, opts ...grpc.CallOption) (*CreateShippingResponse, error) {
-	out := new(CreateShippingResponse)
-	err := c.cc.Invoke(ctx, "/checkout.Purchases/CreateShipping", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *purchasesClient) RetrieveShippingMethods(ctx context.Context, in *RetrieveShippingMethodsRequest, opts ...grpc.CallOption) (*RetrieveShippingMethodsResponse, error) {
 	out := new(RetrieveShippingMethodsResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Purchases/RetrieveShippingMethods", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *purchasesClient) CreatePayment(ctx context.Context, in *CreatePaymentRequest, opts ...grpc.CallOption) (*CreatePaymentResponse, error) {
-	out := new(CreatePaymentResponse)
-	err := c.cc.Invoke(ctx, "/checkout.Purchases/CreatePayment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -3245,7 +3697,7 @@ func (c *purchasesClient) StateMachine(ctx context.Context, in *empty.Empty, opt
 	return out, nil
 }
 
-func (c *purchasesClient) Prev(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
+func (c *purchasesClient) Prev(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
 	out := new(RetrievePurchaseResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Purchases/Prev", in, out, opts...)
 	if err != nil {
@@ -3254,7 +3706,7 @@ func (c *purchasesClient) Prev(ctx context.Context, in *UpdateOrderStateRequest,
 	return out, nil
 }
 
-func (c *purchasesClient) Next(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
+func (c *purchasesClient) Next(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
 	out := new(RetrievePurchaseResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Purchases/Next", in, out, opts...)
 	if err != nil {
@@ -3263,7 +3715,7 @@ func (c *purchasesClient) Next(ctx context.Context, in *UpdateOrderStateRequest,
 	return out, nil
 }
 
-func (c *purchasesClient) Cancel(ctx context.Context, in *UpdateOrderStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
+func (c *purchasesClient) Cancel(ctx context.Context, in *UpdateStateRequest, opts ...grpc.CallOption) (*RetrievePurchaseResponse, error) {
 	out := new(RetrievePurchaseResponse)
 	err := c.cc.Invoke(ctx, "/checkout.Purchases/Cancel", in, out, opts...)
 	if err != nil {
@@ -3277,15 +3729,13 @@ type PurchasesServer interface {
 	CreatePurchase(context.Context, *CreatePurchaseRequest) (*CreatePurchaseResponse, error)
 	AssignDestAddress(context.Context, *AssignDestAddressRequest) (*empty.Empty, error)
 	Retrieve(context.Context, *RetrieveOrderRequest) (*Purchase, error)
-	CreateShipping(context.Context, *CreateShippingRequest) (*CreateShippingResponse, error)
 	RetrieveShippingMethods(context.Context, *RetrieveShippingMethodsRequest) (*RetrieveShippingMethodsResponse, error)
-	CreatePayment(context.Context, *CreatePaymentRequest) (*CreatePaymentResponse, error)
 	ConfirmPurchase(context.Context, *ConfirmPurchaseRequest) (*RetrievePurchaseResponse, error)
 	RetrieveCurrent(context.Context, *RetrieveCurrentRequest) (*RetrievePurchaseResponse, error)
 	StateMachine(context.Context, *empty.Empty) (*StateMachineResponse, error)
-	Prev(context.Context, *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error)
-	Next(context.Context, *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error)
-	Cancel(context.Context, *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error)
+	Prev(context.Context, *UpdateStateRequest) (*RetrievePurchaseResponse, error)
+	Next(context.Context, *UpdateStateRequest) (*RetrievePurchaseResponse, error)
+	Cancel(context.Context, *UpdateStateRequest) (*RetrievePurchaseResponse, error)
 }
 
 // UnimplementedPurchasesServer can be embedded to have forward compatible implementations.
@@ -3301,14 +3751,8 @@ func (*UnimplementedPurchasesServer) AssignDestAddress(ctx context.Context, req 
 func (*UnimplementedPurchasesServer) Retrieve(ctx context.Context, req *RetrieveOrderRequest) (*Purchase, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
 }
-func (*UnimplementedPurchasesServer) CreateShipping(ctx context.Context, req *CreateShippingRequest) (*CreateShippingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateShipping not implemented")
-}
 func (*UnimplementedPurchasesServer) RetrieveShippingMethods(ctx context.Context, req *RetrieveShippingMethodsRequest) (*RetrieveShippingMethodsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RetrieveShippingMethods not implemented")
-}
-func (*UnimplementedPurchasesServer) CreatePayment(ctx context.Context, req *CreatePaymentRequest) (*CreatePaymentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreatePayment not implemented")
 }
 func (*UnimplementedPurchasesServer) ConfirmPurchase(ctx context.Context, req *ConfirmPurchaseRequest) (*RetrievePurchaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConfirmPurchase not implemented")
@@ -3319,13 +3763,13 @@ func (*UnimplementedPurchasesServer) RetrieveCurrent(ctx context.Context, req *R
 func (*UnimplementedPurchasesServer) StateMachine(ctx context.Context, req *empty.Empty) (*StateMachineResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StateMachine not implemented")
 }
-func (*UnimplementedPurchasesServer) Prev(ctx context.Context, req *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error) {
+func (*UnimplementedPurchasesServer) Prev(ctx context.Context, req *UpdateStateRequest) (*RetrievePurchaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Prev not implemented")
 }
-func (*UnimplementedPurchasesServer) Next(ctx context.Context, req *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error) {
+func (*UnimplementedPurchasesServer) Next(ctx context.Context, req *UpdateStateRequest) (*RetrievePurchaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
 }
-func (*UnimplementedPurchasesServer) Cancel(ctx context.Context, req *UpdateOrderStateRequest) (*RetrievePurchaseResponse, error) {
+func (*UnimplementedPurchasesServer) Cancel(ctx context.Context, req *UpdateStateRequest) (*RetrievePurchaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
 }
 
@@ -3387,24 +3831,6 @@ func _Purchases_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Purchases_CreateShipping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateShippingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PurchasesServer).CreateShipping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/checkout.Purchases/CreateShipping",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurchasesServer).CreateShipping(ctx, req.(*CreateShippingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Purchases_RetrieveShippingMethods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RetrieveShippingMethodsRequest)
 	if err := dec(in); err != nil {
@@ -3419,24 +3845,6 @@ func _Purchases_RetrieveShippingMethods_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PurchasesServer).RetrieveShippingMethods(ctx, req.(*RetrieveShippingMethodsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Purchases_CreatePayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePaymentRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PurchasesServer).CreatePayment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/checkout.Purchases/CreatePayment",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurchasesServer).CreatePayment(ctx, req.(*CreatePaymentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3496,7 +3904,7 @@ func _Purchases_StateMachine_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _Purchases_Prev_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3508,13 +3916,13 @@ func _Purchases_Prev_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/checkout.Purchases/Prev",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurchasesServer).Prev(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(PurchasesServer).Prev(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Purchases_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3526,13 +3934,13 @@ func _Purchases_Next_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/checkout.Purchases/Next",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurchasesServer).Next(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(PurchasesServer).Next(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Purchases_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrderStateRequest)
+	in := new(UpdateStateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -3544,7 +3952,7 @@ func _Purchases_Cancel_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/checkout.Purchases/Cancel",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurchasesServer).Cancel(ctx, req.(*UpdateOrderStateRequest))
+		return srv.(PurchasesServer).Cancel(ctx, req.(*UpdateStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3566,16 +3974,8 @@ var _Purchases_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Purchases_Retrieve_Handler,
 		},
 		{
-			MethodName: "CreateShipping",
-			Handler:    _Purchases_CreateShipping_Handler,
-		},
-		{
 			MethodName: "RetrieveShippingMethods",
 			Handler:    _Purchases_RetrieveShippingMethods_Handler,
-		},
-		{
-			MethodName: "CreatePayment",
-			Handler:    _Purchases_CreatePayment_Handler,
 		},
 		{
 			MethodName: "ConfirmPurchase",
