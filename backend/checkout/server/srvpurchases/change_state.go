@@ -15,19 +15,19 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) Cancel(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (s *Server) Cancel(ctx context.Context, in *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	return s.ChangeState(ctx, in, sm.Cancel)
 }
 
-func (s *Server) Prev(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (s *Server) Prev(ctx context.Context, in *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	return s.ChangeState(ctx, in, sm.Prev)
 }
 
-func (s *Server) Next(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (s *Server) Next(ctx context.Context, in *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
 	return s.ChangeState(ctx, in, sm.Next)
 }
 
-func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateOrderStateRequest,
+func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequest,
 	stateChanger sm.StateChanger,
 ) (*pbcheckout.RetrievePurchaseResponse, error) {
 	if err := in.Validate(); err != nil {

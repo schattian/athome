@@ -6,6 +6,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
+	"github.com/athomecomar/athome/backend/checkout/server/srvpurchases"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -43,7 +44,7 @@ func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePayment
 	if err != nil {
 		return nil, err
 	}
-	err = mustPrevState(ctx, db, o, sm.PurchasePaid)
+	err = srvpurchases.MustPrevState(ctx, db, o, sm.PurchasePaid)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +55,6 @@ func (s *Server) CreatePayment(ctx context.Context, in *pbcheckout.CreatePayment
 	defer prodsCloser()
 	return s.createPayment(ctx, db, in, prods, o)
 }
-
 func (s *Server) createPayment(
 	ctx context.Context,
 	db *sqlx.DB,

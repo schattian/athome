@@ -43,7 +43,7 @@ func (s *Server) AssignDestAddress(ctx context.Context, in *pbcheckout.AssignDes
 	if err != nil {
 		return nil, err
 	}
-	err = mustPrevState(ctx, db, o, sm.PurchaseAddressed)
+	err = MustPrevState(ctx, db, o, sm.PurchaseAddressed)
 	if err != nil {
 		return nil, err
 	}

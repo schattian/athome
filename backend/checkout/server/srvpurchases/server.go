@@ -14,7 +14,7 @@ type Server struct{}
 
 const dispatchDelayMinutes = 30 // TODO: add by-user time
 
-func mustPrevState(ctx context.Context, db *sqlx.DB, o *order.Purchase, desired sm.StateName) error {
+func MustPrevState(ctx context.Context, db *sqlx.DB, o *order.Purchase, desired sm.StateName) error {
 	sc, err := o.State(ctx, db)
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "State: %v", err)
