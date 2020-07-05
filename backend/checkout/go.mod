@@ -3,7 +3,7 @@ module github.com/athomecomar/athome/backend/checkout
 go 1.14
 
 require (
-	github.com/athomecomar/athome/pb v0.0.0-20200705141824-8e0070d4bc44
+	github.com/athomecomar/athome/pb v0.0.0-20200705184231-88b7ed466946
 	github.com/athomecomar/currency v0.1.0
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
@@ -13,6 +13,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a
 	github.com/lib/pq v1.7.0
 	github.com/pkg/errors v0.9.1
+	github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518
 	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.24.0

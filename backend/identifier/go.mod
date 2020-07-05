@@ -8,7 +8,7 @@ require (
 	github.com/antchfx/htmlquery v1.0.0 // indirect
 	github.com/antchfx/xmlquery v1.0.0 // indirect
 	github.com/antchfx/xpath v1.0.0 // indirect
-	github.com/athomecomar/athome/pb v0.0.0-20200705141824-8e0070d4bc44
+	github.com/athomecomar/athome/pb v0.0.0-20200705184231-88b7ed466946
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/semantic v0.2.0
 	github.com/athomecomar/xerrors v1.2.1
