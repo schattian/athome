@@ -5,12 +5,14 @@ import (
 	"fmt"
 )
 
-type StateChanger func(sm *StateMachine, s *State) (*State, error)
+type StateChanger func(sm *StateMachine, s *State, entity Stateful, uid uint64) (*State, error)
 
-func Next(sm *StateMachine, s *State) (*State, error) {
-	if !s.nextable {
-		return nil, errors.New("state is not nextable")
+func Next(sm *StateMachine, s *State, entity Stateful, uid uint64) (*State, error) {
+	permissions := s.userPermissions(entity, uid)
+	if !permissions.nextable {
+		return nil, errors.New("you are not authorized to next this")
 	}
+
 	stage := sm.StageByName(s.Name)
 	if stage == 0 {
 		return nil, errors.New("state cannot be found on sm by name " + string(s.Name))
@@ -22,10 +24,12 @@ func Next(sm *StateMachine, s *State) (*State, error) {
 	return state, nil
 }
 
-func Prev(sm *StateMachine, s *State) (*State, error) {
-	if !s.prevable {
-		return nil, errors.New("state is not prevable")
+func Prev(sm *StateMachine, s *State, entity Stateful, uid uint64) (*State, error) {
+	permissions := s.userPermissions(entity, uid)
+	if !permissions.prevable {
+		return nil, errors.New("you are not authorized to prev this")
 	}
+
 	stage := sm.StageByName(s.Name)
 	if stage == 0 {
 		return nil, errors.New("state cannot be found on sm by name " + string(s.Name))
@@ -37,9 +41,10 @@ func Prev(sm *StateMachine, s *State) (*State, error) {
 	return state, nil
 }
 
-func Cancel(sm *StateMachine, s *State) (*State, error) {
-	if !s.cancellable {
-		return nil, errors.New("state is not cancellable")
+func Cancel(sm *StateMachine, s *State, entity Stateful, uid uint64) (*State, error) {
+	permissions := s.userPermissions(entity, uid)
+	if !permissions.cancellable {
+		return nil, errors.New("you are not authorized to cancel this")
 	}
 	return CancelledState, nil
 }

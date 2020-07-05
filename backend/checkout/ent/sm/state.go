@@ -1,6 +1,8 @@
 package sm
 
-import "github.com/athomecomar/athome/pb/pbcheckout"
+import (
+	"github.com/athomecomar/athome/pb/pbcheckout"
+)
 
 type StateName string
 
@@ -8,6 +10,10 @@ type State struct {
 	Name        StateName
 	Description string
 
+	consumer, merchant, serviceProvider permissions
+}
+
+type permissions struct {
 	cancellable bool
 	prevable    bool
 	nextable    bool
@@ -59,6 +65,5 @@ const (
 var (
 	CancelledState = &State{
 		Name: Cancelled, Description: "cancelled order",
-		prevable: false, nextable: false, cancellable: false,
 	}
 )
