@@ -60,7 +60,7 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 	}
 	defer prodsCloser()
 
-	return s.changeState(ctx, db, stateChanger, prods, o)
+	return s.changeState(ctx, db, stateChanger, prods, o, uid)
 }
 
 func (s *Server) changeState(
@@ -69,12 +69,13 @@ func (s *Server) changeState(
 	stateChanger sm.StateChanger,
 	prods pbproducts.ViewerClient,
 	o *order.Purchase,
+	uid uint64,
 ) (*pbcheckout.RetrievePurchaseResponse, error) {
-	sc, err := order.LatestStateChange(ctx, db, o)
+	sc, err := sm.LatestStateChange(ctx, db, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "LatestStateChange")
 	}
-	state, err := stateChanger(o.StateMachine(), sc.GetState())
+	state, err := stateChanger(o.StateMachine(), sc.GetState(), o, uid)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
 	}

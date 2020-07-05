@@ -14,12 +14,12 @@ type Server struct{}
 
 const dispatchDelayMinutes = 30 // TODO: add by-user time
 
-func MustPrevState(ctx context.Context, db *sqlx.DB, o *order.Purchase, desired sm.StateName) error {
+func MustPrevState(ctx context.Context, db *sqlx.DB, o *order.Purchase, desired sm.StateName, uid uint64) error {
 	sc, err := o.State(ctx, db)
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "State: %v", err)
 	}
-	s, err := sm.Next(o.StateMachine(), sc.GetState())
+	s, err := sm.Next(o.StateMachine(), sc.GetState(), o, uid)
 	if err != nil {
 		return status.Errorf(xerrors.OutOfRange, "GetState: %v", err)
 	}

@@ -83,7 +83,7 @@ func (s *Server) confirmPurchase(ctx context.Context, db *sqlx.DB, in *pbcheckou
 	if err != nil {
 		return nil, err
 	}
-	resp, err := s.changeState(ctx, db, sm.Next, prodsViewer, p)
+	resp, err := s.changeState(ctx, db, sm.Next, prodsViewer, p, userId)
 	if err != nil {
 		return nil, err
 	}
