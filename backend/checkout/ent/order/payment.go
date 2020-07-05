@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/athomecomar/athome/backend/checkout/ent"
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
@@ -25,6 +26,8 @@ type Payment struct {
 	UpdatedAt       ent.Time     `json:"updated_at,omitempty"`
 	Installments    uint64       `json:"installments,omitempty"`
 }
+
+func (p *Payment) StateChange() sm.StateChange { return &PaymentStateChange{} }
 
 func (o *Payment) GetCreatedAt() time.Time { return o.CreatedAt.Time }
 func (o *Payment) GetUpdatedAt() time.Time { return o.UpdatedAt.Time }
@@ -78,6 +81,8 @@ func PaymentFromPb(in *pbcheckout.PaymentInput) *Payment {
 		PaymentMethodId: in.GetPaymentMethodId(),
 		Installments:    in.GetInstallments(),
 		CardId:          in.GetCardId(),
+		EntityId:        in.Order.GetEntityId(),
+		EntityTable:     Class(in.Order.GetEntityTable()),
 	}
 }
 

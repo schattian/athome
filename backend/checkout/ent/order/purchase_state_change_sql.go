@@ -20,6 +20,6 @@ func (u *PurchaseStateChange) SQLMap() map[string]driver.Value {
 		"name":       u.Name,
 		"created_at": u.CreatedAt,
 		"stage":      u.Stage,
-		"order_id":   u.OrderId,
+		"entity_id":  u.EntityId,
 	}
 }

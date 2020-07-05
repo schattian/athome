@@ -11,11 +11,11 @@ import (
 )
 
 type ShippingStateChange struct {
-	Id         uint64       `json:"id,omitempty"`
-	ShippingId uint64       `json:"shipping_id,omitempty"`
-	Name       sm.StateName `json:"name,omitempty"`
-	Stage      int64
-	CreatedAt  ent.Time `json:"created_at,omitempty"`
+	Id        uint64       `json:"id,omitempty"`
+	EntityId  uint64       `json:"entity_id,omitempty"`
+	Name      sm.StateName `json:"name,omitempty"`
+	Stage     int64
+	CreatedAt ent.Time `json:"created_at,omitempty"`
 }
 
 func (o *ShippingStateChange) GetName() string         { return string(o.Name) }
@@ -36,9 +36,9 @@ func NewShippingStateChange(ctx context.Context, sId uint64, stateName sm.StateN
 	}
 	stage := sm.PurchaseStateMachine.StageByName(stateName)
 	p := &ShippingStateChange{
-		ShippingId: sId,
-		Stage:      stage,
-		Name:       state.Name,
+		EntityId: sId,
+		Stage:    stage,
+		Name:     state.Name,
 	}
 	p.SetCreatedAt(time.Now())
 	return p, nil

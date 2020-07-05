@@ -235,7 +235,7 @@ func (o *Purchase) AmountFromProducts(ctx context.Context, prods map[uint64]*pbp
 }
 
 func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproducts.ViewerClient) (*pbcheckout.Purchase, error) {
-	scs, err := StateChanges(ctx, db, o)
+	scs, err := sm.StateChanges(ctx, db, o)
 	if err != nil {
 		return nil, errors.Wrap(err, "StateChanges")
 	}
@@ -248,21 +248,6 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 		return nil, errors.Wrap(err, "ToPb")
 	}
 	return pb, nil
-}
-
-func (o *Purchase) ValidateStateChange(ctx context.Context, db *sqlx.DB, newState *sm.State) (err error) {
-	switch newState.Name {
-	case sm.PurchaseAddressed:
-		err = o.validateStateChangeAddressed(ctx, db)
-	}
-	return
-}
-
-func (o *Purchase) validateStateChangeAddressed(ctx context.Context, db *sqlx.DB) error {
-	if o.DestAddressId == 0 {
-		return errors.New("nil dest address id")
-	}
-	return nil
 }
 
 func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient, addr pbaddress.AddressesClient) error {
@@ -303,11 +288,7 @@ func NewPurchase(ctx context.Context, items map[uint64]uint64, uid uint64) *Purc
 	return p
 }
 
-func (o *Purchase) StateMachine() *sm.StateMachine {
-	return sm.PurchaseStateMachine
-}
-
-func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase, error) {
+func (o *Purchase) ToPb(scs []sm.StateChange, amount float64) (*pbcheckout.Purchase, error) {
 	ts, err := ent.GetTimestamp(o)
 	if err != nil {
 		return nil, errors.Wrap(err, "GetTimestamp")
@@ -315,7 +296,7 @@ func (o *Purchase) ToPb(scs []StateChange, amount float64) (*pbcheckout.Purchase
 
 	pbScs := make(map[uint64]*pbcheckout.StateChange)
 	for _, sc := range scs {
-		pbSc, err := StateChangeToPb(sc)
+		pbSc, err := sm.StateChangeToPb(sc)
 		if err != nil {
 			return nil, errors.Wrap(err, "StateChangeToPb")
 		}

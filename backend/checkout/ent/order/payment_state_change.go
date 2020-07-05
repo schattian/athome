@@ -11,8 +11,8 @@ import (
 )
 
 type PaymentStateChange struct {
-	Id        uint64       `json:"id,omitempty"`
-	PaymentId uint64       `json:"payment_id,omitempty"`
+	Id        uint64 `json:"id,omitempty"`
+	EntityId  uint64
 	Name      sm.StateName `json:"name,omitempty"`
 	Stage     int64
 	CreatedAt ent.Time `json:"created_at,omitempty"`
@@ -36,9 +36,9 @@ func NewPaymentStateChange(ctx context.Context, sId uint64, stateName sm.StateNa
 	}
 	stage := sm.PurchaseStateMachine.StageByName(stateName)
 	p := &PaymentStateChange{
-		PaymentId: sId,
-		Stage:     stage,
-		Name:      state.Name,
+		EntityId: sId,
+		Stage:    stage,
+		Name:     state.Name,
 	}
 	p.SetCreatedAt(time.Now())
 	return p, nil

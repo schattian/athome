@@ -16,10 +16,10 @@ func (u *ShippingStateChange) SQLTable() string {
 
 func (u *ShippingStateChange) SQLMap() map[string]driver.Value {
 	return map[string]driver.Value{
-		"id":          u.Id,
-		"name":        u.Name,
-		"created_at":  u.CreatedAt,
-		"stage":       u.Stage,
-		"shipping_id": u.ShippingId,
+		"id":         u.Id,
+		"name":       u.Name,
+		"created_at": u.CreatedAt,
+		"stage":      u.Stage,
+		"entity_id":  u.EntityId,
 	}
 }
