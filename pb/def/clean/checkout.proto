@@ -56,7 +56,7 @@ service Shippings {
 
   rpc Prev(UpdateStateRequest) returns (RetrieveShippingResponse){}
   rpc Next(UpdateStateRequest) returns (RetrieveShippingResponse){}
-  rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveshippingResponse){}
 }
 
 message RetrieveShippingResponse {
