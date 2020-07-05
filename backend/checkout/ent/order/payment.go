@@ -19,7 +19,7 @@ type Payment struct {
 	PaymentMethodId uint64       `json:"payment_method_id,omitempty"`
 	CardId          uint64       `json:"card_id,omitempty"`
 	EntityId        uint64       `json:"entity_id,omitempty"`
-	EntityTable     string       `json:"entity_table,omitempty"`
+	EntityTable     Class        `json:"entity_table,omitempty"`
 	Amount          currency.ARS `json:"amount,omitempty"`
 	CreatedAt       ent.Time     `json:"created_at,omitempty"`
 	UpdatedAt       ent.Time     `json:"updated_at,omitempty"`
@@ -40,6 +40,27 @@ func (p *Payment) Card(ctx context.Context, db *sqlx.DB) (*Card, error) {
 		return nil, errors.Wrap(err, "FindCard")
 	}
 	return card, nil
+}
+
+func (p *Payment) Order(ctx context.Context, db *sqlx.DB) (o Order, err error) {
+	switch p.EntityTable {
+	case Purchases:
+		o, err = p.Purchase(ctx, db)
+	case "reservations":
+	case "bookings":
+	}
+	return
+}
+
+func (p *Payment) Purchase(ctx context.Context, db *sqlx.DB) (*Purchase, error) {
+	if p.EntityTable != Purchases {
+		return nil, errors.New("payment's entity isn't a purchase")
+	}
+	ord, err := FindPurchase(ctx, db, p.EntityId)
+	if err != nil {
+		return nil, errors.Wrap(err, "FindPurchase")
+	}
+	return ord, nil
 }
 
 func FindPayment(ctx context.Context, db *sqlx.DB, oId uint64, userId uint64) (*Payment, error) {

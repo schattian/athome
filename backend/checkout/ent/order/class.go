@@ -1,9 +1,9 @@
 package order
 
-type class string
+type Class string
 
 const (
-	Purchases    class = "purchases"
-	Reservations class = "reservations"
-	Bookings     class = "bookings"
+	Purchases    Class = "purchases"
+	Reservations Class = "reservations"
+	Bookings     Class = "bookings"
 )

@@ -162,7 +162,7 @@ func FindLatestPurchase(ctx context.Context, db *sqlx.DB, userId uint64) (*Purch
 	return order, nil
 }
 
-func (o *Purchase) OrderClass() class {
+func (o *Purchase) OrderClass() Class {
 	return Purchases
 }
 

@@ -12,7 +12,8 @@ import (
 type Order interface {
 	storeql.Storable
 	StateMachine() *sm.StateMachine
-	OrderClass() class
+	OrderClass() Class
+	CanView(ctx context.Context, db *sqlx.DB, userId uint64) (bool, error)
 }
 
 func StateChanges(ctx context.Context, db *sqlx.DB, o Order) (scs []StateChange, err error) {
