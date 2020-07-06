@@ -50,13 +50,20 @@ service Payments {
   rpc Retrieve (RetrievePaymentRequest) returns (Payment){}
 }
 
+message AgreeShippingDispatchRequest {
+  string access_token = 1;
+  uint64 agreeement_token = 2;
+}
+
 service Shippings {
+  rpc AgreeShippingDispatch(AgreeShippingDispatchRequest) returns (google.protobuf.Empty){}
+
   rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
   rpc Retrieve (RetrieveShippingRequest) returns (Shipping){}
 
   rpc Prev(UpdateStateRequest) returns (RetrieveShippingResponse){}
   rpc Next(UpdateStateRequest) returns (RetrieveShippingResponse){}
-  rpc Cancel(UpdateStateRequest) returns (RetrieveshippingResponse){}
+  rpc Cancel(UpdateStateRequest) returns (RetrieveShippingResponse){}
 }
 
 message RetrieveShippingResponse {
