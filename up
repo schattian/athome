@@ -9,7 +9,6 @@ build=${build:-n}
 
 export GITHUB_USER=$(cat .github_user)
 export GITHUB_TOKEN=$(cat .github_token)
-echo $GITHUB_TOKEN
 if [ $GITHUB_USER = "" ]
 then
 	echo "nil gh user"
@@ -20,6 +19,11 @@ then
 	echo "nil gh token"
 	exit 3
 fi
+
+git config \
+  --global \
+  url."https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/athomecomar".insteadOf \
+  "https://github.com/athomecomar"
 
 if [ $build = "y" ]
 then
