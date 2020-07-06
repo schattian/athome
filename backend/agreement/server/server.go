@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 	"crypto/rand"
-	"encoding/base64"
+	"math/big"
 	"strconv"
 	"time"
 
@@ -45,7 +45,7 @@ func retrieveToken(ctx context.Context, r *redis.Client, userId uint64) (string,
 type randFunc func(s int) (string, error)
 
 func createToken(ctx context.Context, r *redis.Client, userId uint64, randFn randFunc) (string, error) {
-	token, err := randFn(32)
+	token, err := randFn(6)
 	if err != nil {
 		return "", errors.Wrap(err, "randString")
 	}
@@ -61,18 +61,18 @@ func userIdToKey(uid uint64) string {
 }
 
 func randString(s int) (string, error) {
-	b, err := randBytes(s)
-	if err != nil {
-		return "", errors.Wrap(err, "randBytes")
+	if s <= 0 {
+		return "", errors.New("invalid len given (<=0)")
 	}
-	return base64.URLEncoding.EncodeToString(b), nil
-}
 
-func randBytes(n int) ([]byte, error) {
-	b := make([]byte, n)
-	_, err := rand.Read(b)
-	if err != nil {
-		return nil, errors.Wrap(err, "rand.Read")
+	var strNum string
+	for len(strNum) != s {
+		num, err := rand.Int(rand.Reader, big.NewInt(10))
+		if err != nil {
+			return "", errors.Wrap(err, "rand.Int")
+		}
+		strNum += num.String()
 	}
-	return b, nil
+
+	return strNum, nil
 }
