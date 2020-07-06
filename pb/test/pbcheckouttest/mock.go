@@ -885,6 +885,26 @@ func (m *MockShippingsClient) EXPECT() *MockShippingsClientMockRecorder {
 	return m.recorder
 }
 
+// AgreeShippingDispatch mocks base method
+func (m *MockShippingsClient) AgreeShippingDispatch(ctx context.Context, in *pbcheckout.AgreeShippingDispatchRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AgreeShippingDispatch", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AgreeShippingDispatch indicates an expected call of AgreeShippingDispatch
+func (mr *MockShippingsClientMockRecorder) AgreeShippingDispatch(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeShippingDispatch", reflect.TypeOf((*MockShippingsClient)(nil).AgreeShippingDispatch), varargs...)
+}
+
 // CreateShipping mocks base method
 func (m *MockShippingsClient) CreateShipping(ctx context.Context, in *pbcheckout.CreateShippingRequest, opts ...grpc.CallOption) (*pbcheckout.CreateShippingResponse, error) {
 	m.ctrl.T.Helper()
@@ -966,14 +986,14 @@ func (mr *MockShippingsClientMockRecorder) Next(ctx, in interface{}, opts ...int
 }
 
 // Cancel mocks base method
-func (m *MockShippingsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (m *MockShippingsClient) Cancel(ctx context.Context, in *pbcheckout.UpdateStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveShippingResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Cancel", varargs...)
-	ret0, _ := ret[0].(*pbcheckout.RetrievePurchaseResponse)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1006,6 +1026,21 @@ func NewMockShippingsServer(ctrl *gomock.Controller) *MockShippingsServer {
 // EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockShippingsServer) EXPECT() *MockShippingsServerMockRecorder {
 	return m.recorder
+}
+
+// AgreeShippingDispatch mocks base method
+func (m *MockShippingsServer) AgreeShippingDispatch(arg0 context.Context, arg1 *pbcheckout.AgreeShippingDispatchRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AgreeShippingDispatch", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AgreeShippingDispatch indicates an expected call of AgreeShippingDispatch
+func (mr *MockShippingsServerMockRecorder) AgreeShippingDispatch(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeShippingDispatch", reflect.TypeOf((*MockShippingsServer)(nil).AgreeShippingDispatch), arg0, arg1)
 }
 
 // CreateShipping mocks base method
@@ -1069,10 +1104,10 @@ func (mr *MockShippingsServerMockRecorder) Next(arg0, arg1 interface{}) *gomock.
 }
 
 // Cancel mocks base method
-func (m *MockShippingsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
+func (m *MockShippingsServer) Cancel(arg0 context.Context, arg1 *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrieveShippingResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Cancel", arg0, arg1)
-	ret0, _ := ret[0].(*pbcheckout.RetrievePurchaseResponse)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveShippingResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
