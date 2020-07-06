@@ -29,14 +29,14 @@ func TestServer_retrieve(t *testing.T) {
 			name: "existing token",
 			previousRecord: &record{
 				UserId:         1,
-				AgreementToken: "foo",
+				AgreementToken: 123123,
 			},
 			args: args{
 				ctx: context.Background(),
 				in:  &pbagreement.RetrieveRequest{UserId: 1},
 			},
 			ttl:  20 * time.Second,
-			want: &pbagreement.RetrieveResponse{AgreementToken: "foo"},
+			want: &pbagreement.RetrieveResponse{AgreementToken: 123123},
 		},
 		{
 			name: "non existant token",
@@ -44,10 +44,10 @@ func TestServer_retrieve(t *testing.T) {
 				ctx: context.Background(),
 				in:  &pbagreement.RetrieveRequest{UserId: 1},
 			},
-			randFn: func(int) (string, error) {
-				return "foo", nil
+			randFn: func(int) (uint64, error) {
+				return 342, nil
 			},
-			want: &pbagreement.RetrieveResponse{AgreementToken: "foo"},
+			want: &pbagreement.RetrieveResponse{AgreementToken: 342},
 		},
 	}
 	for _, tt := range tests {

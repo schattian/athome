@@ -25,22 +25,22 @@ func TestServer_verify(t *testing.T) {
 			name: "basic",
 			previousRecord: &record{
 				UserId:         1,
-				AgreementToken: "foo",
+				AgreementToken: 89438,
 			},
 			args: args{
 				ctx: context.Background(),
-				in:  &pbagreement.VerifyRequest{AgreedUserId: 1, AgreementToken: "foo"},
+				in:  &pbagreement.VerifyRequest{AgreedUserId: 1, AgreementToken: 89438},
 			},
 		},
 		{
 			name: "mismatch token",
 			previousRecord: &record{
 				UserId:         1,
-				AgreementToken: "bar",
+				AgreementToken: 3423,
 			},
 			args: args{
 				ctx: context.Background(),
-				in:  &pbagreement.VerifyRequest{AgreedUserId: 1, AgreementToken: "foo"},
+				in:  &pbagreement.VerifyRequest{AgreedUserId: 1, AgreementToken: 32934},
 			},
 			wantErr: xerrors.PermissionDenied,
 		},
@@ -48,11 +48,11 @@ func TestServer_verify(t *testing.T) {
 			name: "mismatch uid",
 			previousRecord: &record{
 				UserId:         1,
-				AgreementToken: "foo",
+				AgreementToken: 2342,
 			},
 			args: args{
 				ctx: context.Background(),
-				in:  &pbagreement.VerifyRequest{AgreedUserId: 2, AgreementToken: "foo"},
+				in:  &pbagreement.VerifyRequest{AgreedUserId: 2, AgreementToken: 2342},
 			},
 			wantErr: xerrors.PermissionDenied,
 		},
@@ -60,7 +60,7 @@ func TestServer_verify(t *testing.T) {
 			name: "no records",
 			args: args{
 				ctx: context.Background(),
-				in:  &pbagreement.VerifyRequest{AgreedUserId: 2, AgreementToken: "foo"},
+				in:  &pbagreement.VerifyRequest{AgreedUserId: 2, AgreementToken: 213212},
 			},
 			wantErr: xerrors.PermissionDenied,
 		},

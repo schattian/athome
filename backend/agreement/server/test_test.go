@@ -21,7 +21,7 @@ func connMiniredis(t *testing.T) *miniredis.Miniredis {
 
 type record struct {
 	UserId         uint64 `json:"user_id,omitempty"`
-	AgreementToken string `json:"agreement_token,omitempty"`
+	AgreementToken uint64 `json:"agreement_token,omitempty"`
 }
 
 func (vt *record) save(t *testing.T, redis *redis.Client, exp time.Duration) {

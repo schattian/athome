@@ -12,7 +12,7 @@ func (s *Server) Retrieve(ctx context.Context, in *pbagreement.RetrieveRequest) 
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
-	return s.retrieve(ctx, in, randString)
+	return s.retrieve(ctx, in, randInt)
 }
 
 func (s *Server) retrieve(ctx context.Context, in *pbagreement.RetrieveRequest, randFn randFunc) (*pbagreement.RetrieveResponse, error) {

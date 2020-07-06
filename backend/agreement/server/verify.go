@@ -21,13 +21,13 @@ func (s *Server) verify(ctx context.Context, in *pbagreement.VerifyRequest) (*em
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "retrieveToken: %v", err)
 	}
-	if token == "" {
+	if token == 0 {
 		return nil, status.Errorf(xerrors.PermissionDenied, "user hasn't got token")
 	}
 	if token != in.GetAgreementToken() {
 		return nil, status.Error(xerrors.PermissionDenied, "invalid token given")
 	}
-	_, err = createToken(ctx, s.Redis, in.GetAgreedUserId(), randString)
+	_, err = createToken(ctx, s.Redis, in.GetAgreedUserId(), randInt)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "createToken: %v", err)
 	}

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"strconv"
 	"testing"
 )
 
@@ -61,15 +62,15 @@ func Test_randString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := randString(tt.args.s)
+			got, err := randInt(tt.args.s)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("randString() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("randInt() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if tt.wantErr {
 				return
 			}
-			if len(got) != tt.args.s {
+			if len(strconv.Itoa(int(got))) != tt.args.s {
 				t.Errorf("randString() = %v, want length %v", got, tt.args.s)
 			}
 		})
