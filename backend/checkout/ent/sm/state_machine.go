@@ -90,13 +90,12 @@ var (
 	ShippingStateMachine = &StateMachine{
 		States: []*State{
 			{
-				Name: ShippingCreated, Description: "waiting for dispatch time (service starts)",
+				Name: ShippingCreated, Description: "waiting for being dispatched",
+				serviceProvider: onlyNext, // agreed
 			},
 			{
-				Name: ShippingDispatched, Description: "waiting for dispatch",
-			},
-			{
-				Name: ShippingTaken, Description: "the deliverer's is coming",
+				Name: ShippingTaken, Description: "the deliverer is coming",
+				consumer: onlyNext, // agreed
 			},
 			{
 				Name: ShippingFinished, Description: "shipping was finished",

@@ -16,7 +16,7 @@ func (s *State) userPermissions(entity Stateful, uid uint64) (p permissions) {
 var (
 	all = permissions{cancellable: true, prevable: true, nextable: true}
 
-	onlyPrev   = permissions{prevable: true}
+	// onlyPrev   = permissions{prevable: true}
 	onlyNext   = permissions{nextable: true}
 	onlyCancel = permissions{cancellable: true}
 )
