@@ -88,7 +88,7 @@ func (s *Server) createPurchasePayment(
 		return nil, status.Errorf(xerrors.InvalidArgument, "Card: %v", err)
 	}
 
-	sc, err := payment.NewPaymentStateChange(ctx, py.Id, sm.PaymentCreated)
+	sc, err := sm.NewStateChange(ctx, py.Id, sm.PaymentCreated, py)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewPaymentStateChange")
 	}

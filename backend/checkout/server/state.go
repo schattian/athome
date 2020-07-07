@@ -14,7 +14,7 @@ func MustPrevState(ctx context.Context, db *sqlx.DB, stateful sm.Stateful, desir
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "State: %v", err)
 	}
-	s, err := sm.Next(stateful.StateMachine(), sc.GetState(), stateful, uid)
+	s, err := sm.Next(stateful.StateMachine(), sc.GetState(stateful.StateMachine()), stateful, uid)
 	if err != nil {
 		return status.Errorf(xerrors.OutOfRange, "GetState: %v", err)
 	}

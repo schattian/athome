@@ -62,21 +62,6 @@ func (p *Purchase) NewShipping(ctx context.Context, db *sqlx.DB,
 	}
 }
 
-func (o *Purchase) State(ctx context.Context, db *sqlx.DB) (*PurchaseStateChange, error) {
-	row := db.QueryRowxContext(ctx, `SELECT * FROM purchase_state_changes WHERE order_id IN (
-                SELECT id FROM purchases WHERE id = $1
-            )
-             ORDER BY stage ASC, created_at DESC`,
-		o.Id,
-	)
-	sc := &PurchaseStateChange{}
-	err := row.StructScan(sc)
-	if err != nil {
-		return nil, errors.Wrap(err, "StructScan")
-	}
-	return sc, nil
-}
-
 func FindPurchase(ctx context.Context, db *sqlx.DB, oId uint64) (*Purchase, error) {
 	order := &Purchase{}
 	row := storeql.Where(ctx, db, order, `id=$1`, oId)
@@ -320,7 +305,7 @@ func NewPurchase(ctx context.Context, items map[uint64]uint64, uid uint64) *Purc
 	return p
 }
 
-func (o *Purchase) ToPb(scs []sm.StateChange, amount float64) (*pbcheckout.Purchase, error) {
+func (o *Purchase) ToPb(scs []*sm.StateChange, amount float64) (*pbcheckout.Purchase, error) {
 	ts, err := ent.GetTimestamp(o)
 	if err != nil {
 		return nil, errors.Wrap(err, "GetTimestamp")
@@ -328,7 +313,7 @@ func (o *Purchase) ToPb(scs []sm.StateChange, amount float64) (*pbcheckout.Purch
 
 	pbScs := make(map[uint64]*pbcheckout.StateChange)
 	for _, sc := range scs {
-		pbSc, err := sm.StateChangeToPb(sc)
+		pbSc, err := sc.ToPb()
 		if err != nil {
 			return nil, errors.Wrap(err, "StateChangeToPb")
 		}

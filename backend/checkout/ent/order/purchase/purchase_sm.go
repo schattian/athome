@@ -16,8 +16,6 @@ func (o *Purchase) StateMachine() *sm.StateMachine {
 	return sm.PurchaseStateMachine
 }
 
-func (p *Purchase) StateChange() sm.StateChange { return &PurchaseStateChange{} }
-
 func (o *Purchase) ValidateStateChange(ctx context.Context, db *sqlx.DB, newState *sm.State) (err error) {
 	switch newState.Name {
 	case sm.PurchaseAddressed:
@@ -40,7 +38,7 @@ func (o *Purchase) validateStateChangeFinished(ctx context.Context, db *sqlx.DB)
 	if err != nil {
 		return errors.Wrap(err, "sm.LatestStateChange")
 	}
-	if sc.GetState().Name == sm.ShippingFinished {
+	if sc.GetState(ship.StateMachine()).Name == sm.ShippingFinished {
 		return errors.New("shipping isn't finshed yet")
 	}
 	return nil

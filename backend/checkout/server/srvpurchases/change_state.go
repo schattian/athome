@@ -77,7 +77,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "LatestStateChange")
 	}
-	state, err := stateChanger(o.StateMachine(), sc.GetState(), o, uid)
+	state, err := stateChanger(o.StateMachine(), sc.GetState(o.StateMachine()), o, uid)
 	if err != nil {
 		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
 	}
@@ -85,7 +85,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
-	sc, err = purchase.NewPurchaseStateChange(ctx, o.Id, state.Name)
+	sc, err = sm.NewStateChange(ctx, o.Id, state.Name, o)
 	if err != nil {
 		return status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
 	}

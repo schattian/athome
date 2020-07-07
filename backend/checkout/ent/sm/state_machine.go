@@ -102,4 +102,18 @@ var (
 			},
 		},
 	}
+
+	PaymentStateMachine = &StateMachine{
+		States: []*State{
+			{
+				Name: PaymentCreated, Description: "being processed",
+			},
+			{
+				Name: PaymentFinished, Description: "payment was paid successfully",
+			},
+			{
+				Name: PaymentRejected, Description: "payment was rejected for some reason",
+			},
+		},
+	}
 )

@@ -96,7 +96,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "o InsertIntoDB")
 	}
 
-	sc, err := purchase.NewPurchaseStateChange(ctx, o.Id, sm.PurchaseCreated)
+	sc, err := sm.NewStateChange(ctx, o.Id, sm.PurchaseCreated, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange")
 	}
@@ -110,7 +110,7 @@ func (s *Server) createPurchase(ctx context.Context, db *sqlx.DB,
 		return nil, status.Errorf(xerrors.Internal, "AmountFromProducts")
 	}
 
-	oPb, err := o.ToPb([]sm.StateChange{sc}, amount)
+	oPb, err := o.ToPb([]*sm.StateChange{sc}, amount)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "ToPbWrapped")
 	}

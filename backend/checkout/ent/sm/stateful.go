@@ -16,6 +16,5 @@ type Stateful interface {
 	GetMerchantId() uint64
 	GetServiceProviderId() uint64
 
-	StateChange() StateChange
 	ValidateStateChange(ctx context.Context, db *sqlx.DB, state *State) error
 }

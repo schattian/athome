@@ -68,7 +68,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "LatestStateChange")
 	}
-	state, err := stateChanger(sh.StateMachine(), sc.GetState(), sh, uid)
+	state, err := stateChanger(sh.StateMachine(), sc.GetState(sh.StateMachine()), sh, uid)
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
 	}
@@ -76,7 +76,7 @@ func (s *Server) changeState(
 	if err != nil {
 		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
-	sc, err = shipping.NewShippingStateChange(ctx, sh.Id, state.Name)
+	sc, err = sm.NewStateChange(ctx, sh.Id, state.Name, sh)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange: %v", err)
 	}

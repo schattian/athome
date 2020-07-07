@@ -102,7 +102,7 @@ func (s *Server) createShipping(
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
 
-	sc, err := shipping.NewShippingStateChange(ctx, ship.Id, sm.ShippingCreated)
+	sc, err := sm.NewStateChange(ctx, ship.Id, sm.ShippingCreated, ship)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange")
 	}
