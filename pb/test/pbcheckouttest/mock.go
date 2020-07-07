@@ -1281,6 +1281,26 @@ func (mr *MockPurchasesClientMockRecorder) StateMachine(ctx, in interface{}, opt
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesClient)(nil).StateMachine), varargs...)
 }
 
+// AgreeFinishOrder mocks base method
+func (m *MockPurchasesClient) AgreeFinishOrder(ctx context.Context, in *pbcheckout.AgreeFinishOrderRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AgreeFinishOrder", varargs...)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AgreeFinishOrder indicates an expected call of AgreeFinishOrder
+func (mr *MockPurchasesClientMockRecorder) AgreeFinishOrder(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeFinishOrder", reflect.TypeOf((*MockPurchasesClient)(nil).AgreeFinishOrder), varargs...)
+}
+
 // Prev mocks base method
 func (m *MockPurchasesClient) Prev(ctx context.Context, in *pbcheckout.UpdateStateRequest, opts ...grpc.CallOption) (*pbcheckout.RetrievePurchaseResponse, error) {
 	m.ctrl.T.Helper()
@@ -1467,6 +1487,21 @@ func (m *MockPurchasesServer) StateMachine(arg0 context.Context, arg1 *empty.Emp
 func (mr *MockPurchasesServerMockRecorder) StateMachine(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesServer)(nil).StateMachine), arg0, arg1)
+}
+
+// AgreeFinishOrder mocks base method
+func (m *MockPurchasesServer) AgreeFinishOrder(arg0 context.Context, arg1 *pbcheckout.AgreeFinishOrderRequest) (*empty.Empty, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AgreeFinishOrder", arg0, arg1)
+	ret0, _ := ret[0].(*empty.Empty)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AgreeFinishOrder indicates an expected call of AgreeFinishOrder
+func (mr *MockPurchasesServerMockRecorder) AgreeFinishOrder(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeFinishOrder", reflect.TypeOf((*MockPurchasesServer)(nil).AgreeFinishOrder), arg0, arg1)
 }
 
 // Prev mocks base method

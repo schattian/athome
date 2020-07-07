@@ -110,6 +110,79 @@ var _ interface {
 	ErrorName() string
 } = AgreeShippingDispatchRequestValidationError{}
 
+// Validate checks the field values on AgreeFinishOrderRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AgreeFinishOrderRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccessToken
+
+	// no validation rules for AgreeementToken
+
+	// no validation rules for OrderId
+
+	return nil
+}
+
+// AgreeFinishOrderRequestValidationError is the validation error returned by
+// AgreeFinishOrderRequest.Validate if the designated constraints aren't met.
+type AgreeFinishOrderRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AgreeFinishOrderRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AgreeFinishOrderRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AgreeFinishOrderRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AgreeFinishOrderRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AgreeFinishOrderRequestValidationError) ErrorName() string {
+	return "AgreeFinishOrderRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AgreeFinishOrderRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAgreeFinishOrderRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AgreeFinishOrderRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AgreeFinishOrderRequestValidationError{}
+
 // Validate checks the field values on RetrieveShippingResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
