@@ -1,9 +1,9 @@
-package srvshippings
+package srvpurchases
 
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbagreement"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *Server) AgreeShippingDispatch(ctx context.Context, in *pbcheckout.AgreeShippingDispatchRequest) (*emptypb.Empty, error) {
+func (s *Server) AgreeFinishOrder(ctx context.Context, in *pbcheckout.AgreeFinishOrderRequest) (*emptypb.Empty, error) {
 	if err := in.Validate(); err != nil {
 		return nil, err
 	}
@@ -37,43 +37,43 @@ func (s *Server) AgreeShippingDispatch(ctx context.Context, in *pbcheckout.Agree
 	if err != nil {
 		return nil, err
 	}
-	sh, err := shipping.FindShipping(ctx, db, in.GetShippingId())
+	p, err := purchase.FindPurchase(ctx, db, in.GetOrderId())
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindShipping: %v", err)
+		return nil, status.Errorf(xerrors.Internal, "FindPurchase: %v", err)
 	}
-
 	agree, agreeCloser, err := pbutil.ConnAgreement(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	defer agreeCloser()
-	return s.agreeShippingDispatch(ctx, db, agree, in.GetAgreeementToken(), sh, uid)
+	return s.agreeFinishOrder(ctx, db, agree, in.GetAgreeementToken(), p, uid)
 }
 
-func (s *Server) agreeShippingDispatch(
+func (s *Server) agreeFinishOrder(
 	ctx context.Context,
 	db *sqlx.DB,
 	agree pbagreement.AgreementClient,
 	token uint64,
-	sh *shipping.Shipping,
+	p *purchase.Purchase,
 	uid uint64,
 ) (*emptypb.Empty, error) {
-	if uid == sh.UserId {
+	if uid == p.UserId {
 		return nil, status.Error(xerrors.PermissionDenied, "you cant agree with yourself")
 	}
-	if sh.GetMerchantId() != uid {
-		return nil, status.Errorf(xerrors.PermissionDenied, "you cant agree shipment dispatches if you aren't the merchant")
+	canView, err := p.CanView(ctx, db, uid)
+	if err != nil || !canView {
+		return nil, status.Errorf(xerrors.PermissionDenied, "you cant agree non owned orders: %v", err)
 	}
-	_, err := agree.Verify(ctx, &pbagreement.VerifyRequest{AgreedUserId: sh.UserId, AgreementToken: token})
+	_, err = agree.Verify(ctx, &pbagreement.VerifyRequest{AgreedUserId: p.UserId, AgreementToken: token})
 	if err != nil {
 		return nil, err
 	}
-	err = server.MustPrevState(ctx, db, sh, sm.ShippingDispatched, sh.UserId)
+	err = server.MustPrevState(ctx, db, p, sm.ShippingDispatched, p.UserId)
 	if err != nil {
 		return nil, err
 	}
-	_, err = s.changeState(ctx, db, sm.Next, sh, sh.UserId)
+	err = s.changeState(ctx, db, sm.Next, p, p.UserId)
 	if err != nil {
 		return nil, err
 	}

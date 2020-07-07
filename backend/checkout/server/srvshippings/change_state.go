@@ -84,5 +84,5 @@ func (s *Server) changeState(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
-	return &pbcheckout.RetrieveShippingResponse{}, nil
+	return &pbcheckout.RetrieveShippingResponse{ShippingId: sh.Id, Shipping: sh.ToPb()}, nil
 }

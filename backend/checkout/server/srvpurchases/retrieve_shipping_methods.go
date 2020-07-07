@@ -42,7 +42,7 @@ func (s *Server) RetrieveShippingMethods(ctx context.Context, in *pbcheckout.Ret
 	if err != nil {
 		return nil, err
 	}
-	err = MustPrevState(ctx, db, o, sm.PurchaseShippingMethodSelected, uid)
+	err = server.MustPrevState(ctx, db, o, sm.PurchaseShippingMethodSelected, uid)
 	if err != nil {
 		return nil, err
 	}

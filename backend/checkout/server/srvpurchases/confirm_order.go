@@ -83,9 +83,9 @@ func (s *Server) confirmPurchase(ctx context.Context, db *sqlx.DB, in *pbcheckou
 	if err != nil {
 		return nil, err
 	}
-	resp, err := s.changeState(ctx, db, sm.Next, prodsViewer, p, userId)
+	err = s.changeState(ctx, db, sm.Next, p, userId)
 	if err != nil {
 		return nil, err
 	}
-	return resp, nil
+	return s.retrievePurchase(ctx, db, prodsViewer, p)
 }

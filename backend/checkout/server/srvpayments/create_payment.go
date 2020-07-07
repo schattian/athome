@@ -8,7 +8,6 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
-	"github.com/athomecomar/athome/backend/checkout/server/srvpurchases"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbutil"
@@ -54,7 +53,7 @@ func (s *Server) CreatePurchasePayment(ctx context.Context, db *sqlx.DB, in *pbc
 	if err != nil {
 		return nil, err
 	}
-	err = srvpurchases.MustPrevState(ctx, db, o, sm.PurchasePaid, userId)
+	err = server.MustPrevState(ctx, db, o, sm.PurchasePaid, userId)
 	if err != nil {
 		return nil, err
 	}

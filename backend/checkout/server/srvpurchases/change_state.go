@@ -7,7 +7,6 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
-	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbutil"
 	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
@@ -60,37 +59,39 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 	}
 	defer prodsCloser()
 
-	return s.changeState(ctx, db, stateChanger, prods, o, uid)
+	err = s.changeState(ctx, db, stateChanger, o, uid)
+	if err != nil {
+		return nil, err
+	}
+	return s.retrievePurchase(ctx, db, prods, o)
 }
 
 func (s *Server) changeState(
 	ctx context.Context,
 	db *sqlx.DB,
 	stateChanger sm.StateChanger,
-	prods pbproducts.ViewerClient,
 	o *purchase.Purchase,
 	uid uint64,
-) (*pbcheckout.RetrievePurchaseResponse, error) {
+) error {
 	sc, err := sm.LatestStateChange(ctx, db, o)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "LatestStateChange")
+		return status.Errorf(xerrors.Internal, "LatestStateChange")
 	}
 	state, err := stateChanger(o.StateMachine(), sc.GetState(), o, uid)
 	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
+		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
 	}
 	err = o.ValidateStateChange(ctx, db, state)
 	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
+		return status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
 	}
 	sc, err = purchase.NewPurchaseStateChange(ctx, o.Id, state.Name)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
+		return status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
 	}
 	err = storeql.InsertIntoDB(ctx, db, sc)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
+		return status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
 	}
-
-	return s.retrievePurchase(ctx, db, prods, o)
+	return nil
 }
