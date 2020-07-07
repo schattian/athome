@@ -53,6 +53,13 @@ service Payments {
 message AgreeShippingDispatchRequest {
   string access_token = 1;
   uint64 agreeement_token = 2;
+  uint64 shipping_id = 3;
+}
+
+message AgreeFinishOrderRequest {
+  string access_token = 1;
+  uint64 agreeement_token = 2;
+  uint64 order_id = 3;
 }
 
 service Shippings {
@@ -84,6 +91,8 @@ service Purchases {
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
+
+  rpc AgreeFinishOrder (AgreeFinishOrderRequest) returns (google.protobuf.Empty){}
 
   rpc Prev(UpdateStateRequest) returns (RetrievePurchaseResponse){}
   rpc Next(UpdateStateRequest) returns (RetrievePurchaseResponse){}
