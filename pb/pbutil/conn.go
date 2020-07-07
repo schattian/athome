@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/athomecomar/athome/pb/pbaddress"
+	"github.com/athomecomar/athome/pb/pbagreement"
 	"github.com/athomecomar/athome/pb/pbauth"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbconf"
@@ -36,6 +37,16 @@ func ConnMessenger(ctx context.Context) (pbmessenger.MessagesClient, func() erro
 		return nil, nil, err
 	}
 	c := pbmessenger.NewMessagesClient(conn)
+	return c, conn.Close, nil
+}
+
+func ConnAgreement(ctx context.Context) (pbagreement.AgreementClient, func() error, error) {
+	host := pbconf.Agreement.GetHost()
+	conn, err := conn(ctx, host)
+	if err != nil {
+		return nil, nil, err
+	}
+	c := pbagreement.NewAgreementClient(conn)
 	return c, conn.Close, nil
 }
 
