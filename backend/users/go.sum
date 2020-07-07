@@ -155,6 +155,8 @@ github.com/athomecomar/athome/pb v0.0.0-20200705230836-f2f5d45da992 h1:JTRssXvoK
 github.com/athomecomar/athome/pb v0.0.0-20200705230836-f2f5d45da992/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/athome/pb v0.0.0-20200706221909-033f5656e902 h1:cotMOaUid834gxAEbG3+CVyj6+m7U5xYG6yl3ZCejdw=
 github.com/athomecomar/athome/pb v0.0.0-20200706221909-033f5656e902/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
+github.com/athomecomar/athome/pb v0.0.0-20200707181514-a387840b36f9 h1:G2T5IzuvaXd+QVCDItqD7/+tXje6NbQzr0JZxZnBd4o=
+github.com/athomecomar/athome/pb v0.0.0-20200707181514-a387840b36f9/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/currency v0.1.0/go.mod h1:8w/dAYMQORHuj2TTod6VppAPiPvjMNrP46vDctbjUXM=
 github.com/athomecomar/envconf v1.1.0 h1:KLOJsNI3/NfdsXDbyEM96P4JMT1MT5uMOD2KuCPQ6b4=
 github.com/athomecomar/envconf v1.1.0/go.mod h1:5KXksjAqC1J4TCvjqni/84JyPDjFJv7VhO+j2Vofx5E=
