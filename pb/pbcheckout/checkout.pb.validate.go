@@ -48,6 +48,8 @@ func (m *AgreeShippingDispatchRequest) Validate() error {
 
 	// no validation rules for AgreeementToken
 
+	// no validation rules for ShippingId
+
 	return nil
 }
 
