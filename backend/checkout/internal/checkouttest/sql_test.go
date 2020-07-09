@@ -8,4 +8,5 @@ import (
 
 func TestSQL(t *testing.T) {
 	sqltest.SQL(t, gPurchases.Foo, "Purchase")
+	sqltest.SQL(t, gShippings.Foo, "Shipping")
 }

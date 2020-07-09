@@ -26,5 +26,9 @@ func (u *Shipping) SQLMap() map[string]driver.Value {
 
 		"real_price":               u.RealPrice,
 		"real_duration_in_minutes": u.RealDurationInMinutes,
+
+		"src_address_id":     u.SrcAddressId,
+		"dest_address_id":    u.DestAddressId,
+		"manhattan_distance": u.ManhattanDistance,
 	}
 }

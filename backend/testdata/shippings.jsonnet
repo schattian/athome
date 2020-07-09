@@ -17,6 +17,9 @@ local users = import './users.jsonnet';
     order_price: ((service.price_max + service.price_min) / 2) * (purchase.distance_in_kilometers),
     order_duration_in_minutes:  purchase.distance_in_kilometers * service.duration_in_minutes,
 
+    src_address_id: purchase.src_address_id,
+    dest_address_id: purchase.dest_address_id,
+    manhattan_distance: purchase.distance_in_kilometers,
     // real_price: ,
     // real_duration_in_minutes: u.RealDurationInMinutes,
   },

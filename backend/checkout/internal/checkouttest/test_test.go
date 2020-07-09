@@ -1,9 +1,11 @@
 package checkouttest
 
 var (
-	gPurchases GoldenPurchases
+	gPurchases  GoldenPurchases
+	gShippings  GoldenShippings
+	gPbProducts GoldenPbProducts
 )
 
 func init() {
-	Init(&gPurchases)
+	Init(&gPurchases, &gShippings, &gPbProducts)
 }
