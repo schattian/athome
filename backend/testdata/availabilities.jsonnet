@@ -46,6 +46,25 @@ local base = {
         },
       },
     },
+
+    delivery: {
+      first: {
+        local calendar = calendars.foo.delivery.a,
+        a: base.foo.a {
+          id: 3214,
+          calendar_id: calendar.id,
+        },
+        b: base.foo.b {
+          id: 121,
+          calendar_id: calendar.id,
+        },
+        c: base.foo.c {
+          id: 2234,
+          calendar_id: calendar.id,
+        },
+      },
+    },
+
   },
 
 

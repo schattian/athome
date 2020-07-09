@@ -8,6 +8,7 @@ require (
 	github.com/athomecomar/envconf v1.2.0
 	github.com/athomecomar/storeql v1.5.4
 	github.com/athomecomar/xerrors v1.2.1
+	github.com/athomecomar/xtest v0.2.0
 	github.com/golang-migrate/migrate/v4 v4.11.0
 	github.com/golang/protobuf v1.4.2
 	github.com/jmoiron/sqlx v1.2.1-0.20191203222853-2ba0fc60eb4a

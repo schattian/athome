@@ -36,6 +36,13 @@
           bar: $.base.bar { id: 231, role: role, category_id: 4 },
         },
 
+      delivery:
+        {
+          foo: $.base.foo { id: 1241, role: role, category_id: 3 },
+          bar: $.base.bar { id: 23423, role: role, category_id: 3 },
+        },
+
+
       lawyer:
         {
           foo: $.base.foo { id: 341, role: role, category_id: 5 },

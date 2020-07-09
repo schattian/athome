@@ -1,4 +1,4 @@
-package checkoutest
+package checkouttest
 
 // type variadicPbUsers struct {
 // 	Foo *pbusers.User `json:"foo,omitempty"`

@@ -1,4 +1,4 @@
-package checkoutest
+package checkouttest
 
 // func CopyDraft(t *testing.T, c *ent.Draft) *ent.Draft {
 // 	t.Helper()

@@ -47,16 +47,6 @@ github.com/athomecomar/athome/pb v0.0.0-20200611214857-7841272d12ee/go.mod h1:wa
 github.com/athomecomar/athome/pb v0.0.0-20200614192353-66fa147cc6e7 h1:ikFcVPLkvzBG3NqnnXCF4Rx0JbkCRVWsPxeOkPcW9kg=
 github.com/athomecomar/athome/pb v0.0.0-20200614192353-66fa147cc6e7/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
 github.com/athomecomar/athome/pb v0.0.0-20200615140202-43bc2163cb0c/go.mod h1:UO7LH94V6FmJG4yO8hTxwb+B3BwW3aNvckpsFmeCF84=
-github.com/athomecomar/athome/pb v0.0.0-20200705185058-fa1ed3fa9b95 h1:EMw1Q1WaMTRC9non4/kCikUwylzg8Lykt7csFueFiQw=
-github.com/athomecomar/athome/pb v0.0.0-20200705185058-fa1ed3fa9b95/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
-github.com/athomecomar/athome/pb v0.0.0-20200705230836-f2f5d45da992 h1:JTRssXvoK5lgNozUyenU8iU5Y6gleccsHJcx/1932GY=
-github.com/athomecomar/athome/pb v0.0.0-20200705230836-f2f5d45da992/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
-github.com/athomecomar/athome/pb v0.0.0-20200706221909-033f5656e902 h1:cotMOaUid834gxAEbG3+CVyj6+m7U5xYG6yl3ZCejdw=
-github.com/athomecomar/athome/pb v0.0.0-20200706221909-033f5656e902/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
-github.com/athomecomar/athome/pb v0.0.0-20200707181514-a387840b36f9 h1:G2T5IzuvaXd+QVCDItqD7/+tXje6NbQzr0JZxZnBd4o=
-github.com/athomecomar/athome/pb v0.0.0-20200707181514-a387840b36f9/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
-github.com/athomecomar/athome/pb v0.0.0-20200707182729-873e40d05af7 h1:SAB0lg74wG/x6A3kuLsESLwAiKv6gg9tmjhyQRIQgeE=
-github.com/athomecomar/athome/pb v0.0.0-20200707182729-873e40d05af7/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/athome/pb v0.0.0-20200707200148-c6874017d0b4 h1:sdNWf4rTh4IwLEHJ7rNtznrskn0TRW4l/ujqyqCLmkA=
 github.com/athomecomar/athome/pb v0.0.0-20200707200148-c6874017d0b4/go.mod h1:NRQpLhGBt7DyuWwRq864rWHlu96Cy0OEDON+Tuc60KE=
 github.com/athomecomar/currency v0.1.0 h1:yZeCVqXcYT+aChAg6EfK7yEk3uhDTa52OtzDwvRD6CY=

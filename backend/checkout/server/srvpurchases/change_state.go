@@ -60,33 +60,3 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 	}
 	return s.retrievePurchase(ctx, db, prods, o)
 }
-
-// func (s *Server) changeState(
-// 	ctx context.Context,
-// 	db *sqlx.DB,
-// 	stateChanger sm.StateChanger,
-// 	o *purchase.Purchase,
-// 	uid uint64,
-// ) error {
-// 	sc, err := sm.LatestStateChange(ctx, db, o)
-// 	if err != nil {
-// 		return status.Errorf(xerrors.Internal, "LatestStateChange")
-// 	}
-// 	state, err := stateChanger(o.StateMachine(), sc.GetState(o.StateMachine()), o, uid)
-// 	if err != nil {
-// 		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
-// 	}
-// 	err = o.ValidateStateChange(ctx, db, state)
-// 	if err != nil {
-// 		return status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
-// 	}
-// 	sc, err = sm.NewStateChange(ctx, o.Id, state.Name, o)
-// 	if err != nil {
-// 		return status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
-// 	}
-// 	err = storeql.InsertIntoDB(ctx, db, sc)
-// 	if err != nil {
-// 		return status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
-// 	}
-// 	return nil
-// }

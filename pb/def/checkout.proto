@@ -48,6 +48,8 @@ service Bookings {
 service Payments {
   rpc CreatePayment(CreatePaymentRequest) returns(CreatePaymentResponse){}
   rpc Retrieve (RetrievePaymentRequest) returns (Payment){}
+
+  rpc RetrieveStateChanges(RetrieveStateChangesRequest) returns (RetrieveStateChangesResponse){}
 }
 
 message AgreeShippingDispatchRequest {
@@ -64,6 +66,8 @@ message AgreeFinishOrderRequest {
 
 service Shippings {
   rpc AgreeShippingDispatch(AgreeShippingDispatchRequest) returns (google.protobuf.Empty){}
+
+  rpc RetrieveStateChanges(RetrieveStateChangesRequest) returns (RetrieveStateChangesResponse){}
 
   rpc CreateShipping(CreateShippingRequest) returns (CreateShippingResponse){}
   rpc Retrieve (RetrieveShippingRequest) returns (Shipping){}
@@ -92,12 +96,23 @@ service Purchases {
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
 
+  rpc RetrieveStateChanges(RetrieveStateChangesRequest) returns (RetrieveStateChangesResponse){}
+
   rpc AgreeFinishOrder (AgreeFinishOrderRequest) returns (google.protobuf.Empty){}
 
   rpc Prev(UpdateStateRequest) returns (RetrievePurchaseResponse){}
   rpc Next(UpdateStateRequest) returns (RetrievePurchaseResponse){}
 
   rpc Cancel(UpdateStateRequest) returns (RetrievePurchaseResponse){}
+}
+
+message RetrieveStateChangesRequest{
+  string access_token = 1;
+  uint64 entity_id = 2;
+}
+
+message RetrieveStateChangesResponse{
+  map<uint64, StateChange> state_changes = 1;
 }
 
 message RetrievePaymentRequest {

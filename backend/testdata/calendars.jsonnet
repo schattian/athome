@@ -4,6 +4,7 @@ local users = import './users.jsonnet';
   local groups = { foo: 2313, bar: 77723 },
   local medics = users.service_providers.medic,
   local lawyers = users.service_providers.lawyer,
+  local deliveries = users.service_providers.delivery,
 
   foo: {
     medic: {
@@ -23,6 +24,26 @@ local users = import './users.jsonnet';
         id: 5437134,
         user_id: medics.foo.id,
         name: 'fooMedicCalendarx',
+        group_id: groups.foo,
+      },
+    },
+    delivery: {
+      a: {
+        id: 135154,
+        user_id: deliveries.foo.id,
+        name: 'fooDeliveryCalendary',
+        group_id: groups.foo,
+      },
+      b: {
+        id: 4333114,
+        user_id: deliveries.foo.id,
+        name: 'fooDeliveryCalendarz',
+        group_id: groups.foo,
+      },
+      c: {
+        id: 5439119134,
+        user_id: deliveries.foo.id,
+        name: 'fooDeliveryCalendarx',
         group_id: groups.foo,
       },
     },

@@ -26,4 +26,18 @@ local users = import './users.jsonnet';
     price_min: 20000,
     price_max: 100000,
   },
+
+  delivery: {
+    id: 1543934,
+    user_id: users.service_providers.medic.foo.id,
+    calendar_id: calendars.foo.delivery.a.id,
+    address_id: addresses.service_providers.medic.foo.id,
+
+    title: 'foomessengerName',
+    duration_in_minutes: 120,
+    price_min: 20000,
+    price_max: 100000,
+  },
+
+
 }

@@ -1,9 +1,11 @@
-package checkoutest
+package checkouttest
 
 import (
 	"testing"
+
+	"github.com/athomecomar/storeql/test/sqltest"
 )
 
 func TestSQL(t *testing.T) {
-	// qltest.SQL(t, gDraftLines.Foo.A, "DraftLine")
+	sqltest.SQL(t, gPurchases.Foo, "Purchase")
 }

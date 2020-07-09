@@ -21,6 +21,7 @@ func (u *Purchase) SQLMap() map[string]driver.Value {
 		"distance_in_kilometers": u.DistanceInKilometers,
 		"dest_address_id":        u.DestAddressId,
 		"src_address_id":         u.SrcAddressId,
+		"shipping_id":            u.ShippingId,
 		"merchant_id":            u.MerchantId,
 		"created_at":             u.CreatedAt,
 		"updated_at":             u.UpdatedAt,

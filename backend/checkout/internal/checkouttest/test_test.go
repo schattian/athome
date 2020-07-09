@@ -1,13 +1,9 @@
-package checkoutest
+package checkouttest
 
-// var (
-// 	gcheckout  Goldencheckout
-// 	gDraftLines GoldenDraftLines
-// 	gDrafts     GoldenDrafts
-// 	gPbUsers    GoldenPbUsers
-// 	gPbImages   GoldenPbImages
-// )
+var (
+	gPurchases GoldenPurchases
+)
 
-// func init() {
-// 	Init(&gDraftLines, &gDrafts, &gcheckout, &gPbUsers, &gPbImages)
-// }
+func init() {
+	Init(&gPurchases)
+}
