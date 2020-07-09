@@ -40,15 +40,11 @@ const (
 	PurchasePaid StateName = "purchase:paid"
 	// purchase has been confirmed by the merchant
 	PurchaseConfirmed StateName = "purchase:confirmed"
-	// purchase has been shipped successfully
-	PurchaseShipped StateName = "purchase:shipped"
 	// purchase has finished successfully
 	PurchaseFinished StateName = "purchase:finished"
 
 	// shipping has been created, and is waiting to be dispatched
 	ShippingCreated StateName = "shipping:created"
-	// shipping has been dispatched by the merchant, and is ready to be taken
-	ShippingDispatched StateName = "shipping:dispatched"
 	// shipping has been taken and the deliverer is going to the consumer
 	ShippingTaken StateName = "shipping:taken"
 	// shipping has finished successfully

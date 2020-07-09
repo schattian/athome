@@ -214,6 +214,39 @@ func (o *Purchase) Shipping(ctx context.Context, db *sqlx.DB) (*shipping.Shippin
 	return shipping.FindShipping(ctx, db, o.ShippingId)
 }
 
+func (o *Purchase) TotalPaid(ctx context.Context, db *sqlx.DB) (amount currency.ARS, err error) {
+	pys, err := o.FinishedPayments(ctx, db)
+	if err != nil {
+		err = errors.Wrap(err, "FinishedPayments")
+		return
+	}
+	for _, py := range pys {
+		amount += py.Amount
+	}
+	return
+}
+
+func (o *Purchase) FinishedPayments(ctx context.Context, db *sqlx.DB) (pys []*payment.Payment, err error) {
+	var allPys []*payment.Payment
+	allPys, err = o.Payments(ctx, db)
+	if err != nil {
+		err = errors.Wrap(err, "Payments")
+		return
+	}
+	var isFinished bool
+	for _, py := range allPys {
+		isFinished, err = py.IsFinished(ctx, db)
+		if err != nil {
+			err = errors.Wrap(err, "IsFinished")
+			return
+		}
+		if isFinished {
+			pys = append(pys, py)
+		}
+	}
+	return
+}
+
 func (o *Purchase) Amount(ctx context.Context, db *sqlx.DB, c pbproducts.ViewerClient) (float64, error) {
 	prods, err := o.Products(ctx, c)
 	if err != nil {

@@ -23,7 +23,7 @@ type StateChange struct {
 	CreatedAt   ent.Time `json:"created_at,omitempty"`
 }
 
-func (o *StateChange) GetName() string         { return string(o.Name) }
+func (o *StateChange) GetName() StateName      { return o.Name }
 func (o *StateChange) GetStage() int64         { return o.Stage }
 func (o *StateChange) GetCreatedAt() time.Time { return o.CreatedAt.Time }
 func (o *StateChange) SetCreatedAt(t time.Time) {

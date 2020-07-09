@@ -69,11 +69,23 @@ func (s *Server) agreeFinishOrder(
 	if err != nil {
 		return nil, err
 	}
-	err = server.MustPrevState(ctx, db, p, sm.ShippingDispatched, p.UserId)
+
+	if p.ShippingId != 0 {
+		ship, err := p.Shipping(ctx, db)
+		if err != nil {
+			return nil, err
+		}
+		err = server.ChangeState(ctx, db, sm.Next, ship, p.UserId)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	err = server.MustPrevState(ctx, db, p, sm.PurchaseFinished, p.UserId)
 	if err != nil {
 		return nil, err
 	}
-	err = s.changeState(ctx, db, sm.Next, p, p.UserId)
+	err = server.ChangeState(ctx, db, sm.Next, p, p.UserId)
 	if err != nil {
 		return nil, err
 	}

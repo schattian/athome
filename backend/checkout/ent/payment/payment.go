@@ -7,6 +7,7 @@ import (
 
 	"github.com/athomecomar/athome/backend/checkout/ent"
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
+	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/currency"
 	"github.com/athomecomar/storeql"
@@ -37,6 +38,14 @@ func (o *Payment) SetCreatedAt(t time.Time) {
 	o.SetUpdatedAt(t)
 }
 func (o *Payment) SetUpdatedAt(t time.Time) { o.UpdatedAt = ent.Time{NullTime: sql.NullTime{Time: t}} }
+
+func (p *Payment) IsFinished(ctx context.Context, db *sqlx.DB) (bool, error) {
+	sc, err := sm.LatestStateChange(ctx, db, p)
+	if err != nil {
+		return false, errors.Wrap(err, "LatestStateChange")
+	}
+	return sc.GetName() == sm.PaymentFinished, nil
+}
 
 func (p *Payment) Card(ctx context.Context, db *sqlx.DB) (*Card, error) {
 	card, err := FindCard(ctx, db, p.CardId, p.UserId)

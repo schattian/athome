@@ -69,11 +69,11 @@ func (s *Server) agreeShippingDispatch(
 	if err != nil {
 		return nil, err
 	}
-	err = server.MustPrevState(ctx, db, sh, sm.ShippingDispatched, sh.UserId)
+	err = server.MustPrevState(ctx, db, sh, sm.ShippingTaken, sh.UserId)
 	if err != nil {
 		return nil, err
 	}
-	_, err = s.changeState(ctx, db, sm.Next, sh, sh.UserId)
+	err = server.ChangeState(ctx, db, sm.Next, sh, sh.UserId)
 	if err != nil {
 		return nil, err
 	}
