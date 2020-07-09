@@ -3,6 +3,8 @@ package purchase
 import (
 	"context"
 	"database/sql"
+	"database/sql/driver"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -10,7 +12,6 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/order"
 	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
-	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -21,18 +22,35 @@ import (
 	"github.com/pkg/errors"
 )
 
+type Items map[uint64]uint64
+
+func (i Items) Scan(val interface{}) (err error) {
+	switch v := val.(type) {
+	case []byte:
+		err = json.Unmarshal(v, &i)
+	case string:
+		err = json.Unmarshal([]byte(v), &i)
+	default:
+		err = errors.New(fmt.Sprintf("Unsupported type: %T", v))
+	}
+	return
+}
+func (i Items) Value() (driver.Value, error) {
+	return json.Marshal(&i)
+}
+
 type Purchase struct {
 	Id            uint64 `json:"id,omitempty"`
 	UserId        uint64 `json:"user_id,omitempty"`
 	DestAddressId uint64 `json:"dest_address_id,omitempty"`
 
-	DistanceInKilometers float64           `json:"distance_in_kilometers,omitempty"`
-	SrcAddressId         uint64            `json:"src_address_id,omitempty"`
-	CreatedAt            ent.Time          `json:"created_at,omitempty"`
-	MerchantId           uint64            `json:"merchant_id,omitempty"`
-	UpdatedAt            ent.Time          `json:"updated_at,omitempty"`
-	Items                map[uint64]uint64 `json:"items,omitempty"`
-	ShippingId           uint64            `json:"shipping_id,omitempty"`
+	DistanceInKilometers float64  `json:"distance_in_kilometers,omitempty"`
+	SrcAddressId         uint64   `json:"src_address_id,omitempty"`
+	CreatedAt            ent.Time `json:"created_at,omitempty"`
+	MerchantId           uint64   `json:"merchant_id,omitempty"`
+	UpdatedAt            ent.Time `json:"updated_at,omitempty"`
+	Items                Items    `json:"items,omitempty"`
+	ShippingId           uint64   `json:"shipping_id,omitempty"`
 }
 
 func (o *Purchase) GetCreatedAt() time.Time { return o.CreatedAt.Time }
@@ -285,15 +303,11 @@ func (o *Purchase) AmountFromProducts(ctx context.Context, prods map[uint64]*pbp
 }
 
 func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproducts.ViewerClient) (*pbcheckout.Purchase, error) {
-	scs, err := sm.StateChanges(ctx, db, o)
-	if err != nil {
-		return nil, errors.Wrap(err, "StateChanges")
-	}
 	amount, err := o.Amount(ctx, db, prods)
 	if err != nil {
 		return nil, errors.Wrap(err, "Amount")
 	}
-	pb, err := o.ToPb(scs, amount)
+	pb, err := o.ToPb(amount)
 	if err != nil {
 		return nil, errors.Wrap(err, "ToPb")
 	}
@@ -332,25 +346,16 @@ func (o *Purchase) AssignMerchant(ctx context.Context, prods map[uint64]*pbprodu
 	return nil
 }
 
-func NewPurchase(ctx context.Context, items map[uint64]uint64, uid uint64) *Purchase {
+func NewPurchase(ctx context.Context, items Items, uid uint64) *Purchase {
 	p := &Purchase{UserId: uid, Items: items}
 	p.SetCreatedAt(time.Now())
 	return p
 }
 
-func (o *Purchase) ToPb(scs []*sm.StateChange, amount float64) (*pbcheckout.Purchase, error) {
+func (o *Purchase) ToPb(amount float64) (*pbcheckout.Purchase, error) {
 	ts, err := ent.GetTimestamp(o)
 	if err != nil {
 		return nil, errors.Wrap(err, "GetTimestamp")
-	}
-
-	pbScs := make(map[uint64]*pbcheckout.StateChange)
-	for _, sc := range scs {
-		pbSc, err := sc.ToPb()
-		if err != nil {
-			return nil, errors.Wrap(err, "StateChangeToPb")
-		}
-		pbScs[sc.GetId()] = pbSc
 	}
 
 	return &pbcheckout.Purchase{

@@ -1,6 +1,7 @@
 local addresses = import './addresses.jsonnet';
 local products = import './products.jsonnet';
 local users = import './users.jsonnet';
+
 {
   foo: {
     id: 432,

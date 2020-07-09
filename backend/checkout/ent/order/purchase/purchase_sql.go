@@ -1,6 +1,9 @@
 package purchase
 
-import "database/sql/driver"
+import (
+	"database/sql/driver"
+	"encoding/json"
+)
 
 func (u *Purchase) GetId() uint64 {
 	return u.Id
@@ -15,6 +18,7 @@ func (u *Purchase) SQLTable() string {
 }
 
 func (u *Purchase) SQLMap() map[string]driver.Value {
+	items, _ := json.Marshal(u.Items)
 	return map[string]driver.Value{
 		"id":                     u.Id,
 		"user_id":                u.UserId,
@@ -25,6 +29,6 @@ func (u *Purchase) SQLMap() map[string]driver.Value {
 		"merchant_id":            u.MerchantId,
 		"created_at":             u.CreatedAt,
 		"updated_at":             u.UpdatedAt,
-		"items":                  u.Items,
+		"items":                  items,
 	}
 }
