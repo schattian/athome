@@ -3,15 +3,10 @@ package srvpurchases
 import (
 	"context"
 
-	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
-	"github.com/athomecomar/storeql"
-	"github.com/athomecomar/xerrors"
-	"github.com/jmoiron/sqlx"
-	"google.golang.org/grpc/status"
 )
 
 func (s *Server) Cancel(ctx context.Context, in *pbcheckout.UpdateStateRequest) (*pbcheckout.RetrievePurchaseResponse, error) {
@@ -59,39 +54,39 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 	}
 	defer prodsCloser()
 
-	err = s.changeState(ctx, db, stateChanger, o, uid)
+	err = server.ChangeState(ctx, db, stateChanger, o, uid)
 	if err != nil {
 		return nil, err
 	}
 	return s.retrievePurchase(ctx, db, prods, o)
 }
 
-func (s *Server) changeState(
-	ctx context.Context,
-	db *sqlx.DB,
-	stateChanger sm.StateChanger,
-	o *purchase.Purchase,
-	uid uint64,
-) error {
-	sc, err := sm.LatestStateChange(ctx, db, o)
-	if err != nil {
-		return status.Errorf(xerrors.Internal, "LatestStateChange")
-	}
-	state, err := stateChanger(o.StateMachine(), sc.GetState(o.StateMachine()), o, uid)
-	if err != nil {
-		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
-	}
-	err = o.ValidateStateChange(ctx, db, state)
-	if err != nil {
-		return status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
-	}
-	sc, err = sm.NewStateChange(ctx, o.Id, state.Name, o)
-	if err != nil {
-		return status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
-	}
-	err = storeql.InsertIntoDB(ctx, db, sc)
-	if err != nil {
-		return status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
-	}
-	return nil
-}
+// func (s *Server) changeState(
+// 	ctx context.Context,
+// 	db *sqlx.DB,
+// 	stateChanger sm.StateChanger,
+// 	o *purchase.Purchase,
+// 	uid uint64,
+// ) error {
+// 	sc, err := sm.LatestStateChange(ctx, db, o)
+// 	if err != nil {
+// 		return status.Errorf(xerrors.Internal, "LatestStateChange")
+// 	}
+// 	state, err := stateChanger(o.StateMachine(), sc.GetState(o.StateMachine()), o, uid)
+// 	if err != nil {
+// 		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
+// 	}
+// 	err = o.ValidateStateChange(ctx, db, state)
+// 	if err != nil {
+// 		return status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
+// 	}
+// 	sc, err = sm.NewStateChange(ctx, o.Id, state.Name, o)
+// 	if err != nil {
+// 		return status.Errorf(xerrors.Internal, "NewPurchaseStateChange: %v", err)
+// 	}
+// 	err = storeql.InsertIntoDB(ctx, db, sc)
+// 	if err != nil {
+// 		return status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
+// 	}
+// 	return nil
+// }

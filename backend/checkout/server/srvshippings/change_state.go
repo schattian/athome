@@ -8,9 +8,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/server"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbutil"
-	"github.com/athomecomar/storeql"
 	"github.com/athomecomar/xerrors"
-	"github.com/jmoiron/sqlx"
 	"google.golang.org/grpc/status"
 )
 
@@ -54,35 +52,10 @@ func (s *Server) ChangeState(ctx context.Context, in *pbcheckout.UpdateStateRequ
 		return nil, status.Errorf(xerrors.Internal, "FindShipping: %v", err)
 	}
 
-	return s.changeState(ctx, db, stateChanger, sh, uid)
-}
+	err = server.ChangeState(ctx, db, stateChanger, sh, uid)
+	if err != nil {
+		return nil, err
+	}
 
-func (s *Server) changeState(
-	ctx context.Context,
-	db *sqlx.DB,
-	stateChanger sm.StateChanger,
-	sh *shipping.Shipping,
-	uid uint64,
-) (*pbcheckout.RetrieveShippingResponse, error) {
-	sc, err := sm.LatestStateChange(ctx, db, sh)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "LatestStateChange")
-	}
-	state, err := stateChanger(sh.StateMachine(), sc.GetState(sh.StateMachine()), sh, uid)
-	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
-	}
-	err = sh.ValidateStateChange(ctx, db, state)
-	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "ValidateStateChange: %v", err)
-	}
-	sc, err = sm.NewStateChange(ctx, sh.Id, state.Name, sh)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange: %v", err)
-	}
-	err = storeql.InsertIntoDB(ctx, db, sc)
-	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "storeql.InsertIntoDB: %v", err)
-	}
 	return &pbcheckout.RetrieveShippingResponse{ShippingId: sh.Id, Shipping: sh.ToPb()}, nil
 }
