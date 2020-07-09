@@ -1,13 +1,14 @@
 package server
 
+import "github.com/athomecomar/athome/backend/checkout/internal/checkouttest"
+
 var (
-// gcheckout  checkouttest.Goldencheckout
-// gDraftLines checkouttest.GoldenDraftLines
-// gDrafts     checkouttest.GoldenDrafts
-// gPbUsers    checkouttest.GoldenPbUsers
-// gPbImages   checkouttest.GoldenPbImages
+	gPurchases    checkouttest.GoldenPurchases
+	gShippings    checkouttest.GoldenShippings
+	gPbProducts   checkouttest.GoldenPbProducts
+	gStateChanges checkouttest.GoldenStateChanges
 )
 
 func init() {
-	// checkouttest.Init(&gDraftLines, &gDrafts, &gcheckout, &gPbUsers, &gPbImages)
+	checkouttest.Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges)
 }

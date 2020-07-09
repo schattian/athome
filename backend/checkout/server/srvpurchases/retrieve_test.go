@@ -190,7 +190,7 @@ func TestServer_retrieve(t *testing.T) {
 				return
 			}
 			if diff := cmp.Diff(tt.want, got, cmpopts.IgnoreUnexported(timestamppb.Timestamp{})); diff != "" {
-				t.Errorf("Server.retrieve() = mismatch (-want +got): %s", diff)
+				t.Errorf("Server.retrieve() mismatch (-want +got): %s", diff)
 			}
 		})
 	}

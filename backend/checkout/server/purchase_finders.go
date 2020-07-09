@@ -17,7 +17,7 @@ func FindPurchase(ctx context.Context, db *sqlx.DB, oId, uId uint64) (*purchase.
 		return nil, status.Errorf(xerrors.NotFound, "FindPurchase with order_id: %v", oId)
 	}
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindPurchase")
+		return nil, status.Errorf(xerrors.Internal, "FindPurchase: %v", err)
 	}
 	return order, nil
 }
@@ -25,10 +25,10 @@ func FindPurchase(ctx context.Context, db *sqlx.DB, oId, uId uint64) (*purchase.
 func FindLatestPurchase(ctx context.Context, db *sqlx.DB, uId uint64) (*purchase.Purchase, error) {
 	order, err := purchase.FindLatestPurchase(ctx, db, uId)
 	if errors.Is(err, sql.ErrNoRows) {
-		return nil, status.Error(xerrors.NotFound, "FindCurrentPurchase")
+		return nil, status.Error(xerrors.NotFound, "purchase.FindLatestPurchase")
 	}
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "FindPurchase")
+		return nil, status.Errorf(xerrors.Internal, "FindLatestPurchase: %v", err)
 	}
 	return order, nil
 }
