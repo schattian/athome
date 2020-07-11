@@ -6,6 +6,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/athomecomar/athome/backend/checkout/ent"
@@ -222,8 +223,13 @@ func (o *Purchase) MaxVolWeight(ctx context.Context, c pbproducts.ViewerClient) 
 }
 
 func (o *Purchase) ProductIds() (ids []uint64) {
+	var intIds []int
 	for pid := range o.Items {
-		ids = append(ids, pid)
+		intIds = append(intIds, int(pid))
+	}
+	sort.Ints(intIds)
+	for _, intId := range intIds {
+		ids = append(ids, uint64(intId))
 	}
 	return
 }
