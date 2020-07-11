@@ -65,9 +65,19 @@ func StateChanges(ctx context.Context, db *sqlx.DB, s Stateful) (scs []*StateCha
 	return
 }
 
+func LatestStateChangeByRef(ctx context.Context, db *sqlx.DB, id uint64, table string) (*StateChange, error) {
+	sc := &StateChange{}
+	row := storeql.Where(ctx, db, sc, "entity_id=$1 AND entity_table=$2 ORDER BY created_at", id, table)
+	err := row.StructScan(sc)
+	if err != nil {
+		return nil, errors.Wrap(err, "StructScan")
+	}
+	return sc, nil
+}
+
 func LatestStateChange(ctx context.Context, db *sqlx.DB, s Stateful) (*StateChange, error) {
 	sc := &StateChange{}
-	row := storeql.Where(ctx, db, sc, "order_id=$1 ORDER BY created_at", s.GetId())
+	row := storeql.Where(ctx, db, sc, "entity_id=$1 AND entity_table=$2 ORDER BY created_at", s.GetId(), s.SQLTable())
 	err := row.StructScan(sc)
 	if err != nil {
 		return nil, errors.Wrap(err, "StructScan")

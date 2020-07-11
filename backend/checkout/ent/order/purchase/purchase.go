@@ -44,9 +44,9 @@ type Purchase struct {
 	Id            uint64 `json:"id,omitempty"`
 	UserId        uint64 `json:"user_id,omitempty"`
 	DestAddressId uint64 `json:"dest_address_id,omitempty"`
+	SrcAddressId  uint64 `json:"src_address_id,omitempty"`
 
 	DistanceInKilometers float64  `json:"distance_in_kilometers,omitempty"`
-	SrcAddressId         uint64   `json:"src_address_id,omitempty"`
 	CreatedAt            ent.Time `json:"created_at,omitempty"`
 	MerchantId           uint64   `json:"merchant_id,omitempty"`
 	UpdatedAt            ent.Time `json:"updated_at,omitempty"`
@@ -320,7 +320,7 @@ func (o *Purchase) ToPbWrapped(ctx context.Context, db *sqlx.DB, prods pbproduct
 	return pb, nil
 }
 
-func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient, addr pbaddress.AddressesClient) error {
+func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerClient) error {
 	if o.MerchantId == 0 {
 		return errors.New("no merchant assigned")
 	}
@@ -328,11 +328,18 @@ func (o *Purchase) AssignSrcAddress(ctx context.Context, users pbusers.ViewerCli
 	if err != nil {
 		return errors.Wrap(err, "users.RetrieveUser")
 	}
-	resp, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{BAddressId: o.SrcAddressId, AAddressId: u.GetAddressId()})
+	o.SrcAddressId = u.GetAddressId()
+	return nil
+}
+
+func (o *Purchase) AssignDistance(ctx context.Context, addr pbaddress.AddressesClient) error {
+	resp, err := addr.MeasureDistance(ctx, &pbaddress.MeasureDistanceRequest{
+		AAddressId: o.SrcAddressId,
+		BAddressId: o.DestAddressId,
+	})
 	if err != nil {
 		return errors.Wrap(err, "addr.MeasureDistance")
 	}
-	o.SrcAddressId = u.GetAddressId()
 	o.DistanceInKilometers = resp.ManhattanInKilometers
 	return nil
 }

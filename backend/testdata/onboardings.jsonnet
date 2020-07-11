@@ -1,3 +1,4 @@
+local addresses = import "./addresses.jsonnet";
 {
   base: {
     foo: {
@@ -22,7 +23,7 @@
   merchants:
     {
       local role = 'merchant',
-      foo: $.base.foo { id: 994, role: role, category_id: 8 },
+      foo: $.base.foo { id: 994, role: role, category_id: 8, address_id: addresses.merchants.foo.id },
       bar: $.base.bar { id: 323254, role: role, category_id: 3 },
     },
 

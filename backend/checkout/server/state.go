@@ -20,7 +20,7 @@ func MustPrevState(ctx context.Context, db *sqlx.DB, stateful sm.Stateful, desir
 		return status.Errorf(xerrors.OutOfRange, "GetState: %v", err)
 	}
 	if s.Name != desired {
-		return status.Errorf(xerrors.InvalidArgument, "desired state: %s got: %s", desired, sc.GetName())
+		return status.Errorf(xerrors.InvalidArgument, "desired state: %s got: %s", desired, s.Name)
 	}
 	return nil
 }
@@ -38,7 +38,7 @@ func ChangeState(
 	}
 	state, err := stateChanger(s.StateMachine(), sc.GetState(s.StateMachine()), s, uid)
 	if err != nil {
-		return status.Errorf(xerrors.InvalidArgument, "sm stateChanger: %v", err)
+		return status.Errorf(xerrors.PermissionDenied, "sm stateChanger: %v", err)
 	}
 	err = s.ValidateStateChange(ctx, db, state)
 	if err != nil {

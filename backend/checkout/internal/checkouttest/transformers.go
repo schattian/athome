@@ -1,7 +1,26 @@
 package checkouttest
 
-// func SetStage(t *testing.T, s *ent.Draft, st stage.Stage) *ent.Draft {
-// 	d := CopyDraft(t, s)
-// 	d.Stage = st
-// 	return d
-// }
+import (
+	"testing"
+
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+)
+
+func PurchaseZeroShippingId(t *testing.T, p *purchase.Purchase) *purchase.Purchase {
+	t.Helper()
+	cp := CopyPurchase(t, p)
+	cp.ShippingId = 0
+	return cp
+}
+
+func PurchaseZeroDestAddressId(t *testing.T, p *purchase.Purchase) *purchase.Purchase {
+	t.Helper()
+	cp := CopyPurchase(t, p)
+	cp.DestAddressId = 0
+	return cp
+}
+
+func PurchaseCreation(t *testing.T, p *purchase.Purchase) *purchase.Purchase {
+	t.Helper()
+	return PurchaseZeroDestAddressId(t, PurchaseZeroShippingId(t, p))
+}

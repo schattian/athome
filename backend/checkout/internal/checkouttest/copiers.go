@@ -1,11 +1,17 @@
 package checkouttest
 
-// func CopyDraft(t *testing.T, c *ent.Draft) *ent.Draft {
-// 	t.Helper()
-// 	if c == nil {
-// 		t.Fatal("cant copy nil draft")
-// 	}
-// 	cp := ent.Draft{}
-// 	cp = *c
-// 	return &cp
-// }
+import (
+	"testing"
+
+	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
+)
+
+func CopyPurchase(t *testing.T, p *purchase.Purchase) *purchase.Purchase {
+	t.Helper()
+	if p == nil {
+		t.Fatal("cant copy nil")
+	}
+	cp := purchase.Purchase{}
+	cp = *p
+	return &cp
+}

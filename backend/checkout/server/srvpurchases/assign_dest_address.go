@@ -73,6 +73,10 @@ func (s *Server) assignAddress(
 		return nil, status.Errorf(xerrors.PermissionDenied, "the address' user id mismatch order's user id")
 	}
 	o.DestAddressId = in.GetDestAddressId()
+	err = o.AssignDistance(ctx, addrs)
+	if err != nil {
+		return nil, status.Errorf(xerrors.Internal, "AsssignDistance: %v", err)
+	}
 	err = storeql.UpdateIntoDB(ctx, db, o)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "storeql.UpdateIntoDB: %v", err)

@@ -13,20 +13,20 @@ import (
 )
 
 type Shipping struct {
-	Id               uint64
-	UserId           uint64
-	EventId          uint64
-	ShippingMethodId uint64
+	Id               uint64 `json:"id,omitempty"`
+	UserId           uint64 `json:"user_id,omitempty"`
+	EventId          uint64 `json:"event_id,omitempty"`
+	ShippingMethodId uint64 `json:"shipping_method_id,omitempty"`
 
-	SrcAddressId      uint64
-	DestAddressId     uint64
-	ManhattanDistance float64
+	SrcAddressId      uint64  `json:"src_address_id,omitempty"`
+	DestAddressId     uint64  `json:"dest_address_id,omitempty"`
+	ManhattanDistance float64 `json:"manhattan_distance,omitempty"`
 
-	OrderPrice             currency.ARS
-	OrderDurationInMinutes uint64
+	OrderPrice             currency.ARS `json:"order_price,omitempty"`
+	OrderDurationInMinutes uint64       `json:"order_duration_in_minutes,omitempty"`
 
-	RealPrice             currency.ARS
-	RealDurationInMinutes uint64
+	RealPrice             currency.ARS `json:"real_price,omitempty"`
+	RealDurationInMinutes uint64       `json:"real_duration_in_minutes,omitempty"`
 }
 
 func (s *Shipping) ToPb() *pbcheckout.Shipping {

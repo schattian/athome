@@ -1,5 +1,36 @@
 local purchases = import './purchases.jsonnet';
+local shippings = import './shippings.jsonnet';
 {
+  shippings: {
+    cancelled: {
+      id: 3824832,
+      name: 'cancelled',
+      stage: -1,
+      entity_id: shippings.foo.id,
+      entity_table: 'shippings',
+    },
+    created: {
+      id: 382222,
+      name: 'created',
+      stage: 1,
+      entity_id: shippings.foo.id,
+      entity_table: 'shippings',
+    },
+    taken: {
+      id: 3993,
+      name: 'taken',
+      stage: 2,
+      entity_id: shippings.foo.id,
+      entity_table: 'shippings',
+    },
+    finished: {
+      id: 99932,
+      name: 'finished',
+      stage: 3,
+      entity_id: shippings.foo.id,
+      entity_table: 'shippings',
+    },
+  },
   purchases: {
     cancelled: {
       id: 9329,

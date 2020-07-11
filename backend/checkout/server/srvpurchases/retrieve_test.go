@@ -94,10 +94,17 @@ func TestServer_retrieve(t *testing.T) {
 					Rows: sqlmock.NewRows(storeql.SQLColumns(gPurchases.Foo)).
 						AddRow(storeql.SQLValues(gPurchases.Foo)...),
 				},
+				{
+					Expect: "SELECT * FROM shippings WHERE id=$1",
+					Args:   []driver.Value{gPurchases.Foo.ShippingId},
+					Rows: sqlmock.NewRows(storeql.SQLColumns(gShippings.Foo)).
+						AddRow(storeql.SQLValues(gShippings.Foo)...),
+				},
 			},
 			want: checkouttest.PurchaseToPb(t,
 				gPurchases.Foo,
-				gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
+				gShippings.Foo.OrderPrice.Float64()+
+					gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
 					gPbProducts.Foo.B.Price*float64(gPurchases.Foo.Items[fooBProductId]),
 			),
 		},
@@ -124,10 +131,17 @@ func TestServer_retrieve(t *testing.T) {
 					Rows: sqlmock.NewRows(storeql.SQLColumns(gPurchases.Foo)).
 						AddRow(storeql.SQLValues(gPurchases.Foo)...),
 				},
+				{
+					Expect: "SELECT * FROM shippings WHERE id=$1",
+					Args:   []driver.Value{gPurchases.Foo.ShippingId},
+					Rows: sqlmock.NewRows(storeql.SQLColumns(gShippings.Foo)).
+						AddRow(storeql.SQLValues(gShippings.Foo)...),
+				},
 			},
 			want: checkouttest.PurchaseToPb(t,
 				gPurchases.Foo,
-				gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
+				gShippings.Foo.OrderPrice.Float64()+
+					gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
 					gPbProducts.Foo.B.Price*float64(gPurchases.Foo.Items[fooBProductId]),
 			),
 		},
@@ -160,10 +174,17 @@ func TestServer_retrieve(t *testing.T) {
 					Rows: sqlmock.NewRows(storeql.SQLColumns(gShippings.Foo)).
 						AddRow(storeql.SQLValues(gShippings.Foo)...),
 				},
+				{
+					Expect: "SELECT * FROM shippings WHERE id=$1",
+					Args:   []driver.Value{gPurchases.Foo.ShippingId},
+					Rows: sqlmock.NewRows(storeql.SQLColumns(gShippings.Foo)).
+						AddRow(storeql.SQLValues(gShippings.Foo)...),
+				},
 			},
 			want: checkouttest.PurchaseToPb(t,
 				gPurchases.Foo,
-				gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
+				gShippings.Foo.OrderPrice.Float64()+
+					gPbProducts.Foo.A.Price*float64(gPurchases.Foo.Items[fooAProductId])+
 					gPbProducts.Foo.B.Price*float64(gPurchases.Foo.Items[fooBProductId]),
 			),
 		},

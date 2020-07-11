@@ -5,8 +5,9 @@ var (
 	gShippings    GoldenShippings
 	gPbProducts   GoldenPbProducts
 	gStateChanges GoldenStateChanges
+	gPbUsers      GoldenPbUsers
 )
 
 func init() {
-	Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges)
+	Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges, &gPbUsers)
 }
