@@ -87,7 +87,7 @@ then
 
 		if [ ${svc} = products ]
 		then
-			symbols=CreatorClient,Creator_SecondClient,Creator_ThirdClient,ViewerClient
+			symbols=CreatorClient,Creator_SecondClient,Creator_ThirdClient,ViewerClient,ManagerClient
 			cd ${pkgdir}
 			mockgen -package pb${svc}test . ${symbols} > ${testdir}/mock.go
 			cd ../def
