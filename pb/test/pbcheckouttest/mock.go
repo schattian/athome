@@ -809,6 +809,26 @@ func (mr *MockPaymentsClientMockRecorder) Retrieve(ctx, in interface{}, opts ...
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockPaymentsClient)(nil).Retrieve), varargs...)
 }
 
+// RetrieveStateChanges mocks base method
+func (m *MockPaymentsClient) RetrieveStateChanges(ctx context.Context, in *pbcheckout.RetrieveStateChangesRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockPaymentsClientMockRecorder) RetrieveStateChanges(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockPaymentsClient)(nil).RetrieveStateChanges), varargs...)
+}
+
 // MockPaymentsServer is a mock of PaymentsServer interface
 type MockPaymentsServer struct {
 	ctrl     *gomock.Controller
@@ -862,6 +882,21 @@ func (mr *MockPaymentsServerMockRecorder) Retrieve(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Retrieve", reflect.TypeOf((*MockPaymentsServer)(nil).Retrieve), arg0, arg1)
 }
 
+// RetrieveStateChanges mocks base method
+func (m *MockPaymentsServer) RetrieveStateChanges(arg0 context.Context, arg1 *pbcheckout.RetrieveStateChangesRequest) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockPaymentsServerMockRecorder) RetrieveStateChanges(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockPaymentsServer)(nil).RetrieveStateChanges), arg0, arg1)
+}
+
 // MockShippingsClient is a mock of ShippingsClient interface
 type MockShippingsClient struct {
 	ctrl     *gomock.Controller
@@ -903,6 +938,26 @@ func (mr *MockShippingsClientMockRecorder) AgreeShippingDispatch(ctx, in interfa
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeShippingDispatch", reflect.TypeOf((*MockShippingsClient)(nil).AgreeShippingDispatch), varargs...)
+}
+
+// RetrieveStateChanges mocks base method
+func (m *MockShippingsClient) RetrieveStateChanges(ctx context.Context, in *pbcheckout.RetrieveStateChangesRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockShippingsClientMockRecorder) RetrieveStateChanges(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockShippingsClient)(nil).RetrieveStateChanges), varargs...)
 }
 
 // CreateShipping mocks base method
@@ -1041,6 +1096,21 @@ func (m *MockShippingsServer) AgreeShippingDispatch(arg0 context.Context, arg1 *
 func (mr *MockShippingsServerMockRecorder) AgreeShippingDispatch(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AgreeShippingDispatch", reflect.TypeOf((*MockShippingsServer)(nil).AgreeShippingDispatch), arg0, arg1)
+}
+
+// RetrieveStateChanges mocks base method
+func (m *MockShippingsServer) RetrieveStateChanges(arg0 context.Context, arg1 *pbcheckout.RetrieveStateChangesRequest) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockShippingsServerMockRecorder) RetrieveStateChanges(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockShippingsServer)(nil).RetrieveStateChanges), arg0, arg1)
 }
 
 // CreateShipping mocks base method
@@ -1281,6 +1351,26 @@ func (mr *MockPurchasesClientMockRecorder) StateMachine(ctx, in interface{}, opt
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesClient)(nil).StateMachine), varargs...)
 }
 
+// RetrieveStateChanges mocks base method
+func (m *MockPurchasesClient) RetrieveStateChanges(ctx context.Context, in *pbcheckout.RetrieveStateChangesRequest, opts ...grpc.CallOption) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", varargs...)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockPurchasesClientMockRecorder) RetrieveStateChanges(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockPurchasesClient)(nil).RetrieveStateChanges), varargs...)
+}
+
 // AgreeFinishOrder mocks base method
 func (m *MockPurchasesClient) AgreeFinishOrder(ctx context.Context, in *pbcheckout.AgreeFinishOrderRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	m.ctrl.T.Helper()
@@ -1487,6 +1577,21 @@ func (m *MockPurchasesServer) StateMachine(arg0 context.Context, arg1 *empty.Emp
 func (mr *MockPurchasesServerMockRecorder) StateMachine(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StateMachine", reflect.TypeOf((*MockPurchasesServer)(nil).StateMachine), arg0, arg1)
+}
+
+// RetrieveStateChanges mocks base method
+func (m *MockPurchasesServer) RetrieveStateChanges(arg0 context.Context, arg1 *pbcheckout.RetrieveStateChangesRequest) (*pbcheckout.RetrieveStateChangesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RetrieveStateChanges", arg0, arg1)
+	ret0, _ := ret[0].(*pbcheckout.RetrieveStateChangesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RetrieveStateChanges indicates an expected call of RetrieveStateChanges
+func (mr *MockPurchasesServerMockRecorder) RetrieveStateChanges(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RetrieveStateChanges", reflect.TypeOf((*MockPurchasesServer)(nil).RetrieveStateChanges), arg0, arg1)
 }
 
 // AgreeFinishOrder mocks base method
