@@ -2,6 +2,7 @@ package checkouttest
 
 import (
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
+	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
 )
@@ -30,4 +31,8 @@ type variadicShippingStateChanges struct {
 type variadicPbProducts struct {
 	A *pbproducts.Product `json:"a,omitempty"`
 	B *pbproducts.Product `json:"b,omitempty"`
+}
+
+type variadicPbAddresses struct {
+	Foo *pbaddress.Address
 }

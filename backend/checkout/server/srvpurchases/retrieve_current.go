@@ -55,7 +55,7 @@ func (s *Server) retrievePurchase(
 ) (*pbcheckout.RetrievePurchaseResponse, error) {
 	o, err := order.ToPbWrapped(ctx, db, prods)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "o.ToPbWrapped")
+		return nil, status.Errorf(xerrors.Internal, "o.ToPbWrapped: %v", err)
 	}
 
 	return &pbcheckout.RetrievePurchaseResponse{PurchaseId: order.Id, Purchase: o}, nil

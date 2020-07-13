@@ -7,10 +7,11 @@ var (
 	gShippings    checkouttest.GoldenShippings
 	gStateChanges checkouttest.GoldenStateChanges
 
-	gPbProducts checkouttest.GoldenPbProducts
-	gPbUsers    checkouttest.GoldenPbUsers
+	gPbProducts  checkouttest.GoldenPbProducts
+	gPbUsers     checkouttest.GoldenPbUsers
+	gPbAddresses checkouttest.GoldenPbAddresses
 )
 
 func init() {
-	checkouttest.Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges, &gPbUsers)
+	checkouttest.Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges, &gPbUsers, &gPbAddresses)
 }

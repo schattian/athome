@@ -6,8 +6,10 @@ import (
 	"github.com/athomecomar/xtest/xload"
 )
 
-func Init(gPurchases *GoldenPurchases, gShippings *GoldenShippings, gPbProducts *GoldenPbProducts, gStateChanges *GoldenStateChanges, gPbUsers *GoldenPbUsers) {
+func Init(gPurchases *GoldenPurchases, gShippings *GoldenShippings, gPbProducts *GoldenPbProducts, gStateChanges *GoldenStateChanges, gPbUsers *GoldenPbUsers,
+	gPbAddresses *GoldenPbAddresses) {
 	xload.DecodeJsonnet("purchases", gPurchases)
+	xload.DecodeJsonnet("addresses", gPbAddresses)
 	xload.DecodeJsonnet("users", gPbUsers)
 	xload.DecodeJsonnet("products", gPbProducts)
 	xload.DecodeJsonnet("shippings", gShippings)
@@ -18,6 +20,12 @@ type GoldenStateChanges struct {
 	Purchases *variadicPurchaseStateChanges `json:"purchases,omitempty"`
 	Shippings *variadicShippingStateChanges `json:"shippings,omitempty"`
 }
+type GoldenPbAddresses struct {
+	Consumers        *variadicPbAddresses `json:"consumers,omitempty"`
+	Merchants        *variadicPbAddresses `json:"merchants,omitempty"`
+	ServiceProviders *variadicPbAddresses `json:"service_providers,omitempty"`
+}
+
 type GoldenPbUsers struct {
 	Consumers        *variadicPbUsers `json:"consumers,omitempty"`
 	Merchants        *variadicPbUsers `json:"merchants,omitempty"`

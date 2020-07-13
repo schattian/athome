@@ -34,7 +34,7 @@ func ChangeState(
 ) error {
 	sc, err := sm.LatestStateChange(ctx, db, s)
 	if err != nil {
-		return status.Errorf(xerrors.Internal, "LatestStateChange")
+		return status.Errorf(xerrors.Internal, "LatestStateChange: %v", err)
 	}
 	state, err := stateChanger(s.StateMachine(), sc.GetState(s.StateMachine()), s, uid)
 	if err != nil {

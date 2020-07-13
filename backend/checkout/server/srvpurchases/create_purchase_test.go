@@ -6,7 +6,6 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/athomecomar/athome/backend/checkout/internal/checkouttest"
-	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbcheckout"
 	"github.com/athomecomar/athome/pb/pbproducts"
 	"github.com/athomecomar/athome/pb/pbusers"
@@ -31,14 +30,9 @@ type prodViewerStub struct {
 	err  error
 }
 
-type prodManagerStub struct {
+type prodManagerReserveStub struct {
 	req  *pbproducts.ReserveStockRequest
 	resp *emptypb.Empty
-	err  error
-}
-type addrStub struct {
-	req  *pbaddress.MeasureDistanceRequest
-	resp *pbaddress.MeasureDistanceResponse
 	err  error
 }
 
@@ -52,7 +46,7 @@ func TestServer_createPurchase(t *testing.T) {
 	type stubs struct {
 		query []*sqlassist.QueryStubber
 		prodV *prodViewerStub
-		prodM *prodManagerStub
+		prodM *prodManagerReserveStub
 		user  []*userStub
 	}
 	type args struct {
@@ -124,7 +118,7 @@ func TestServer_createPurchase(t *testing.T) {
 						},
 					},
 				},
-				prodM: &prodManagerStub{
+				prodM: &prodManagerReserveStub{
 					req:  &pbproducts.ReserveStockRequest{Order: pbutil.ToPbEntity(gPurchases.Foo)},
 					resp: &emptypb.Empty{},
 				},
@@ -182,19 +176,3 @@ func TestServer_createPurchase(t *testing.T) {
 		})
 	}
 }
-
-// var addr pbaddress.AddressesClient
-// if stub := tt.stubs.addr; stub != nil {
-// 	addrMock := pbaddresstest.NewMockAddressesClient(ctrl)
-// 	addrMock.EXPECT().MeasureDistance(tt.args.ctx, stub.req).Return(stub.resp, stub.err)
-// 	addr = addrMock
-// }
-// addr: &addrStub{
-// 	req: &pbaddress.MeasureDistanceRequest{
-// 		AAddressId: gPbUsers.Merchants.Foo.AddressId,
-// 		BAddressId: gPurchases.Foo.SrcAddressId,
-// 	},
-// 	resp: &pbaddress.MeasureDistanceResponse{
-// 		ManhattanInKilometers: gPurchases.Foo.DistanceInKilometers,
-// 	},
-// },

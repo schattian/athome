@@ -91,7 +91,7 @@ service Purchases {
 
   rpc RetrieveShippingMethods(RetrieveShippingMethodsRequest) returns (RetrieveShippingMethodsResponse) {}
 
-  rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(RetrievePurchaseResponse){}
+  rpc ConfirmPurchase(ConfirmPurchaseRequest) returns(Purchase){}
 
   rpc RetrieveCurrent (RetrieveCurrentRequest) returns (RetrievePurchaseResponse){}
   rpc StateMachine (google.protobuf.Empty) returns (StateMachineResponse){}
