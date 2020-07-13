@@ -33,6 +33,9 @@ func (sm *StateMachine) StateByStage(s int64) *State {
 	if s == -1 {
 		return CancelledState
 	}
+	if s == -2 {
+		return RejectedState
+	}
 
 	if len(sm.States) < int(s) {
 		return nil
@@ -110,9 +113,6 @@ var (
 			},
 			{
 				Name: PaymentFinished, Description: "payment was paid successfully",
-			},
-			{
-				Name: PaymentRejected, Description: "payment was rejected for some reason",
 			},
 		},
 	}

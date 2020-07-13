@@ -54,11 +54,15 @@ const (
 	PaymentCreated StateName = "payment:created"
 	// payments was paid successfully
 	PaymentFinished StateName = "payment:finished"
-	// payment was rejected due some reason
-	PaymentRejected StateName = "payment:rejected"
+
+	Rejected StateName = "rejected"
 )
 
 var (
+	RejectedState = &State{
+		Name: Rejected, Description: "rejected order",
+	}
+
 	CancelledState = &State{
 		Name: Cancelled, Description: "cancelled order",
 	}

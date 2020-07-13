@@ -74,6 +74,7 @@ func (s *Server) createPurchasePayment(
 	p *purchase.Purchase,
 ) (*pbcheckout.CreatePaymentResponse, error) {
 	py := payment.PaymentFromPb(in.GetPayment())
+	py.UserId = p.UserId
 	amount, err := p.Amount(ctx, db, prods)
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "Amount: %v", err)
@@ -85,7 +86,7 @@ func (s *Server) createPurchasePayment(
 	}
 	err = storeql.InsertIntoDB(ctx, db, py)
 	if err != nil {
-		return nil, status.Errorf(xerrors.InvalidArgument, "Card: %v", err)
+		return nil, status.Errorf(xerrors.InvalidArgument, "py InsertIntoDB: %v", err)
 	}
 
 	sc, err := sm.NewStateChange(ctx, py.Id, sm.PaymentCreated, py)
@@ -94,7 +95,7 @@ func (s *Server) createPurchasePayment(
 	}
 	err = storeql.InsertIntoDB(ctx, db, sc)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB")
+		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB: %v", err)
 	}
 
 	pyPb, err := py.ToPb()

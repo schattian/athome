@@ -51,7 +51,6 @@ func TestServer_assignAddress(t *testing.T) {
 		want         *emptypb.Empty
 		wantPurchase *purchase.Purchase
 		wantStatus   xerrors.Code
-		wantErr      bool
 	}{
 		{
 			name: "unauthorized:another user's address id",

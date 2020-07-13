@@ -1,4 +1,4 @@
-package server
+package srvpayments
 
 import "github.com/athomecomar/athome/backend/checkout/internal/checkouttest"
 
@@ -7,8 +7,8 @@ var (
 	gShippings    checkouttest.GoldenShippings
 	gStateChanges checkouttest.GoldenStateChanges
 
-	gPbUsers     checkouttest.GoldenPbUsers
 	gPbProducts  checkouttest.GoldenPbProducts
+	gPbUsers     checkouttest.GoldenPbUsers
 	gPbAddresses checkouttest.GoldenPbAddresses
 
 	gPayments checkouttest.GoldenPayments

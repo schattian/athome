@@ -1,6 +1,7 @@
 package checkouttest
 
 import (
+	"github.com/athomecomar/athome/backend/checkout/ent/payment"
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbproducts"
@@ -11,6 +12,12 @@ type variadicPbUsers struct {
 	Foo *pbusers.User `json:"foo,omitempty"`
 	Bar *pbusers.User `json:"bar,omitempty"`
 }
+type variadicPaymentStateChanges struct {
+	Cancelled *sm.StateChange `json:"cancelled,omitempty"`
+	Created   *sm.StateChange `json:"created,omitempty"`
+	Finished  *sm.StateChange `json:"finished,omitempty"`
+	Rejected  *sm.StateChange
+}
 
 type variadicPurchaseStateChanges struct {
 	Cancelled              *sm.StateChange `json:"cancelled,omitempty"`
@@ -20,6 +27,9 @@ type variadicPurchaseStateChanges struct {
 	Paid                   *sm.StateChange `json:"paid,omitempty"`
 	Confirmed              *sm.StateChange `json:"confirmed,omitempty"`
 	Finished               *sm.StateChange `json:"finished,omitempty"`
+}
+type variadicPayments struct {
+	Foo *payment.Payment
 }
 type variadicShippingStateChanges struct {
 	Cancelled *sm.StateChange `json:"cancelled,omitempty"`
