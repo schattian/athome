@@ -14,7 +14,7 @@ local users = import './users.jsonnet';
       entity_id: purchases.foo.id,
       entity_table: 'purchases',
       amount: shippings.foo.order_price +
-              products.foo.a.price * 2 + products.foo.b.price * 4,
+              100 * (products.foo.a.price * 2 + products.foo.b.price * 4),
       installments: 12,
     },
   },

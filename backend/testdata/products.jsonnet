@@ -12,7 +12,7 @@ local users = import './users.jsonnet';
       category_id: categories.foo.leaves.first.a.id,
       title: 'fooAProductTitle',
 
-      price: 203020,
+      price: 10000,
       stock: 23,
 
       image_ids: [images.foo.id],
@@ -24,7 +24,7 @@ local users = import './users.jsonnet';
       category_id: categories.foo.leaves.second.a.id,
       title: 'fooBProductTitle',
 
-      price: 343322,
+      price: 3,
       stock: 10,
 
       image_ids: [images.foo.id],

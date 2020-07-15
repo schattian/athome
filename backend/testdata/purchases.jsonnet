@@ -7,7 +7,7 @@ local users = import './users.jsonnet';
   foo: {
     id: 432,
     user_id: users.consumers.foo.id,
-    distance_in_kilometers: 654,
+    distance_in_kilometers: 3,
     dest_address_id: addresses.consumers.foo.id,
     src_address_id: addresses.merchants.foo.id,
     shipping_id: shippings.foo.id,

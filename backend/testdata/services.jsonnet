@@ -11,8 +11,8 @@ local users = import './users.jsonnet';
 
     title: 'foomessengerName',
     duration_in_minutes: 120,
-    price_min: 20000,
-    price_max: 100000,
+    price_min: 0,
+    price_max: 10,
   },
 
   bar: {
@@ -23,8 +23,8 @@ local users = import './users.jsonnet';
 
     title: 'barServiceName',
     duration_in_minutes: 120,
-    price_min: 20000,
-    price_max: 100000,
+    price_min: 0,
+    price_max: 50,
   },
 
   delivery: {
@@ -35,8 +35,8 @@ local users = import './users.jsonnet';
 
     title: 'foomessengerName',
     duration_in_minutes: 120,
-    price_min: 20000,
-    price_max: 100000,
+    price_min: 0,
+    price_max: 500,
   },
 
 

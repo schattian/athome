@@ -18,7 +18,6 @@ func Init(gPurchases *GoldenPurchases, gShippings *GoldenShippings, gPbProducts 
 	xload.DecodeJsonnet("state_changes", gStateChanges)
 	xload.DecodeJsonnet("payments", gPayments)
 	xload.DecodeJsonnet("cards", gCards)
-
 }
 
 type GoldenPayments struct {
