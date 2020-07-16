@@ -11,10 +11,12 @@ var (
 	gPbUsers     checkouttest.GoldenPbUsers
 	gPbAddresses checkouttest.GoldenPbAddresses
 
-	gPayments checkouttest.GoldenPayments
-	gCards    checkouttest.GoldenCards
+	gPayments   checkouttest.GoldenPayments
+	gCards      checkouttest.GoldenCards
+	gPbEvents   checkouttest.GoldenPbEvents
+	gPbServices checkouttest.GoldenPbServices
 )
 
 func init() {
-	checkouttest.Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges, &gPbUsers, &gPbAddresses, &gCards, &gPayments)
+	checkouttest.Init(&gPurchases, &gShippings, &gPbProducts, &gStateChanges, &gPbUsers, &gPbAddresses, &gCards, &gPayments, &gPbEvents, &gPbServices)
 }

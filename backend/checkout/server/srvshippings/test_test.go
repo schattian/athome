@@ -1,4 +1,4 @@
-package srvpayments
+package srvshippings
 
 import "github.com/athomecomar/athome/backend/checkout/internal/checkouttest"
 

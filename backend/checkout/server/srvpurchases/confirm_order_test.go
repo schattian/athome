@@ -38,7 +38,6 @@ func TestServer_confirmPurchase(t *testing.T) {
 		prodV *prodViewerStub
 		prodM *prodManagerReserveStub
 	}
-
 	type args struct {
 		ctx    context.Context
 		in     *pbcheckout.ConfirmPurchaseRequest

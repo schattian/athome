@@ -2,6 +2,7 @@ package srvshippings
 
 import (
 	"context"
+	"log"
 
 	"github.com/athomecomar/athome/backend/checkout/ent/order/purchase"
 	"github.com/athomecomar/athome/backend/checkout/ent/shipping"
@@ -87,6 +88,8 @@ func (s *Server) createShipping(
 	if err != nil {
 		return nil, status.Errorf(xerrors.Internal, "CalculateShippingPricePerKilometer: %v", err)
 	}
+	log.Println(ppkm)
+	log.Println(ppkm.Float64())
 	price := ppkm.Float64() * p.DistanceInKilometers
 	duration := pbutil.DiffTimeOfDay(eventResp.GetEvent().GetStart(), eventResp.GetEvent().GetEnd())
 	ship := p.NewShipping(
@@ -104,11 +107,11 @@ func (s *Server) createShipping(
 
 	sc, err := sm.NewStateChange(ctx, ship.Id, sm.ShippingCreated, ship)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange")
+		return nil, status.Errorf(xerrors.Internal, "NewShippingStateChange: %v", err)
 	}
 	err = storeql.InsertIntoDB(ctx, db, sc)
 	if err != nil {
-		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB")
+		return nil, status.Errorf(xerrors.Internal, "sc InsertIntoDB: %v", err)
 	}
 
 	p.ShippingId = ship.Id

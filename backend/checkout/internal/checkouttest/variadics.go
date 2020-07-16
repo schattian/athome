@@ -5,6 +5,7 @@ import (
 	"github.com/athomecomar/athome/backend/checkout/ent/sm"
 	"github.com/athomecomar/athome/pb/pbaddress"
 	"github.com/athomecomar/athome/pb/pbproducts"
+	"github.com/athomecomar/athome/pb/pbservices"
 	"github.com/athomecomar/athome/pb/pbusers"
 )
 
@@ -45,4 +46,17 @@ type variadicPbProducts struct {
 
 type variadicPbAddresses struct {
 	Foo *pbaddress.Address
+}
+type variadicPbEvents struct {
+	Medic    *variationEvent
+	Delivery *variationEvent
+}
+
+type variationEvent struct {
+	First *subVariationEvents
+}
+type subVariationEvents struct {
+	A *pbservices.Event
+	B *pbservices.Event
+	C *pbservices.Event
 }

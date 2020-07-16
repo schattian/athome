@@ -28,15 +28,17 @@ local users = import './users.jsonnet';
   },
 
   delivery: {
-    id: 1543934,
-    user_id: users.service_providers.medic.foo.id,
+    id: 1542994,
+    user_id: users.service_providers.delivery.foo.id,
     calendar_id: calendars.foo.delivery.a.id,
-    address_id: addresses.service_providers.medic.foo.id,
-
-    title: 'foomessengerName',
+    title: 'fooDelivererName',
     duration_in_minutes: 120,
     price_min: 0,
     price_max: 500,
+    price: {
+      min: 0,
+      max: 500,
+    },
   },
 
 
