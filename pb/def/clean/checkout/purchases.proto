@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "checkout/checkout.proto";
 
+
 option go_package = "github.com/athomecomar/athome/pb/checkout/purchases";
 
 package purchases;
@@ -47,3 +48,4 @@ message CreateRequest {
 message RetrieveCurrentRequest {
   string access_token = 1;
 }
+

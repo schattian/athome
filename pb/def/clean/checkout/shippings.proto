@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "shared/time.proto";
+
+option go_package = "github.com/athomecomar/athome/pb/checkout/shippings";
+
+package shippings;
+
+message Shipping{
+  double amount = 1;
+  uint64 event_id = 2;
+  uint64 duration_in_minutes = 3;
+  uint64 src_address_id = 4;
+  uint64 dest_address_id = 5;
+  double distance_in_kilometers = 6;
+  uint64 user_id = 7;
+  uint64 shipping_method_id = 8;
+}
+
+
+message CreateRequest{
+  message Shipping {
+    uint64 shipping_method_id = 1;
+    shared.TimeOfDay time = 2;
+    string dow = 3;
+  }
+  string access_token = 1;
+  Shipping shipping = 2;
+}
+
+message RetrieveResponse{
+  uint64 shipping_id = 1;
+  Shipping shipping = 2;
+}
+
+message RetrieveShippingMethodsRequest {
+  string access_token = 1;
+  shared.TimeOfDay time = 2;
+  string dow = 3;
+}
+
+message ShippingMethod  {
+  double amount = 1;
+  uint64 duration_in_minutes = 2;
+  uint64 user_id = 3;
+  string title = 4;
+}
+
+message RetrieveShippingMethodsResponse {
+  map<uint64, ShippingMethod> shipping_methods = 1;
+}
+
+message AgreeDispatchRequest {
+  string access_token = 1;
+  uint64 agreeement_token = 2;
+  uint64 shipping_id = 3;
+}
+

@@ -1,17 +1,32 @@
 syntax = "proto3";
 
-import "validate/validate.proto";
+import "shared/entity.proto";
 import "checkout/checkout.proto";
 
 option go_package = "github.com/athomecomar/athome/pb/checkout/payments";
 
 package payments;
 
-message RetrievePaymentRequest {
-  string access_token = 1;
-  uint64 payment_id = 2;
+message Payment {
+  uint64 user_id = 1;
+  double amount = 2;
+  checkout.Timestamp timestamp = 3;
+  uint64 payment_method_id = 6;
+  uint64 installments = 7;
+  uint64 card_id = 8;
 }
 
+message Card {
+  uint64 last_four_digits = 1;
+  uint64 expiry_month = 2;
+  uint64 expiry_year = 3;
+  CardHolder holder = 4;
+}
+
+message CardHolder {
+  uint64 dni = 1;
+  string name = 2;
+}
 
 message VerifyCVVRequest{
   string access_token = 1;
@@ -28,17 +43,32 @@ message RetrieveMyCardsResponse{
 }
 
 message CreateCardRequest{
+  message Card {
+    uint64 number = 1;
+    uint64 cvv = 2;
+    uint64 expiry_month = 3;
+    uint64 expiry_year = 4;
+    CardHolder holder = 5;
+  }
+
   string access_token = 1;
-  CardInput card = 2;
+  Card card = 2;
 }
 
 
 message CreatePaymentRequest{
+  message Payment{
+    // amount will be inferred through payment_method_id:installments
+    uint64 payment_method_id = 1;
+    uint64 installments = 2;
+    uint64 card_id = 3;
+    shared.Entity order = 4;
+  }
   string access_token = 1;
-  PaymentInput payment = 2;
+  Payment payment = 2;
 }
 
-message CreatePaymentResponse{
+message RetrieveResponse{
   uint64 payment_id = 1;
   Payment payment = 2;
 }
@@ -48,41 +78,3 @@ message CreateCardResponse{
   Card card = 2;
 }
 
-
-
-message PaymentInput {
-  // amount will be inferred through payment_method_id:installments
-  uint64 payment_method_id = 1;
-  uint64 installments = 2;
-  uint64 card_id = 3;
-  shared.Entity order = 4;
-}
-
-message Payment {
-  uint64 user_id = 1;
-  double amount = 2;
-  checkout.Timestamp timestamp = 3;
-  uint64 payment_method_id = 6;
-  uint64 installments = 7;
-  uint64 card_id = 8;
-}
-
-message CardInput {
-  uint64 number = 1;
-  uint64 cvv = 2;
-  uint64 expiry_month = 3;
-  uint64 expiry_year = 4;
-  CardHolder holder = 5;
-}
-
-message Card {
-  uint64 last_four_digits = 1;
-  uint64 expiry_month = 2;
-  uint64 expiry_year = 3;
-  CardHolder holder = 4;
-}
-
-message CardHolder {
-  uint64 dni = 1;
-  string name = 2;
-}
