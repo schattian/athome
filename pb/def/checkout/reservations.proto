@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "checkout/checkout.proto";
+
+option go_package = "github.com/athomecomar/athome/pb/checkout/reservations";
+
+package reservations;
+
+message Reservation {
+  uint64 user_id = 1;
+  checkout.Timestamp timestamp = 2;
+  map<uint64,uint64> items = 3; // { product_id: quantity }
+  uint64 days = 4;
+  double amount = 5;  // calculated at req time
+  uint64 merchant_id = 6;
+}
+
+
+message RetrieveResponse{
+  uint64 reservation_id = 1;
+  Reservation reservation = 2;
+}
+
+message CreateRequest {
+  string access_token = 1;
+  uint64 product_id = 2;
+  uint64 days = 3;
+}
+

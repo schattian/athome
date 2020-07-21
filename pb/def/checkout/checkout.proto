@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/athomecomar/athome/pb/checkout/checkout";
+
+package checkout;
+
+message RetrieveRequest {
+  string access_token = 1;
+  uint64 entity_id = 2;
+}
+
+message RetrieveStateChangesRequest{
+  string access_token = 1;
+  uint64 entity_id = 2;
+}
+
+message RetrieveStateChangesResponse{
+  map<uint64, StateChange> state_changes = 1;
+}
+
+message UpdateStateRequest{
+  string access_token = 1;
+  uint64 entity_id = 2;
+}
+
+message StateMachineResponse {
+  message StateDefinition {
+    int64 stage = 1;
+    string name = 2;
+    string description = 3;
+  }
+  repeated StateDefinition states = 1;
+}
+
+message StateChange {
+  string name = 1;
+  google.protobuf.Timestamp created_at = 2;
+  int64 stage = 3;
+}
+
+message Timestamp{
+  google.protobuf.Timestamp created_at = 1;
+  google.protobuf.Timestamp updated_at = 2;
+}

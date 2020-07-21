@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+
+import "checkout/checkout.proto";
+
+import "shared/time.proto";
+import "shared/entity.proto";
+
+option go_package = "github.com/athomecomar/athome/pb/checkout/purchases";
+
+package purchases;
+
+message Purchase {
+  uint64 user_id = 1;
+  checkout.Timestamp timestamp = 2;
+  map<uint64,uint64> items = 3; // { product_id: quantity }
+  double amount = 4;  // calculated at req time
+  uint64 src_address_id = 5;
+  uint64 dest_address_id = 6;
+  uint64 merchant_id = 7;
+  double distance_in_kilometers = 8;
+  uint64 shipping_id = 9;
+}
+
+message AgreeFinishRequest {
+  string access_token = 1;
+  uint64 agreeement_token = 2;
+  uint64 order_id = 3;
+}
+
+message ConfirmRequest {
+  string access_token = 1;
+  uint64 purchase_id = 2;
+}
+
+message RetrieveResponse{
+  uint64 purchase_id = 1;
+  Purchase purchase = 2;
+}
+
+message AssignDestAddressRequest{
+  string access_token = 1;
+  uint64 dest_address_id = 2;
+}
+
+message CreateRequest {
+  string access_token = 1;
+  map<uint64,uint64> items = 2; // { product_id: quantity }
+}
+
+message RetrieveCurrentRequest {
+  string access_token = 1;
+}

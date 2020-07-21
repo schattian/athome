@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "validate/validate.proto";
+import "checkout/checkout.proto";
+
+option go_package = "github.com/athomecomar/athome/pb/checkout/bookings";
+
+package bookings;
+
+message Booking {
+  uint64 user_id = 1;
+  checkout.Timestamp timestamp = 2;
+  uint64 service_id = 3;
+  double amount = 4;  // calculated at req time
+}
+
+
+message RetrieveResponse{
+  uint64 booking_id = 1;
+  Booking booking = 2;
+}
+
+message CreateRequest {
+  string access_token = 1;
+  uint64 service_id = 2;
+}
+
