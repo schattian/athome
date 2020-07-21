@@ -7,7 +7,7 @@ export BACKEND_DIR=$DIR/../../backend
 svcs="agreement checkout messenger notifier users semantic address identifier auth mailer products images services"
 #  --js_out="library=pb_$1,binary:js" \
 
-pbsharedcompile()
+pbmodcompile()
 {
 protoc \
   -I . \
@@ -15,9 +15,9 @@ protoc \
   -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
   --go_out="plugins=grpc:../" \
   --validate_out="lang=go:../" \
-  shared/$1
+  $2/$1
 
-../cleanpb ./shared/$1 > ./clean/shared/$1
+../cleanpb ./$2/$1 > ./clean/$2/$1
 }
 
 pbsvccompile()
@@ -67,10 +67,17 @@ read build
 
 for shared in $(ls ./shared)
 do
-	pbsharedcompile $shared
+	pbmodcompile $shared shared
 done
 mv ../github.com/athomecomar/athome/pb/pbshared/* ../pbshared
 rm -rf ../github.com/athomecomar/athome/pb/pbshared
+
+for checkout in $(ls ./checkout)
+do
+	pbmodcompile $checkout checkout
+done
+mv ../github.com/athomecomar/athome/pb/checkout/* ../checkout
+rm -rf ../github.com/athomecomar/athome/pb/checkout
 
 if [ ! ${build} = "n" ]
 then
